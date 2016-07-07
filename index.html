@@ -4,10 +4,9 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <link href="images/favicon.ico" rel="icon" type="image/x-icon">
+    <title>Unbill API</title>
 
-    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
-    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
     <style>
       .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
@@ -88,10 +87,12 @@
   color: #90a959;
 }
     </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;]">
+  <body class="index" data-languages="[]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -99,11 +100,8 @@
       </span>
     </a>
     <div class="tocify-wrapper">
-      <img src="images/logo.png" />
+      <img src="images/logo.svg" />
         <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -111,236 +109,1381 @@
         <ul class="search-results"></ul>
       <div id="toc">
       </div>
-        <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
-            <li><a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
-        </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="introduction">Introduction</h1>
+        
+          <h1 id="introduction">Introduction</h1>
 
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<h2 id="overview">Overview</h2>
 
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>Welcome! The Unbill API allows developers to receive user-authorized bill data and make payments on behalf of a user. With over 4000 billers and counting, supercharge your platform with the Unbill API. Here you will find information on how to integrate with and use the Unbill API. We&rsquo;ve tried to make this documentation user-friendly and example-filled, but please <a href="mailto:hello@unbill.us">drop us a line</a> with any questions. If you&rsquo;re planning to use our API in production, you should take a look at our <a href="http://unbill.us/privacy.html">privacy policy</a>.</p>
 
-<p>This example API documentation page was created with <a href="https://github.com/tripit/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&rsquo;s documentation.</p>
+<h2 id="gaining-access">Gaining Access</h2>
 
-<h1 id="authentication">Authentication</h1>
+<p>To gain access to the Unbill API, please email <a href="mailto:hello@unbill.us">hello@unbill.us</a>. After our review process is complete, you&rsquo;ll be provided with an <code class="prettyprint">unbillKey</code> which you can use for your requests.</p>
 
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+          <h1 id="authentication">Authentication</h1>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<p>Every request made must include your <code class="prettyprint">unbillKey</code> token provided to you. If the <code class="prettyprint">unbillKey</code> is not passed in the <code class="prettyprint">POST</code> request, you will receive a <code class="prettyprint">401 Not Authorized</code> response.</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
+          <h1 id="getting-started">Getting Started</h1>
 
-<blockquote>
-<p>Make sure to replace <code class="prettyprint">meowmeowmeow</code> with your API key.</p>
-</blockquote>
+<p>To authenticate billers with your users, you may use the following flow.</p>
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+<h2 id="user-creation">User Creation</h2>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<ol>
+<li>User signs up in your app.</li>
+<li>Make a request to the <code class="prettyprint">/user/create</code> endpoint to retrieve a Unbill <code class="prettyprint">userId</code> to store in your database for future requests.</li>
+</ol>
 
-<p><code class="prettyprint">Authorization: meowmeowmeow</code></p>
+<h2 id="biller-authentication">Biller Authentication</h2>
 
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
+<ol>
+<li>Search for the biller you&rsquo;d like to add from the <code class="prettyprint">/biller/search</code> endpoint.</li>
+<li>Provide your user with a &ldquo;biller authentication&rdquo; view populated with the login fields retrieved from the desired biller.</li>
+<li>Have your user fill out their credentials, and then send those credentials to the <code class="prettyprint">/biller/auth</code> endpoint.</li>
+<li>Unbill will begin the authentication process and if successful, will return available bill data.</li>
+</ol>
 
-<h1 id="kittens">Kittens</h1>
+<h2 id="biller-overview">Biller Overview</h2>
 
-<h2 id="get-all-kittens">Get All Kittens</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<ol>
+<li>Requests can be made to the <code class="prettyprint">/bill/list</code> endpoint to retrieve billers and balance information.</li>
+<li>Requests can be made to the <code class="prettyprint">/bill/overview</code> endpoint to retrieve details on a specific bill.</li>
+</ol>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<h2 id="payments">Payments</h2>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
+<ol>
+<li>Provide your user with a &ldquo;link payment&rdquo; view to choose a payment method.</li>
+<li>Link this payment method to Unbill using the <code class="prettyprint">/payment/add</code> endpoint.</li>
+<li>By default, bills will be paid automatically by using the payment method on file.</li>
+<li>To change this, you must make a request to the <code class="prettyprint">/biller/settings/auto-pay</code> endpoint to disable autopay.</li>
+<li>When autopay is disabled, in order to make a payment, one must be scheduled via the <code class="prettyprint">/biller/make-payment</code> endpoint.</li>
+</ol>
 
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
+          <h1 id="biller-api">Biller API</h1>
 
-<p>This endpoint retrieves all kittens.</p>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">GET http://example.com/api/kittens</code></p>
-
-<h3 id="query-parameters">Query Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-<tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
-</tr>
-</tbody></table>
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-<h2 id="get-a-specific-kitten">Get a Specific Kitten</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
+          <h2 id="auth">Auth</h2>
 
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>Request Example</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"billerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Johnny"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Appleseed"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>This endpoint retrieves a specific kitten.</p>
+<blockquote>
+<p>200 Response (Authenticated)</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-03-25T00:00:00.000Z"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
-<aside class="warning">Inside HTML code blocks like this one, you can&rsquo;t use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+<blockquote>
+<p>201 Response (Question Based MFA)</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"questions"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nt">"question"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What is the name of your first pet?"</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>201 Response (Code Based MFA)</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"list"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"t...t@unbill.us"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11111"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Email: t...t@unbill.us"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx-xxx-1234"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"phone"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"22222"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Phone: xxx-xxx-1234"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx-xxx-1234"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"33333"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Text: xxx-xxx-1234"</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>400 Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"You may want to double check your information."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Authenticate a user&rsquo;s biller credentials via Unbill. This process may take anywhere from 15-90 seconds depending on the responsiveness of the biller&rsquo;s website. If a <code class="prettyprint">200</code> status code is returned, no additional MFA is required. If a <code class="prettyprint">201</code> status code is returned, additional MFA is required to authenticate with the biller and must be submitted via the <code class="prettyprint">/biller/auth/step</code> endpoint.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET http://example.com/kittens/&lt;ID&gt;</code></p>
+<p><code class="prettyprint">POST https://unbill.co/partner/v1/biller/auth</code></p>
 
-<h3 id="url-parameters">URL Parameters</h3>
+<h3 id="post-parameters">Post Parameters</h3>
 
 <table><thead>
 <tr>
-<th>Parameter</th>
+<th>Param</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
+<td><code class="prettyprint">userId</code></td>
+<td>ID of user being authenticated.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">billerId</code></td>
+<td>ID of biller being authenticated.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">form</code></td>
+<td>Biller credentials to authenticate.</td>
 </tr>
 </tbody></table>
 
-          <h1 id="errors">Errors</h1>
+<h3 id="testing">Testing</h3>
 
-<aside class="notice">This error section is stored in a separate file in `includes/_errors.md`. Slate allows you to optionally separate out your docs into many files&hellip;just save them to the `includes` folder and add them to the top of your `index.md`&rsquo;s frontmatter. Files are included in the order listed.</aside>
+<p>Use <code class="prettyprint">unbillUsername</code> for <code class="prettyprint">form.username</code> and <code class="prettyprint">unbillPassword</code> for <code class="prettyprint">form.password</code>.
+To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> flag whose value can be <code class="prettyprint">questions</code> for a question based response, or <code class="prettyprint">list</code> for a code based response. In this response will be provided the <code class="prettyprint">token</code> which you can submit to the <code class="prettyprint">/biller/auth/step</code> endpoint for additional testing.</p>
 
-<p>The Kittn API uses the following error codes:</p>
+<h3 id="200-response-body">200 Response Body</h3>
 
 <table><thead>
 <tr>
-<th>Error Code</th>
-<th>Meaning</th>
+<th>Attribute</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>400</td>
-<td>Bad Request &ndash; Your request sucks</td>
+<td><code class="prettyprint">bill</code></td>
+<td>If there is an outstanding bill, this will be available.</td>
 </tr>
 <tr>
-<td>401</td>
-<td>Unauthorized &ndash; Your API key is wrong</td>
+<td><code class="prettyprint">bill.balance</code></td>
+<td>Current balance (Will be <code class="prettyprint">0</code> if not available).</td>
 </tr>
 <tr>
-<td>403</td>
-<td>Forbidden &ndash; The kitten requested is hidden for administrators only</td>
+<td><code class="prettyprint">bill.dueDate</code></td>
+<td>Current due date (Will be <code class="prettyprint">undefined</code> if not available).</td>
+</tr>
+</tbody></table>
+
+<h3 id="201-response-body-mfa">201 Response Body (MFA)</h3>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">token</code></td>
+<td>Token to be used when stepping through MFA via the <code class="prettyprint">/biller/auth/step</code> endpoint.</td>
 </tr>
 <tr>
-<td>404</td>
-<td>Not Found &ndash; The specified kitten could not be found</td>
+<td><code class="prettyprint">type</code></td>
+<td>The type of MFA being applied. <code class="prettyprint">questions, list</code></td>
 </tr>
 <tr>
-<td>405</td>
-<td>Method Not Allowed &ndash; You tried to access a kitten with an invalid method</td>
+<td><code class="prettyprint">mfa</code></td>
+<td>List of required MFA to pass.</td>
+</tr>
+</tbody></table>
+
+          <h2 id="auth-mfa">Auth MFA</h2>
+
+<blockquote>
+<p>Request Example (Question Based MFA)</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"Secret Answer"</span><span class="w"> </span><span class="p">],</span><span class="w">
+  </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Request Example (Code Based MFA)</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345"</span><span class="w"> </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>200 Response (Authenticated)</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-03-25T00:00:00.000Z"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>201 Response (Question Based MFA)</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"questions"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nt">"question"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What is the name of your first pet?"</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>201 Response (Code Based MFA)</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"list"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"t...t@unbill.us"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11111"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Email: t...t@unbill.us"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx-xxx-1234"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"phone"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"22222"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Phone: xxx-xxx-1234"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx-xxx-1234"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"33333"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Text: xxx-xxx-1234"</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>400 Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"You may want to double check your information."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Some billers require multi-factor authentication (MFA) and the<code class="prettyprint">/biller/auth/step</code> route is built to submit the additional information needed. Users are first submitted via the standard authenticate process via the <code class="prettyprint">/biller/auth</code> endpoint, and the MFA data is sent through an additional request to the <code class="prettyprint">/biller/auth/step</code> route.</p>
+
+<p>For <code class="prettyprint">questions</code> (Question Based) MFA return the answers formatted as an array of strings. For <code class="prettyprint">list</code> (Code Based) MFA return the desired option by passing the <code class="prettyprint">identifier</code> field given to you from the previous authenticate response. Continue to POST to the <code class="prettyprint">/biller/auth/step</code> with the required answers until a <code class="prettyprint">200</code> status code is returned. At that point the user will be authenticated and you&rsquo;ll have access to bill data.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://unbill.co/partner/v1/biller/auth/step</code></p>
+
+<h3 id="post-parameters">Post Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">token</code></td>
+<td>Token provided to you from the <code class="prettyprint">/biller/auth</code> response.</td>
 </tr>
 <tr>
-<td>406</td>
-<td>Not Acceptable &ndash; You requested a format that isn&rsquo;t json</td>
+<td><code class="prettyprint">mfa</code></td>
+<td>The extra information needed for MFA authentication.</td>
+</tr>
+</tbody></table>
+
+<h3 id="200-response-body">200 Response Body</h3>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">bill</code></td>
+<td>If there is an outstanding bill, this will be available.</td>
 </tr>
 <tr>
-<td>410</td>
-<td>Gone &ndash; The kitten requested has been removed from our servers</td>
+<td><code class="prettyprint">bill.balance</code></td>
+<td>Current balance (Will be <code class="prettyprint">0</code> if not available).</td>
 </tr>
 <tr>
-<td>418</td>
-<td>I&rsquo;m a teapot</td>
+<td><code class="prettyprint">bill.dueDate</code></td>
+<td>Current due date (Will be <code class="prettyprint">undefined</code> if not available).</td>
+</tr>
+</tbody></table>
+
+<h3 id="201-response-body-mfa">201 Response Body (MFA)</h3>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">token</code></td>
+<td>Token to be used when stepping through MFA via the <code class="prettyprint">/biller/auth/step</code> endpoint.</td>
 </tr>
 <tr>
-<td>429</td>
-<td>Too Many Requests &ndash; You&rsquo;re requesting too many kittens! Slow down!</td>
+<td><code class="prettyprint">type</code></td>
+<td>The type of MFA being applied. <code class="prettyprint">questions, list</code></td>
 </tr>
 <tr>
-<td>500</td>
-<td>Internal Server Error &ndash; We had a problem with our server. Try again later.</td>
+<td><code class="prettyprint">mfa</code></td>
+<td>List of required MFA to pass.</td>
+</tr>
+</tbody></table>
+
+          <h2 id="auto-pay">Auto Pay</h2>
+
+<blockquote>
+<p>Request Example</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"billerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"autoPay"</span><span class="p">:</span><span class="w"> </span><span class="s2">"disabled"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>400 Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"We couldn't disable auto pay for this biller, sorry."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Enable or disable auto pay for a biller.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://unbill.co/partner/v1/biller/settings/auto-pay</code></p>
+
+<h3 id="post-parameters">Post Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">userId</code></td>
+<td>Unbill user ID.</td>
 </tr>
 <tr>
-<td>503</td>
-<td>Service Unavailable &ndash; We&rsquo;re temporarially offline for maintanance. Please try again later.</td>
+<td><code class="prettyprint">billerId</code></td>
+<td>Unbill biller ID.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">autoPay</code></td>
+<td>Whether autopay should be enabled or disabled. <code class="prettyprint">enabled, disabled</code></td>
+</tr>
+</tbody></table>
+
+          <h2 id="get">Get</h2>
+
+<blockquote>
+<p>Request Example</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"billerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Grove at Auburn"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"paysRent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"urls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://groveatauburn.residentportal.com/resident_portal/?module=authentication"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"signup"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://groveatauburn.residentportal.com/resident_portal/?module=authentication"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"loginFields"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+      </span><span class="nt">"placeholder"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Username"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"formType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"username"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Username"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"placeholder"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Password"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"formType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Password"</span><span class="w">
+    </span><span class="p">}]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"geo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"loc"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mf">-95.53</span><span class="p">,</span><span class="w"> </span><span class="mf">30.70</span><span class="w"> </span><span class="p">],</span><span class="w">
+    </span><span class="nt">"state_short"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TX"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"state_long"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Texas"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"zipcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"77340"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>400 Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"No biller found by that ID."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Gets an Unbill biller by Unbill biller ID or partner biller ID.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://unbill.co/partner/v1/biller/get</code></p>
+
+<h3 id="post-parameters">Post Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">billerId</code></td>
+<td>Unbill biller ID or partner biller ID.</td>
+</tr>
+</tbody></table>
+
+<h3 id="200-response-body">200 Response Body</h3>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">biller</code></td>
+<td>Unbill biller.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.name</code></td>
+<td>Name of the biller.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.logo</code></td>
+<td>URL of the biller logo.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.paysRent</code></td>
+<td>Whether this biller accepts rent payments (if <code class="prettyprint">true</code>, the logo looks best as a background image).</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth</code></td>
+<td>Biller auth fields.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.urls</code></td>
+<td>Biller Auth Urls (login URL is always available, but the others can by null).</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.urls.login</code></td>
+<td>Login URL.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.urls.signup</code></td>
+<td>Signup URL.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.urls.forgotPassword</code></td>
+<td>Forgot password URL.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.urls.forgotUsername</code></td>
+<td>Forgot username URL.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.loginFields</code></td>
+<td>Form fields for credentials.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.loginFields.placeholder</code></td>
+<td>Input <code class="prettyprint">placeholder</code> field.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.loginFields.formType</code></td>
+<td>Input <code class="prettyprint">type</code> field.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.loginFields.name</code></td>
+<td>Input <code class="prettyprint">name</code> field.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.loginFields.label</code></td>
+<td>Label for <code class="prettyprint">input</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.geo</code></td>
+<td>Geo based location (not available for regional or national biller).</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.geo.loc</code></td>
+<td>Coordinates with syntax <code class="prettyprint">[ longitude, latitude ]</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.geo.stateShort</code></td>
+<td>Abbreviated state name.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.geo.stateLong</code></td>
+<td>Full state name.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.geo.zipcode</code></td>
+<td>Zipcode.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.geo.address</code></td>
+<td>Formatted address.</td>
+</tr>
+</tbody></table>
+
+          <h2 id="make-payment">Make Payment</h2>
+
+<blockquote>
+<p>Request Example</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"billerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>400 Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Please provide userId and billerId."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Make a payment towards this biller&rsquo;s outstanding balance.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://unbill.co/partner/v1/biller/make-payment</code></p>
+
+<h3 id="post-parameters">Post Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">userId</code></td>
+<td>Unbill user ID.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">billerId</code></td>
+<td>Unbill biller ID.</td>
+</tr>
+</tbody></table>
+
+          <h2 id="search">Search</h2>
+
+<blockquote>
+<p>Request Example</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Grove"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[{</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Grove at Auburn"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"paysRent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"urls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://groveatauburn.residentportal.com/resident_portal/?module=authentication"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"signup"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://groveatauburn.residentportal.com/resident_portal/?module=authentication"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"loginFields"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+      </span><span class="nt">"placeholder"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Username"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"formType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"username"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Username"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"placeholder"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Password"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"formType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Password"</span><span class="w">
+    </span><span class="p">}]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"geo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"loc"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mf">-95.53</span><span class="p">,</span><span class="w"> </span><span class="mf">30.70</span><span class="w"> </span><span class="p">],</span><span class="w">
+    </span><span class="nt">"state_short"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TX"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"state_long"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Texas"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"zipcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"77340"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}]</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>400 Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Please provide search query."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Search for billers by name.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://unbill.co/partner/v1/biller/search</code></p>
+
+<h3 id="post-parameters">Post Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">query</code></td>
+<td>Search query.</td>
+</tr>
+</tbody></table>
+
+<h3 id="200-response-body">200 Response Body</h3>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">biller</code></td>
+<td>Unbill biller.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.name</code></td>
+<td>Name of the biller.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.logo</code></td>
+<td>URL of the biller logo.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.paysRent</code></td>
+<td>Whether this biller accepts rent payments (if <code class="prettyprint">true</code>, the logo looks best as a background image).</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth</code></td>
+<td>Biller auth fields.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.urls</code></td>
+<td>Biller Auth Urls (login URL is always available, but the others can by null).</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.urls.login</code></td>
+<td>Login URL.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.urls.signup</code></td>
+<td>Signup URL.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.urls.forgotPassword</code></td>
+<td>Forgot password URL.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.urls.forgotUsername</code></td>
+<td>Forgot username URL.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.loginFields</code></td>
+<td>Form fields for credentials.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.loginFields.placeholder</code></td>
+<td>Input <code class="prettyprint">placeholder</code> field.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.loginFields.formType</code></td>
+<td>Input <code class="prettyprint">type</code> field.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.loginFields.name</code></td>
+<td>Input <code class="prettyprint">name</code> field.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.loginFields.label</code></td>
+<td>Label for <code class="prettyprint">input</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.geo</code></td>
+<td>Geo based location (not available for regional or national biller).</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.geo.loc</code></td>
+<td>Coordinates with syntax <code class="prettyprint">[ longitude, latitude ]</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.geo.stateShort</code></td>
+<td>Abbreviated state name.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.geo.stateLong</code></td>
+<td>Full state name.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.geo.zipcode</code></td>
+<td>Zipcode.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.auth.geo.address</code></td>
+<td>Formatted address.</td>
+</tr>
+</tbody></table>
+
+          <h1 id="bill-api">Bill API</h1>
+
+          <h2 id="list">List</h2>
+
+<blockquote>
+<p>Request Example</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[{</span><span class="w">
+  </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"syncing"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"biller"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Time Warner Cable"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"paysRent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-03-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="w"> 
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"biller"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Grove at Auburn"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"paysRent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"lastPaidAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"lastPaymentDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-03-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"paid"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"biller"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Verizon"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"paysRent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}]</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>400 Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"No biller found by that ID."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Retrieves a list of bills for a specific user.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://unbill.co/partner/v1/bill/list</code></p>
+
+<h3 id="post-parameters">Post Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">userId</code></td>
+<td>Unbill user ID.</td>
+</tr>
+</tbody></table>
+
+<h3 id="200-response-body">200 Response Body</h3>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">bills</code></td>
+<td>List of bills.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">bills.bill</code></td>
+<td>Bill data.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">bills.bill.balance</code></td>
+<td>Current balance.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">bills.bill.dueDate</code></td>
+<td>Current Current due date.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">bills.bill.status</code></td>
+<td>Current Status <code class="prettyprint">paid, pending, upcoming, overdue, syncing</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">bills.biller</code></td>
+<td>Bill biller data.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">bills.biller.name</code></td>
+<td>Name of the biller.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">bills.biller.logo</code></td>
+<td>URL of the biller logo.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">bills.biller.paysRent</code></td>
+<td>Whether this biller accepts rent payments (if true, the logo looks best as a background image)</td>
+</tr>
+</tbody></table>
+
+          <h2 id="overview">Overview</h2>
+
+<blockquote>
+<p>Request Example</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"billerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>200 Syncing Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"syncing"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"autoPay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"biller"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Grove at Auburn"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"paysRent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"payments"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>200 Overdue Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-03-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"overdue"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"autoPay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"biller"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Grove at Auburn"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"paysRent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"payments"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>200 Upcoming Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-03-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"autoPay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"biller"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Grove at Auburn"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"paysRent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"payments"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>200 Pending Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-03-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"autoPay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"biller"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Grove at Auburn"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"paysRent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"payments"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>200 Paid Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"paid"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"autoPay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"biller"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Grove at Auburn"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"paysRent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"payments"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">123.12</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"paidOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-01-01T00:00:00.000Z"</span><span class="w">
+  </span><span class="p">},{</span><span class="w">
+    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">153.19</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"paidOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-01-02T00:00:00.000Z"</span><span class="w">
+  </span><span class="p">}]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>400 Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"We couldn't get information about this biller, sorry."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Gets a biller overview including outstanding balance, due date, status, and payment history.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://unbill.co/partner/v1/bill/overview</code></p>
+
+<h3 id="post-parameters">Post Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">userId</code></td>
+<td>Unbill user ID.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">billerId</code></td>
+<td>Unbill biller ID.</td>
+</tr>
+</tbody></table>
+
+<h3 id="200-response-body">200 Response Body</h3>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">bill</code></td>
+<td>Bill data.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">bill.balance</code></td>
+<td>Current balance.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">bill.dueDate</code></td>
+<td>Current Current due date.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">bill.status</code></td>
+<td>Current Status <code class="prettyprint">paid, pending, upcoming, overdue, syncing</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller</code></td>
+<td>Bill biller data.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.name</code></td>
+<td>Name of the biller.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.logo</code></td>
+<td>URL of the biller logo.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">biller.paysRent</code></td>
+<td>Whether this biller accepts rent payments (if true, the logo looks best as a background image)</td>
+</tr>
+<tr>
+<td><code class="prettyprint">payments</code></td>
+<td>List of past bill payments</td>
+</tr>
+<tr>
+<td><code class="prettyprint">payments.amount</code></td>
+<td>Amount paid</td>
+</tr>
+<tr>
+<td><code class="prettyprint">payments.paidOn</code></td>
+<td>Date of payment</td>
+</tr>
+</tbody></table>
+
+          <h1 id="payment-api">Payment API</h1>
+
+          <h2 id="add">Add</h2>
+
+<blockquote>
+<p>Request Credit Card Example</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1ddbd1a05319bc198d36f"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"paymentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"debit"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"cardNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"378282246310005"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"cardCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"218"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"expDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"06/2019"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"zipcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Request Bank Account Example</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1ddbd1a05319bc198d36f"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"routingNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"021000021"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"accountNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9900000002"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"accountType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"checking"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"paymentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echeck"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>400 Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"That card number doesn't look valid. Try again perhaps?"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Add a payment method to an Unbill user.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://unbill.co/partner/v1/payment/add</code></p>
+
+<h3 id="post-parameters">Post Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">userId</code></td>
+<td>Unbill user ID.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">paymentType</code></td>
+<td>Type of payment <code class="prettyprint">credit, debit, echeck</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">cardNumber</code></td>
+<td>Credit card number</td>
+</tr>
+<tr>
+<td><code class="prettyprint">cardCode</code></td>
+<td>Credit card CVV</td>
+</tr>
+<tr>
+<td><code class="prettyprint">expDate</code></td>
+<td>Credit card expiration date</td>
+</tr>
+<tr>
+<td><code class="prettyprint">zipcode</code></td>
+<td>Credit card zipcode</td>
+</tr>
+<tr>
+<td><code class="prettyprint">routingNumber</code></td>
+<td>Bank routing number</td>
+</tr>
+<tr>
+<td><code class="prettyprint">accountNumber</code></td>
+<td>Bank account number</td>
+</tr>
+<tr>
+<td><code class="prettyprint">accountType</code></td>
+<td>Type of bank account <code class="prettyprint">credit, savings</code>.</td>
+</tr>
+</tbody></table>
+
+          <h2 id="get">Get</h2>
+
+<blockquote>
+<p>Request Example</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1ddbd1a05319bc198d36f"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>200 Credit Card Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"card"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX0005"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"american express"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"credit"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"expDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-01T12:00:00.000Z"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>200 Bank Account Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"bank"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"routingNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX0002"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"accountNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX0021s"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"checking"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>400 Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"That card number doesn't look valid. Try again perhaps?"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Retrieve the payment method on file for an Unbill user.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://unbill.co/partner/v1/payment/get</code></p>
+
+<h3 id="post-parameters">Post Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">userId</code></td>
+<td>Unbill user ID.</td>
+</tr>
+</tbody></table>
+
+<h3 id="200-response-body">200 Response Body</h3>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">card</code></td>
+<td>Card information.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">card.number</code></td>
+<td>Masked card number.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">card.brand</code></td>
+<td>Card brand.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">card.type</code></td>
+<td>Card type <code class="prettyprint">credit, debit</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">card.expDate</code></td>
+<td>Card expiration date.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">bank</code></td>
+<td>Bank information.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">bank.routingNumber</code></td>
+<td>Masked routing number.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">bank.accountNumber</code></td>
+<td>Masked account number.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">bank.type</code></td>
+<td>Bank account type <code class="prettyprint">checking, savings</code>.</td>
+</tr>
+</tbody></table>
+
+          <h1 id="user-api">User API</h1>
+
+          <h2 id="create">Create</h2>
+
+<blockquote>
+<p>Request Example</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Johnny"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Appleseed"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnny@appleseed.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"secret"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>400 Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Please fill in all required fields."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Retrieve the payment method on file for an Unbill user.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://unbill.co/partner/v1/user/create</code></p>
+
+<h3 id="post-parameters">Post Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">name</code></td>
+<td>Name for the user.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">name.first</code></td>
+<td>First name.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">name.last</code></td>
+<td>Last name.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">email</code></td>
+<td>Email for the user.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">password</code></td>
+<td>Password for the user.</td>
+</tr>
+</tbody></table>
+
+<h3 id="200-response-body">200 Response Body</h3>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">userId</code></td>
+<td>Unbill user ID you can persist in your DB for future requests.</td>
 </tr>
 </tbody></table>
 
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
           </div>
       </div>
     </div>
