@@ -1,0 +1,69 @@
+## Get
+
+> Request Example
+
+```json
+{
+  "unbillKey": "<%= config.auth %>",
+  "userId": "56e1ddbd1a05319bc198d36f"
+}
+```
+
+> 200 Credit Card Response
+
+```json
+{
+  "card": {
+    "number": "XXXX0005",
+    "brand": "american express",
+    "type": "credit",
+    "expDate": "2019-06-01T12:00:00.000Z"
+  }
+}
+```
+
+> 200 Bank Account Response
+
+```json
+{
+  "bank": {
+    "routingNumber": "XXXX0002",
+    "accountNumber": "XXXX0021s",
+    "type": "checking"
+  }
+}
+```
+
+> 400 Response
+
+```json
+{
+  "message": "That card number doesn't look valid. Try again perhaps?"
+}
+```
+
+Retrieve the payment method on file for an Unbill user.
+
+### HTTP Request
+
+`POST <%= config.host %>/payment/get`
+
+### Post Parameters
+
+Param | Description
+----- | -----------
+`userId` | Unbill user ID.
+
+### 200 Response Body
+
+Attribute | Description
+--------- | -----------
+`card` | Card information.
+`card.number` | Masked card number.
+`card.brand` | Card brand.
+`card.type` | Card type `credit, debit`.
+`card.expDate` | Card expiration date.
+`bank` | Bank information.
+`bank.routingNumber` | Masked routing number.
+`bank.accountNumber` | Masked account number.
+`bank.type` | Bank account type `checking, savings`.

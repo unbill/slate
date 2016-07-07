@@ -1,0 +1,53 @@
+## Create
+
+> Request Example
+
+```json
+{
+  "unbillKey": "dc220490-e6ee-11e5-8a94-e7385a8d929e",
+  "name": {
+    "first": "Johnny",
+    "last": "Appleseed"
+  },
+  "email": "johnny@appleseed.com",
+  "password": "secret"
+}
+```
+
+> 200 Response
+
+```json
+{
+  "userId": "566595c8ce88ccec69328566"
+}
+```
+
+> 400 Response
+
+```json
+{
+  "message": "Please fill in all required fields."
+}
+```
+
+Retrieve the payment method on file for an Unbill user.
+
+### HTTP Request
+
+`POST <%= config.host %>/user/create`
+
+### Post Parameters
+
+Param | Description
+----- | -----------
+`name` | Name for the user.
+`name.first` | First name.
+`name.last` | Last name.
+`email` | Email for the user.
+`password` | Password for the user.
+
+### 200 Response Body
+
+Attribute | Description
+--------- | -----------
+`userId` | Unbill user ID you can persist in your DB for future requests.

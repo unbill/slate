@@ -1,0 +1,32 @@
+## Make Payment
+
+> Request Example
+
+```json
+{
+  "unbillKey": "<%= config.auth %>",
+  "userId": "566595c8ce88ccec69328566",
+  "billerId": "56e1dbb5443b10a3bd403fcf"
+}
+```
+
+> 400 Response
+
+```json
+{
+  "message": "Please provide userId and billerId."
+}
+```
+
+Make a payment towards this biller's outstanding balance.
+
+### HTTP Request
+
+`POST <%= config.host %>/biller/make-payment`
+
+### Post Parameters
+
+Param | Description
+----- | -----------
+`userId` | Unbill user ID.
+`billerId` | Unbill biller ID.

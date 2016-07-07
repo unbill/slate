@@ -1,0 +1,42 @@
+## Search
+
+> Request Example
+
+```json
+{
+  "unbillKey": "<%= config.auth %>",
+  "query": "The Grove"
+}
+```
+
+> 200 Response
+
+```json
+[<%= config.billerResponseExample %>]
+```
+
+> 400 Response
+
+```json
+{
+  "message": "Please provide search query."
+}
+```
+
+Search for billers by name.
+
+### HTTP Request
+
+`POST <%= config.host %>/biller/search`
+
+### Post Parameters
+
+Param | Description
+----- | -----------
+`query` | Search query.
+
+### 200 Response Body
+
+Attribute | Description
+--------- | -----------
+<%= config.billerResponseDescription %>

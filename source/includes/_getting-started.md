@@ -16,8 +16,8 @@ To authenticate billers with your users, you may use the following flow.
 
 ## Biller Overview
 
-1. Requests can be made to the `/biller/list` endpoint to retrieve billers and balance information.
-2. Requests can be made to the `/biller/overview` endpoint to retrieve details on a specific biller.
+1. Requests can be made to the `/bill/list` endpoint to retrieve billers and balance information.
+2. Requests can be made to the `/bill/overview` endpoint to retrieve details on a specific bill.
 
 ## Payments
 

@@ -1,16 +1,22 @@
-## Auth
+## Auth MFA
 
-> Request Example
+> Request Example (Question Based MFA)
 
 ```json
 {
   "unbillKey": "<%= config.auth %>",
-  "userId": "566595c8ce88ccec69328566",
-  "billerId": "56e1dbb5443b10a3bd403fcf",
-  "form": {
-    "username": "Johnny",
-    "password": "Appleseed"
-  }
+  "mfa": [ "Secret Answer" ],
+  "token": "56e1dbb5443b10a3bd403fcf"
+}
+```
+
+> Request Example (Code Based MFA)
+
+```json
+{
+  "unbillKey": "<%= config.auth %>",
+  "mfa": { "identifier": "12345" },
+  "token": "56e1dbb5443b10a3bd403fcf"
 }
 ```
 
@@ -59,24 +65,20 @@
 }
 ```
 
-Authenticate a user's biller credentials via Unbill. This process may take anywhere from 15-90 seconds depending on the responsiveness of the biller's website. If a `200` status code is returned, no additional MFA is required. If a `201` status code is returned, additional MFA is required to authenticate with the biller and must be submitted via the `/biller/auth/step` endpoint.
+Some billers require multi-factor authentication (MFA) and the` /biller/auth/step` route is built to submit the additional information needed. Users are first submitted via the standard authenticate process via the `/biller/auth` endpoint, and the MFA data is sent through an additional request to the `/biller/auth/step` route.
+
+For `questions` (Question Based) MFA return the answers formatted as an array of strings. For `list` (Code Based) MFA return the desired option by passing the `identifier` field given to you from the previous authenticate response. Continue to POST to the `/biller/auth/step` with the required answers until a `200` status code is returned. At that point the user will be authenticated and you'll have access to bill data.
 
 ### HTTP Request
 
-`POST <%= config.host %>/biller/auth`
+`POST <%= config.host %>/biller/auth/step`
 
 ### Post Parameters
 
 Param | Description
 ----- | -----------
-`userId` | ID of user being authenticated.
-`billerId` | ID of biller being authenticated.
-`form` | Biller credentials to authenticate.
-
-### Testing
-
-Use `unbillUsername` for `form.username` and `unbillPassword` for `form.password`.
-To test an MFA 201 response, pass in a `mfaTest` flag whose value can be `questions` for a question based response, or `list` for a code based response. In this response will be provided the `token` which you can submit to the `/biller/auth/step` endpoint for additional testing.
+`token` | Token provided to you from the `/biller/auth` response.
+`mfa` | The extra information needed for MFA authentication.
 
 ### 200 Response Body
 
@@ -93,4 +95,3 @@ Attribute | Description
 `token` | Token to be used when stepping through MFA via the `/biller/auth/step` endpoint.
 `type` | The type of MFA being applied. `questions, list`
 `mfa` | List of required MFA to pass.
-

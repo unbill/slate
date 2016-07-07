@@ -1,0 +1,56 @@
+## Add
+
+> Request Credit Card Example
+
+```json
+{
+  "unbillKey": "<%= config.auth %>",
+  "userId": "56e1ddbd1a05319bc198d36f",
+  "paymentType": "debit",
+  "cardNumber": "378282246310005",
+  "cardCode": "218",
+  "expDate": "06/2019",
+  "zipcode": "12345"
+}
+```
+
+> Request Bank Account Example
+
+```json
+{
+  "unbillKey": "<%= config.auth %>",
+  "userId": "56e1ddbd1a05319bc198d36f",
+  "routingNumber": "021000021",
+  "accountNumber": "9900000002",
+  "accountType": "checking",
+  "paymentType": "echeck"
+}
+```
+
+> 400 Response
+
+```json
+{
+  "message": "That card number doesn't look valid. Try again perhaps?"
+}
+```
+
+Add a payment method to an Unbill user.
+
+### HTTP Request
+
+`POST <%= config.host %>/payment/add`
+
+### Post Parameters
+
+Param | Description
+----- | -----------
+`userId` | Unbill user ID.
+`paymentType` | Type of payment `credit, debit, echeck`.
+`cardNumber` | Credit card number
+`cardCode` | Credit card CVV
+`expDate` | Credit card expiration date
+`zipcode` | Credit card zipcode
+`routingNumber` | Bank routing number
+`accountNumber` | Bank account number
+`accountType` | Type of bank account `credit, savings`.
