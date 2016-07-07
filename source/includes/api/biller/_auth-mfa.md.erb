@@ -67,7 +67,7 @@
 
 Some billers require multi-factor authentication (MFA) and the` /biller/auth/step` route is built to submit the additional information needed. Users are first submitted via the standard authenticate process via the `/biller/auth` endpoint, and the MFA data is sent through an additional request to the `/biller/auth/step` route.
 
-For `questions` (Question Based) MFA return the answers formatted as an array of strings. For `list` (Code Based) MFA return the desired option by passing the `identifier` field given to you from the previous authenticate response. Continue to POST to the `/biller/auth/step` with the required answers until a `200` status code is returned. At that point the user will be authenticated and you'll have access to bill data.
+For `questions` (Question Based MFA) return the answers formatted as an array of strings. For `list` (Code Based MFA) return the desired option by passing the `identifier` field given to you from the previous authenticate response. Continue to POST to the `/biller/auth/step` with the required answers until a `200` status code is returned. At that point the user will be authenticated and you'll have access to bill data.
 
 ### HTTP Request
 
