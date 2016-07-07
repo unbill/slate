@@ -42,3 +42,7 @@ end
 # Deploy Configuration
 # If you want Middleman to listen on a different port, you can set that below
 set :port, 4567
+
+# Api Configuration
+config.host = 'https://unbill.co/partner/v1'
+config.auth = 'dc220490-e6ee-11e5-8a94-e7385a8d929e'
