@@ -456,7 +456,6 @@ html, body {
     background-color: rgba($code-bg, .05);
     padding: 3px;
     border-radius: $border-radius;
-    @extend %break-words;
     @extend %code-font;
   }
 
@@ -617,6 +616,10 @@ html, body {
 
 .highlight .nt {
   color: $tg-gold;
+}
+
+.highlight .mi {
+  color: $tg-blue;
 }
 
 .highlight .str, .highlight .s2 {
