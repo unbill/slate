@@ -1,4 +1,4 @@
-## Auto Pay
+## Autopay
 
 > Request Example
 
@@ -6,7 +6,7 @@
 {
   "unbillKey": "<%= config.auth %>",
   "userId": "566595c8ce88ccec69328566",
-  "billerId": "56e1dbb5443b10a3bd403fcf",
+  "companyId": "56e1dbb5443b10a3bd403fcf",
   "autoPay": "disabled"
 }
 ```
@@ -15,20 +15,20 @@
 
 ```json
 {
-  "message": "We couldn't disable auto pay for this biller, sorry."
+  "message": "We couldn't disable auto pay for this company, sorry."
 }
 ```
 
-Enable or disable auto pay for a biller.
+Enable or disable autopay for a bill.
 
 ### HTTP Request
 
-`POST <%= config.host %>/biller/settings/auto-pay`
+`POST <%= config.host %>/payment/autopay`
 
 ### Post Parameters
 
 Param | Description
 ----- | -----------
 `userId` | Unbill user ID.
-`billerId` | Unbill biller ID.
+`companyId` | Unbill company ID.
 `autoPay` | Whether autopay should be enabled or disabled. `enabled, disabled`

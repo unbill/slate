@@ -1,131 +1,60 @@
-## Overview
+## Bill Overview
 
 > Request Example
 
 ```json
 {
   "unbillKey": "<%= config.auth %>",
-  "userId": "56e1dbb5443b10a3bd403fcf",
-  "billerId": "56e1dbb5443b10a3bd403fcf"
+  "userId": "56e1dbb5443b10a3bd403fcf"
 }
 ```
 
-> 200 Syncing Response
+> 200 Response
 
 ```json
-{
+[{
   "bill": {
-    "status": "syncing", 
-    "settings": {
-      "autoPay": true 
-    }
+    "status": "syncing"
   },
-  "biller": {
-    "name": "The Grove at Auburn",
+  "company": {
+    "name": "Time Warner Cable",
     "logo": "https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg",
     "paysRent": true
-  },
-  "payments": []
-}
-```
-
-> 200 Overdue Response
-
-```json
-{
+  }
+}, {
   "bill": {
     "balance": 100,
     "dueDate": "2016-03-25T00:00:00.000Z",
-    "status": "overdue", 
-    "settings": {
-      "autoPay": true 
-    }
+    "status": "upcoming" 
   },
-  "biller": {
+  "company": {
     "name": "The Grove at Auburn",
     "logo": "https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg",
     "paysRent": true
-  },
-  "payments": []
-}
-```
-
-> 200 Upcoming Response
-
-```json
-{
+  }
+}, {
   "bill": {
-    "balance": 100,
-    "dueDate": "2016-03-25T00:00:00.000Z",
-    "status": "upcoming", 
-    "settings": {
-      "autoPay": true 
-    }
+    "lastPaidAmount": 25,
+    "lastPaymentDate": "2016-03-25T00:00:00.000Z",
+    "status": "paid"
   },
-  "biller": {
-    "name": "The Grove at Auburn",
+  "company": {
+    "name": "Verizon",
     "logo": "https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg",
     "paysRent": true
-  },
-  "payments": []
-}
-```
-
-> 200 Pending Response
-
-```json
-{
-  "bill": {
-    "balance": 100,
-    "dueDate": "2016-03-25T00:00:00.000Z",
-    "status": "pending", 
-    "settings": {
-      "autoPay": true 
-    }
-  },
-  "biller": {
-    "name": "The Grove at Auburn",
-    "logo": "https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg",
-    "paysRent": true
-  },
-  "payments": []
-}
-```
-
-> 200 Paid Response
-
-```json
-{
-  "bill": {
-    "status": "paid", 
-    "settings": {
-      "autoPay": true 
-    }
-  },
-  "biller": {
-    "name": "The Grove at Auburn",
-    "logo": "https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg",
-    "paysRent": true
-  },
-  "payments": [{
-    "amount": 123.12,
-    "paidOn": "2016-01-01T00:00:00.000Z"
-  },{
-    "amount": 153.19,
-    "paidOn": "2016-01-02T00:00:00.000Z"
-  }]
-}
+  }
+}]
 ```
 
 > 400 Response
 
 ```json
 {
-  "message": "We couldn't get information about this biller, sorry."
+  "message": "No company found by that ID."
 }
 ```
 
-Gets a biller overview including outstanding balance, due date, status, and payment history.
+Retrieves a list of bills for a specific user.
 
 ### HTTP Request
 
@@ -136,20 +65,18 @@ Gets a biller overview including outstanding balance, due date, status, and paym
 Param | Description
 ----- | -----------
 `userId` | Unbill user ID.
-`billerId` | Unbill biller ID.
+
 
 ### 200 Response Body
 
 Attribute | Description
 --------- | -----------
-`bill` | Bill data.
-`bill.balance` | Current balance.
-`bill.dueDate` | Current Current due date.
-`bill.status` | Current Status `paid, pending, upcoming, overdue, syncing`.
-`biller` | Bill biller data.
-`biller.name` | Name of the biller.
-`biller.logo` | URL of the biller logo.
-`biller.paysRent` | Whether this biller accepts rent payments (if true, the logo looks best as a background image)
-`payments` | List of past bill payments
-`payments.amount` | Amount paid
-`payments.paidOn` | Date of payment
+`bills` | List of bills.
+`bills.bill` | Bill data.
+`bills.bill.balance` | Current balance.
+`bills.bill.dueDate` | Current Current due date.
+`bills.bill.status` | Current Status `paid, pending, upcoming, overdue, syncing`.
+`bills.company` | Bill company data.
+`bills.company.name` | Name of the company.
+`bills.company.logo` | URL of the company logo.
+`bills.company.paysRent` | Whether this company accepts rent payments (if true, the logo looks best as a background image)

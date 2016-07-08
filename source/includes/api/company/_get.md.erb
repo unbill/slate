@@ -1,0 +1,43 @@
+## Get
+
+> Request Example
+
+```json
+{
+  "unbillKey": "<%= config.auth %>",
+  "companyId": "56e1dbb5443b10a3bd403fcf"
+}
+```
+
+> 200 Response
+
+```json
+<%= config.companyResponseExample %>
+```
+
+> 400 Response
+
+```json
+{
+  "message": "No company found by that ID."
+}
+```
+
+Gets an Unbill company by Unbill company ID or partner company ID.
+
+### HTTP Request
+
+`POST <%= config.host %>/company/get`
+
+### Post Parameters
+
+Param | Description
+----- | -----------
+`companyId` | Unbill company ID or partner company ID.
+
+
+### 200 Response Body
+
+Attribute | Description
+--------- | -----------
+<%= config.companyResponseDescription %>
