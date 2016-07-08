@@ -413,13 +413,6 @@ html, body {
       border-bottom: $solid-border;
     }
 
-    tr:nth-child(odd)>td {
-      background-color: lighten($main-bg,3.2%);
-    }
-
-    tr:nth-child(even)>td {
-      background-color: darken($main-bg,.5%);
-    }
   }
 
   dt {
@@ -450,7 +443,7 @@ html, body {
   }
 
   code {
-    background-color: rgba($code-bg, .05);
+    background-color: transparent;
     padding: 3px;
     border-radius: $border-radius;
     white-space: pre;
