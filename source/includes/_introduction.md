@@ -6,4 +6,4 @@ Welcome! The Unbill API allows developers to receive user-authorized bill data a
 
 ## Gaining Access
 
-To gain access to the Unbill API, please email [hello@unbill.us](mailto:hello@unbill.us). After our review process is complete, you'll be provided with an `unbillKey` which you can use for your requests.
+To gain access to the Unbill API, please [fill out this form](https://unbill.typeform.com/to/oEBbt1). After our review process is complete, you'll be provided with an `unbillKey` which you can use for your requests.
