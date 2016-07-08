@@ -65,7 +65,6 @@ html, body {
   bottom: 0;
   width: $nav-width;
   background-color: $nav-bg;
-  padding: $nav-padding;
   box-sizing: border-box;
 
   @extend %nav-font;
@@ -83,7 +82,7 @@ html, body {
   &>img {
     display: block;
     max-width: 100%;
-    margin: 10px auto 20px;
+    margin: 20px auto 20px;
   }
 
   &>.search {
@@ -92,19 +91,18 @@ html, body {
 
     input {
       background: $nav-active-bg;
-      padding: $nav-padding 0 $nav-padding 30px;
+      padding: $nav-padding 0 $nav-padding 46px;
       box-sizing: border-box;
-      width: $nav-width - ($nav-padding * 2);
+      width: $nav-width;
       border: 0;
       outline: none;
-      border-radius: $border-radius; /* ios has a default border radius */
       color: $nav-text;
     }
 
     &:before {
       position: absolute;
       top: $nav-padding + 3px;
-      left: $nav-padding;
+      left: 18px;
       color: $nav-text;
       @extend %icon-search;
     }
@@ -161,7 +159,7 @@ html, body {
 
   li {
     color: $nav-text;
-    padding: 0 0 0 $nav-padding;
+    padding: 0 0 0 20px;
     transition-property: background;
     transition-timing-function: linear;
     transition-duration: 230ms;
@@ -175,7 +173,6 @@ html, body {
   .tocify-focus {
     background-color: $nav-active-bg;
     color: $nav-active-text;
-    border-radius: $border-radius;
   }
 
   // Subheaders are the submenus that slide open
@@ -456,12 +453,14 @@ html, body {
     background-color: rgba($code-bg, .05);
     padding: 3px;
     border-radius: $border-radius;
+    white-space: pre;
     @extend %code-font;
   }
 
   pre>code {
     background-color: transparent;
     padding: 0;
+    font-size: 14px;
   }
 
   aside {
