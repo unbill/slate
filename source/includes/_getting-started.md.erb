@@ -1,5 +1,36 @@
 ## Getting Started
 
+> Quickstart
+
+```
+<%= config.host %>/auth
+```
+
+> Sample Request
+
+```json
+{
+  "unbillKey": "<%= config.auth %>",
+  "userId": "566595c8ce88ccec69328566",
+  "companyId": "56e1dbb5443b10a3bd403fcf",
+  "form": {
+    "username": "Johnny",
+    "password": "Appleseed"
+  }
+}
+```
+
+> Sample Response
+
+```json
+{
+  "bill": {
+    "balance": 100,
+    "dueDate": "2016-08-03T00:00:00.000Z"
+  }
+}
+```
+
 To authenticate bills with your users, you may use the following flow.
 
 ### User Creation
