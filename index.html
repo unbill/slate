@@ -117,9 +117,27 @@
 
 <h2 id="introduction">Introduction</h2>
 
+<blockquote>
+<p>API Host</p>
+</blockquote>
+<pre class="highlight plaintext"><code>https://unbill.co/partner/v2
+</code></pre>
+
+<blockquote>
+<p>Resource URL Patterns</p>
+</blockquote>
+<pre class="highlight plaintext"><code>/auth
+/bill
+/company
+/payment
+/user
+</code></pre>
+
 <p>Welcome! The Unbill API allows developers to receive user-authorized bill data and make payments on behalf of a user. With over 4000 companies and counting, supercharge your platform with the Unbill API. </p>
 
 <p>Here you will find information on how to integrate with and use the Unbill API. We&rsquo;ve tried to make this documentation user-friendly and example-filled, but please <a href="mailto:hello@unbill.us">drop us a line</a> with any questions. If you&rsquo;re planning to use our API in production, you should take a look at our <a href="http://unbill.us/privacy.html">privacy policy</a>.</p>
+
+<p>The Unbill API uses standard HTTP <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">verbs</a> to communicate and HTTP <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">response codes</a> to indicate status and errors. All responses come in standard <a href="http://www.json.org/">JSON</a>. The Unbill API is served over HTTPS to ensure data privacy; HTTP is not supported. Every request must include your <code class="prettyprint">unbillKey</code>.</p>
 
 <h2 id="gaining-access">Gaining Access</h2>
 
@@ -130,6 +148,37 @@
 <p>Every request made must include your <code class="prettyprint">unbillKey</code> token provided to you. If the <code class="prettyprint">unbillKey</code> is not passed in the <code class="prettyprint">POST</code> request, you will receive a <code class="prettyprint">401 Not Authorized</code> response.</p>
 
           <h2 id="getting-started">Getting Started</h2>
+
+<blockquote>
+<p>Quickstart</p>
+</blockquote>
+<pre class="highlight plaintext"><code>https://unbill.co/partner/v2/auth
+</code></pre>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"companyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Johnny"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Appleseed"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-08-03T00:00:00.000Z"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <p>To authenticate bills with your users, you may use the following flow.</p>
 
@@ -171,7 +220,7 @@
           <h2 id="auth">Auth</h2>
 
 <blockquote>
-<p>Request Example</p>
+<p>Sample Request</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
@@ -309,7 +358,7 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
           <h2 id="auth-mfa">Auth MFA</h2>
 
 <blockquote>
-<p>Request Example (Question Based MFA)</p>
+<p>Sample Request (Question Based MFA)</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
@@ -319,7 +368,7 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 </span></code></pre>
 
 <blockquote>
-<p>Request Example (Code Based MFA)</p>
+<p>Sample Request (Code Based MFA)</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
@@ -448,7 +497,7 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
           <h2 id="detail">Detail</h2>
 
 <blockquote>
-<p>Request Example</p>
+<p>Sample Request</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
@@ -653,7 +702,7 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
           <h2 id="overview">Overview</h2>
 
 <blockquote>
-<p>Request Example</p>
+<p>Sample Request</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
@@ -777,7 +826,7 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
           <h2 id="get">Get</h2>
 
 <blockquote>
-<p>Request Example</p>
+<p>Sample Request</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
@@ -943,7 +992,7 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
           <h2 id="search">Search</h2>
 
 <blockquote>
-<p>Request Example</p>
+<p>Sample Request</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
@@ -1200,7 +1249,7 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
           <h2 id="autopay">Autopay</h2>
 
 <blockquote>
-<p>Request Example</p>
+<p>Sample Request</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
@@ -1249,7 +1298,7 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
           <h2 id="get">Get</h2>
 
 <blockquote>
-<p>Request Example</p>
+<p>Sample Request</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
@@ -1359,7 +1408,7 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
           <h2 id="make-payment">Make Payment</h2>
 
 <blockquote>
-<p>Request Example</p>
+<p>Sample Request</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
@@ -1405,7 +1454,7 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
           <h2 id="create">Create</h2>
 
 <blockquote>
-<p>Request Example</p>
+<p>Sample Request</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
