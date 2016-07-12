@@ -186,7 +186,7 @@
 
 <ol>
 <li>User signs up in your app.</li>
-<li>Make a request to the <code class="prettyprint">/user/create</code> endpoint to retrieve a Unbill <code class="prettyprint">userId</code> to store in your database for future requests.</li>
+<li>Make a request to the <code class="prettyprint">/user/create</code> endpoint to retrieve an Unbill <code class="prettyprint">userId</code> to store in your database for future requests.</li>
 </ol>
 
 <h3 id="bill-authentication">Bill Authentication</h3>
@@ -494,7 +494,7 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 
           <h1 id="bill-api">Bill API</h1>
 
-<p>Bill objects provide you with up-to-date bill balances and due dates. The API allows you to retrieve up-to-date data of a users bills.</p>
+<p>Bill objects provide you with up-to-date bill balances and due dates. The API allows you to retrieve up-to-date data of a user&rsquo;s bills.</p>
 
           <h2 id="the-bill-object">The bill object</h2>
 
@@ -951,7 +951,7 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 
 <h3 id="logos">Logos</h3>
 
-<p>The Unbill API provides image URL&rsquo;s for each biller&rsquo;s logo. There are two ideal ways of presenting these logos in your apps.</p>
+<p>The Unbill API provides image URL&rsquo;s for each company&rsquo;s logo. There are two ideal ways of presenting these logos in your apps.</p>
 
 <ol>
 <li><p>When the <code class="prettyprint">company.logo.background</code> field is set to <code class="prettyprint">false</code>, the logo looks best on a white background.</p>
@@ -1307,7 +1307,7 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 
 <p>Enable or disable autopay for a bill.</p>
 
-<p>Some subscription billers, such as Netflix, Hulu, and Spotify require automatic payments to be enabled. If a request to the <code class="prettyprint">/payment/autopay</code> endpoint is made for one of these billers, a <code class="prettyprint">400</code> status code will be returned and autopay will not be disabled.</p>
+<p>Some subscription companies, such as Netflix, Hulu, and Spotify require automatic payments to be enabled. If a request to the <code class="prettyprint">/payment/autopay</code> endpoint is made for one of these companies, a <code class="prettyprint">400</code> status code will be returned and autopay will not be disabled.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
