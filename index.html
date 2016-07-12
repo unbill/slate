@@ -217,6 +217,8 @@
 
           <h1 id="auth-api">Auth API</h1>
 
+<p>Authenticate a user&rsquo;s bill credentials via Unbill. This process may take anywhere from 15-90 seconds depending on the responsiveness of the company&rsquo;s website. If a <code class="prettyprint">200</code> status code is returned, no additional MFA is required. If a <code class="prettyprint">201</code> status code is returned, additional MFA is required to authenticate with the company and must be submitted via the <code class="prettyprint">/auth/step</code> endpoint.</p>
+
           <h2 id="auth">Auth</h2>
 
 <blockquote>
@@ -277,8 +279,6 @@
   </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"You may want to double check your information."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-
-<p>Authenticate a user&rsquo;s bill credentials via Unbill. This process may take anywhere from 15-90 seconds depending on the responsiveness of the company&rsquo;s website. If a <code class="prettyprint">200</code> status code is returned, no additional MFA is required. If a <code class="prettyprint">201</code> status code is returned, additional MFA is required to authenticate with the company and must be submitted via the <code class="prettyprint">/auth/step</code> endpoint.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
@@ -494,7 +494,52 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 
           <h1 id="bill-api">Bill API</h1>
 
-          <h2 id="detail">Detail</h2>
+<p>Bill objects provide you with up-to-date bill balances and due dates. The API allows you to retrieve up-to-date data of a users bills.</p>
+
+          <h2 id="the-bill-object">The bill object</h2>
+
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"autoPay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">balance</code></td>
+<td>Current bill balance.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">dueDate</code></td>
+<td>Current bill due date.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">status</code></td>
+<td>Status of the bill. Possible values are <code class="prettyprint">paid</code>, <code class="prettyprint">pending</code>, <code class="prettyprint">upcoming</code>, <code class="prettyprint">overdue</code>, <code class="prettyprint">syncing</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">settings</code></td>
+<td>Settings for a bill.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">settings.autopay</code></td>
+<td>Whether or not this bill is to be paid automatically.</td>
+</tr>
+</tbody></table>
+
+          <h2 id="retrieve-bill-detail">Retrieve bill detail</h2>
 
 <blockquote>
 <p>Sample Request</p>
@@ -517,9 +562,11 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
     </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Grove at Auburn"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"paysRent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"payments"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -538,9 +585,11 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
     </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Grove at Auburn"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"paysRent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"payments"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -552,16 +601,18 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-03-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="p">,</span><span class="w"> 
     </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nt">"autoPay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
     </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Grove at Auburn"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"paysRent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"payments"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -573,16 +624,18 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-03-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w"> 
     </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nt">"autoPay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
     </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Grove at Auburn"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"paysRent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"payments"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -599,9 +652,11 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
     </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Grove at Auburn"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"paysRent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"payments"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
     </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">123.12</span><span class="p">,</span><span class="w">
@@ -655,35 +710,11 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 </thead><tbody>
 <tr>
 <td><code class="prettyprint">bill</code></td>
-<td>Bill data.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">bill.balance</code></td>
-<td>Current balance.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">bill.dueDate</code></td>
-<td>Current Current due date.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">bill.status</code></td>
-<td>Current Status <code class="prettyprint">paid, pending, upcoming, overdue, syncing</code>.</td>
+<td>Bill object</td>
 </tr>
 <tr>
 <td><code class="prettyprint">company</code></td>
-<td>Bill company data.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.name</code></td>
-<td>Name of the company.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.logo</code></td>
-<td>URL of the company logo.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.paysRent</code></td>
-<td>Whether this company accepts rent payments (if true, the logo looks best as a background image)</td>
+<td>Company object</td>
 </tr>
 <tr>
 <td><code class="prettyprint">payments</code></td>
@@ -699,7 +730,7 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 </tr>
 </tbody></table>
 
-          <h2 id="overview">Overview</h2>
+          <h2 id="bill-overview">Bill overview</h2>
 
 <blockquote>
 <p>Sample Request</p>
@@ -719,8 +750,10 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Time Warner Cable"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"paysRent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/4c805851c738c006546b234e3c3c793d.png"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w"> 
   </span><span class="p">}</span><span class="w">
 </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -730,8 +763,10 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Grove at Auburn"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"paysRent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/0e9a971a96646da46f5faa68862d0f2d.jpg"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="p">}</span><span class="w"> 
   </span><span class="p">}</span><span class="w">
 </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -740,9 +775,11 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
     </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"paid"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Verizon"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"paysRent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w"> 
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}]</span><span class="w">
 </span></code></pre>
@@ -775,7 +812,50 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 </tr>
 </tbody></table>
 
-<h3 id="200-response-body">200 Response Body</h3>
+<h3 id="returns">Returns</h3>
+
+<p>Returns a list of bill and company objects that represents an overview of a user&rsquo;s bills.</p>
+
+          <h1 id="company-api">Company API</h1>
+
+<p>Company objects allow you to authenticate bills with your clients. The API allows you to retrieve and search for companies.</p>
+
+          <h2 id="the-company-object">The company object</h2>
+
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"urls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.netflix.com/Login"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"signup"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.netflix.com"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"loginFields"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+      </span><span class="nt">"placeholder"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Username"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"formType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"username"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Username"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"placeholder"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Password"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"formType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Password"</span><span class="w">
+    </span><span class="p">}]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"geo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"loc"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mf">-95.53</span><span class="p">,</span><span class="w"> </span><span class="mf">30.70</span><span class="w"> </span><span class="p">],</span><span class="w">
+    </span><span class="nt">"state_short"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TX"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"state_long"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Texas"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"zipcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"77340"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <table><thead>
 <tr>
@@ -784,46 +864,105 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 </tr>
 </thead><tbody>
 <tr>
-<td><code class="prettyprint">bills</code></td>
-<td>List of bills.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">bills.bill</code></td>
-<td>Bill data.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">bills.bill.balance</code></td>
-<td>Current balance.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">bills.bill.dueDate</code></td>
-<td>Current Current due date.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">bills.bill.status</code></td>
-<td>Current Status <code class="prettyprint">paid, pending, upcoming, overdue, syncing</code>.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">bills.company</code></td>
-<td>Bill company data.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">bills.company.name</code></td>
+<td><code class="prettyprint">name</code></td>
 <td>Name of the company.</td>
 </tr>
 <tr>
-<td><code class="prettyprint">bills.company.logo</code></td>
+<td><code class="prettyprint">logo</code></td>
+<td>Company logo.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">logo.url</code></td>
 <td>URL of the company logo.</td>
 </tr>
 <tr>
-<td><code class="prettyprint">bills.company.paysRent</code></td>
-<td>Whether this company accepts rent payments (if true, the logo looks best as a background image)</td>
+<td><code class="prettyprint">logo.background</code></td>
+<td>If this is <code class="prettyprint">true</code>, then the logo looks best as a background image.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">auth</code></td>
+<td>Company auth fields.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">auth.urls</code></td>
+<td>Company Auth Urls (login URL is always available, but the others can by null).</td>
+</tr>
+<tr>
+<td><code class="prettyprint">auth.urls.login</code></td>
+<td>Login URL.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">auth.urls.signup</code></td>
+<td>Signup URL.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">auth.urls.forgotPassword</code></td>
+<td>Forgot password URL.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">auth.urls.forgotUsername</code></td>
+<td>Forgot username URL.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">auth.loginFields</code></td>
+<td>Form fields for credentials.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">auth.loginFields.placeholder</code></td>
+<td>Input <code class="prettyprint">placeholder</code> field.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">auth.loginFields.formType</code></td>
+<td>Input <code class="prettyprint">type</code> field.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">auth.loginFields.name</code></td>
+<td>Input <code class="prettyprint">name</code> field.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">auth.loginFields.label</code></td>
+<td>Label for <code class="prettyprint">input</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">geo</code></td>
+<td>Geo based location (not available for regional or national company).</td>
+</tr>
+<tr>
+<td><code class="prettyprint">geo.loc</code></td>
+<td>Coordinates with syntax <code class="prettyprint">[ longitude, latitude ]</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">geo.stateShort</code></td>
+<td>Abbreviated state name.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">geo.stateLong</code></td>
+<td>Full state name.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">geo.zipcode</code></td>
+<td>Zipcode.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">geo.address</code></td>
+<td>Formatted address.</td>
 </tr>
 </tbody></table>
 
-          <h1 id="company-api">Company API</h1>
+<h3 id="logos">Logos</h3>
 
-          <h2 id="get">Get</h2>
+<p>The Unbill API provides image URL&rsquo;s for each biller&rsquo;s logo. There are two ideal ways of presenting these logos in your apps.</p>
+
+<ol>
+<li><p>When the <code class="prettyprint">company.logo.background</code> field is set to false, the logo looks best on a white background.</p>
+
+<p><img alt="Netflix" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/netflix-logo.png" /></p></li>
+<li><p>When the <code class="prettyprint">company.logo.background</code> field is set to false, the logo looks best as a background image.</p>
+
+<p><img alt="Varsity House" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/varsity-logo.png" /></p></li>
+</ol>
+
+          <h2 id="retrieve-a-company">Retrieve a company</h2>
 
 <blockquote>
 <p>Sample Request</p>
@@ -838,13 +977,15 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 <p>200 Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Grove at Auburn"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"paysRent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="p">},</span><span class="w">
   </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"urls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://groveatauburn.residentportal.com/resident_portal/?module=authentication"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"signup"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://groveatauburn.residentportal.com/resident_portal/?module=authentication"</span><span class="w">
+      </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.netflix.com/Login"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"signup"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.netflix.com"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="nt">"loginFields"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
       </span><span class="nt">"placeholder"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Username"</span><span class="p">,</span><span class="w">
@@ -895,108 +1036,18 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 </tr>
 </tbody></table>
 
-<h3 id="200-response-body">200 Response Body</h3>
+<h3 id="returns">Returns</h3>
 
-<table><thead>
-<tr>
-<th>Attribute</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><code class="prettyprint">company</code></td>
-<td>Unbill company.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.name</code></td>
-<td>Name of the company.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.logo</code></td>
-<td>URL of the company logo.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.paysRent</code></td>
-<td>Whether this company accepts rent payments (if <code class="prettyprint">true</code>, the logo looks best as a background image).</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth</code></td>
-<td>company auth fields.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.urls</code></td>
-<td>company Auth Urls (login URL is always available, but the others can by null).</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.urls.login</code></td>
-<td>Login URL.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.urls.signup</code></td>
-<td>Signup URL.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.urls.forgotPassword</code></td>
-<td>Forgot password URL.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.urls.forgotUsername</code></td>
-<td>Forgot username URL.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.loginFields</code></td>
-<td>Form fields for credentials.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.loginFields.placeholder</code></td>
-<td>Input <code class="prettyprint">placeholder</code> field.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.loginFields.formType</code></td>
-<td>Input <code class="prettyprint">type</code> field.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.loginFields.name</code></td>
-<td>Input <code class="prettyprint">name</code> field.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.loginFields.label</code></td>
-<td>Label for <code class="prettyprint">input</code>.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.geo</code></td>
-<td>Geo based location (not available for regional or national company).</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.geo.loc</code></td>
-<td>Coordinates with syntax <code class="prettyprint">[ longitude, latitude ]</code>.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.geo.stateShort</code></td>
-<td>Abbreviated state name.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.geo.stateLong</code></td>
-<td>Full state name.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.geo.zipcode</code></td>
-<td>Zipcode.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.geo.address</code></td>
-<td>Formatted address.</td>
-</tr>
-</tbody></table>
+<p>Returns a customer object if a valid <code class="prettyprint">companyId</code> was provided.</p>
 
-          <h2 id="search">Search</h2>
+          <h2 id="search-for-companies">Search for companies</h2>
 
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Grove"</span><span class="w">
+  </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -1004,13 +1055,15 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 <p>200 Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">[{</span><span class="w">
-  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Grove at Auburn"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"paysRent"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="p">},</span><span class="w">
   </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"urls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://groveatauburn.residentportal.com/resident_portal/?module=authentication"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"signup"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://groveatauburn.residentportal.com/resident_portal/?module=authentication"</span><span class="w">
+      </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.netflix.com/Login"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"signup"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.netflix.com"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="nt">"loginFields"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
       </span><span class="nt">"placeholder"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Username"</span><span class="p">,</span><span class="w">
@@ -1061,7 +1114,26 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 </tr>
 </tbody></table>
 
-<h3 id="200-response-body">200 Response Body</h3>
+<h3 id="returns">Returns</h3>
+
+<p>Returns a list of company objects that match the provided <code class="prettyprint">query</code>.</p>
+
+          <h1 id="payment-api">Payment API</h1>
+
+<p>In order to make payments towards a user&rsquo;s bill, they must first have a payment method linked with Unbill. By default, after a payment method is linked, payments will be made towards a user&rsquo;s bills automatically and on time. The API allows you to add, retrieve, and make payments on behalf of the user.</p>
+
+          <h2 id="the-card-object">The card object</h2>
+
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX0005"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"american express"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"credit"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"expDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-01T12:00:00.000Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 
 <table><thead>
 <tr>
@@ -1070,94 +1142,56 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 </tr>
 </thead><tbody>
 <tr>
-<td><code class="prettyprint">company</code></td>
-<td>Unbill company.</td>
+<td><code class="prettyprint">number</code></td>
+<td>Masked card number.</td>
 </tr>
 <tr>
-<td><code class="prettyprint">company.name</code></td>
-<td>Name of the company.</td>
+<td><code class="prettyprint">brand</code></td>
+<td>Card brand. Possible values are <code class="prettyprint">visa</code>, <code class="prettyprint">mastercard</code>, <code class="prettyprint">american express</code>, etc.</td>
 </tr>
 <tr>
-<td><code class="prettyprint">company.logo</code></td>
-<td>URL of the company logo.</td>
+<td><code class="prettyprint">type</code></td>
+<td>Card type. Possible values are <code class="prettyprint">credit</code>, <code class="prettyprint">debit</code>.</td>
 </tr>
 <tr>
-<td><code class="prettyprint">company.paysRent</code></td>
-<td>Whether this company accepts rent payments (if <code class="prettyprint">true</code>, the logo looks best as a background image).</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth</code></td>
-<td>company auth fields.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.urls</code></td>
-<td>company Auth Urls (login URL is always available, but the others can by null).</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.urls.login</code></td>
-<td>Login URL.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.urls.signup</code></td>
-<td>Signup URL.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.urls.forgotPassword</code></td>
-<td>Forgot password URL.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.urls.forgotUsername</code></td>
-<td>Forgot username URL.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.loginFields</code></td>
-<td>Form fields for credentials.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.loginFields.placeholder</code></td>
-<td>Input <code class="prettyprint">placeholder</code> field.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.loginFields.formType</code></td>
-<td>Input <code class="prettyprint">type</code> field.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.loginFields.name</code></td>
-<td>Input <code class="prettyprint">name</code> field.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.loginFields.label</code></td>
-<td>Label for <code class="prettyprint">input</code>.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.geo</code></td>
-<td>Geo based location (not available for regional or national company).</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.geo.loc</code></td>
-<td>Coordinates with syntax <code class="prettyprint">[ longitude, latitude ]</code>.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.geo.stateShort</code></td>
-<td>Abbreviated state name.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.geo.stateLong</code></td>
-<td>Full state name.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.geo.zipcode</code></td>
-<td>Zipcode.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company.auth.geo.address</code></td>
-<td>Formatted address.</td>
+<td><code class="prettyprint">expDate</code></td>
+<td>Card expiration date.</td>
 </tr>
 </tbody></table>
 
-          <h1 id="payment-api">Payment API</h1>
+          <h2 id="the-bank-object">The bank object</h2>
 
-          <h2 id="add">Add</h2>
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"routingNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX0002"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"accountNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX0021"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"checking"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">routingNumber</code></td>
+<td>Masked routing number.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">accountNumber</code></td>
+<td>Masked account number.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">type</code></td>
+<td>Bank account type. Possible values are <code class="prettyprint">checking</code>, <code class="prettyprint">savings</code>.</td>
+</tr>
+</tbody></table>
+
+          <h2 id="add-a-payment-method">Add a payment method</h2>
 
 <blockquote>
 <p>Request Credit Card Example</p>
@@ -1246,7 +1280,11 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 </tr>
 </tbody></table>
 
-          <h2 id="autopay">Autopay</h2>
+<h3 id="returns">Returns</h3>
+
+<p>Returns a <code class="prettyprint">200</code> status code if the payment method was successfully added. Returns an error otherwise.</p>
+
+          <h2 id="enable-or-disable-autopay">Enable or disable autopay</h2>
 
 <blockquote>
 <p>Sample Request</p>
@@ -1255,7 +1293,7 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
   </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"companyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"autoPay"</span><span class="p">:</span><span class="w"> </span><span class="s2">"disabled"</span><span class="w">
+  </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="s2">"disabled"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -1268,6 +1306,8 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 </span></code></pre>
 
 <p>Enable or disable autopay for a bill.</p>
+
+<p>Some subscription billers, such as Netflix, Hulu, and Spotify require automatic payments to be enabled. If a request to the <code class="prettyprint">/payment/autopay</code> endpoint is made for one of these billers, a <code class="prettyprint">400</code> status code will be returned and autopay will not be disabled.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
@@ -1295,7 +1335,11 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 </tr>
 </tbody></table>
 
-          <h2 id="get">Get</h2>
+<h3 id="returns">Returns</h3>
+
+<p>Returns a <code class="prettyprint">200</code> status code if autopay was enabled or disabled.</p>
+
+          <h2 id="retrieve-a-payment-method">Retrieve a payment method</h2>
 
 <blockquote>
 <p>Sample Request</p>
@@ -1359,53 +1403,11 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 </tr>
 </tbody></table>
 
-<h3 id="200-response-body">200 Response Body</h3>
+<h3 id="returns">Returns</h3>
 
-<table><thead>
-<tr>
-<th>Attribute</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><code class="prettyprint">card</code></td>
-<td>Card information.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">card.number</code></td>
-<td>Masked card number.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">card.brand</code></td>
-<td>Card brand.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">card.type</code></td>
-<td>Card type <code class="prettyprint">credit, debit</code>.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">card.expDate</code></td>
-<td>Card expiration date.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">bank</code></td>
-<td>Bank information.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">bank.routingNumber</code></td>
-<td>Masked routing number.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">bank.accountNumber</code></td>
-<td>Masked account number.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">bank.type</code></td>
-<td>Bank account type <code class="prettyprint">checking, savings</code>.</td>
-</tr>
-</tbody></table>
+<p>Returns either a card object or bank object.</p>
 
-          <h2 id="make-payment">Make Payment</h2>
+          <h2 id="make-a-payment">Make a payment</h2>
 
 <blockquote>
 <p>Sample Request</p>
@@ -1449,9 +1451,15 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 </tr>
 </tbody></table>
 
+<h3 id="returns">Returns</h3>
+
+<p>Returns a <code class="prettyprint">200</code> status code if a payment is successfully scheduled. Returns an error otherwise.</p>
+
           <h1 id="user-api">User API</h1>
 
-          <h2 id="create">Create</h2>
+<p>To authenticate bills and retrieve balance and due date information, an Unbill <code class="prettyprint">userId</code> is required. The API allows you to create an Unbill user and retrieve a <code class="prettyprint">userId</code> for future requests.</p>
+
+          <h2 id="create-user">Create user</h2>
 
 <blockquote>
 <p>Sample Request</p>
