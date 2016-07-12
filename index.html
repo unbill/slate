@@ -829,7 +829,11 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
   </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"svg"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.svg"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FF041F"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"urls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -869,7 +873,7 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 </tr>
 <tr>
 <td><code class="prettyprint">logo</code></td>
-<td>Company logo.</td>
+<td>Company logo object.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">logo.url</code></td>
@@ -878,6 +882,18 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 <tr>
 <td><code class="prettyprint">logo.background</code></td>
 <td>If this is <code class="prettyprint">true</code>, then the logo looks best as a background image.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">logo.svg</code></td>
+<td>Company logo svg object.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">logo.svg.url</code></td>
+<td>URL of the company svg logo.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">logo.svg.color</code></td>
+<td>Hex color of the Company logo.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">auth</code></td>
@@ -951,13 +967,16 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 
           <h2 id="company-logos">Company logos</h2>
 
-<p>The Unbill API provides image URL&rsquo;s for each company&rsquo;s logo. There are two ideal ways of presenting these logos in your apps.</p>
+<p>The Unbill API provides image URL&rsquo;s for each company&rsquo;s logo. There are three ideal ways of presenting these logos in your apps.</p>
 
 <ol>
-<li><p>When the <code class="prettyprint">company.logo.background</code> field is set to <code class="prettyprint">false</code>, the logo looks best on a white background.</p>
+<li><p>When the <code class="prettyprint">company.logo.svg</code> is available, the svg logo looks on the <code class="prettyprint">company.logo.svg.color</code> background.</p>
 
-<p><img alt="Netflix" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/netflix-logo.png" /></p></li>
-<li><p>When the <code class="prettyprint">company.logo.background</code> field is set to <code class="prettyprint">true</code>, the logo looks best as a background image.</p>
+<p><img alt="Netflix" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/netflix-svg-logo.png" /></p></li>
+<li><p>When the <code class="prettyprint">company.logo.svg</code> is not available and the <code class="prettyprint">company.logo.background</code> field is set to <code class="prettyprint">false</code>, the logo looks best on a white background.</p>
+
+<p><img alt="TWC" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/twc-logo.png" /></p></li>
+<li><p>When the <code class="prettyprint">company.logo.svg</code> is not available and the <code class="prettyprint">company.logo.background</code> field is set to <code class="prettyprint">true</code>, the logo looks best as a background image with the company name overlayed on top.</p>
 
 <p><img alt="Varsity House" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/varsity-logo.png" /></p></li>
 </ol>
@@ -980,7 +999,11 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
   </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"svg"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.svg"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FF041F"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"urls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1058,7 +1081,11 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
   </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"svg"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.svg"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FF041F"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"urls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
