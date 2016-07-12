@@ -10,51 +10,7 @@
 }
 ```
 
-> 200 Syncing Response
-
-```json
-{
-  "bill": {
-    "status": "syncing", 
-    "settings": {
-      "autoPay": true 
-    }
-  },
-  "company": {
-    "name": "<%= config.billerName %>",
-    "logo": {
-      "url": "<%= config.billerLogo %>",
-      "background": false
-    }
-  },
-  "payments": []
-}
-```
-
-> 200 Overdue Response
-
-```json
-{
-  "bill": {
-    "balance": 100,
-    "dueDate": "2016-03-25T00:00:00.000Z",
-    "status": "overdue", 
-    "settings": {
-      "autoPay": true 
-    }
-  },
-  "company": {
-    "name": "<%= config.billerName %>",
-    "logo": {
-      "url": "<%= config.billerLogo %>",
-      "background": false
-    }
-  },
-  "payments": []
-}
-```
-
-> 200 Upcoming Response
+> Sample Upcoming Response
 
 ```json
 {
@@ -77,35 +33,14 @@
 }
 ```
 
-> 200 Pending Response
+> Sample Paid Response
 
 ```json
 {
   "bill": {
-    "balance": 100,
-    "dueDate": "<%= config.futureDate %>",
-    "status": "pending", 
-    "settings": {
-      "autoPay": true 
-    }
-  },
-  "company": {
-    "name": "<%= config.billerName %>",
-    "logo": {
-      "url": "<%= config.billerLogo %>",
-      "background": false
-    }
-  },
-  "payments": []
-}
-```
-
-> 200 Paid Response
-
-```json
-{
-  "bill": {
-    "status": "paid", 
+    "status": "paid",
+    "lastPaidAmount": 100,
+    "lastPaidOn": "2016-01-01T00:00:00.000Z",
     "settings": {
       "autoPay": true 
     }

@@ -1,0 +1,124 @@
+## Bill status
+
+> Syncing Response
+
+```json
+{
+  "status": "syncing", 
+  "settings": {
+    "autoPay": true 
+  }
+}
+```
+
+> Overdue Response
+
+```json
+{
+  "balance": 100,
+  "dueDate": "2016-03-25T00:00:00.000Z",
+  "status": "overdue", 
+  "settings": {
+    "autoPay": true 
+  }
+}
+```
+
+> Authenticate Response
+
+```json
+{
+  "balance": "100.00",
+  "dueDate": "<%= config.futureDate %>",
+  "status": "authenticate",
+  "settings": {
+    "autopay": true
+  }
+}
+```
+
+> Hold Response
+
+```json
+{
+  "balance": 100,
+  "dueDate": "<%= config.futureDate %>",
+  "status": "hold", 
+  "reason": "You'll need to login and accept the terms and conditions on your account.",
+  "settings": {
+    "autoPay": true 
+  }
+}
+```
+
+> Upcoming Response
+
+```json
+{
+  "balance": 100,
+  "dueDate": "<%= config.futureDate %>",
+  "status": "upcoming", 
+  "settings": {
+    "autoPay": true 
+  }
+}
+```
+
+> Pending Response
+
+```json
+{
+  "balance": 100,
+  "dueDate": "<%= config.futureDate %>",
+  "status": "pending", 
+  "settings": {
+    "autoPay": true 
+  }
+}
+```
+
+> Paid Response
+
+```json
+{
+  "status": "paid",
+  "lastPaidAmount": 100,
+  "lastPaidOn": "2016-01-01T00:00:00.000Z",
+  "settings": {
+    "autoPay": true 
+  }
+}
+```
+
+A bill `status` can be a variety of types. Each type is documented below with a description of the status and a typical use case.
+
+### syncing
+
+There is no available bill balance at the moment. When a bill is first authenticated its status is `syncing` until a bill balance is retrieved. This typically takes no longer than 24 hours.
+
+### overdue
+
+There is currently a bill balance with a due date that is in the past and needs to be paid as soon as possible. A bill is typicallly overdue when:
+1. A user adds a bill that is already overdue
+2. Default `autopay` is enabled and the user has an invalid payment method.
+3. `autopay` is disabled and a payment has not been scheduled via the `/payment/make` endpoint.
+
+### authenticate
+
+The user's credentials no longer work with the company's website and need to be reauthenticated. Make a request to the `/auth` endpoint with updated credentials received from your user to remove this status.
+
+### hold 
+
+For a number of reasons a bill can have the status of `hold`. When a bill is on hold we'll present you with a `reason` that you in turn can present to your users. To remove this status, the user must complete whatever needs to be done with their online account as described in the `reason`.
+
+### upcoming
+
+The user has an outstanding balance on their account that will be paid in the future.
+
+### pending
+
+The user has an outstanding balance that will be paid in the next 24 hours.
+
+### paid
+
+The user has no outstanding balance and has a last paid amount on their account.

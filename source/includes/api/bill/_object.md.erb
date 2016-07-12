@@ -17,6 +17,9 @@ Attribute | Description
 --------- | -----------
 `balance` | Current bill balance.
 `dueDate` | Current bill due date.
-`status` | Status of the bill. Possible values are `paid`, `pending`, `upcoming`, `overdue`, `syncing`.
+`lastPaidAmount` | Amount of last made payment.
+`lastPaidOn` | Date of when the last payment was made.
+`status` | Status of the bill. Possible values are `syncing`, `overdue`, `authenticate`, `hold`, `upcoming`, `pending`, `paid`.
+`reason` | Reason the bill is on hold.
 `settings` | Settings for a bill.
 `settings.autopay` | Whether or not this bill is to be paid automatically.
