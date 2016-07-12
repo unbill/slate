@@ -99,9 +99,10 @@ There is no available bill balance at the moment. When a bill is first authentic
 ### overdue
 
 There is currently a bill balance with a due date that is in the past and needs to be paid as soon as possible. A bill is typicallly overdue when:
-1. A user adds a bill that is already overdue
-2. Default `autopay` is enabled and the user has an invalid payment method.
-3. `autopay` is disabled and a payment has not been scheduled via the `/payment/make` endpoint.
+
+- A user adds a bill that is already overdue.
+- `autopay` is enabled and the user has no payment method or a payment method on hold.
+- `autopay` is disabled and a payment has not been scheduled via the `/payment/make` endpoint.
 
 ### authenticate
 
@@ -110,6 +111,8 @@ The user's credentials no longer work with the company's website and need to be 
 ### hold 
 
 For a number of reasons a bill can have the status of `hold`. When a bill is on hold we'll present you with a `reason` that you in turn can present to your users. To remove this status, the user must complete whatever needs to be done with their online account as described in the `reason`.
+
+TODO: Allow for immediate bill hold removal
 
 ### upcoming
 
