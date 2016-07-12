@@ -50,6 +50,8 @@ config.host = 'https://unbill.co/partner/v2'
 config.auth = 'dc220490-e6ee-11e5-8a94-e7385a8d929e'
 config.billerName = 'Netflix'
 config.billerLogo = 'https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png'
+config.billerLogoSvg = 'https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.svg'
+config.billerColor = 'FF041F'
 config.billerLogin = 'https://www.netflix.com/Login'
 config.billerSignup = 'https://www.netflix.com'
 config.futureDate = '2016-10-25T00:00:00.000Z'
@@ -60,7 +62,11 @@ config.companyResponseExample = [
 '  "name": "' + config.billerName + '",',
 '  "logo": {',
 '    "url": "' + config.billerLogo + '",',
-'    "background": false',
+'    "background": false,',
+'    "svg": {',
+'      "url": "' + config.billerLogoSvg + '",',
+'      "color": "' + config.billerColor + '"',
+'    }',
 '  },',
 '  "auth": {',
 '    "urls": {',
@@ -90,9 +96,12 @@ config.companyResponseExample = [
 
 config.companyResponseDescription = [
   '`name` | Name of the company.',
-  '`logo` | Company logo.',
+  '`logo` | Company logo object.',
   '`logo.url` | URL of the company logo.',
   '`logo.background` | If this is `true`, then the logo looks best as a background image.',
+  '`logo.svg` | Company logo svg object.',
+  '`logo.svg.url` | URL of the company svg logo.',
+  '`logo.svg.color` | Hex color of the Company logo.',
   '`auth` | Company auth fields.',
   '`auth.urls` | Company Auth Urls (login URL is always available, but the others can by null).',
   '`auth.urls.login` | Login URL.',
