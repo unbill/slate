@@ -1,4 +1,4 @@
-## Autopay
+## Enable or disable autopay
 
 > Sample Request
 
@@ -7,7 +7,7 @@
   "unbillKey": "<%= config.auth %>",
   "userId": "566595c8ce88ccec69328566",
   "companyId": "56e1dbb5443b10a3bd403fcf",
-  "autoPay": "disabled"
+  "autopay": "disabled"
 }
 ```
 
@@ -21,6 +21,8 @@
 
 Enable or disable autopay for a bill.
 
+Some subscription billers, such as Netflix, Hulu, and Spotify require automatic payments to be enabled. If a request to the `/payment/autopay` endpoint is made for one of these billers, a `400` status code will be returned and autopay will not be disabled.
+
 ### HTTP Request
 
 `POST <%= config.host %>/payment/autopay`
@@ -32,3 +34,7 @@ Param | Description
 `userId` | Unbill user ID.
 `companyId` | Unbill company ID.
 `autopay` | Whether autopay should be enabled or disabled. `enabled, disabled`
+
+### Returns
+
+Returns a `200` status code if autopay was enabled or disabled.

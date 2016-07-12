@@ -1,4 +1,4 @@
-## Overview
+## Bill overview
 
 > Sample Request
 
@@ -18,8 +18,10 @@
   },
   "company": {
     "name": "Time Warner Cable",
-    "logo": "https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg",
-    "paysRent": true
+    "logo": {
+      "url": "https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/4c805851c738c006546b234e3c3c793d.png",
+      "background": false
+    } 
   }
 }, {
   "bill": {
@@ -29,8 +31,10 @@
   },
   "company": {
     "name": "The Grove at Auburn",
-    "logo": "https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg",
-    "paysRent": true
+    "logo": {
+      "url": "https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/0e9a971a96646da46f5faa68862d0f2d.jpg",
+      "background": true
+    } 
   }
 }, {
   "bill": {
@@ -39,9 +43,11 @@
     "status": "paid"
   },
   "company": {
-    "name": "Verizon",
-    "logo": "https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg",
-    "paysRent": true
+    "name": "Netflix",
+    "logo": {
+      "url": "https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png",
+      "background": false
+    } 
   }
 }]
 ```
@@ -67,16 +73,6 @@ Param | Description
 `userId` | Unbill user ID.
 
 
-### 200 Response Body
+### Returns
 
-Attribute | Description
---------- | -----------
-`bills` | List of bills.
-`bills.bill` | Bill data.
-`bills.bill.balance` | Current balance.
-`bills.bill.dueDate` | Current Current due date.
-`bills.bill.status` | Current Status `paid, pending, upcoming, overdue, syncing`.
-`bills.company` | Bill company data.
-`bills.company.name` | Name of the company.
-`bills.company.logo` | URL of the company logo.
-`bills.company.paysRent` | Whether this company accepts rent payments (if true, the logo looks best as a background image)
+Returns a list of bill and company objects that represents an overview of a user's bills.

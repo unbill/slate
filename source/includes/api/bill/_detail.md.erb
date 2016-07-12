@@ -1,4 +1,4 @@
-## Detail
+## Retrieve bill detail
 
 > Sample Request
 
@@ -21,9 +21,11 @@
     }
   },
   "company": {
-    "name": "The Grove at Auburn",
-    "logo": "https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg",
-    "paysRent": true
+    "name": "<%= config.billerName %>",
+    "logo": {
+      "url": "<%= config.billerLogo %>",
+      "background": false
+    }
   },
   "payments": []
 }
@@ -42,9 +44,11 @@
     }
   },
   "company": {
-    "name": "The Grove at Auburn",
-    "logo": "https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg",
-    "paysRent": true
+    "name": "<%= config.billerName %>",
+    "logo": {
+      "url": "<%= config.billerLogo %>",
+      "background": false
+    }
   },
   "payments": []
 }
@@ -56,16 +60,18 @@
 {
   "bill": {
     "balance": 100,
-    "dueDate": "2016-03-25T00:00:00.000Z",
+    "dueDate": "<%= config.futureDate %>",
     "status": "upcoming", 
     "settings": {
       "autoPay": true 
     }
   },
   "company": {
-    "name": "The Grove at Auburn",
-    "logo": "https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg",
-    "paysRent": true
+    "name": "<%= config.billerName %>",
+    "logo": {
+      "url": "<%= config.billerLogo %>",
+      "background": false
+    }
   },
   "payments": []
 }
@@ -77,16 +83,18 @@
 {
   "bill": {
     "balance": 100,
-    "dueDate": "2016-03-25T00:00:00.000Z",
+    "dueDate": "<%= config.futureDate %>",
     "status": "pending", 
     "settings": {
       "autoPay": true 
     }
   },
   "company": {
-    "name": "The Grove at Auburn",
-    "logo": "https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg",
-    "paysRent": true
+    "name": "<%= config.billerName %>",
+    "logo": {
+      "url": "<%= config.billerLogo %>",
+      "background": false
+    }
   },
   "payments": []
 }
@@ -103,9 +111,11 @@
     }
   },
   "company": {
-    "name": "The Grove at Auburn",
-    "logo": "https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/1464a31cee5efe688ee989dc0f4b56b7.jpg",
-    "paysRent": true
+    "name": "<%= config.billerName %>",
+    "logo": {
+      "url": "<%= config.billerLogo %>",
+      "background": false
+    }
   },
   "payments": [{
     "amount": 123.12,
@@ -142,14 +152,8 @@ Param | Description
 
 Attribute | Description
 --------- | -----------
-`bill` | Bill data.
-`bill.balance` | Current balance.
-`bill.dueDate` | Current Current due date.
-`bill.status` | Current Status `paid, pending, upcoming, overdue, syncing`.
-`company` | Bill company data.
-`company.name` | Name of the company.
-`company.logo` | URL of the company logo.
-`company.paysRent` | Whether this company accepts rent payments (if true, the logo looks best as a background image)
+`bill` | Bill object
+`company` | Company object
 `payments` | List of past bill payments
 `payments.amount` | Amount paid
 `payments.paidOn` | Date of payment

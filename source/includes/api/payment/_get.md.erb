@@ -1,4 +1,4 @@
-## Get
+## Retrieve a payment method
 
 > Sample Request
 
@@ -54,16 +54,6 @@ Param | Description
 ----- | -----------
 `userId` | Unbill user ID.
 
-### 200 Response Body
+### Returns
 
-Attribute | Description
---------- | -----------
-`card` | Card information.
-`card.number` | Masked card number.
-`card.brand` | Card brand.
-`card.type` | Card type `credit, debit`.
-`card.expDate` | Card expiration date.
-`bank` | Bank information.
-`bank.routingNumber` | Masked routing number.
-`bank.accountNumber` | Masked account number.
-`bank.type` | Bank account type `checking, savings`.
+Returns either a card object or bank object.

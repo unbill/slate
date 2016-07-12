@@ -1,11 +1,11 @@
-## Search
+## Search for companies
 
 > Sample Request
 
 ```json
 {
   "unbillKey": "<%= config.auth %>",
-  "query": "The Grove"
+  "query": "Netflix"
 }
 ```
 
@@ -35,8 +35,6 @@ Param | Description
 ----- | -----------
 `query` | Search query.
 
-### 200 Response Body
+### Returns
 
-Attribute | Description
---------- | -----------
-<%= config.companyResponseDescription %>
+Returns a list of company objects that match the provided `query`.

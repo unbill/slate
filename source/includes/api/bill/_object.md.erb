@@ -1,0 +1,22 @@
+## The bill object
+
+> Sample Response
+
+```json
+{
+  "balance": 100,
+  "dueDate": "<%= config.futureDate %>",
+  "status": "upcoming", 
+  "settings": {
+    "autoPay": true 
+  }
+}
+```
+
+Attribute | Description
+--------- | -----------
+`balance` | Current bill balance.
+`dueDate` | Current bill due date.
+`status` | Status of the bill. Possible values are `paid`, `pending`, `upcoming`, `overdue`, `syncing`.
+`settings` | Settings for a bill.
+`settings.autopay` | Whether or not this bill is to be paid automatically.
