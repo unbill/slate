@@ -1,3 +1,3 @@
 # Bill API
 
-Bill objects provide you with up-to-date bill balances and due dates. The API allows you to retrieve up-to-date data of a user's bills.
+The bill object provides you with up-to-date balance, due date, and payment history for a bill. The API allows you to retrieve, list, and check the status of a user's bills.

@@ -94,33 +94,37 @@ A bill `status` can be a variety of types. Each type is documented below with a 
 
 ### syncing
 
-There is no available bill balance at the moment. When a bill is first authenticated its status is `syncing` until a bill balance is retrieved. This typically takes no longer than 24 hours.
+Bill data is not available yet. Most common reason is that the user hasn't received a bill.
 
 ![Bill Syncing](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-syncing.png)
 
 ### overdue
 
-There is currently a bill balance with a due date that is in the past and needs to be paid as soon as possible. A bill is typicallly overdue when:
+The due date for the bill has passed, and no payment has been made. Common reason for an overdue bill are:
 
 - A user adds a bill that is already overdue.
-- `autopay` is enabled and the user has no payment method or a payment method on hold.
+- `autopay` is enabled and the user has no payment method or their payment method's status is `failed`.
 - `autopay` is disabled and a payment has not been scheduled via the `/payment/make` endpoint.
 
 ![Bill Overdue](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-overdue.png)
 
 ### authenticate
 
-The user's credentials no longer work with the company's website and need to be reauthenticated. Make a request to the `/auth` endpoint with updated credentials received from your user to remove this status.
+The user's credentials no longer work with the company's website and need to be reauthenticated. Make a request to the `/auth` endpoint with updated credentials to remove this status.
 
 ![Bill Authenticate](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-authenticate.png)
 
 ### hold 
 
-For a number of reasons a bill can have the status of `hold`. When a bill is on hold we'll present you with a `reason` that you in turn can present to your users. To remove this status, the user must complete whatever needs to be done with their online account as described in the `reason`.
+For a number of reasons a bill can have the status of `hold`. When a bill is on hold we'll present you with a `reason` that you in turn can present to your users. To remove this status, the user must take the appropriate action as described in the `reason`. This usually involves them needing to login into their online account. Once the user has completed the action, make a request to the `/bill/fix-hold` endpoint to resume their bill services.
+
+*Display hold reason*
 
 ![Bill Hold](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-hold.png)
 
-You can also allow your user's to manually fix their bill holds in your app by making a request to the `/bill/fix-hold` endpoint.
+*Displayed after user returns to app*
+
+![Bill Hold Confirm](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-hold-confirm.png)
 
 ### upcoming
 
@@ -130,7 +134,7 @@ The user has an outstanding balance on their account that will be paid in the fu
 
 ### pending
 
-The user has an outstanding balance that will be paid in the next 24 hours.
+The user has an outstanding balance with a future due date.
 
 ![Bill Pending](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-pending.png)
 

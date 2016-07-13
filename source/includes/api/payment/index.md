@@ -1,3 +1,3 @@
 # Payment API
 
-In order to make payments towards a user's bill, they must first have a payment method linked with Unbill. By default, after a payment method is linked, payments will be made towards a user's bills automatically and on time. The API allows you to add, retrieve, and make payments on behalf of the user.
+In order to make payments towards a user's bill, they must first link a payment method using the `/payment/add` endpoint. By default, after a payment method is linked, payments will be made towards a user's bills on time. The API allows you to add and retrieve a user's payment method, as well as make payments towards a bill's outstanding balance.
