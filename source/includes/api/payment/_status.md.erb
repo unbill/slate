@@ -1,0 +1,26 @@
+## Payment status
+
+A payment method can have one of two statuses. Each type is documented below with a description of the status and a typical use case.
+
+### verified
+
+The payment method record on file is verified as a valid payment method. When a `verified` status is returned, no action items are required by your users.
+
+### failed
+
+A user's payment method can fail to pay a bill for a number of reasons, some including:
+
+- Insufficient funds
+- Expired card
+- Closed bank account
+
+When a user's payment method fails to pay a bill, we set their payment method status as `failed`. While their status is `failed` no bill payments will be made in behalf of the user. In your apps, if the payment method status is `failed`, we require the user to complete one of two action items:
+
+1. Add a new payment method.
+2. Retry their payment method.
+
+![Failed Payment](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/failed-payment.png)
+
+To have us retry their payment method again, make a request to the `/payment/retry` endpoint.
+
+If their payment method fails again after a retry, their payment method will be removed and they will have to add another payment method to continue paying bills.

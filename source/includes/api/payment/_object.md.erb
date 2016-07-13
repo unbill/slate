@@ -1,0 +1,21 @@
+## The payment method object
+
+> Sample Response
+
+```json
+{
+  "card": {
+    "number": "XXXX0005",
+    "brand": "american express",
+    "type": "credit",
+    "expDate": "2019-06-01T12:00:00.000Z"
+  },
+  "status": "verified"
+}
+```
+
+Attribute | Description
+--------- | -----------
+`card` | Card object
+`bank` | Bank object
+`status` | The status of the payment method on file. Possible values are `verified`, `failed`.

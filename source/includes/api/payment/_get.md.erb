@@ -38,7 +38,7 @@
 
 ```json
 {
-  "message": "That card number doesn't look valid. Try again perhaps?"
+  "message": "Oddly enough, we couldn't load your payment info."
 }
 ```
 
@@ -56,4 +56,4 @@ Param | Description
 
 ### Returns
 
-Returns either a card object or bank object.
+Returns either a card object or bank object. If no payment method is on file, a `400` status code will be returned with an error.

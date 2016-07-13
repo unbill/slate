@@ -1,0 +1,44 @@
+## Fix bill hold
+
+> Sample Request
+
+```json
+{
+  "unbillKey": "<%= config.auth %>",
+  "userId": "56e1dbb5443b10a3bd403fcf",
+  "companyId": "56e1dbb5443b10a3bd403fcf"
+}
+```
+
+> Sample Response
+
+```json
+{
+  "bill": {
+    "balance": 100,
+    "dueDate": "<%= config.futureDate %>",
+    "status": "upcoming", 
+    "settings": {
+      "autoPay": true 
+    }
+  },
+  "company": {
+    "name": "<%= config.billerName %>",
+    "logo": {
+      "url": "<%= config.billerLogo %>",
+      "background": false
+    }
+  },
+  "payments": []
+}
+```
+
+When a user's bill has the status of `hold`, you can allow them to remove the hold manually via your apps.
+
+### HTTP Request
+
+`POST <%= config.host %>/bill/fix-hold`
+
+### Returns
+
+Returns updated bill detail.

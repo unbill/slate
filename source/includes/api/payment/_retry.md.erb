@@ -1,0 +1,40 @@
+## Retry payment method
+
+> Sample Request
+
+```json
+{
+  "unbillKey": "<%= config.auth %>",
+  "userId": "566595c8ce88ccec69328566"
+}
+```
+
+> Sample Response
+
+```json
+{
+  "card": {
+    "number": "XXXX0005",
+    "brand": "american express",
+    "type": "credit",
+    "expDate": "2019-06-01T12:00:00.000Z"
+  },
+  "status": "verified"
+}
+```
+
+Retry a `failed` payment method on file for bill payments.
+
+### HTTP Request
+
+`POST <%= config.host %>/payment/retry`
+
+### Post Parameters
+
+Param | Description
+----- | -----------
+`userId` | Unbill user ID.
+
+### Returns
+
+Returns an updated payment object.
