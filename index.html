@@ -139,6 +139,8 @@
 
 <p>The Unbill API uses standard HTTP <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">verbs</a> to communicate and HTTP <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">response codes</a> to indicate status and errors. All responses come in standard <a href="http://www.json.org/">JSON</a>. The Unbill API is served over HTTPS to ensure data privacy; HTTP is not supported. Every request must include your <code class="prettyprint">unbillKey</code>.</p>
 
+<p><img alt="Overview" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/unbill.png" /></p>
+
 <h2 id="gaining-access">Gaining Access</h2>
 
 <p>To gain access to the Unbill API, please <a href="https://unbill.typeform.com/to/oEBbt1">fill out this form</a>. After our review process is complete, you&rsquo;ll be provided with an <code class="prettyprint">unbillKey</code> which you can use for your requests.</p>
@@ -218,6 +220,8 @@
           <h1 id="auth-api">Auth API</h1>
 
 <p>Authenticate a user&rsquo;s bill credentials via Unbill. This process may take anywhere from 15-90 seconds depending on the responsiveness of the company&rsquo;s website. If a <code class="prettyprint">200</code> status code is returned, no additional MFA is required. If a <code class="prettyprint">201</code> status code is returned, additional MFA is required to authenticate with the company and must be submitted via the <code class="prettyprint">/auth/step</code> endpoint.</p>
+
+<p><img alt="Credentials View" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/credentials-view.png" /></p>
 
           <h2 id="auth">Auth</h2>
 
@@ -426,6 +430,8 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 
 <p>For <code class="prettyprint">questions</code> (Question Based MFA) return the answers formatted as an array of strings. For <code class="prettyprint">list</code> (Code Based MFA) return the desired option by passing the <code class="prettyprint">identifier</code> field given to you from the previous authenticate response. Continue to POST to the <code class="prettyprint">/auth/step</code> with the required answers until a <code class="prettyprint">200</code> status code is returned. At that point the user will be authenticated and you&rsquo;ll have access to bill data.</p>
 
+<p><img alt="Credentials MFA View" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/credentials-mfa-view.png" /></p>
+
 <h3 id="http-request">HTTP Request</h3>
 
 <p><code class="prettyprint">POST https://unbill.co/partner/v2/auth/step</code></p>
@@ -494,7 +500,7 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 
           <h1 id="bill-api">Bill API</h1>
 
-<p>Bill objects provide you with up-to-date bill balances and due dates. The API allows you to retrieve up-to-date data of a user&rsquo;s bills.</p>
+<p>The bill object provides you with up-to-date balance, due date, and payment history for a bill. The API allows you to retrieve, list, and check the status of a user&rsquo;s bills.</p>
 
           <h2 id="the-bill-object">The bill object</h2>
 
@@ -527,11 +533,11 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 </tr>
 <tr>
 <td><code class="prettyprint">lastPaidAmount</code></td>
-<td>Amount of last made payment.</td>
+<td>Amount of last payment.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">lastPaidOn</code></td>
-<td>Date of when the last payment was made.</td>
+<td>Date of last payment.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">status</code></td>
@@ -547,7 +553,7 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 </tr>
 <tr>
 <td><code class="prettyprint">settings.autopay</code></td>
-<td>Whether or not this bill is to be paid automatically.</td>
+<td>Whether or not payments are scheduled automatically.</td>
 </tr>
 </tbody></table>
 
@@ -647,39 +653,57 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 
 <h3 id="syncing">syncing</h3>
 
-<p>There is no available bill balance at the moment. When a bill is first authenticated its status is <code class="prettyprint">syncing</code> until a bill balance is retrieved. This typically takes no longer than 24 hours.</p>
+<p>Bill data is not available yet. Most common reason is that the user hasn&rsquo;t received a bill.</p>
+
+<p><img alt="Bill Syncing" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-syncing.png" /></p>
 
 <h3 id="overdue">overdue</h3>
 
-<p>There is currently a bill balance with a due date that is in the past and needs to be paid as soon as possible. A bill is typicallly overdue when:</p>
+<p>The due date for the bill has passed, and no payment has been made. Common reason for an overdue bill are:</p>
 
 <ul>
 <li>A user adds a bill that is already overdue.</li>
-<li><code class="prettyprint">autopay</code> is enabled and the user has no payment method or a payment method on hold.</li>
+<li><code class="prettyprint">autopay</code> is enabled and the user has no payment method or their payment method&rsquo;s status is <code class="prettyprint">failed</code>.</li>
 <li><code class="prettyprint">autopay</code> is disabled and a payment has not been scheduled via the <code class="prettyprint">/payment/make</code> endpoint.</li>
 </ul>
 
+<p><img alt="Bill Overdue" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-overdue.png" /></p>
+
 <h3 id="authenticate">authenticate</h3>
 
-<p>The user&rsquo;s credentials no longer work with the company&rsquo;s website and need to be reauthenticated. Make a request to the <code class="prettyprint">/auth</code> endpoint with updated credentials received from your user to remove this status.</p>
+<p>The user&rsquo;s credentials no longer work with the company&rsquo;s website and need to be reauthenticated. Make a request to the <code class="prettyprint">/auth</code> endpoint with updated credentials to remove this status.</p>
+
+<p><img alt="Bill Authenticate" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-authenticate.png" /></p>
 
 <h3 id="hold">hold</h3>
 
-<p>For a number of reasons a bill can have the status of <code class="prettyprint">hold</code>. When a bill is on hold we&rsquo;ll present you with a <code class="prettyprint">reason</code> that you in turn can present to your users. To remove this status, the user must complete whatever needs to be done with their online account as described in the <code class="prettyprint">reason</code>.</p>
+<p>For a number of reasons a bill can have the status of <code class="prettyprint">hold</code>. When a bill is on hold we&rsquo;ll present you with a <code class="prettyprint">reason</code> that you in turn can present to your users. To remove this status, the user must take the appropriate action as described in the <code class="prettyprint">reason</code>. This usually involves them needing to login into their online account. Once the user has completed the action, make a request to the <code class="prettyprint">/bill/fix-hold</code> endpoint to resume their bill services.</p>
 
-<p>TODO: Allow for immediate bill hold removal</p>
+<p><em>Display hold reason</em></p>
+
+<p><img alt="Bill Hold" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-hold.png" /></p>
+
+<p><em>Displayed after user returns to app</em></p>
+
+<p><img alt="Bill Hold Confirm" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-hold-confirm.png" /></p>
 
 <h3 id="upcoming">upcoming</h3>
 
 <p>The user has an outstanding balance on their account that will be paid in the future.</p>
 
+<p><img alt="Bill Upcoming" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-upcoming.png" /></p>
+
 <h3 id="pending">pending</h3>
 
-<p>The user has an outstanding balance that will be paid in the next 24 hours.</p>
+<p>The user has an outstanding balance with a future due date.</p>
+
+<p><img alt="Bill Pending" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-pending.png" /></p>
 
 <h3 id="paid">paid</h3>
 
 <p>The user has no outstanding balance and has a last paid amount on their account.</p>
+
+<p><img alt="Bill Paid" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-paid.png" /></p>
 
           <h2 id="retrieve-bill-detail">Retrieve bill detail</h2>
 
@@ -753,7 +777,9 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>Gets details about a bill including outstanding balance, due date, status, and payment history.</p>
+<p>Retrieve details about a bill including outstanding balance, due date, settings, status, and payment history.</p>
+
+<p><img alt="Detail" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/detail.png" /></p>
 
 <h3 id="http-request">HTTP Request</h3>
 
@@ -807,7 +833,7 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 </tr>
 </tbody></table>
 
-          <h2 id="bill-overview">Bill overview</h2>
+          <h2 id="list-all-bills">List all bills</h2>
 
 <blockquote>
 <p>Sample Request</p>
@@ -869,7 +895,9 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>Retrieves a list of bills for a specific user.</p>
+<p>Retrieves a list of user&rsquo;s bills.</p>
+
+<p><img alt="Overview" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/overview.png" /></p>
 
 <h3 id="http-request">HTTP Request</h3>
 
@@ -893,9 +921,52 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 
 <p>Returns a list of bill and company objects that represents an overview of a user&rsquo;s bills.</p>
 
+          <h2 id="fix-bill-hold">Fix bill hold</h2>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"companyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"autoPay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"payments"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://unbill.co/partner/v2/bill/fix-hold</code></p>
+
+<h3 id="returns">Returns</h3>
+
+<p>Returns updated bill detail.</p>
+
           <h1 id="company-api">Company API</h1>
 
-<p>Company objects allow you to authenticate bills with your clients. The API allows you to retrieve and search for companies.</p>
+<p>Company objects allow you to authenticate bills with your users. The API allows you to retrieve and search for companies.</p>
 
           <h2 id="the-company-object">The company object</h2>
 
@@ -1053,7 +1124,7 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 <li><p>When the <code class="prettyprint">company.logo.svg</code> is not available and the <code class="prettyprint">company.logo.background</code> field is set to <code class="prettyprint">false</code>, the logo looks best on a white background.</p>
 
 <p><img alt="TWC" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/twc-logo.png" /></p></li>
-<li><p>When the <code class="prettyprint">company.logo.svg</code> is not available and the <code class="prettyprint">company.logo.background</code> field is set to <code class="prettyprint">true</code>, the logo looks best as a background image with the company name overlayed on top.</p>
+<li><p>When the <code class="prettyprint">company.logo.svg</code> is not available and the <code class="prettyprint">company.logo.background</code> field is set to <code class="prettyprint">true</code>, the logo looks best as a background image with the company name overlaid on top.</p>
 
 <p><img alt="Varsity House" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/varsity-logo.png" /></p></li>
 </ol>
@@ -1224,7 +1295,7 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 
           <h1 id="payment-api">Payment API</h1>
 
-<p>In order to make payments towards a user&rsquo;s bill, they must first have a payment method linked with Unbill. By default, after a payment method is linked, payments will be made towards a user&rsquo;s bills automatically and on time. The API allows you to add, retrieve, and make payments on behalf of the user.</p>
+<p>In order to make payments towards a user&rsquo;s bill, they must first link a payment method using the <code class="prettyprint">/payment/add</code> endpoint. By default, after a payment method is linked, payments will be made towards a user&rsquo;s bills on time. The API allows you to add and retrieve a user&rsquo;s payment method, as well as make payments towards a bill&rsquo;s outstanding balance.</p>
 
           <h2 id="the-card-object">The card object</h2>
 
@@ -1294,6 +1365,73 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 <td>Bank account type. Possible values are <code class="prettyprint">checking</code>, <code class="prettyprint">savings</code>.</td>
 </tr>
 </tbody></table>
+
+          <h2 id="the-payment-method-object">The payment method object</h2>
+
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"card"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX0005"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"american express"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"credit"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"expDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-01T12:00:00.000Z"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">card</code></td>
+<td>Card object</td>
+</tr>
+<tr>
+<td><code class="prettyprint">bank</code></td>
+<td>Bank object</td>
+</tr>
+<tr>
+<td><code class="prettyprint">status</code></td>
+<td>The status of the payment method on file. Possible values are <code class="prettyprint">verified</code>, <code class="prettyprint">failed</code>.</td>
+</tr>
+</tbody></table>
+
+          <h2 id="payment-status">Payment status</h2>
+
+<p>A payment method can have one of two statuses. Each type is documented below with a description of the status and a typical use case.</p>
+
+<h3 id="verified">verified</h3>
+
+<p>The payment method on file is verified and eligible to make payments.</p>
+
+<h3 id="declined">declined</h3>
+
+<p>The payment method on file is not eligible to make payments. This may happen for a number of reasons including:</p>
+
+<ul>
+<li>Insufficient funds</li>
+<li>Expired card</li>
+<li>Closed bank account</li>
+</ul>
+
+<p>When a user&rsquo;s payment method fails to pay a bill, we set their payment method status as <code class="prettyprint">declined</code>. While their status is <code class="prettyprint">declined</code> no bill payments will be made in behalf of the user. To address this issue, you may take one of the following courses of action:</p>
+
+<ol>
+<li>Link a new payment method via the <code class="prettyprint">/payment/add</code> endpoint.</li>
+<li>Retry the payment method via the <code class="prettyprint">/payment/retry</code> endpoint.</li>
+</ol>
+
+<p><em>Declined payment prompt</em></p>
+
+<p><img alt="Failed Payment" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/failed-payment.png" /></p>
+
+<p>If their payment method continues to be declined, it will be removed from their account. The user will need to link a new payment method before bill payment services resume.</p>
 
           <h2 id="add-a-payment-method">Add a payment method</h2>
 
@@ -1388,6 +1526,125 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 
 <p>Returns a <code class="prettyprint">200</code> status code if the payment method was successfully added. Returns an error otherwise.</p>
 
+          <h2 id="retrieve-a-payment-method">Retrieve a payment method</h2>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1ddbd1a05319bc198d36f"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>200 Credit Card Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"card"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX0005"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"american express"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"credit"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"expDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-01T12:00:00.000Z"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>200 Bank Account Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"bank"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"routingNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX0002"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"accountNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX0021s"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"checking"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>400 Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Oddly enough, we couldn't load your payment info."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Retrieve the payment method on file for a user.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://unbill.co/partner/v2/payment/get</code></p>
+
+<h3 id="post-parameters">Post Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">userId</code></td>
+<td>Unbill user ID.</td>
+</tr>
+</tbody></table>
+
+<h3 id="returns">Returns</h3>
+
+<p>Returns either a card object or bank object. If no payment method is on file, a <code class="prettyprint">400</code> status code will be returned with an error.</p>
+
+          <h2 id="retry-payment-method">Retry payment method</h2>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"card"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX0005"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"american express"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"credit"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"expDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-01T12:00:00.000Z"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Retry a <code class="prettyprint">failed</code> payment method on file for bill payments.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://unbill.co/partner/v2/payment/retry</code></p>
+
+<h3 id="post-parameters">Post Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">userId</code></td>
+<td>Unbill user ID.</td>
+</tr>
+</tbody></table>
+
+<h3 id="returns">Returns</h3>
+
+<p>Returns an updated payment object.</p>
+
           <h2 id="enable-or-disable-autopay">Enable or disable autopay</h2>
 
 <blockquote>
@@ -1442,74 +1699,6 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 <h3 id="returns">Returns</h3>
 
 <p>Returns a <code class="prettyprint">200</code> status code if autopay was enabled or disabled.</p>
-
-          <h2 id="retrieve-a-payment-method">Retrieve a payment method</h2>
-
-<blockquote>
-<p>Sample Request</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1ddbd1a05319bc198d36f"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<blockquote>
-<p>200 Credit Card Response</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"card"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX0005"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"american express"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"credit"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"expDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-06-01T12:00:00.000Z"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<blockquote>
-<p>200 Bank Account Response</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"bank"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"routingNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX0002"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"accountNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX0021s"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"checking"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<blockquote>
-<p>400 Response</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"That card number doesn't look valid. Try again perhaps?"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<p>Retrieve the payment method on file for an Unbill user.</p>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/payment/get</code></p>
-
-<h3 id="post-parameters">Post Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Param</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><code class="prettyprint">userId</code></td>
-<td>Unbill user ID.</td>
-</tr>
-</tbody></table>
-
-<h3 id="returns">Returns</h3>
-
-<p>Returns either a card object or bank object.</p>
 
           <h2 id="make-a-payment">Make a payment</h2>
 
