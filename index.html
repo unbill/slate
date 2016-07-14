@@ -1129,6 +1129,57 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 <p><img alt="Varsity House" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/varsity-logo.png" /></p></li>
 </ol>
 
+          <h2 id="company-categories">Company categories</h2>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[{</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Electric"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"electric"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/mobile/billers/category_icons/electric.svg"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}]</span><span class="w">
+
+</span></code></pre>
+
+<p>Retrieve a list of company categories you can use to search for companies by category <code class="prettyprint">type</code>.</p>
+
+<h3 id="200-response-body">200 Response Body</h3>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">name</code></td>
+<td>Name of the category.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">type</code></td>
+<td>Type of category (used when searching for companies).</td>
+</tr>
+<tr>
+<td><code class="prettyprint">image</code></td>
+<td>Category image object.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">image.url</code></td>
+<td>URL of category image svg.</td>
+</tr>
+</tbody></table>
+
           <h2 id="retrieve-a-company">Retrieve a company</h2>
 
 <blockquote>
@@ -1269,7 +1320,9 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>Search for companies by name.</p>
+<p>Search for companies by name or category.</p>
+
+<p><img alt="Company Categories" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/company-categories.png" /></p>
 
 <h3 id="http-request">HTTP Request</h3>
 
@@ -1285,13 +1338,17 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 </thead><tbody>
 <tr>
 <td><code class="prettyprint">query</code></td>
-<td>Search query.</td>
+<td>The text string on which to search companies by name.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">category</code></td>
+<td>Category <code class="prettyprint">type</code> retrieved from the <code class="prettyprint">/company/categories</code> endpoint.</td>
 </tr>
 </tbody></table>
 
 <h3 id="returns">Returns</h3>
 
-<p>Returns a list of company objects that match the provided <code class="prettyprint">query</code>.</p>
+<p>Returns a list of company objects that match the provided <code class="prettyprint">query</code> or <code class="prettyprint">category</code>.</p>
 
           <h1 id="payment-api">Payment API</h1>
 
