@@ -1,0 +1,33 @@
+## Company categories
+
+> Sample Request
+
+```json
+{
+  "unbillKey": "<%= config.auth %>"
+}
+```
+
+> Sample Response
+
+```json
+[{
+  "name": "Electric",
+  "type": "electric",
+  "image": {
+    "url": "https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/mobile/billers/category_icons/electric.svg"
+  }
+}]
+
+```
+
+Retrieve a list of company categories you can use to search for companies by category `type`.
+
+### 200 Response Body
+
+Attribute | Description
+--------- | -----------
+`name` | Name of the category.
+`type` | Type of category (used when searching for companies).
+`image` | Category image object.
+`image.url` | URL of category image svg.

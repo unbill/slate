@@ -23,7 +23,9 @@
 }
 ```
 
-Search for companies by name.
+Search for companies by name or category.
+
+![Company Categories](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/company-categories.png)
 
 ### HTTP Request
 
@@ -33,8 +35,9 @@ Search for companies by name.
 
 Param | Description
 ----- | -----------
-`query` | Search query.
+`query` | The text string on which to search companies by name.
+`category` | Category `type` retrieved from the `/company/categories` endpoint.
 
 ### Returns
 
-Returns a list of company objects that match the provided `query`.
+Returns a list of company objects that match the provided `query` or `category`.
