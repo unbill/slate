@@ -1,0 +1,36 @@
+## Remove bill
+
+> Sample Request
+
+```json
+{
+  "unbillKey": "<%= config.auth %>",
+  "userId": "56e1dbb5443b10a3bd403fcf",
+  "companyId": "56e1dbb5443b10a3bd403fcf"
+}
+```
+
+Remove a bill from a user's list of bills.
+
+### HTTP Request
+
+`POST <%= config.host %>/bill/remove`
+
+### Post Parameters
+
+Param | Description
+----- | -----------
+`userId` | Unbill user ID.
+`companyId` | Unbill company ID.
+
+> 400 Response
+
+```json
+{
+  "message": "Please provide userId and companyId."
+}
+```
+
+### Returns
+
+Returns a `200` response if the bill was removed successfully.
