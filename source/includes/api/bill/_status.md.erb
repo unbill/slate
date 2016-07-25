@@ -4,7 +4,10 @@
 
 ```json
 {
-  "status": "syncing", 
+  "status": {
+    "type": "syncing",
+    "text": "Syncing"
+  }, 
   "settings": {
     "autoPay": true 
   }
@@ -17,7 +20,10 @@
 {
   "balance": 100,
   "dueDate": "2016-03-25T00:00:00.000Z",
-  "status": "overdue", 
+  "status": {
+    "type": "overdue",
+    "text": "Overdue"
+  },
   "settings": {
     "autoPay": true 
   }
@@ -30,7 +36,10 @@
 {
   "balance": "100.00",
   "dueDate": "<%= config.futureDate %>",
-  "status": "authenticate",
+  "status": {
+    "type": "authenticate",
+    "text": "Tap to fix"
+  },
   "settings": {
     "autopay": true
   }
@@ -43,7 +52,10 @@
 {
   "balance": 100,
   "dueDate": "<%= config.futureDate %>",
-  "status": "hold", 
+  "status": {
+    "type": "hold",
+    "text": "Tap to fix"
+  },
   "reason": "You'll need to login and accept the terms and conditions on your account.",
   "settings": {
     "autoPay": true 
@@ -57,7 +69,10 @@
 {
   "balance": 100,
   "dueDate": "<%= config.futureDate %>",
-  "status": "upcoming", 
+  "status": {
+    "type": "upcoming",
+    "text": "<%= config.futureStatus %>"
+  },
   "settings": {
     "autoPay": true 
   }
@@ -70,7 +85,10 @@
 {
   "balance": 100,
   "dueDate": "<%= config.futureDate %>",
-  "status": "pending", 
+  "status": {
+    "type": "pending", 
+    "text": "Pending"
+  },
   "settings": {
     "autoPay": true 
   }
@@ -81,7 +99,10 @@
 
 ```json
 {
-  "status": "paid",
+  "status": {
+    "type": "paid",
+    "text": "Paid"
+  },
   "lastPaidAmount": 100,
   "lastPaidOn": "2016-01-01T00:00:00.000Z",
   "settings": {
@@ -90,7 +111,7 @@
 }
 ```
 
-A bill `status` can be a variety of types. Each type is documented below with a description of the status and a typical use case.
+A bill `status.type` can be a variety of types. Each type is documented below with a description of the status and a typical use case.
 
 ### syncing
 

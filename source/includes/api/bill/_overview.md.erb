@@ -14,7 +14,10 @@
 ```json
 [{
   "bill": {
-    "status": "syncing"
+    "status": {
+      "type": "syncing",
+      "text": "Syncing"
+    }
   },
   "company": {
     "name": "Time Warner Cable",
@@ -26,8 +29,11 @@
 }, {
   "bill": {
     "balance": 100,
-    "dueDate": "2016-03-25T00:00:00.000Z",
-    "status": "upcoming" 
+    "dueDate": "<%= config.futureDate %>",
+    "status": {
+      "type": "upcoming",
+      "text": "<%= config.futureStatus %>"
+    }
   },
   "company": {
     "name": "The Grove at Auburn",
@@ -40,7 +46,10 @@
   "bill": {
     "lastPaidAmount": 25,
     "lastPaidOn": "2016-03-25T00:00:00.000Z",
-    "status": "paid"
+    "status": {
+      "type": "paid",
+      "text": "Paid"
+    }
   },
   "company": {
     "name": "Netflix",

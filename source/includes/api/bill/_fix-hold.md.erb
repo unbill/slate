@@ -17,7 +17,10 @@
   "bill": {
     "balance": 100,
     "dueDate": "<%= config.futureDate %>",
-    "status": "upcoming", 
+    "status": {
+      "type": "upcoming",
+      "text": "<%= config.futureStatus %>"
+    },
     "settings": {
       "autoPay": true 
     }

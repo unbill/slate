@@ -17,7 +17,9 @@
   "bill": {
     "balance": 100,
     "dueDate": "<%= config.futureDate %>",
-    "status": "upcoming", 
+    "status": {
+      "type": "upcoming"
+    }, 
     "settings": {
       "autoPay": true 
     }
@@ -38,7 +40,9 @@
 ```json
 {
   "bill": {
-    "status": "paid",
+    "status": {
+      "type": "paid"
+    },
     "lastPaidAmount": 100,
     "lastPaidOn": "2016-01-01T00:00:00.000Z",
     "settings": {
