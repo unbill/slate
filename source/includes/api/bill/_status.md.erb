@@ -6,7 +6,8 @@
 {
   "status": {
     "type": "syncing",
-    "text": "Syncing"
+    "text": "Syncing",
+    "image": "<%= config.statusSvg %>"
   }, 
   "settings": {
     "autoPay": true 
@@ -22,7 +23,8 @@
   "dueDate": "2016-03-25T00:00:00.000Z",
   "status": {
     "type": "overdue",
-    "text": "Overdue"
+    "text": "Overdue",
+    "image": "<%= config.statusSvg %>"
   },
   "settings": {
     "autoPay": true 
@@ -38,7 +40,8 @@
   "dueDate": "<%= config.futureDate %>",
   "status": {
     "type": "authenticate",
-    "text": "Tap to fix"
+    "text": "Tap to fix",
+    "image": "<%= config.statusSvg %>"
   },
   "settings": {
     "autopay": true
@@ -54,7 +57,8 @@
   "dueDate": "<%= config.futureDate %>",
   "status": {
     "type": "hold",
-    "text": "Tap to fix"
+    "text": "Tap to fix",
+    "image": "<%= config.statusSvg %>"
   },
   "reason": "You'll need to login and accept the terms and conditions on your account.",
   "settings": {
@@ -71,7 +75,8 @@
   "dueDate": "<%= config.futureDate %>",
   "status": {
     "type": "upcoming",
-    "text": "<%= config.futureStatus %>"
+    "text": "<%= config.futureStatus %>",
+    "image": "<%= config.statusSvg %>"
   },
   "settings": {
     "autoPay": true 
@@ -87,7 +92,8 @@
   "dueDate": "<%= config.futureDate %>",
   "status": {
     "type": "pending", 
-    "text": "Pending"
+    "text": "Pending",
+    "image": "<%= config.statusSvg %>"
   },
   "settings": {
     "autoPay": true 
@@ -101,7 +107,8 @@
 {
   "status": {
     "type": "paid",
-    "text": "Paid"
+    "text": "Paid",
+    "image": "<%= config.statusSvg %>"
   },
   "lastPaidAmount": 100,
   "lastPaidOn": "2016-01-01T00:00:00.000Z",
