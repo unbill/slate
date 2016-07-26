@@ -1573,13 +1573,17 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 </tr>
 <tr>
 <td><code class="prettyprint">status</code></td>
-<td>The status of the payment method on file. Possible values are <code class="prettyprint">verified</code>, <code class="prettyprint">failed</code>.</td>
+<td>The status of the payment method on file. Possible values are <code class="prettyprint">not-linked</code>, <code class="prettyprint">verified</code>, <code class="prettyprint">failed</code>.</td>
 </tr>
 </tbody></table>
 
           <h2 id="payment-status">Payment status</h2>
 
-<p>A payment method can have one of two statuses. Each type is documented below with a description of the status and a typical use case.</p>
+<p>A payment method can have one of three statuses. Each type is documented below with a description of the status and a typical use case.</p>
+
+<h3 id="not-linked">not-linked</h3>
+
+<p>The user has no payment method on file.</p>
 
 <h3 id="verified">verified</h3>
 
