@@ -23,10 +23,8 @@ Attribute | Description
 `dueDate` | Current bill due date.
 `lastPaidAmount` | Amount of last payment.
 `lastPaidOn` | Date of last payment.
-`status` | Status of the bill.
-`status.type` | Type of bill status. Possible values are `syncing`, `overdue`, `authenticate`, `hold`, `upcoming`, `pending`, `paid`.
-`status.text` | Helper text that describes the status type. Possible values are `Syncing`, `Tap to fix`, `Due XXX X`, `Overdue`, `Pending`, `Paid`.
-`status.image` | URL of the status svg.
+`status` | [Status](#bill-status) of the bill.
+`headline` | [Headline](#bill-headline) of the bill.
 `reason` | Reason the bill is on hold.
 `settings` | Settings for a bill.
 `settings.autopay` | Whether or not payments are scheduled automatically.
