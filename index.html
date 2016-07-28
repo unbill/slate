@@ -545,19 +545,11 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 </tr>
 <tr>
 <td><code class="prettyprint">status</code></td>
-<td>Status of the bill.</td>
+<td><a href="#bill-status">Status</a> of the bill.</td>
 </tr>
 <tr>
-<td><code class="prettyprint">status.type</code></td>
-<td>Type of bill status. Possible values are <code class="prettyprint">syncing</code>, <code class="prettyprint">overdue</code>, <code class="prettyprint">authenticate</code>, <code class="prettyprint">hold</code>, <code class="prettyprint">upcoming</code>, <code class="prettyprint">pending</code>, <code class="prettyprint">paid</code>.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">status.text</code></td>
-<td>Helper text that describes the status type. Possible values are <code class="prettyprint">Syncing</code>, <code class="prettyprint">Tap to fix</code>, <code class="prettyprint">Due XXX X</code>, <code class="prettyprint">Overdue</code>, <code class="prettyprint">Pending</code>, <code class="prettyprint">Paid</code>.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">status.image</code></td>
-<td>URL of the status svg.</td>
+<td><code class="prettyprint">headline</code></td>
+<td><a href="#bill-headline">Headline</a> of the bill.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">reason</code></td>
@@ -749,6 +741,58 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 
 <p><img alt="Bill Paid" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-paid.png" /></p>
 
+<p><br></p>
+
+<p>A bill <code class="prettyprint">status.text</code> can be used in your bill overview. It is friendly text that describes the <code class="prettyprint">status.type</code> in more detail. Possible values are <code class="prettyprint">Syncing</code>, <code class="prettyprint">Tap to fix</code>, <code class="prettyprint">Due XXX X</code>, <code class="prettyprint">Overdue</code>, <code class="prettyprint">Pending</code>, <code class="prettyprint">Paid</code>.</p>
+
+<p>A bill <code class="prettyprint">status.image</code> can be used in your bill overview. It is a URL to a status icon.</p>
+
+          <h2 id="bill-headline">Bill headline</h2>
+
+<blockquote>
+<p>Sample Headline</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"headline"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$35.23 due on 5/7."</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"buttons"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+                </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pay Now"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pay-now"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"primary"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+            </span><span class="p">}]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">   
+</span></code></pre>
+
+<p>A bill <code class="prettyprint">headline</code> is a quick glance at the current state of a bill. It is available within the bill detail.</p>
+
+<p><img alt="Bill Headline" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-headline.png" /></p>
+
+<p>Each headline includes a <code class="prettyprint">title</code>, <code class="prettyprint">type</code>, optional <code class="prettyprint">subtitle</code>, and optional action <code class="prettyprint">buttons</code> as documented below.</p>
+
+<h3 id="title">title</h3>
+
+<p>The <code class="prettyprint">title</code> describes the current state of a bil.</p>
+
+<h3 id="type">type</h3>
+
+<p>The <code class="prettyprint">type</code> describes the type of headline and is similar to the status of a bill. Possible values are <code class="prettyprint">syncing</code>, <code class="prettyprint">pending</code>, <code class="prettyprint">paid</code>, <code class="prettyprint">upcoming</code>.</p>
+
+<h3 id="subtitle">subtitle</h3>
+
+<p>The <code class="prettyprint">subtitle</code> is additional helper text to more fully describe the state of the bill.</p>
+
+<p><img alt="Bill Subtitle" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-headline-subtitle.png" /></p>
+
+<h3 id="buttons">buttons</h3>
+
+<p>The <code class="prettyprint">buttons</code> represent possible actions a user could take. For example, when <code class="prettyprint">autopay</code> is disabled the <code class="prettyprint">title</code> would say &ldquo;$35.23 due on 5/7.&rdquo; and the button <code class="prettyprint">text</code> would be &ldquo;Pay Now&rdquo;. When the user clicks the &ldquo;Pay Now&rdquo; button, you would make a call the <code class="prettyprint">/payment/make</code> endpoint after confirming with the user they want to pay off their balance.</p>
+
+<p>Each button includes <code class="prettyprint">text</code>, <code class="prettyprint">type</code>, and <code class="prettyprint">primary</code> fields. The <code class="prettyprint">text</code> describes the action. Possible values of <code class="prettyprint">type</code> are <code class="prettyprint">pay-now</code> (schedule payments) and <code class="prettyprint">bill-settings</code> (update autopay). When there are multiple buttons, <code class="prettyprint">primary</code> dictates which button is most relevant to the user in the list of <code class="prettyprint">buttons</code>.</p>
+
           <h2 id="retrieve-bill-detail">Retrieve bill detail</h2>
 
 <blockquote>
@@ -773,6 +817,10 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
     </span><span class="p">},</span><span class="w"> 
     </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nt">"autoPay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"headline"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$35.23 will be paid on 5/7."</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -798,6 +846,10 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
     </span><span class="nt">"lastPaidOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nt">"autoPay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"headline"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paid in full."</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"paid"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
