@@ -15,7 +15,7 @@
 ```json
 {
   "bill": {
-    "balance": 100,
+    "balance": "100",
     "dueDate": "<%= config.futureDate %>",
     "status": {
       "type": "upcoming"
@@ -47,7 +47,7 @@
     "status": {
       "type": "paid"
     },
-    "lastPaidAmount": 100,
+    "lastPaidAmount": "100",
     "lastPaidOn": "2016-01-01T00:00:00.000Z",
     "settings": {
       "autoPay": true 
@@ -65,10 +65,10 @@
     }
   },
   "payments": [{
-    "amount": 123.12,
+    "amount": "123.12",
     "paidOn": "2016-01-01T00:00:00.000Z"
   },{
-    "amount": 153.19,
+    "amount": "153.19",
     "paidOn": "2016-01-02T00:00:00.000Z"
   }]
 }
