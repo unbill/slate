@@ -61,6 +61,7 @@ config.futureStatus = 'Due Oct 25'
 # Response Configuration
 config.companyResponseExample = [
 '{',
+'  "_id": "579b695decea110719b1874d",',
 '  "name": "' + config.billerName + '",',
 '  "logo": {',
 '    "url": "' + config.billerLogo + '",',
@@ -97,6 +98,7 @@ config.companyResponseExample = [
 ].join("\n")
 
 config.companyResponseDescription = [
+  '`_id` | ID of the company.',
   '`name` | Name of the company.',
   '`logo` | Company logo object.',
   '`logo.url` | URL of the company logo.',
