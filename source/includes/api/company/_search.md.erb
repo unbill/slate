@@ -1,11 +1,28 @@
 ## Search for companies
 
-> Sample Request
+> Sample Requests
 
 ```json
 {
   "unbillKey": "<%= config.auth %>",
   "query": "Netflix"
+}
+```
+
+```json
+{
+  "unbillKey": "<%= config.auth %>",
+  "category": "gas"
+}
+```
+
+```json
+{
+  "unbillKey": "<%= config.auth %>",
+  "geo": {
+	"lat": "40.233845",
+  	"lng": "-111.658531"
+  }
 }
 ```
 
@@ -23,7 +40,7 @@
 }
 ```
 
-Search for companies by name or category.
+Search for companies by name, category, or geo.
 
 ![Company Categories](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/company-categories.png)
 
@@ -37,6 +54,9 @@ Param | Description
 ----- | -----------
 `query` | The text string on which to search companies by name.
 `category` | Category `type` retrieved from the `/company/categories` endpoint.
+`geo` | Geo coordinates to search companies by location.
+`geo.lat` | Latitude coordinate.
+`geo.lng` | Longitude coordinate.
 
 ### Returns
 
