@@ -120,7 +120,8 @@
 <blockquote>
 <p>API Host</p>
 </blockquote>
-<pre class="highlight plaintext"><code>https://unbill.co/partner/v2
+<pre class="highlight plaintext"><code>https://sandbox.unbill.co/partner/v2 (development)
+https://unbill.co/partner/v2 (production)
 </code></pre>
 
 <blockquote>
@@ -312,8 +313,7 @@
 
 <h3 id="testing">Testing</h3>
 
-<p>Use <code class="prettyprint">unbillUsername</code> for <code class="prettyprint">form.username</code> and <code class="prettyprint">unbillPassword</code> for <code class="prettyprint">form.password</code>.
-To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> flag whose value can be <code class="prettyprint">questions</code> for a question based response, or <code class="prettyprint">list</code> for a code based response. In this response will be provided the <code class="prettyprint">token</code> which you can submit to the <code class="prettyprint">/auth/step</code> endpoint for additional testing.</p>
+<p>To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> flag whose value can be <code class="prettyprint">questions</code> for a question based response, or <code class="prettyprint">list</code> for a code based response. In this response will be provided the <code class="prettyprint">token</code> which you can submit to the <code class="prettyprint">/auth/step</code> endpoint for additional testing.</p>
 
 <h3 id="200-response-body">200 Response Body</h3>
 
@@ -1477,11 +1477,24 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
           <h2 id="search-for-companies">Search for companies</h2>
 
 <blockquote>
-<p>Sample Request</p>
+<p>Sample Requests</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gas"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"geo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"lat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40.233845"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"lng"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-111.658531"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -1533,7 +1546,7 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>Search for companies by name or category.</p>
+<p>Search for companies by name, category, or geo.</p>
 
 <p><img alt="Company Categories" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/company-categories.png" /></p>
 
@@ -1556,6 +1569,18 @@ To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> 
 <tr>
 <td><code class="prettyprint">category</code></td>
 <td>Category <code class="prettyprint">type</code> retrieved from the <code class="prettyprint">/company/categories</code> endpoint.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">geo</code></td>
+<td>Geo coordinates to search companies by location.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">geo.lat</code></td>
+<td>Latitude coordinate.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">geo.lng</code></td>
+<td>Longitude coordinate.</td>
 </tr>
 </tbody></table>
 
