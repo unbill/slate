@@ -10,7 +10,22 @@
     "image": "<%= config.statusSvg %>"
   }, 
   "settings": {
-    "autoPay": true 
+    "autopay": true 
+  }
+}
+```
+
+> Nothing Due Response
+
+```json
+{
+  "status": {
+    "type": "zero-balance",
+    "text": "$0.00",
+    "image": "<%= config.statusSvg %>"
+  }, 
+  "settings": {
+    "autopay": true 
   }
 }
 ```
@@ -19,7 +34,7 @@
 
 ```json
 {
-  "balance": 100,
+  "balance": "100.00",
   "dueDate": "2016-03-25T00:00:00.000Z",
   "status": {
     "type": "overdue",
@@ -27,7 +42,7 @@
     "image": "<%= config.statusSvg %>"
   },
   "settings": {
-    "autoPay": true 
+    "autopay": true 
   }
 }
 ```
@@ -53,7 +68,7 @@
 
 ```json
 {
-  "balance": 100,
+  "balance": "100.00",
   "dueDate": "<%= config.futureDate %>",
   "status": {
     "type": "hold",
@@ -62,7 +77,7 @@
   },
   "reason": "You'll need to login and accept the terms and conditions on your account.",
   "settings": {
-    "autoPay": true 
+    "autopay": true 
   }
 }
 ```
@@ -71,7 +86,7 @@
 
 ```json
 {
-  "balance": 100,
+  "balance": "100.00",
   "dueDate": "<%= config.futureDate %>",
   "status": {
     "type": "upcoming",
@@ -79,7 +94,7 @@
     "image": "<%= config.statusSvg %>"
   },
   "settings": {
-    "autoPay": true 
+    "autopay": true 
   }
 }
 ```
@@ -88,7 +103,7 @@
 
 ```json
 {
-  "balance": 100,
+  "balance": "100.00",
   "dueDate": "<%= config.futureDate %>",
   "status": {
     "type": "pending", 
@@ -96,7 +111,7 @@
     "image": "<%= config.statusSvg %>"
   },
   "settings": {
-    "autoPay": true 
+    "autopay": true 
   }
 }
 ```
@@ -110,10 +125,10 @@
     "text": "Paid",
     "image": "<%= config.statusSvg %>"
   },
-  "lastPaidAmount": 100,
+  "lastPaidAmount": "100.00",
   "lastPaidOn": "2016-01-01T00:00:00.000Z",
   "settings": {
-    "autoPay": true 
+    "autopay": true 
   }
 }
 ```
@@ -122,7 +137,13 @@ A bill `status.type` can be a variety of types. Each type is documented below wi
 
 ### syncing
 
-Bill data is not available yet. Most common reason is that the user hasn't received a bill.
+Our system is currently retrieving data.
+
+![Bill Syncing](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-syncing.png)
+
+### zero-balance
+
+Bill data is not available yet. Most common reason is that the user hasn't received a bill. (change image)
 
 ![Bill Syncing](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-syncing.png)
 
