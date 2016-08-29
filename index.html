@@ -516,7 +516,7 @@ https://unbill.co/partner/v2 (production)
     </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/status.svg"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"autoPay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+    </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -577,7 +577,22 @@ https://unbill.co/partner/v2 (production)
     </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/status.svg"</span><span class="w">
   </span><span class="p">},</span><span class="w"> 
   </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"autoPay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+    </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Nothing Due Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zero-balance"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$0.00"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/status.svg"</span><span class="w">
+  </span><span class="p">},</span><span class="w"> 
+  </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -586,7 +601,7 @@ https://unbill.co/partner/v2 (production)
 <p>Overdue Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.00"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-03-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"overdue"</span><span class="p">,</span><span class="w">
@@ -594,7 +609,7 @@ https://unbill.co/partner/v2 (production)
     </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/status.svg"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"autoPay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+    </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -620,7 +635,7 @@ https://unbill.co/partner/v2 (production)
 <p>Hold Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.00"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hold"</span><span class="p">,</span><span class="w">
@@ -629,7 +644,7 @@ https://unbill.co/partner/v2 (production)
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"You'll need to login and accept the terms and conditions on your account."</span><span class="p">,</span><span class="w">
   </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"autoPay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+    </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -638,7 +653,7 @@ https://unbill.co/partner/v2 (production)
 <p>Upcoming Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.00"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="p">,</span><span class="w">
@@ -646,7 +661,7 @@ https://unbill.co/partner/v2 (production)
     </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/status.svg"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"autoPay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+    </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -655,7 +670,7 @@ https://unbill.co/partner/v2 (production)
 <p>Pending Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.00"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w"> 
@@ -663,7 +678,7 @@ https://unbill.co/partner/v2 (production)
     </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/status.svg"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"autoPay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+    </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -677,10 +692,10 @@ https://unbill.co/partner/v2 (production)
     </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paid"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/status.svg"</span><span class="w">
   </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"lastPaidAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"lastPaidAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.00"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"lastPaidOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"autoPay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+    </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -689,7 +704,13 @@ https://unbill.co/partner/v2 (production)
 
 <h3 id="syncing">syncing</h3>
 
-<p>Bill data is not available yet. Most common reason is that the user hasn&rsquo;t received a bill.</p>
+<p>Our system is currently retrieving data.</p>
+
+<p><img alt="Bill Syncing" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-syncing.png" /></p>
+
+<h3 id="zero-balance">zero-balance</h3>
+
+<p>Bill data is not available yet. Most common reason is that the user hasn&rsquo;t received a bill. (change image)</p>
 
 <p><img alt="Bill Syncing" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-syncing.png" /></p>
 
@@ -830,7 +851,7 @@ https://unbill.co/partner/v2 (production)
       </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="w">
     </span><span class="p">},</span><span class="w"> 
     </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"autoPay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+      </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
     </span><span class="p">},</span><span class="w">
     </span><span class="nt">"headline"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$35.23 will be paid on 5/7."</span><span class="p">,</span><span class="w">
@@ -860,7 +881,7 @@ https://unbill.co/partner/v2 (production)
     </span><span class="nt">"lastPaidAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"lastPaidOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"autoPay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+      </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
     </span><span class="p">},</span><span class="w">
     </span><span class="nt">"headline"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paid in full."</span><span class="p">,</span><span class="w">
@@ -1077,7 +1098,7 @@ https://unbill.co/partner/v2 (production)
       </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/status.svg"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"autoPay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+      </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
     </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
