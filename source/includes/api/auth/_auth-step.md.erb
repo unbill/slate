@@ -69,7 +69,7 @@ Some companies require multi-factor authentication (MFA) and the` /auth/step` ro
 
 For `questions` (Question Based MFA) return the answers formatted as an array of strings. For `list` (Code Based MFA) return the desired option by passing the `identifier` field given to you from the previous authenticate response. Continue to POST to the `/auth/step` with the required answers until a `200` status code is returned. At that point the user will be authenticated and you'll have access to bill data.
 
-![Credentials MFA View](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/credentials-mfa-view.png)
+![Credentials MFA View](<%= config.s3 %>/credentials-mfa-view.png)
 
 ### HTTP Request
 

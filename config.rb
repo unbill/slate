@@ -57,6 +57,7 @@ config.billerLogin = 'https://www.netflix.com/Login'
 config.billerSignup = 'https://www.netflix.com'
 config.futureDate = '2016-10-25T00:00:00.000Z'
 config.futureStatus = 'Due Oct 25'
+config.s3 = 'https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs'
 
 # Response Configuration
 config.companyResponseExample = [

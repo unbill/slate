@@ -135,13 +135,13 @@ A bill `status.type` can be a variety of types. Each type is documented below wi
 
 Our system is currently retrieving data.
 
-![Bill Syncing](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-syncing.png)
+![Bill Syncing](<%= config.s3 %>/bill-syncing.png)
 
 ### zero-balance
 
 Bill data is not available yet. Most common reason is that the user hasn't received a bill. (change image)
 
-![Bill Zero Balance](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-zero-balance.png)
+![Bill Zero Balance](<%= config.s3 %>/bill-zero-balance.png)
 
 ### overdue
 
@@ -151,13 +151,13 @@ The due date for the bill has passed, and no payment has been made. Common reaso
 - `autopay` is enabled and the user has no payment method or their payment method's status is `failed`.
 - `autopay` is disabled and a payment has not been scheduled via the `/payment/make` endpoint.
 
-![Bill Overdue](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-overdue.png)
+![Bill Overdue](<%= config.s3 %>/bill-overdue.png)
 
 ### authenticate
 
 The user's credentials no longer work with the company's website and need to be reauthenticated. Make a request to the `/auth` endpoint with updated credentials to remove this status.
 
-![Bill Authenticate](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-authenticate.png)
+![Bill Authenticate](<%= config.s3 %>/bill-authenticate.png)
 
 ### hold 
 
@@ -165,29 +165,29 @@ For a number of reasons a bill can have the status of `hold`. When a bill is on 
 
 *Display hold reason*
 
-![Bill Hold](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-hold.png)
+![Bill Hold](<%= config.s3 %>/bill-hold.png)
 
 *Displayed after user returns to app*
 
-![Bill Hold Confirm](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-hold-confirm.png)
+![Bill Hold Confirm](<%= config.s3 %>/bill-hold-confirm.png)
 
 ### upcoming
 
 The user has an outstanding balance on their account that will be paid in the future.
 
-![Bill Upcoming](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-upcoming.png)
+![Bill Upcoming](<%= config.s3 %>/bill-upcoming.png)
 
 ### pending
 
 The user has an outstanding balance with a future due date.
 
-![Bill Pending](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-pending.png)
+![Bill Pending](<%= config.s3 %>/bill-pending.png)
 
 ### paid
 
 The user has no outstanding balance and has a last paid amount on their account.
 
-![Bill Paid](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-paid.png)
+![Bill Paid](<%= config.s3 %>/bill-paid.png)
 
 <br>
 
