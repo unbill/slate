@@ -218,11 +218,41 @@ https://unbill.co/partner/v2 (production)
 <li>When autopay is disabled, in order to make a payment, one must be scheduled via the <code class="prettyprint">/payment/make</code> endpoint.</li>
 </ol>
 
+          <h1 id="resources">Resources</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>All open source libraries and sample apps for Unbill are listed below. If you&rsquo;ve built anything that you&rsquo;d be willing to share, please let us know and we&rsquo;ll link to it here (and send you a t-shirt)!</p>
+
+<h2 id="official-libraries">Official Libraries</h2>
+
+<div class="resources">
+    <a href="https://github.com/unbill/unbill-node" target="_blank" class="resource">
+        <img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/node.svg" />
+        <div class="content">
+            <h3>Node</h3>
+            <p>unbill-node</p>
+        </div>
+    </a>
+</div>
+
+<h2 id="official-apps">Official Apps</h2>
+
+<div class="resources">
+    <a href="https://github.com/unbill/unbill-ionic" target="_blank" class="resource">
+        <img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/ionic.png" />
+        <div class="content">
+            <h3>Ionic</h3>
+            <p>unbill-ionic</p>
+        </div>
+    </a>
+</div>
+
           <h1 id="auth-api">Auth API</h1>
 
 <p>Authenticate a user&rsquo;s bill credentials via Unbill. This process may take anywhere from 15-90 seconds depending on the responsiveness of the company&rsquo;s website. If a <code class="prettyprint">200</code> status code is returned, no additional MFA is required. If a <code class="prettyprint">201</code> status code is returned, additional MFA is required to authenticate with the company and must be submitted via the <code class="prettyprint">/auth/step</code> endpoint.</p>
 
-<p><img alt="Credentials View" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/credentials-view.png" /></p>
+<p><img alt="Credentials View" src="images/%=config.s3%&gt;/credentials-view.png" /></p>
 
           <h2 id="auth">Auth</h2>
 
