@@ -1,4 +1,4 @@
-## Retrieve a payment method
+## List all payment methods
 
 > Sample Request
 
@@ -9,31 +9,33 @@
 }
 ```
 
-> 200 Credit Card Response
+> 200 Response
 
 ```json
-{
-  "card": {
-    "number": "XXXX0005",
-    "brand": "american express",
-    "type": "credit",
-    "expDate": "2019-06-01T12:00:00.000Z"
+[
+  {
+    "_id": "580e3754dec21e861b5a3718",
+    "type": "card",
+    "card": {
+      "number": "XXXX4242",
+      "brand": "visa",
+      "type": "credit",
+      "expDate": "2016-12-01T12:00:00.000Z"
+    },
+    "status": "verified",
+    "default": true
   },
-  "status": "verified"
-}
-```
-
-> 200 Bank Account Response
-
-```json
-{
-  "bank": {
-    "routingNumber": "XXXX0002",
-    "accountNumber": "XXXX0021",
-    "type": "checking"
-  },
-  "status": "verified"
-}
+  {
+    "_id": "580e3e11dec21e861b5a3719",
+    "type": "bank",
+    "bank": {
+      "routing": "XXXX2531",
+      "account": "XXXX4124",
+      "type": "checking"
+    },
+    "status": "declined"
+  }
+]
 ```
 
 > 400 Response
@@ -44,7 +46,7 @@
 }
 ```
 
-Retrieve the payment method on file for a user.
+Retrieve a list of payment methods on file for a user.
 
 ### HTTP Request
 
@@ -58,4 +60,4 @@ Param | Description
 
 ### Returns
 
-Returns either a card object or bank object. If no payment method is on file, a `400` status code will be returned with an error.
+Returns a list of card and bank objects. If no payment methods are on file, an empty array will be returned.

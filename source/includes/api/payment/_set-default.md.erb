@@ -1,4 +1,4 @@
-## Retry payment method
+## Default payment method
 
 > Sample Request
 
@@ -26,11 +26,11 @@
 }
 ```
 
-Retry a `declined` payment method on file for bill payments.
+Set a payment method as the `default` for bill payments.
 
 ### HTTP Request
 
-`POST <%= config.host %>/payment/retry`
+`POST <%= config.host %>/payment/set-default`
 
 ### Post Parameters
 

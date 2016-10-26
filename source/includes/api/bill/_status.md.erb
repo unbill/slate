@@ -62,6 +62,36 @@
 }
 ```
 
+> Payment Required Response
+
+```json
+{
+  "status": {
+    "type": "payment-required",
+    "text": "Tap to fix",
+    "image": "<%= config.statusSvg %>"
+  },
+  "settings": {
+    "autopay": true
+  }
+}
+```
+
+> Payment Declined Response
+
+```json
+{
+  "status": {
+    "type": "payment-declined",
+    "text": "Tap to fix",
+    "image": "<%= config.statusSvg %>"
+  },
+  "settings": {
+    "autopay": true
+  }
+}
+```
+
 > Hold Response
 
 ```json
@@ -158,6 +188,18 @@ The due date for the bill has passed, and no payment has been made. Common reaso
 The user's credentials no longer work with the company's website and need to be reauthenticated. Make a request to the `/auth` endpoint with updated credentials to remove this status.
 
 ![Bill Authenticate](<%= config.s3 %>/bill-authenticate.png)
+
+### payment-required
+
+The payment method specified by `company.requiredPayment` is required to pay this bill. A linked payment method must be assigned before bill payments will resume. This can be done via the `/payment/assign` endpoint.
+
+![Payment required](<%= config.s3 %>/bill-authenticate.png)
+
+### payment-declined
+
+The payment method used to pay this bill was declined. To resume bill payments, have the user try their payment method again via the `/payment/retry` endpoint, or assign another one via the `/payment/assign` endpoint.
+
+![Payment declined](<%= config.s3 %>/bill-authenticate.png)
 
 ### hold 
 

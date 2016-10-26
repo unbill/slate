@@ -1,0 +1,44 @@
+## Assign payment method
+
+> Sample Request
+
+```json
+{
+  "unbillKey": "<%= config.auth %>",
+  "paymentMethodId": "566595c8ce88ccec69328566",
+  "billId": "579b695decea110719b1874d"
+}
+```
+
+> 200 Response
+
+```json
+{
+  "_id": "580e3e11dec21e861b5a3719",
+  "type": "bank",
+  "bank": {
+    "routing": "XXXX2531",
+    "account": "XXXX4124",
+    "type": "checking"
+  },
+  "status": "verified",
+  "assignedBills": [ "579b695decea110719b1874d" ]
+}
+```
+
+Assign a linked payment method to pay a specific bill. This is required when a company's `requiredPayment` is defined as `card` or `bank`.
+
+### HTTP Request
+
+`POST <%= config.host %>/payment/assign`
+
+### Post Parameters
+
+Param | Description
+----- | -----------
+`paymentMethodId` | Payment method ID.
+`billId` | Bill ID to assign.
+
+### Returns
+
+Returns an updated payment object.

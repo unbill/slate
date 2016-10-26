@@ -46,8 +46,8 @@ end
 set :port, 4567
 
 # MP Configuration
-# config.mpToken = 'e788ba023f216bd848a4a4b0316f9ef6'; # Dev
-config.mpToken = '16aa17c5de12dd4ba07edc5c4fb73ddf'; # Prod
+config.mpToken = 'e788ba023f216bd848a4a4b0316f9ef6'; # Dev
+# config.mpToken = '16aa17c5de12dd4ba07edc5c4fb73ddf'; # Prod
 
 # Api Configuration
 config.host = 'https://unbill.co/partner/v2'
@@ -76,6 +76,8 @@ config.companyResponseExample = [
 '      "color": "' + config.billerColor + '"',
 '    }',
 '  },',
+'  "requiredPayment": "bank",',
+'  "forcesAutopay": true,',
 '  "auth": {',
 '    "urls": {',
 '      "login": "' + config.billerLogin + '",',
@@ -111,6 +113,8 @@ config.companyResponseDescription = [
   '`logo.svg` | Company logo svg object.',
   '`logo.svg.url` | URL of the company svg logo.',
   '`logo.svg.color` | Hex color of the Company logo.',
+  '`requiredPayment` | If a specific payment method type is required by this company, this will be defined. Possible values are `bank`, `card`.',
+  '`forcesAutopay` | Whether or not the company enforces auto payments. Typically subscription companies such as Netflix have this value set to `true`.',
   '`auth` | Company auth fields.',
   '`auth.urls` | Company Auth Urls (login URL is always available, but the others can by null).',
   '`auth.urls.login` | Login URL.',

@@ -2,10 +2,6 @@
 
 A payment method can have one of three statuses. Each type is documented below with a description of the status and a typical use case.
 
-### not-linked
-
-The user has no payment method on file.
-
 ### verified
 
 The payment method on file is verified and eligible to make payments.
@@ -27,4 +23,4 @@ When a user's payment method fails to pay a bill, we set their payment method st
 
 ![Failed Payment](<%= config.s3 %>/failed-payment.png)
 
-If their payment method continues to be declined, it will be removed from their account. The user will need to link a new payment method before bill payment services resume.
+If their payment method continues to be declined, it will be removed from their account. If the removed payment method was the default, the user will need to link a new payment method or choose another payment method on file as their default before bill payment services resume.
