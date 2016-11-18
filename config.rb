@@ -46,8 +46,8 @@ end
 set :port, 4567
 
 # MP Configuration
-config.mpToken = 'e788ba023f216bd848a4a4b0316f9ef6'; # Dev
-# config.mpToken = '16aa17c5de12dd4ba07edc5c4fb73ddf'; # Prod
+# config.mpToken = 'e788ba023f216bd848a4a4b0316f9ef6'; # Dev
+config.mpToken = '16aa17c5de12dd4ba07edc5c4fb73ddf'; # Prod
 
 # Api Configuration
 config.host = 'https://unbill.co/partner/v2'
