@@ -12,4 +12,4 @@ To view the docs, navigate to `http://localhost:4567` in your browser.
 
 ## Deploy
 
-TODO
+TODO :)
