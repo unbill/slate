@@ -294,9 +294,10 @@ https://unbill.co/partner/v2 (production)
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"questions"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w"> </span><span class="nt">"question"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What is the name of your first pet?"</span><span class="w"> </span><span class="p">}</span><span class="w">
-  </span><span class="p">]</span><span class="w">
+  </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> 
+    </span><span class="nt">"question"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What is the name of your first pet?"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bk0zwVx1Z"</span><span class="w">
+  </span><span class="p">}]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -305,11 +306,11 @@ https://unbill.co/partner/v2 (production)
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"list"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"code"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"t...t@unbill.us"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11111"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Email: t...t@unbill.us"</span><span class="w"> </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx-xxx-1234"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"phone"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"22222"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Phone: xxx-xxx-1234"</span><span class="w"> </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx-xxx-1234"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"33333"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Text: xxx-xxx-1234"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"t...t@unbill.us"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"r1g0mvVg1Z"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Email: t...t@unbill.us"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx-xxx-1234"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"phone"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B1gyVvElJZ"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Phone: xxx-xxx-1234"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx-xxx-1234"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SkbkEP4ekW"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Text: xxx-xxx-1234"</span><span class="w"> </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -350,7 +351,7 @@ https://unbill.co/partner/v2 (production)
 
 <h3 id="testing">Testing</h3>
 
-<p>To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> flag whose value can be <code class="prettyprint">questions</code> for a question based response, or <code class="prettyprint">list</code> for a code based response. In this response will be provided the <code class="prettyprint">token</code> which you can submit to the <code class="prettyprint">/auth/step</code> endpoint for additional testing.</p>
+<p>To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> flag whose value can be <code class="prettyprint">questions</code> for a question based response, or <code class="prettyprint">code</code> for a code based response. In this response will be provided the <code class="prettyprint">token</code> which you can submit to the <code class="prettyprint">/auth/step</code> endpoint for additional testing.</p>
 
 <h3 id="200-response-body">200 Response Body</h3>
 
@@ -388,7 +389,7 @@ https://unbill.co/partner/v2 (production)
 </tr>
 <tr>
 <td><code class="prettyprint">type</code></td>
-<td>The type of MFA being applied. <code class="prettyprint">questions, list</code></td>
+<td>The type of MFA being applied. <code class="prettyprint">questions, code</code></td>
 </tr>
 <tr>
 <td><code class="prettyprint">mfa</code></td>
@@ -403,7 +404,10 @@ https://unbill.co/partner/v2 (production)
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"Secret Answer"</span><span class="w"> </span><span class="p">],</span><span class="w">
+  </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+    </span><span class="nt">"answer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Secret Answer"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bk0zwVx1Z"</span><span class="w">
+  </span><span class="p">}],</span><span class="w">
   </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -413,7 +417,9 @@ https://unbill.co/partner/v2 (production)
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345"</span><span class="w"> </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+    </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ByDXD4eJW"</span><span class="w"> 
+  </span><span class="p">},</span><span class="w">
   </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -435,9 +441,10 @@ https://unbill.co/partner/v2 (production)
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"questions"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w"> </span><span class="nt">"question"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What is the name of your first pet?"</span><span class="w"> </span><span class="p">}</span><span class="w">
-  </span><span class="p">]</span><span class="w">
+  </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> 
+    </span><span class="nt">"question"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What is the name of your first pet?"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bk0zwVx1Z"</span><span class="w">
+  </span><span class="p">}]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -446,11 +453,11 @@ https://unbill.co/partner/v2 (production)
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"list"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"code"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"t...t@unbill.us"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11111"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Email: t...t@unbill.us"</span><span class="w"> </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx-xxx-1234"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"phone"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"22222"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Phone: xxx-xxx-1234"</span><span class="w"> </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx-xxx-1234"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"33333"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Text: xxx-xxx-1234"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"t...t@unbill.us"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"r1g0mvVg1Z"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Email: t...t@unbill.us"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx-xxx-1234"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"phone"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B1gyVvElJZ"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Phone: xxx-xxx-1234"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx-xxx-1234"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SkbkEP4ekW"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Text: xxx-xxx-1234"</span><span class="w"> </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -465,7 +472,7 @@ https://unbill.co/partner/v2 (production)
 
 <p>Some companies require multi-factor authentication (MFA) and the<code class="prettyprint">/auth/step</code> route is built to submit the additional information needed. Users are first submitted via the standard authenticate process via the <code class="prettyprint">/auth</code> endpoint, and the MFA data is sent through an additional request to the <code class="prettyprint">/auth/step</code> route.</p>
 
-<p>For <code class="prettyprint">questions</code> (Question Based MFA) return the answers formatted as an array of strings. For <code class="prettyprint">list</code> (Code Based MFA) return the desired option by passing the <code class="prettyprint">identifier</code> field given to you from the previous authenticate response. Continue to POST to the <code class="prettyprint">/auth/step</code> with the required answers until a <code class="prettyprint">200</code> status code is returned. At that point the user will be authenticated and you&rsquo;ll have access to bill data.</p>
+<p>For <code class="prettyprint">questions</code> (Question Based MFA) return the answers formatted as an array of objects, where each object includes the <code class="prettyprint">answer</code> of the question and the <code class="prettyprint">identifier</code> received from previous <code class="prettyprint">auth</code> response. For <code class="prettyprint">code</code> (Code Based MFA) return the desired option by passing the <code class="prettyprint">identifier</code> field given to you from the previous <code class="prettyprint">auth</code> response. Continue to POST to the <code class="prettyprint">/auth/step</code> with the required answers until a <code class="prettyprint">200</code> status code is returned. At that point the user will be authenticated and you&rsquo;ll have access to bill data.</p>
 
 <p><img alt="Credentials MFA View" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/credentials-mfa-view.png" /></p>
 
@@ -527,7 +534,7 @@ https://unbill.co/partner/v2 (production)
 </tr>
 <tr>
 <td><code class="prettyprint">type</code></td>
-<td>The type of MFA being applied. <code class="prettyprint">questions, list</code></td>
+<td>The type of MFA being applied. <code class="prettyprint">questions, code</code></td>
 </tr>
 <tr>
 <td><code class="prettyprint">mfa</code></td>
