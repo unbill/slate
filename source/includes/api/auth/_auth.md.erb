@@ -31,9 +31,10 @@
 {
   "token": "566595c8ce88ccec69328566",
   "type": "questions",
-  "mfa": [
-  	{ "question": "What is the name of your first pet?" }
-  ]
+  "mfa": [{ 
+    "question": "What is the name of your first pet?",
+    "identifier": "Bk0zwVx1Z"
+  }]
 }
 ```
 
@@ -42,11 +43,11 @@
 ```json
 {
   "token": "566595c8ce88ccec69328566",
-  "type": "list",
+  "type": "code",
   "mfa": [
-  	{ "mask": "t...t@unbill.us", "type": "email", "identifier": "11111", "label": "Email: t...t@unbill.us" },
-    { "mask": "xxx-xxx-1234", "type": "phone", "identifier": "22222", "label": "Phone: xxx-xxx-1234" },
-    { "mask": "xxx-xxx-1234", "type": "text", "identifier": "33333", "label": "Text: xxx-xxx-1234" }
+  	{ "mask": "t...t@unbill.us", "type": "email", "identifier": "r1g0mvVg1Z", "label": "Email: t...t@unbill.us" },
+    { "mask": "xxx-xxx-1234", "type": "phone", "identifier": "B1gyVvElJZ", "label": "Phone: xxx-xxx-1234" },
+    { "mask": "xxx-xxx-1234", "type": "text", "identifier": "SkbkEP4ekW", "label": "Text: xxx-xxx-1234" }
   ]
 }
 ```
@@ -73,7 +74,7 @@ Param | Description
 
 ### Testing
 
-To test an MFA 201 response, pass in a `mfaTest` flag whose value can be `questions` for a question based response, or `list` for a code based response. In this response will be provided the `token` which you can submit to the `/auth/step` endpoint for additional testing.
+To test an MFA 201 response, pass in a `mfaTest` flag whose value can be `questions` for a question based response, or `code` for a code based response. In this response will be provided the `token` which you can submit to the `/auth/step` endpoint for additional testing.
 
 ### 200 Response Body
 
@@ -88,6 +89,6 @@ Attribute | Description
 Attribute | Description
 --------- | -----------
 `token` | Token to be used when stepping through MFA via the `/auth/step` endpoint.
-`type` | The type of MFA being applied. `questions, list`
+`type` | The type of MFA being applied. `questions, code`
 `mfa` | List of required MFA to pass.
 

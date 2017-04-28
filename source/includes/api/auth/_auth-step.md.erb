@@ -5,7 +5,10 @@
 ```json
 {
   "unbillKey": "<%= config.auth %>",
-  "mfa": [ "Secret Answer" ],
+  "mfa": [{
+    "answer": "Secret Answer",
+    "identifier": "Bk0zwVx1Z"
+  }],
   "token": "56e1dbb5443b10a3bd403fcf"
 }
 ```
@@ -15,7 +18,9 @@
 ```json
 {
   "unbillKey": "<%= config.auth %>",
-  "mfa": { "identifier": "12345" },
+  "mfa": { 
+    "identifier": "ByDXD4eJW" 
+  },
   "token": "56e1dbb5443b10a3bd403fcf"
 }
 ```
@@ -37,9 +42,10 @@
 {
   "token": "566595c8ce88ccec69328566",
   "type": "questions",
-  "mfa": [
-  	{ "question": "What is the name of your first pet?" }
-  ]
+  "mfa": [{ 
+    "question": "What is the name of your first pet?",
+    "identifier": "Bk0zwVx1Z"
+  }]
 }
 ```
 
@@ -48,11 +54,11 @@
 ```json
 {
   "token": "566595c8ce88ccec69328566",
-  "type": "list",
+  "type": "code",
   "mfa": [
-  	{ "mask": "t...t@unbill.us", "type": "email", "identifier": "11111", "label": "Email: t...t@unbill.us" },
-    { "mask": "xxx-xxx-1234", "type": "phone", "identifier": "22222", "label": "Phone: xxx-xxx-1234" },
-    { "mask": "xxx-xxx-1234", "type": "text", "identifier": "33333", "label": "Text: xxx-xxx-1234" }
+  	{ "mask": "t...t@unbill.us", "type": "email", "identifier": "r1g0mvVg1Z", "label": "Email: t...t@unbill.us" },
+    { "mask": "xxx-xxx-1234", "type": "phone", "identifier": "B1gyVvElJZ", "label": "Phone: xxx-xxx-1234" },
+    { "mask": "xxx-xxx-1234", "type": "text", "identifier": "SkbkEP4ekW", "label": "Text: xxx-xxx-1234" }
   ]
 }
 ```
@@ -67,7 +73,7 @@
 
 Some companies require multi-factor authentication (MFA) and the` /auth/step` route is built to submit the additional information needed. Users are first submitted via the standard authenticate process via the `/auth` endpoint, and the MFA data is sent through an additional request to the `/auth/step` route.
 
-For `questions` (Question Based MFA) return the answers formatted as an array of strings. For `list` (Code Based MFA) return the desired option by passing the `identifier` field given to you from the previous authenticate response. Continue to POST to the `/auth/step` with the required answers until a `200` status code is returned. At that point the user will be authenticated and you'll have access to bill data.
+For `questions` (Question Based MFA) return the answers formatted as an array of objects, where each object includes the `answer` of the question and the `identifier` received from previous `auth` response. For `code` (Code Based MFA) return the desired option by passing the `identifier` field given to you from the previous `auth` response. Continue to POST to the `/auth/step` with the required answers until a `200` status code is returned. At that point the user will be authenticated and you'll have access to bill data.
 
 ![Credentials MFA View](<%= config.s3 %>/credentials-mfa-view.png)
 
@@ -95,5 +101,5 @@ Attribute | Description
 Attribute | Description
 --------- | -----------
 `token` | Token to be used when stepping through MFA via the `/auth/step` endpoint.
-`type` | The type of MFA being applied. `questions, list`
+`type` | The type of MFA being applied. `questions, code`
 `mfa` | List of required MFA to pass.
