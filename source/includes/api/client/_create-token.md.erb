@@ -1,0 +1,52 @@
+## Create Token
+
+> Sample Request
+
+```json
+{
+  "unbillKey": "<%= config.auth %>",
+  "identifier": "unique-user-id",
+  "nonce": true,
+  "meta": {
+    "firstName": "Sean",
+    "lastName": "Hill",
+    "zipcode": "12345"
+  }
+}
+```
+
+> 200 Response
+
+```json
+{
+  "token": "566595c8ce88ccec69328566c8ce8595c8"
+}
+```
+
+> 400 Response
+
+```json
+{
+  "message": "Please fill in all required fields."
+}
+```
+
+Create a token to be used for SSO into applications.
+
+### HTTP Request
+
+`POST <%= config.host %>/client/create-token`
+
+### Post Parameters
+
+Param | Description
+----- | -----------
+`identifier` | A unique identifier that represents a user in your system.
+`nonce` | Tokens are instantly consumed upon use. If you would like to make a re-useable token, you may set `nonce` to `false`.
+`meta` | Additional information about the user in your system.
+
+### 200 Response Body
+
+Attribute | Description
+--------- | -----------
+`clientId` | Unbill client ID you can persist in your DB for future requests.
