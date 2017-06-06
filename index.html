@@ -255,7 +255,7 @@ https://unbill.co/partner/v2 (production)
     </a>
 </div>
 
-          <h1 id="auth-api">Auth API</h1>
+          <h1 id="auth">Auth</h1>
 
 <p>Authenticate a user&rsquo;s bill credentials via Unbill. This process may take anywhere from 15-90 seconds depending on the responsiveness of the company&rsquo;s website. If a <code class="prettyprint">200</code> status code is returned, no additional MFA is required. If a <code class="prettyprint">201</code> status code is returned, additional MFA is required to authenticate with the company and must be submitted via the <code class="prettyprint">/auth/step</code> endpoint.</p>
 
@@ -542,7 +542,7 @@ https://unbill.co/partner/v2 (production)
 </tr>
 </tbody></table>
 
-          <h1 id="bill-api">Bill API</h1>
+          <h1 id="bill">Bill</h1>
 
 <p>The bill object provides you with up-to-date balance, due date, and payment history for a bill. The API allows you to retrieve, list, and check the status of a user&rsquo;s bills.</p>
 
@@ -1281,7 +1281,7 @@ https://unbill.co/partner/v2 (production)
 
 <p>Returns a <code class="prettyprint">200</code> response if the bill was removed successfully.</p>
 
-          <h1 id="company-api">Company API</h1>
+          <h1 id="company">Company</h1>
 
 <p>Company objects allow you to authenticate bills with your users. The API allows you to retrieve and search for companies.</p>
 
@@ -1717,7 +1717,7 @@ https://unbill.co/partner/v2 (production)
 
 <p>Returns a list of company objects that match the provided <code class="prettyprint">query</code> or <code class="prettyprint">category</code>.</p>
 
-          <h1 id="payment-api">Payment API</h1>
+          <h1 id="payment">Payment</h1>
 
 <p>In order to make payments towards a user&rsquo;s bill, they must first link a payment method using the <code class="prettyprint">/payment/add</code> endpoint. By default, after a payment method is linked, payments will be made towards a user&rsquo;s bills on time. The API allows you to add and retrieve a user&rsquo;s payment method, as well as make payments towards a bill&rsquo;s outstanding balance.</p>
 
@@ -2352,23 +2352,24 @@ https://unbill.co/partner/v2 (production)
 
 <p>Returns a <code class="prettyprint">200</code> status code if a payment is successfully scheduled. Returns an error otherwise.</p>
 
-          <h1 id="user-api">User API</h1>
+          <h1 id="client">Client</h1>
 
-<p>To authenticate bills and retrieve balance and due date information, an Unbill <code class="prettyprint">userId</code> is required. The API allows you to create an Unbill user and retrieve a <code class="prettyprint">userId</code> for future requests.</p>
+<p>To authenticate and interact with the endpoints on behalf of a given user, a <code class="prettyprint">clientId</code> is required.</p>
 
-          <h2 id="create-user">Create user</h2>
+          <h2 id="create-token">Create Token</h2>
 
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Johnny"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Appleseed"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnny@appleseed.com"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"secret"</span><span class="w">
+  </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unique-user-id"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sean"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hill"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"zipcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -2376,7 +2377,7 @@ https://unbill.co/partner/v2 (production)
 <p>200 Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="w">
+  </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566c8ce8595c8"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -2388,11 +2389,11 @@ https://unbill.co/partner/v2 (production)
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>Retrieve the payment method on file for an Unbill user.</p>
+<p>Create a token to be used for SSO into applications.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/user/create</code></p>
+<p><code class="prettyprint">POST https://unbill.co/partner/v2/client/create-token</code></p>
 
 <h3 id="post-parameters">Post Parameters</h3>
 
@@ -2403,24 +2404,16 @@ https://unbill.co/partner/v2 (production)
 </tr>
 </thead><tbody>
 <tr>
-<td><code class="prettyprint">name</code></td>
-<td>Name for the user.</td>
+<td><code class="prettyprint">identifier</code></td>
+<td>A unique identifier that represents a user in your system.</td>
 </tr>
 <tr>
-<td><code class="prettyprint">name.first</code></td>
-<td>First name.</td>
+<td><code class="prettyprint">nonce</code></td>
+<td>Tokens are instantly consumed upon use. If you would like to make a re-useable token, you may set <code class="prettyprint">nonce</code> to <code class="prettyprint">false</code>.</td>
 </tr>
 <tr>
-<td><code class="prettyprint">name.last</code></td>
-<td>Last name.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">email</code></td>
-<td>Email for the user.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">password</code></td>
-<td>Password for the user.</td>
+<td><code class="prettyprint">meta</code></td>
+<td>Additional information about the user in your system.</td>
 </tr>
 </tbody></table>
 
@@ -2433,8 +2426,8 @@ https://unbill.co/partner/v2 (production)
 </tr>
 </thead><tbody>
 <tr>
-<td><code class="prettyprint">userId</code></td>
-<td>Unbill user ID you can persist in your DB for future requests.</td>
+<td><code class="prettyprint">clientId</code></td>
+<td>Unbill client ID you can persist in your DB for future requests.</td>
 </tr>
 </tbody></table>
 

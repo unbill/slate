@@ -1,3 +1,3 @@
-<h1 id="payment-api">Payment API</h1>
+<h1 id="payment">Payment</h1>
 
 <p>In order to make payments towards a user&rsquo;s bill, they must first link a payment method using the <code class="prettyprint">/payment/add</code> endpoint. By default, after a payment method is linked, payments will be made towards a user&rsquo;s bills on time. The API allows you to add and retrieve a user&rsquo;s payment method, as well as make payments towards a bill&rsquo;s outstanding balance.</p>
