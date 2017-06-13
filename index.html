@@ -138,24 +138,24 @@ https://unbill.co/partner/v2 (production)
 /bill
 /company
 /payment
-/user
+/client
 </code></pre>
 
 <p>Welcome! The Unbill API allows developers to receive user-authorized bill data and make payments on behalf of a user. With over 4000 companies and counting, supercharge your platform with the Unbill API. </p>
 
 <p>Here you will find information on how to integrate with and use the Unbill API. We&rsquo;ve tried to make this documentation user-friendly and example-filled, but please <a href="mailto:api@unbill.us">drop us a line</a> with any questions. If you&rsquo;re planning to use our API in production, you should take a look at our <a href="http://unbill.us/privacy.html">privacy policy</a>.</p>
 
-<p>The Unbill API uses standard HTTP <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">verbs</a> to communicate and HTTP <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">response codes</a> to indicate status and errors. All responses come in standard <a href="http://www.json.org/">JSON</a>. The Unbill API is served over HTTPS to ensure data privacy; HTTP is not supported. Every request must include your <code class="prettyprint">unbillKey</code>.</p>
+<p>The Unbill API uses standard HTTP <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">verbs</a> to communicate and HTTP <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">response codes</a> to indicate status and errors. All responses come in standard <a href="http://www.json.org/">JSON</a>. The Unbill API is served over HTTPS to ensure data privacy; HTTP is not supported. Every request must include your <code class="prettyprint">apiKey</code>.</p>
 
 <p><img alt="Overview" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/unbill.png" /></p>
 
 <h2 id="gaining-access">Gaining Access</h2>
 
-<p>To gain access to the Unbill API, please <a href="https://unbill.typeform.com/to/oEBbt1">fill out this form</a>. After our review process is complete, you&rsquo;ll be provided with an <code class="prettyprint">unbillKey</code> which you can use for your requests.</p>
+<p>To gain access to the Unbill API, please <a href="https://unbill.typeform.com/to/oEBbt1">fill out this form</a>. After our review process is complete, you&rsquo;ll be provided with an <code class="prettyprint">apiKey</code> which you can use for your requests.</p>
 
           <h2 id="authentication">Authentication</h2>
 
-<p>Every request made must include your <code class="prettyprint">unbillKey</code> token provided to you. If the <code class="prettyprint">unbillKey</code> is not passed in the <code class="prettyprint">POST</code> request, you will receive a <code class="prettyprint">401 Not Authorized</code> response.</p>
+<p>Every request made must include your <code class="prettyprint">apiKey</code> token provided to you. If the <code class="prettyprint">apiKey</code> is not passed in the <code class="prettyprint">POST</code> request, you will receive a <code class="prettyprint">401 Not Authorized</code> response.</p>
 
           <h2 id="getting-started">Getting Started</h2>
 
@@ -169,8 +169,8 @@ https://unbill.co/partner/v2 (production)
 <p>Sample Request</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"companyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Johnny"</span><span class="p">,</span><span class="w">
@@ -196,23 +196,23 @@ https://unbill.co/partner/v2 (production)
 
 <ol>
 <li>User signs up in your app.</li>
-<li>Make a request to the <code class="prettyprint">/user/create</code> endpoint to retrieve an Unbill <code class="prettyprint">userId</code> to store in your database for future requests.</li>
+<li>Make a request to the <code class="prettyprint">/client/add</code> endpoint to retrieve an Unbill <code class="prettyprint">clientId</code> to store in your database for future requests.</li>
 </ol>
 
-<h3 id="bill-authentication">Bill Authentication</h3>
+<h3 id="authentication">Authentication</h3>
 
 <ol>
 <li>Search for the company you&rsquo;d like to add from the <code class="prettyprint">/company/search</code> endpoint.</li>
 <li>Provide your user with a &ldquo;bill authentication&rdquo; view populated with the login fields retrieved from the desired company.</li>
 <li>Have your user fill out their credentials, and then send those credentials to the <code class="prettyprint">/auth</code> endpoint.</li>
-<li>Unbill will begin the authentication process and if successful, will return available bill data.</li>
+<li>Unbill will begin the authentication process and if successful, will return available <a href="#auth-items">items</a>.</li>
 </ol>
 
-<h3 id="bill-overview">Bill Overview</h3>
+<h3 id="bills">Bills</h3>
 
 <ol>
-<li>Requests can be made to the <code class="prettyprint">/bill/overview</code> endpoint to retrieve the list of authenticated bills and balance information.</li>
-<li>Requests can be made to the <code class="prettyprint">/bill/detail</code> endpoint to retrieve details on a specific bill.</li>
+<li>Requests can be made to the <code class="prettyprint">/bill/list</code> endpoint to retrieve the list of authenticated bills and balance information.</li>
+<li>Requests can be made to the <code class="prettyprint">/bill/details</code> endpoint to retrieve details on a specific bill.</li>
 </ol>
 
 <h3 id="payments">Payments</h3>
@@ -257,7 +257,7 @@ https://unbill.co/partner/v2 (production)
 
           <h1 id="auth">Auth</h1>
 
-<p>Authenticate a user&rsquo;s bill credentials via Unbill. This process may take anywhere from 15-90 seconds depending on the responsiveness of the company&rsquo;s website. If a <code class="prettyprint">200</code> status code is returned, no additional MFA is required. If a <code class="prettyprint">201</code> status code is returned, additional MFA is required to authenticate with the company and must be submitted via the <code class="prettyprint">/auth/step</code> endpoint.</p>
+<p>Authenticate a user&rsquo;s bill credentials via Unbill. This process may take anywhere from 5-30 seconds depending on the responsiveness of the company&rsquo;s website. If a <code class="prettyprint">200</code> status code is returned, no additional MFA is required. If a <code class="prettyprint">201</code> status code is returned, additional MFA is required to authenticate with the company and must be submitted via the <code class="prettyprint">/auth/step</code> endpoint.</p>
 
 <p><img alt="Credentials View" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/credentials-view.png" /></p>
 
@@ -267,9 +267,10 @@ https://unbill.co/partner/v2 (production)
 <p>Sample Request</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"companyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"bill"</span><span class="p">],</span><span class="w">
   </span><span class="nt">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Johnny"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Appleseed"</span><span class="w">
@@ -281,10 +282,12 @@ https://unbill.co/partner/v2 (production)
 <p>200 Response (Authenticated)</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nt">"authId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-03-25T00:00:00.000Z"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+    </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="w">
+  </span><span class="p">}]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -293,7 +296,7 @@ https://unbill.co/partner/v2 (production)
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"questions"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"questions"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> 
     </span><span class="nt">"question"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What is the name of your first pet?"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bk0zwVx1Z"</span><span class="w">
@@ -306,7 +309,7 @@ https://unbill.co/partner/v2 (production)
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"code"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"code"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"t...t@unbill.us"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"r1g0mvVg1Z"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Email: t...t@unbill.us"</span><span class="w"> </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx-xxx-1234"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"phone"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B1gyVvElJZ"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Phone: xxx-xxx-1234"</span><span class="w"> </span><span class="p">},</span><span class="w">
@@ -336,7 +339,7 @@ https://unbill.co/partner/v2 (production)
 </tr>
 </thead><tbody>
 <tr>
-<td><code class="prettyprint">userId</code></td>
+<td><code class="prettyprint">clientId</code></td>
 <td>ID of user being authenticated.</td>
 </tr>
 <tr>
@@ -344,8 +347,12 @@ https://unbill.co/partner/v2 (production)
 <td>ID of company being authenticated.</td>
 </tr>
 <tr>
+<td><code class="prettyprint">items</code><br><small>(optional)</small></td>
+<td>The list of items you&rsquo;d like attached to this auth. If not specified, all available items will be returned. If you&rsquo;re only interested in verifying credentials, set this parameter as an empty array <code class="prettyprint">[]</code>, otherwise specify which <a href="#auth-items">items</a> you&rsquo;d like.</td>
+</tr>
+<tr>
 <td><code class="prettyprint">form</code></td>
-<td>Bill credentials to authenticate.</td>
+<td>Credentials to authenticate.</td>
 </tr>
 </tbody></table>
 
@@ -362,20 +369,16 @@ https://unbill.co/partner/v2 (production)
 </tr>
 </thead><tbody>
 <tr>
-<td><code class="prettyprint">bill</code></td>
-<td>If there is an outstanding bill, this will be available.</td>
+<td><code class="prettyprint">authId</code></td>
+<td>The ID of the auth.</td>
 </tr>
 <tr>
-<td><code class="prettyprint">bill.balance</code></td>
-<td>Current balance (Will be <code class="prettyprint">0</code> if not available).</td>
-</tr>
-<tr>
-<td><code class="prettyprint">bill.dueDate</code></td>
-<td>Current due date (Will be <code class="prettyprint">undefined</code> if not available).</td>
+<td><code class="prettyprint">items</code></td>
+<td>A list of <a href="#auth-items">items</a> attached to this auth.</td>
 </tr>
 </tbody></table>
 
-<h3 id="201-response-body-mfa">201 Response Body (MFA)</h3>
+<h3 id="201-response-body-mfa">201 Response Body (<a href="#auth-mfa">MFA</a>)</h3>
 
 <table><thead>
 <tr>
@@ -388,12 +391,47 @@ https://unbill.co/partner/v2 (production)
 <td>Token to be used when stepping through MFA via the <code class="prettyprint">/auth/step</code> endpoint.</td>
 </tr>
 <tr>
-<td><code class="prettyprint">type</code></td>
-<td>The type of MFA being applied. <code class="prettyprint">questions, code</code></td>
+<td><code class="prettyprint">method</code></td>
+<td>The method of MFA being applied. <code class="prettyprint">questions, code</code></td>
 </tr>
 <tr>
 <td><code class="prettyprint">mfa</code></td>
 <td>List of required MFA to pass.</td>
+</tr>
+</tbody></table>
+
+          <h2 id="auth-items">Auth Items</h2>
+
+<blockquote>
+<p>Sample Bill Item</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>After a successful authentication is made, a list of available <code class="prettyprint">items</code> attached to an auth will be returned for convience. For more details about each of these items, access the items endpoints.
+Currently only <code class="prettyprint">bill</code> items are supported, but additional items like <code class="prettyprint">usage</code> and <code class="prettyprint">transactions</code> are coming soon!</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">type</code></td>
+<td>Type of item. <code class="prettyprint">bill</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">balance</code></td>
+<td>Current balance of a bill item</td>
+</tr>
+<tr>
+<td><code class="prettyprint">dueDate</code></td>
+<td>Current due date of a bill item</td>
 </tr>
 </tbody></table>
 
@@ -403,7 +441,7 @@ https://unbill.co/partner/v2 (production)
 <p>Sample Request (Question Based MFA)</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
     </span><span class="nt">"answer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Secret Answer"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bk0zwVx1Z"</span><span class="w">
@@ -416,7 +454,7 @@ https://unbill.co/partner/v2 (production)
 <p>Sample Request (Code Based MFA)</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> 
     </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ByDXD4eJW"</span><span class="w"> 
   </span><span class="p">},</span><span class="w">
@@ -425,22 +463,11 @@ https://unbill.co/partner/v2 (production)
 </span></code></pre>
 
 <blockquote>
-<p>200 Response (Authenticated)</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-03-25T00:00:00.000Z"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<blockquote>
 <p>201 Response (Question Based MFA)</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"questions"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"questions"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> 
     </span><span class="nt">"question"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What is the name of your first pet?"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bk0zwVx1Z"</span><span class="w">
@@ -453,7 +480,7 @@ https://unbill.co/partner/v2 (production)
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"code"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"code"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"t...t@unbill.us"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"r1g0mvVg1Z"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Email: t...t@unbill.us"</span><span class="w"> </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx-xxx-1234"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"phone"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B1gyVvElJZ"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Phone: xxx-xxx-1234"</span><span class="w"> </span><span class="p">},</span><span class="w">
@@ -498,28 +525,6 @@ https://unbill.co/partner/v2 (production)
 </tr>
 </tbody></table>
 
-<h3 id="200-response-body">200 Response Body</h3>
-
-<table><thead>
-<tr>
-<th>Attribute</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><code class="prettyprint">bill</code></td>
-<td>If there is an outstanding bill, this will be available.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">bill.balance</code></td>
-<td>Current balance (Will be <code class="prettyprint">0</code> if not available).</td>
-</tr>
-<tr>
-<td><code class="prettyprint">bill.dueDate</code></td>
-<td>Current due date (Will be <code class="prettyprint">undefined</code> if not available).</td>
-</tr>
-</tbody></table>
-
 <h3 id="201-response-body-mfa">201 Response Body (MFA)</h3>
 
 <table><thead>
@@ -533,14 +538,277 @@ https://unbill.co/partner/v2 (production)
 <td>Token to be used when stepping through MFA via the <code class="prettyprint">/auth/step</code> endpoint.</td>
 </tr>
 <tr>
-<td><code class="prettyprint">type</code></td>
-<td>The type of MFA being applied. <code class="prettyprint">questions, code</code></td>
+<td><code class="prettyprint">method</code></td>
+<td>The method of MFA being applied. <code class="prettyprint">questions, code</code></td>
 </tr>
 <tr>
 <td><code class="prettyprint">mfa</code></td>
 <td>List of required MFA to pass.</td>
 </tr>
 </tbody></table>
+
+          <h2 id="the-auth-object">The auth object</h2>
+
+<blockquote>
+<p>Sample Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w"> 
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">_id</code></td>
+<td>ID of the auth.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">status</code></td>
+<td><a href="#auth-status">Status</a> of the auth.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">company</code></td>
+<td>Company Object</td>
+</tr>
+</tbody></table>
+
+          <h2 id="auth-status">Auth status</h2>
+
+<blockquote>
+<p>Verified Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Authenticate Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"authenticate"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Hold Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hold"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"reason"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"userMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"You need to login and verify your account information."</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"debugMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The user has not verified their online account."</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>An auth <code class="prettyprint">status.type</code> can be a variety of types. Each type is documented below with a description of the status and a typical use case.</p>
+
+<h3 id="verified">verified</h3>
+
+<p>The user&rsquo;s auth has been verified. No actions are required.</p>
+
+<h3 id="authenticate">authenticate</h3>
+
+<p>The user&rsquo;s credentials no longer work with the company&rsquo;s website and need to be reauthenticated. Make a request to the <code class="prettyprint">/auth</code> endpoint with updated credentials to remove this status.</p>
+
+<p><img alt="Bill Authenticate" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-authenticate.png" /></p>
+
+<h3 id="hold">hold</h3>
+
+<p>For a number of reasons an auth can have the status of <code class="prettyprint">hold</code>. When an auth is on hold we&rsquo;ll present you with a <code class="prettyprint">reason</code> that you in turn can present to your users. To remove this status, the user must take the appropriate action as described in the <code class="prettyprint">reason</code>. This usually involves them needing to login into their online account. Once the user has completed the action, make a request to the <code class="prettyprint">/auth/fix-hold</code> endpoint to resume their services.</p>
+
+<p><em>Display hold reason</em></p>
+
+<p><img alt="Bill Hold" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-hold.png" /></p>
+
+<p><em>Displayed after user returns to app</em></p>
+
+<p><img alt="Bill Hold Confirm" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-hold-confirm.png" /></p>
+
+          <h2 id="list-all-auths">List all auths</h2>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Time Warner Cable"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/4c805851c738c006546b234e3c3c793d.png"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">}</span><span class="w"> 
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w"> 
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"authenticate"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Grove at Auburn"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/0e9a971a96646da46f5faa68862d0f2d.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="p">}</span><span class="w"> 
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>400 Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"No auths found by that ID."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Retrieves a list of user&rsquo;s auths.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://unbill.co/partner/v2/auth/list</code></p>
+
+<h3 id="post-parameters">Post Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">clientId</code></td>
+<td>Unbill client ID.</td>
+</tr>
+</tbody></table>
+
+<h3 id="returns">Returns</h3>
+
+<p>Returns a list of auth objects.</p>
+
+          <h2 id="fix-auth-hold">Fix auth hold</h2>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"authId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://unbill.co/partner/v2/auth/fix-hold</code></p>
+
+<h3 id="post-parameters">Post Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">authId</code></td>
+<td>Unbill auth ID.</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>400 Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Please provide the authId."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<h3 id="returns">Returns</h3>
+
+<p>Returns a <code class="prettyprint">200</code> status code if an auth&rsquo;s hold was marked as being resolved. Returns an error otherwise.</p>
+
+          <h2 id="remove-auth">Remove auth</h2>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"authId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Removes an <code class="prettyprint">auth</code> and all its <code class="prettyprint">items</code> from the account.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://unbill.co/partner/v2/auth/remove</code></p>
+
+<h3 id="post-parameters">Post Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Param</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">authId</code></td>
+<td>Unbill auth ID.</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>400 Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Please provide the authId."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<h3 id="returns">Returns</h3>
+
+<p>Returns a <code class="prettyprint">200</code> response if the <code class="prettyprint">auth</code> and its <code class="prettyprint">items</code> was successfully removed.</p>
 
           <h1 id="bill">Bill</h1>
 
@@ -556,12 +824,18 @@ https://unbill.co/partner/v2 (production)
   </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Due Oct 25"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/status.svg"</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w"> 
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -597,12 +871,8 @@ https://unbill.co/partner/v2 (production)
 <td><a href="#bill-status">Status</a> of the bill.</td>
 </tr>
 <tr>
-<td><code class="prettyprint">headline</code></td>
-<td><a href="#bill-headline">Headline</a> of the bill.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">reason</code></td>
-<td>Reason the bill is on hold.</td>
+<td><code class="prettyprint">company</code></td>
+<td>Company Object</td>
 </tr>
 <tr>
 <td><code class="prettyprint">settings</code></td>
@@ -621,9 +891,7 @@ https://unbill.co/partner/v2 (production)
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"syncing"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Syncing"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/status.svg"</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"syncing"</span><span class="w">
   </span><span class="p">},</span><span class="w"> 
   </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
@@ -636,9 +904,7 @@ https://unbill.co/partner/v2 (production)
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zero-balance"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$0.00"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/status.svg"</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zero-balance"</span><span class="w">
   </span><span class="p">},</span><span class="w"> 
   </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
@@ -653,27 +919,10 @@ https://unbill.co/partner/v2 (production)
   </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.00"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-03-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"overdue"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Overdue"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/status.svg"</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"overdue"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<blockquote>
-<p>Authenticate Response</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"authenticate"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tap to fix"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/status.svg"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -683,9 +932,7 @@ https://unbill.co/partner/v2 (production)
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment-required"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tap to fix"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/status.svg"</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment-required"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
@@ -698,28 +945,10 @@ https://unbill.co/partner/v2 (production)
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment-declined"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tap to fix"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/status.svg"</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment-declined"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<blockquote>
-<p>Hold Response</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hold"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tap to fix"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/status.svg"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"You'll need to login and accept the terms and conditions on your account."</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -731,9 +960,7 @@ https://unbill.co/partner/v2 (production)
   </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.00"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Due Oct 25"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/status.svg"</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
@@ -748,9 +975,7 @@ https://unbill.co/partner/v2 (production)
   </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.00"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w"> 
-    </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pending"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/status.svg"</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
@@ -763,9 +988,7 @@ https://unbill.co/partner/v2 (production)
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"paid"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paid"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/status.svg"</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"paid"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"lastPaidAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.00"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"lastPaidOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
@@ -801,12 +1024,6 @@ https://unbill.co/partner/v2 (production)
 
 <p><img alt="Bill Overdue" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-overdue.png" /></p>
 
-<h3 id="authenticate">authenticate</h3>
-
-<p>The user&rsquo;s credentials no longer work with the company&rsquo;s website and need to be reauthenticated. Make a request to the <code class="prettyprint">/auth</code> endpoint with updated credentials to remove this status.</p>
-
-<p><img alt="Bill Authenticate" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-authenticate.png" /></p>
-
 <h3 id="payment-required">payment-required</h3>
 
 <p>The payment method specified by <code class="prettyprint">company.requiredPayment</code> is required to pay this bill. A linked payment method must be assigned before bill payments will resume. This can be done via the <code class="prettyprint">/payment/assign</code> endpoint.</p>
@@ -818,18 +1035,6 @@ https://unbill.co/partner/v2 (production)
 <p>The payment method used to pay this bill was declined. To resume bill payments, have the user try their payment method again via the <code class="prettyprint">/payment/retry</code> endpoint, or assign another one via the <code class="prettyprint">/payment/assign</code> endpoint.</p>
 
 <p><img alt="Payment declined" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-authenticate.png" /></p>
-
-<h3 id="hold">hold</h3>
-
-<p>For a number of reasons a bill can have the status of <code class="prettyprint">hold</code>. When a bill is on hold we&rsquo;ll present you with a <code class="prettyprint">reason</code> that you in turn can present to your users. To remove this status, the user must take the appropriate action as described in the <code class="prettyprint">reason</code>. This usually involves them needing to login into their online account. Once the user has completed the action, make a request to the <code class="prettyprint">/bill/fix-hold</code> endpoint to resume their bill services.</p>
-
-<p><em>Display hold reason</em></p>
-
-<p><img alt="Bill Hold" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-hold.png" /></p>
-
-<p><em>Displayed after user returns to app</em></p>
-
-<p><img alt="Bill Hold Confirm" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-hold-confirm.png" /></p>
 
 <h3 id="upcoming">upcoming</h3>
 
@@ -849,82 +1054,14 @@ https://unbill.co/partner/v2 (production)
 
 <p><img alt="Bill Paid" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-paid.png" /></p>
 
-<p><br></p>
-
-<p>A bill <code class="prettyprint">status.text</code> can be used in your bill overview. It is friendly text that describes the <code class="prettyprint">status.type</code> in more detail. Possible values are <code class="prettyprint">Syncing</code>, <code class="prettyprint">Tap to fix</code>, <code class="prettyprint">Due XXX X</code>, <code class="prettyprint">Overdue</code>, <code class="prettyprint">Pending</code>, <code class="prettyprint">Paid</code>.</p>
-
-<p>A bill <code class="prettyprint">status.image</code> can be used in your bill overview. It is a URL to a status icon.</p>
-
-<h2 id="bill-status-images">Bill status images</h2>
-
-<p>Below is a list of the images used for a bill&rsquo;s <code class="prettyprint">status.image</code>.</p>
-
-<ul>
-<li><a href="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/syncing.svg">syncing.svg</a></li>
-<li><a href="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/zero-balance.svg">zero-balance.svg</a></li>
-<li><a href="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/overdue.svg">overdue.svg</a></li>
-<li><a href="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/authenticate.svg">authenticate.svg</a></li>
-<li><a href="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/hold.svg">hold.svg</a></li>
-<li><a href="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/upcoming.svg">upcoming.svg</a></li>
-<li><a href="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/pending.svg">pending.svg</a></li>
-<li><a href="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/paid.svg">paid.svg</a></li>
-</ul>
-
-          <h2 id="bill-headline">Bill headline</h2>
-
-<blockquote>
-<p>Sample Headline</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"headline"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$35.23 due on 5/7."</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"buttons"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
-                </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pay Now"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pay-now"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"primary"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-            </span><span class="p">}]</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">   
-</span></code></pre>
-
-<p>A bill <code class="prettyprint">headline</code> is a quick glance at the current state of a bill. It is available within the bill detail.</p>
-
-<p><img alt="Bill Headline" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-headline.png" /></p>
-
-<p>Each headline includes a <code class="prettyprint">title</code>, <code class="prettyprint">type</code>, optional <code class="prettyprint">subtitle</code>, and optional action <code class="prettyprint">buttons</code> as documented below.</p>
-
-<h3 id="title">title</h3>
-
-<p>The <code class="prettyprint">title</code> describes the current state of a bil.</p>
-
-<h3 id="type">type</h3>
-
-<p>The <code class="prettyprint">type</code> describes the type of headline and is similar to the status of a bill. Possible values are <code class="prettyprint">syncing</code>, <code class="prettyprint">pending</code>, <code class="prettyprint">paid</code>, <code class="prettyprint">upcoming</code>.</p>
-
-<h3 id="subtitle">subtitle</h3>
-
-<p>The <code class="prettyprint">subtitle</code> is additional helper text to more fully describe the state of the bill.</p>
-
-<p><img alt="Bill Subtitle" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-headline-subtitle.png" /></p>
-
-<h3 id="buttons">buttons</h3>
-
-<p>The <code class="prettyprint">buttons</code> represent possible actions a user could take. For example, when <code class="prettyprint">autopay</code> is disabled the <code class="prettyprint">title</code> would say &ldquo;$35.23 due on 5/7.&rdquo; and the button <code class="prettyprint">text</code> would be &ldquo;Pay Now&rdquo;. When the user clicks the &ldquo;Pay Now&rdquo; button, you would make a call the <code class="prettyprint">/payment/make</code> endpoint after confirming with the user they want to pay off their balance.</p>
-
-<p>Each button includes <code class="prettyprint">text</code>, <code class="prettyprint">type</code>, and <code class="prettyprint">primary</code> fields. The <code class="prettyprint">text</code> describes the action. Possible values of <code class="prettyprint">type</code> are <code class="prettyprint">pay-now</code> (schedule payments) and <code class="prettyprint">bill-settings</code> (update autopay). When there are multiple buttons, <code class="prettyprint">primary</code> dictates which button is most relevant to the user in the list of <code class="prettyprint">buttons</code>.</p>
-
-          <h2 id="retrieve-bill-detail">Retrieve bill detail</h2>
+          <h2 id="retrieve-bill-details">Retrieve bill details</h2>
 
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"companyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
+  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"billId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -942,17 +1079,13 @@ https://unbill.co/partner/v2 (production)
     </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
     </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"headline"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$35.23 will be paid on 5/7."</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"payments"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
@@ -973,17 +1106,13 @@ https://unbill.co/partner/v2 (production)
     </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
     </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"headline"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paid in full."</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"paid"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"payments"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
@@ -1010,7 +1139,7 @@ https://unbill.co/partner/v2 (production)
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/bill/detail</code></p>
+<p><code class="prettyprint">POST https://unbill.co/partner/v2/bill/details</code></p>
 
 <h3 id="post-parameters">Post Parameters</h3>
 
@@ -1021,12 +1150,8 @@ https://unbill.co/partner/v2 (production)
 </tr>
 </thead><tbody>
 <tr>
-<td><code class="prettyprint">userId</code></td>
-<td>Unbill user ID.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">companyId</code></td>
-<td>Unbill company ID.</td>
+<td><code class="prettyprint">billId</code></td>
+<td>Unbill bill ID.</td>
 </tr>
 </tbody></table>
 
@@ -1041,10 +1166,6 @@ https://unbill.co/partner/v2 (production)
 <tr>
 <td><code class="prettyprint">bill</code></td>
 <td>Bill object</td>
-</tr>
-<tr>
-<td><code class="prettyprint">company</code></td>
-<td>Company object</td>
 </tr>
 <tr>
 <td><code class="prettyprint">payments</code></td>
@@ -1066,77 +1187,78 @@ https://unbill.co/partner/v2 (production)
 <p>Sample Request</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
+  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
 <blockquote>
 <p>200 Response</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">[{</span><span class="w">
-  </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
     </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"syncing"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Syncing"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/status.svg"</span><span class="w">
+      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"syncing"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Time Warner Cable"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/4c805851c738c006546b234e3c3c793d.png"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">}</span><span class="w"> 
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Time Warner Cable"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/4c805851c738c006546b234e3c3c793d.png"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-    </span><span class="p">}</span><span class="w"> 
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="p">},</span><span class="w"> 
+  </span><span class="p">{</span><span class="w">
     </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Due Oct 25"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/status.svg"</span><span class="w">
+      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Grove at Auburn"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/0e9a971a96646da46f5faa68862d0f2d.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="p">}</span><span class="w"> 
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Grove at Auburn"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/0e9a971a96646da46f5faa68862d0f2d.jpg"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-    </span><span class="p">}</span><span class="w"> 
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="p">},</span><span class="w"> 
+  </span><span class="p">{</span><span class="w">
     </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"lastPaidAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"lastPaidOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-03-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"paid"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paid"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/status.svg"</span><span class="w">
+      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"paid"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">}</span><span class="w"> 
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-    </span><span class="p">}</span><span class="w"> 
   </span><span class="p">}</span><span class="w">
-</span><span class="p">}]</span><span class="w">
+</span><span class="p">]</span><span class="w">
 </span></code></pre>
 
 <blockquote>
 <p>400 Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"No company found by that ID."</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"No bills found by that ID."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -1146,7 +1268,7 @@ https://unbill.co/partner/v2 (production)
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/bill/overview</code></p>
+<p><code class="prettyprint">POST https://unbill.co/partner/v2/bill/list</code></p>
 
 <h3 id="post-parameters">Post Parameters</h3>
 
@@ -1157,129 +1279,14 @@ https://unbill.co/partner/v2 (production)
 </tr>
 </thead><tbody>
 <tr>
-<td><code class="prettyprint">userId</code></td>
-<td>Unbill user ID.</td>
+<td><code class="prettyprint">clientId</code></td>
+<td>Unbill client ID.</td>
 </tr>
 </tbody></table>
 
 <h3 id="returns">Returns</h3>
 
-<p>Returns a list of bill and company objects that represents an overview of a user&rsquo;s bills.</p>
-
-          <h2 id="fix-bill-hold">Fix bill hold</h2>
-
-<blockquote>
-<p>Sample Request</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"companyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<blockquote>
-<p>Sample Response</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Due Oct 25"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/status.svg"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"payments"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/bill/fix-hold</code></p>
-
-<h3 id="post-parameters">Post Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Param</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><code class="prettyprint">userId</code></td>
-<td>Unbill user ID.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">companyId</code></td>
-<td>Unbill company ID.</td>
-</tr>
-</tbody></table>
-
-<h3 id="returns">Returns</h3>
-
-<p>Returns updated bill detail.</p>
-
-          <h2 id="remove-bill">Remove bill</h2>
-
-<blockquote>
-<p>Sample Request</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"companyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<p>Remove a bill from a user&rsquo;s list of bills.</p>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/bill/remove</code></p>
-
-<h3 id="post-parameters">Post Parameters</h3>
-
-<table><thead>
-<tr>
-<th>Param</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><code class="prettyprint">userId</code></td>
-<td>Unbill user ID.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">companyId</code></td>
-<td>Unbill company ID.</td>
-</tr>
-</tbody></table>
-
-<blockquote>
-<p>400 Response</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Please provide userId and companyId."</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<h3 id="returns">Returns</h3>
-
-<p>Returns a <code class="prettyprint">200</code> response if the bill was removed successfully.</p>
+<p>Returns a list of bill objects.</p>
 
           <h1 id="company">Company</h1>
 
@@ -1467,7 +1474,7 @@ https://unbill.co/partner/v2 (production)
 <p>Sample Request</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="w">
+  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -1522,7 +1529,7 @@ https://unbill.co/partner/v2 (production)
 <p>Sample Request</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"companyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -1607,17 +1614,17 @@ https://unbill.co/partner/v2 (production)
 <p>Sample Requests</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gas"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"geo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"lat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40.233845"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"lng"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-111.658531"</span><span class="w">
@@ -1883,13 +1890,15 @@ https://unbill.co/partner/v2 (production)
 <p>Request Credit Card Example</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1ddbd1a05319bc198d36f"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1ddbd1a05319bc198d36f"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"paymentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"debit"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"cardNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"378282246310005"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"cardCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"218"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"expDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"06/2019"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"zipcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345"</span><span class="w">
+  </span><span class="nt">"zipcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sean"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hill"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -1897,12 +1906,14 @@ https://unbill.co/partner/v2 (production)
 <p>Request Bank Account Example</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1ddbd1a05319bc198d36f"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1ddbd1a05319bc198d36f"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"routingNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"021000021"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"accountNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9900000002"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"accountType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"checking"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"paymentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echeck"</span><span class="w">
+  </span><span class="nt">"paymentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echeck"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sean"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hill"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -1929,8 +1940,8 @@ https://unbill.co/partner/v2 (production)
 </tr>
 </thead><tbody>
 <tr>
-<td><code class="prettyprint">userId</code></td>
-<td>Unbill user ID.</td>
+<td><code class="prettyprint">clientId</code></td>
+<td>Unbill client ID.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">paymentType</code></td>
@@ -1964,6 +1975,14 @@ https://unbill.co/partner/v2 (production)
 <td><code class="prettyprint">accountType</code></td>
 <td>Type of bank account <code class="prettyprint">checking, savings</code>.</td>
 </tr>
+<tr>
+<td><code class="prettyprint">firstName</code></td>
+<td>The first name on the payment account.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">lastName</code></td>
+<td>The last name on the payment account.</td>
+</tr>
 </tbody></table>
 
 <h3 id="returns">Returns</h3>
@@ -1976,8 +1995,8 @@ https://unbill.co/partner/v2 (production)
 <p>Sample Request</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1ddbd1a05319bc198d36f"</span><span class="w">
+  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1ddbd1a05319bc198d36f"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -2022,7 +2041,7 @@ https://unbill.co/partner/v2 (production)
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/payment/get</code></p>
+<p><code class="prettyprint">POST https://unbill.co/partner/v2/payment/list</code></p>
 
 <h3 id="post-parameters">Post Parameters</h3>
 
@@ -2033,8 +2052,8 @@ https://unbill.co/partner/v2 (production)
 </tr>
 </thead><tbody>
 <tr>
-<td><code class="prettyprint">userId</code></td>
-<td>Unbill user ID.</td>
+<td><code class="prettyprint">clientId</code></td>
+<td>Unbill client ID.</td>
 </tr>
 </tbody></table>
 
@@ -2048,7 +2067,7 @@ https://unbill.co/partner/v2 (production)
 <p>Sample Request</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"paymentMethodId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -2095,7 +2114,7 @@ https://unbill.co/partner/v2 (production)
 <p>Sample Request</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"paymentMethodId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -2147,7 +2166,7 @@ https://unbill.co/partner/v2 (production)
 <p>Sample Request</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"paymentMethodId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -2199,7 +2218,7 @@ https://unbill.co/partner/v2 (production)
 <p>Sample Request</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"paymentMethodId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"billId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -2255,9 +2274,8 @@ https://unbill.co/partner/v2 (production)
 <p>Sample Request</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"companyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"billId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="s2">"disabled"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -2287,12 +2305,8 @@ https://unbill.co/partner/v2 (production)
 </tr>
 </thead><tbody>
 <tr>
-<td><code class="prettyprint">userId</code></td>
-<td>Unbill user ID.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">companyId</code></td>
-<td>Unbill company ID.</td>
+<td><code class="prettyprint">billId</code></td>
+<td>Unbill bill ID.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">autopay</code></td>
@@ -2310,9 +2324,8 @@ https://unbill.co/partner/v2 (production)
 <p>Sample Request</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"companyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
+  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"billId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -2320,7 +2333,7 @@ https://unbill.co/partner/v2 (production)
 <p>400 Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Please provide userId and companyId."</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Please provide a billId to make a payment for."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -2339,12 +2352,8 @@ https://unbill.co/partner/v2 (production)
 </tr>
 </thead><tbody>
 <tr>
-<td><code class="prettyprint">userId</code></td>
-<td>Unbill user ID.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">companyId</code></td>
-<td>Unbill company ID.</td>
+<td><code class="prettyprint">billId</code></td>
+<td>Unbill bill ID.</td>
 </tr>
 </tbody></table>
 
@@ -2356,13 +2365,51 @@ https://unbill.co/partner/v2 (production)
 
 <p>To authenticate and interact with the endpoints on behalf of a given user, a <code class="prettyprint">clientId</code> is required.</p>
 
+          <h2 id="create-client">Create Client</h2>
+
+<blockquote>
+<p>Sample Request</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Creates a client to be used with requests.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://unbill.co/partner/v2/client/create</code></p>
+
+<h3 id="200-response-body">200 Response Body</h3>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">clientId</code></td>
+<td>The ID to be used with requests.</td>
+</tr>
+</tbody></table>
+
           <h2 id="create-token">Create Token</h2>
 
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"unbillKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unique-user-id"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nt">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
