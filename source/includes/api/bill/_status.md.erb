@@ -5,7 +5,7 @@
 ```json
 {
   "status": {
-    "type": "syncing",
+    "type": "syncing"
   }, 
   "settings": {
     "autopay": true 
@@ -18,7 +18,7 @@
 ```json
 {
   "status": {
-    "type": "zero-balance",
+    "type": "zero-balance"
   }, 
   "settings": {
     "autopay": true 
@@ -33,7 +33,7 @@
   "balance": "100.00",
   "dueDate": "2016-03-25T00:00:00.000Z",
   "status": {
-    "type": "overdue",
+    "type": "overdue"
   },
   "settings": {
     "autopay": true 
@@ -46,7 +46,7 @@
 ```json
 {
   "status": {
-    "type": "payment-required",
+    "type": "payment-required"
   },
   "settings": {
     "autopay": true
@@ -59,7 +59,7 @@
 ```json
 {
   "status": {
-    "type": "payment-declined",
+    "type": "payment-declined"
   },
   "settings": {
     "autopay": true
@@ -74,9 +74,7 @@
   "balance": "100.00",
   "dueDate": "<%= config.futureDate %>",
   "status": {
-    "type": "upcoming",
-    "text": "<%= config.futureStatus %>",
-    "image": "<%= config.statusSvg %>"
+    "type": "upcoming"
   },
   "settings": {
     "autopay": true 
@@ -91,7 +89,7 @@
   "balance": "100.00",
   "dueDate": "<%= config.futureDate %>",
   "status": {
-    "type": "pending", 
+    "type": "pending"
   },
   "settings": {
     "autopay": true 
@@ -104,7 +102,7 @@
 ```json
 {
   "status": {
-    "type": "paid",
+    "type": "paid"
   },
   "lastPaidAmount": "100.00",
   "lastPaidOn": "2016-01-01T00:00:00.000Z",

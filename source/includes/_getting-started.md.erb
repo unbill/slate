@@ -38,14 +38,14 @@ To authenticate bills with your users, you may use the following flow.
 1. User signs up in your app.
 2. Make a request to the `/client/add` endpoint to retrieve an Unbill `clientId` to store in your database for future requests.
 
-### Bill Authentication
+### Authentication
 
 1. Search for the company you'd like to add from the `/company/search` endpoint.
 2. Provide your user with a "bill authentication" view populated with the login fields retrieved from the desired company.
 3. Have your user fill out their credentials, and then send those credentials to the `/auth` endpoint.
-4. Unbill will begin the authentication process and if successful, will return available `items`.
+4. Unbill will begin the authentication process and if successful, will return available [items](#auth-items).
 
-### Bill Overview
+### Bills
 
 1. Requests can be made to the `/bill/list` endpoint to retrieve the list of authenticated bills and balance information.
 2. Requests can be made to the `/bill/details` endpoint to retrieve details on a specific bill.

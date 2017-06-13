@@ -1,4 +1,4 @@
-## Retrieve bill detail
+## Retrieve bill details
 
 > Sample Request
 
@@ -22,14 +22,14 @@
     }, 
     "settings": {
       "autopay": true 
-    }
-  },
-  "company": {
-    "_id": "579b695decea110719b1874d",
-    "name": "<%= config.billerName %>",
-    "logo": {
-      "url": "<%= config.billerLogo %>",
-      "background": false
+    },
+    "company": {
+      "_id": "579b695decea110719b1874d",
+      "name": "<%= config.billerName %>",
+      "logo": {
+        "url": "<%= config.billerLogo %>",
+        "background": false
+      }
     }
   },
   "payments": []
@@ -49,14 +49,14 @@
     "lastPaidOn": "2016-01-01T00:00:00.000Z",
     "settings": {
       "autopay": true 
-    }
-  },
-  "company": {
-    "_id": "579b695decea110719b1874d",
-    "name": "<%= config.billerName %>",
-    "logo": {
-      "url": "<%= config.billerLogo %>",
-      "background": false
+    },
+    "company": {
+      "_id": "579b695decea110719b1874d",
+      "name": "<%= config.billerName %>",
+      "logo": {
+        "url": "<%= config.billerLogo %>",
+        "background": false
+      }
     }
   },
   "payments": [{
@@ -96,7 +96,6 @@ Param | Description
 Attribute | Description
 --------- | -----------
 `bill` | Bill object
-`company` | Company object
 `payments` | List of past bill payments
 `payments.amount` | Amount paid
 `payments.paidOn` | Date of payment

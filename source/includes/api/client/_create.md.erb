@@ -1,0 +1,29 @@
+## Create Client
+
+> Sample Request
+
+```json
+{
+  "apiKey": "<%= config.auth %>"
+}
+```
+
+> 200 Response
+
+```json
+{
+  "clientId": "579b695decfa11012711875d"
+}
+```
+
+Creates a client to be used with requests.
+
+### HTTP Request
+
+`POST <%= config.host %>/client/create`
+
+### 200 Response Body
+
+Attribute | Description
+--------- | -----------
+`clientId` | The ID to be used with requests.

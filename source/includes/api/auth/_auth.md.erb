@@ -1,4 +1,4 @@
-## Auth
+## Add Auth
 
 > Sample Request
 
@@ -73,7 +73,7 @@ Param | Description
 ----- | -----------
 `clientId` | ID of user being authenticated.
 `companyId` | ID of company being authenticated.
-`items` | The list of items you'd like attached to this auth. For all available items, do not include this parameter. If you're only interested in the auth, set this parameter as an empty array `[]`. Otherwise specify which [items](#auth-items) you'd like.
+`items`<br><small>(optional)</small> | The list of items you'd like attached to this auth. If not specified, all available items will be returned. If you're only interested in verifying credentials, set this parameter as an empty array `[]`, otherwise specify which [items](#auth-items) you'd like.
 `form` | Credentials to authenticate.
 
 ### Testing
@@ -85,7 +85,7 @@ To test an MFA 201 response, pass in a `mfaTest` flag whose value can be `questi
 Attribute | Description
 --------- | -----------
 `authId` | The ID of the auth.
-`items` | A list of Item Objects attached to this auth.
+`items` | A list of [items](#auth-items) attached to this auth.
 
 ### 201 Response Body ([MFA](#auth-mfa))
 
