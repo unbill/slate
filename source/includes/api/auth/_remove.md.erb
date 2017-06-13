@@ -1,0 +1,34 @@
+## Remove auth
+
+> Sample Request
+
+```json
+{
+  "apiKey": "<%= config.auth %>",
+  "authId": "56e1dbb5443b10a3bd403fcf"
+}
+```
+
+Removes an `auth` and all its `items` from the account.
+
+### HTTP Request
+
+`POST <%= config.host %>/auth/remove`
+
+### Post Parameters
+
+Param | Description
+----- | -----------
+`authId` | Unbill auth ID.
+
+> 400 Response
+
+```json
+{
+  "message": "Please provide the authId."
+}
+```
+
+### Returns
+
+Returns a `200` response if the `auth` and its `items` was removed successfully.

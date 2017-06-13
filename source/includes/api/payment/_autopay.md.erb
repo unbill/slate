@@ -4,9 +4,8 @@
 
 ```json
 {
-  "unbillKey": "<%= config.auth %>",
-  "userId": "566595c8ce88ccec69328566",
-  "companyId": "56e1dbb5443b10a3bd403fcf",
+  "apiKey": "<%= config.auth %>",
+  "billId": "566595c8ce88ccec69328566",
   "autopay": "disabled"
 }
 ```
@@ -31,8 +30,7 @@ Some subscription companies, such as Netflix, Hulu, and Spotify require automati
 
 Param | Description
 ----- | -----------
-`userId` | Unbill user ID.
-`companyId` | Unbill company ID.
+`billId` | Unbill bill ID.
 `autopay` | Whether autopay should be enabled or disabled. `enabled, disabled`
 
 ### Returns

@@ -4,8 +4,8 @@
 
 ```json
 {
-  "unbillKey": "<%= config.auth %>",
-  "userId": "56e1ddbd1a05319bc198d36f"
+  "apiKey": "<%= config.auth %>",
+  "clientId": "56e1ddbd1a05319bc198d36f"
 }
 ```
 
@@ -50,13 +50,13 @@ Retrieve a list of payment methods on file for a user. When in Sandbox, `type` w
 
 ### HTTP Request
 
-`POST <%= config.host %>/payment/get`
+`POST <%= config.host %>/payment/list`
 
 ### Post Parameters
 
 Param | Description
 ----- | -----------
-`userId` | Unbill user ID.
+`clientId` | Unbill client ID.
 
 ### Returns
 

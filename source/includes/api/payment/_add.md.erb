@@ -4,13 +4,15 @@
 
 ```json
 {
-  "unbillKey": "<%= config.auth %>",
-  "userId": "56e1ddbd1a05319bc198d36f",
+  "apiKey": "<%= config.auth %>",
+  "clientId": "56e1ddbd1a05319bc198d36f",
   "paymentType": "debit",
   "cardNumber": "378282246310005",
   "cardCode": "218",
   "expDate": "06/2019",
-  "zipcode": "12345"
+  "zipcode": "12345",
+  "firstName": "Sean",
+  "lastName": "Hill"
 }
 ```
 
@@ -18,12 +20,14 @@
 
 ```json
 {
-  "unbillKey": "<%= config.auth %>",
-  "userId": "56e1ddbd1a05319bc198d36f",
+  "apiKey": "<%= config.auth %>",
+  "clientId": "56e1ddbd1a05319bc198d36f",
   "routingNumber": "021000021",
   "accountNumber": "9900000002",
   "accountType": "checking",
-  "paymentType": "echeck"
+  "paymentType": "echeck",
+  "firstName": "Sean",
+  "lastName": "Hill"
 }
 ```
 
@@ -45,7 +49,7 @@ Add a payment method to an Unbill user.
 
 Param | Description
 ----- | -----------
-`userId` | Unbill user ID.
+`clientId` | Unbill client ID.
 `paymentType` | Type of payment `credit, debit, echeck`.
 `cardNumber` | Credit card number
 `cardCode` | Credit card CVV
@@ -54,6 +58,8 @@ Param | Description
 `routingNumber` | Bank routing number
 `accountNumber` | Bank account number
 `accountType` | Type of bank account `checking, savings`.
+`firstName` | The first name on the payment account.
+`lastName` | The last name on the payment account.
 
 ### Returns
 

@@ -4,9 +4,10 @@
 
 ```json
 {
-  "unbillKey": "<%= config.auth %>",
-  "userId": "566595c8ce88ccec69328566",
+  "apiKey": "<%= config.auth %>",
+  "clientId": "566595c8ce88ccec69328566",
   "companyId": "56e1dbb5443b10a3bd403fcf",
+  "items": ["bill"],
   "form": {
     "username": "Johnny",
     "password": "Appleseed"
@@ -18,10 +19,12 @@
 
 ```json
 {
-  "bill": {
+  "authId": "56e1dbb5443b10a3bd403fcf",
+  "items": [{
+    "type": "bill",
     "balance": "100",
-    "dueDate": "2016-03-25T00:00:00.000Z"
-  }
+    "dueDate": "<%= config.futureDate %>"
+  }]
 }
 ```
 
@@ -30,7 +33,7 @@
 ```json
 {
   "token": "566595c8ce88ccec69328566",
-  "type": "questions",
+  "method": "questions",
   "mfa": [{ 
     "question": "What is the name of your first pet?",
     "identifier": "Bk0zwVx1Z"
@@ -43,7 +46,7 @@
 ```json
 {
   "token": "566595c8ce88ccec69328566",
-  "type": "code",
+  "method": "code",
   "mfa": [
   	{ "mask": "t...t@unbill.us", "type": "email", "identifier": "r1g0mvVg1Z", "label": "Email: t...t@unbill.us" },
     { "mask": "xxx-xxx-1234", "type": "phone", "identifier": "B1gyVvElJZ", "label": "Phone: xxx-xxx-1234" },
@@ -68,9 +71,10 @@
 
 Param | Description
 ----- | -----------
-`userId` | ID of user being authenticated.
+`clientId` | ID of user being authenticated.
 `companyId` | ID of company being authenticated.
-`form` | Bill credentials to authenticate.
+`items` | The list of items you'd like attached to this auth. For all available items, do not include this parameter. If you're only interested in the auth, set this parameter as an empty array `[]`. Otherwise specify which [items](#auth-items) you'd like.
+`form` | Credentials to authenticate.
 
 ### Testing
 
@@ -80,15 +84,13 @@ To test an MFA 201 response, pass in a `mfaTest` flag whose value can be `questi
 
 Attribute | Description
 --------- | -----------
-`bill` | If there is an outstanding bill, this will be available.
-`bill.balance` | Current balance (Will be `0` if not available).
-`bill.dueDate` | Current due date (Will be `undefined` if not available).
+`authId` | The ID of the auth.
+`items` | A list of Item Objects attached to this auth.
 
-### 201 Response Body (MFA)
+### 201 Response Body ([MFA](#auth-mfa))
 
 Attribute | Description
 --------- | -----------
 `token` | Token to be used when stepping through MFA via the `/auth/step` endpoint.
-`type` | The type of MFA being applied. `questions, code`
+`method` | The method of MFA being applied. `questions, code`
 `mfa` | List of required MFA to pass.
-

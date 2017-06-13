@@ -1,0 +1,58 @@
+## Auth status
+
+> Verified Response
+
+```json
+{
+  "status": {
+    "type": "verified"
+  }
+}
+```
+
+> Authenticate Response
+
+```json
+{
+  "status": {
+    "type": "authenticate"
+  }
+}
+```
+
+> Hold Response
+
+```json
+{
+  "status": {
+    "type": "hold"
+  },
+  "reason": {
+    "text": "You need to login and verify your account information."
+  }
+}
+```
+
+An auth `status.type` can be a variety of types. Each type is documented below with a description of the status and a typical use case.
+
+### verified
+
+The user's auth has been verified. No actions are required.
+
+### authenticate
+
+The user's credentials no longer work with the company's website and need to be reauthenticated. Make a request to the `/auth` endpoint with updated credentials to remove this status.
+
+![Bill Authenticate](<%= config.s3 %>/bill-authenticate.png)
+
+### hold 
+
+For a number of reasons an auth can have the status of `hold`. When an auth is on hold we'll present you with a `reason` that you in turn can present to your users. To remove this status, the user must take the appropriate action as described in the `reason`. This usually involves them needing to login into their online account. Once the user has completed the action, make a request to the `/auth/fix-hold` endpoint to resume their services.
+
+*Display hold reason*
+
+![Bill Hold](<%= config.s3 %>/bill-hold.png)
+
+*Displayed after user returns to app*
+
+![Bill Hold Confirm](<%= config.s3 %>/bill-hold-confirm.png)

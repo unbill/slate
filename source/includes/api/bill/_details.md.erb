@@ -4,9 +4,8 @@
 
 ```json
 {
-  "unbillKey": "<%= config.auth %>",
-  "userId": "56e1dbb5443b10a3bd403fcf",
-  "companyId": "56e1dbb5443b10a3bd403fcf"
+  "apiKey": "<%= config.auth %>",
+  "billId": "56e1dbb5443b10a3bd403fcf"
 }
 ```
 
@@ -23,10 +22,6 @@
     }, 
     "settings": {
       "autopay": true 
-    },
-    "headline": {
-      "title": "$35.23 will be paid on 5/7.",
-      "type": "upcoming"
     }
   },
   "company": {
@@ -54,10 +49,6 @@
     "lastPaidOn": "2016-01-01T00:00:00.000Z",
     "settings": {
       "autopay": true 
-    },
-    "headline": {
-      "title": "Paid in full.",
-      "type": "paid"
     }
   },
   "company": {
@@ -92,14 +83,13 @@ Retrieve details about a bill including outstanding balance, due date, settings,
 
 ### HTTP Request
 
-`POST <%= config.host %>/bill/detail`
+`POST <%= config.host %>/bill/details`
 
 ### Post Parameters
 
 Param | Description
 ----- | -----------
-`userId` | Unbill user ID.
-`companyId` | Unbill company ID.
+`billId` | Unbill bill ID.
 
 ### 200 Response Body
 

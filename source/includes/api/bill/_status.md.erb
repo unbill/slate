@@ -6,8 +6,6 @@
 {
   "status": {
     "type": "syncing",
-    "text": "Syncing",
-    "image": "<%= config.statusSvg %>"
   }, 
   "settings": {
     "autopay": true 
@@ -21,8 +19,6 @@
 {
   "status": {
     "type": "zero-balance",
-    "text": "$0.00",
-    "image": "<%= config.statusSvg %>"
   }, 
   "settings": {
     "autopay": true 
@@ -38,26 +34,9 @@
   "dueDate": "2016-03-25T00:00:00.000Z",
   "status": {
     "type": "overdue",
-    "text": "Overdue",
-    "image": "<%= config.statusSvg %>"
   },
   "settings": {
     "autopay": true 
-  }
-}
-```
-
-> Authenticate Response
-
-```json
-{
-  "status": {
-    "type": "authenticate",
-    "text": "Tap to fix",
-    "image": "<%= config.statusSvg %>"
-  },
-  "settings": {
-    "autopay": true
   }
 }
 ```
@@ -68,8 +47,6 @@
 {
   "status": {
     "type": "payment-required",
-    "text": "Tap to fix",
-    "image": "<%= config.statusSvg %>"
   },
   "settings": {
     "autopay": true
@@ -83,27 +60,9 @@
 {
   "status": {
     "type": "payment-declined",
-    "text": "Tap to fix",
-    "image": "<%= config.statusSvg %>"
   },
   "settings": {
     "autopay": true
-  }
-}
-```
-
-> Hold Response
-
-```json
-{
-  "status": {
-    "type": "hold",
-    "text": "Tap to fix",
-    "image": "<%= config.statusSvg %>"
-  },
-  "reason": "You'll need to login and accept the terms and conditions on your account.",
-  "settings": {
-    "autopay": true 
   }
 }
 ```
@@ -133,8 +92,6 @@
   "dueDate": "<%= config.futureDate %>",
   "status": {
     "type": "pending", 
-    "text": "Pending",
-    "image": "<%= config.statusSvg %>"
   },
   "settings": {
     "autopay": true 
@@ -148,8 +105,6 @@
 {
   "status": {
     "type": "paid",
-    "text": "Paid",
-    "image": "<%= config.statusSvg %>"
   },
   "lastPaidAmount": "100.00",
   "lastPaidOn": "2016-01-01T00:00:00.000Z",
@@ -183,12 +138,6 @@ The due date for the bill has passed, and no payment has been made. Common reaso
 
 ![Bill Overdue](<%= config.s3 %>/bill-overdue.png)
 
-### authenticate
-
-The user's credentials no longer work with the company's website and need to be reauthenticated. Make a request to the `/auth` endpoint with updated credentials to remove this status.
-
-![Bill Authenticate](<%= config.s3 %>/bill-authenticate.png)
-
 ### payment-required
 
 The payment method specified by `company.requiredPayment` is required to pay this bill. A linked payment method must be assigned before bill payments will resume. This can be done via the `/payment/assign` endpoint.
@@ -200,18 +149,6 @@ The payment method specified by `company.requiredPayment` is required to pay thi
 The payment method used to pay this bill was declined. To resume bill payments, have the user try their payment method again via the `/payment/retry` endpoint, or assign another one via the `/payment/assign` endpoint.
 
 ![Payment declined](<%= config.s3 %>/bill-authenticate.png)
-
-### hold 
-
-For a number of reasons a bill can have the status of `hold`. When a bill is on hold we'll present you with a `reason` that you in turn can present to your users. To remove this status, the user must take the appropriate action as described in the `reason`. This usually involves them needing to login into their online account. Once the user has completed the action, make a request to the `/bill/fix-hold` endpoint to resume their bill services.
-
-*Display hold reason*
-
-![Bill Hold](<%= config.s3 %>/bill-hold.png)
-
-*Displayed after user returns to app*
-
-![Bill Hold Confirm](<%= config.s3 %>/bill-hold-confirm.png)
 
 ### upcoming
 
@@ -230,22 +167,3 @@ The user has an outstanding balance with a future due date.
 The user has no outstanding balance and has a last paid amount on their account.
 
 ![Bill Paid](<%= config.s3 %>/bill-paid.png)
-
-<br>
-
-A bill `status.text` can be used in your bill overview. It is friendly text that describes the `status.type` in more detail. Possible values are `Syncing`, `Tap to fix`, `Due XXX X`, `Overdue`, `Pending`, `Paid`.
-
-A bill `status.image` can be used in your bill overview. It is a URL to a status icon.
-
-## Bill status images
-
-Below is a list of the images used for a bill's `status.image`.
-
-* [syncing.svg](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/syncing.svg)
-* [zero-balance.svg](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/zero-balance.svg)
-* [overdue.svg](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/overdue.svg)
-* [authenticate.svg](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/authenticate.svg)
-* [hold.svg](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/hold.svg)
-* [upcoming.svg](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/upcoming.svg)
-* [pending.svg](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/pending.svg)
-* [paid.svg](https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api/bill-status/paid.svg)

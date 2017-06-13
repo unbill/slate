@@ -1,0 +1,32 @@
+## Fix auth hold
+
+> Sample Request
+
+```json
+{
+  "apiKey": "<%= config.auth %>",
+  "authId": "56e1dbb5443b10a3bd403fcf"
+}
+```
+
+### HTTP Request
+
+`POST <%= config.host %>/auth/fix-hold`
+
+### Post Parameters
+
+Param | Description
+----- | -----------
+`authId` | Unbill auth ID.
+
+> 400 Response
+
+```json
+{
+  "message": "Please provide the authId."
+}
+```
+
+### Returns
+
+Returns a `200` status code if a auth was successfully removed. Returns an error otherwise.

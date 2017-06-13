@@ -9,11 +9,17 @@
   "dueDate": "<%= config.futureDate %>",
   "status": {
     "type": "upcoming",
-    "text": "<%= config.futureStatus %>",
-    "image": "<%= config.statusSvg %>"
   },
   "settings": {
     "autopay": true 
+  },
+  "company": {
+    "_id": "579b695decea110719b1874d",
+    "name": "Netflix",
+    "logo": {
+      "url": "https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png",
+      "background": false
+    } 
   }
 }
 ```
@@ -26,7 +32,6 @@ Attribute | Description
 `lastPaidAmount` | Amount of last payment.
 `lastPaidOn` | Date of last payment.
 `status` | [Status](#bill-status) of the bill.
-`headline` | [Headline](#bill-headline) of the bill.
-`reason` | Reason the bill is on hold.
+`company` | Company Object
 `settings` | Settings for a bill.
 `settings.autopay` | Whether or not payments are scheduled automatically.

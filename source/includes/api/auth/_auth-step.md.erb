@@ -4,7 +4,7 @@
 
 ```json
 {
-  "unbillKey": "<%= config.auth %>",
+  "apiKey": "<%= config.auth %>",
   "mfa": [{
     "answer": "Secret Answer",
     "identifier": "Bk0zwVx1Z"
@@ -17,22 +17,11 @@
 
 ```json
 {
-  "unbillKey": "<%= config.auth %>",
+  "apiKey": "<%= config.auth %>",
   "mfa": { 
     "identifier": "ByDXD4eJW" 
   },
   "token": "56e1dbb5443b10a3bd403fcf"
-}
-```
-
-> 200 Response (Authenticated)
-
-```json
-{
-  "bill": {
-    "balance": "100",
-    "dueDate": "2016-03-25T00:00:00.000Z"
-  }
 }
 ```
 
@@ -41,7 +30,7 @@
 ```json
 {
   "token": "566595c8ce88ccec69328566",
-  "type": "questions",
+  "method": "questions",
   "mfa": [{ 
     "question": "What is the name of your first pet?",
     "identifier": "Bk0zwVx1Z"
@@ -54,7 +43,7 @@
 ```json
 {
   "token": "566595c8ce88ccec69328566",
-  "type": "code",
+  "method": "code",
   "mfa": [
   	{ "mask": "t...t@unbill.us", "type": "email", "identifier": "r1g0mvVg1Z", "label": "Email: t...t@unbill.us" },
     { "mask": "xxx-xxx-1234", "type": "phone", "identifier": "B1gyVvElJZ", "label": "Phone: xxx-xxx-1234" },
@@ -88,18 +77,10 @@ Param | Description
 `token` | Token provided to you from the `/auth` response.
 `mfa` | The extra information needed for MFA authentication.
 
-### 200 Response Body
-
-Attribute | Description
---------- | -----------
-`bill` | If there is an outstanding bill, this will be available.
-`bill.balance` | Current balance (Will be `0` if not available).
-`bill.dueDate` | Current due date (Will be `undefined` if not available).
-
 ### 201 Response Body (MFA)
 
 Attribute | Description
 --------- | -----------
 `token` | Token to be used when stepping through MFA via the `/auth/step` endpoint.
-`type` | The type of MFA being applied. `questions, code`
+`method` | The method of MFA being applied. `questions, code`
 `mfa` | List of required MFA to pass.
