@@ -1947,7 +1947,7 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1ddbd1a05319bc198d36f"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"paymentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"debit"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"paymentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"cardNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"378282246310005"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"cardCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"218"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"expMonth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
@@ -1964,10 +1964,10 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1ddbd1a05319bc198d36f"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"paymentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bank"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"routingNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"021000021"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"accountNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9900000002"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"accountType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"checking"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"paymentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echeck"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sean Hill"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -2008,27 +2008,27 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 </tr>
 <tr>
 <td><code class="prettyprint">paymentType</code></td>
-<td>Type of payment <code class="prettyprint">credit, debit, echeck</code>.</td>
+<td>Type of payment. Possible values are <code class="prettyprint">card</code>, <code class="prettyprint">bank</code>.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">cardNumber</code></td>
-<td>Credit card number</td>
+<td>Credit card number.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">cardCode</code></td>
-<td>Credit card CVV</td>
+<td>Credit card CVV.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">expMonth</code></td>
-<td>Credit card expiration month <code class="prettyprint">XX</code></td>
+<td>Credit card expiration month formatted as <code class="prettyprint">XX</code>.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">expYear</code></td>
-<td>Credit card expiration year <code class="prettyprint">XXXX</code></td>
+<td>Credit card expiration year formatted as <code class="prettyprint">XXXX</code>.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">zipcode</code></td>
-<td>Credit card zipcode</td>
+<td>Credit card zipcode.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">name</code></td>
@@ -2036,15 +2036,15 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 </tr>
 <tr>
 <td><code class="prettyprint">routingNumber</code></td>
-<td>Bank routing number</td>
+<td>Bank routing number.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">accountNumber</code></td>
-<td>Bank account number</td>
+<td>Bank account number.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">accountType</code></td>
-<td>Type of bank account <code class="prettyprint">checking, savings</code>.</td>
+<td>Type of bank account. Possible values are <code class="prettyprint">checking</code>, <code class="prettyprint">savings</code>.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">setAsDefault</code></td>
