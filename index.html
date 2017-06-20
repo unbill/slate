@@ -219,10 +219,10 @@ https://unbill.co/partner/v2 (production)
 
 <ol>
 <li>Provide your user with a &ldquo;link payment&rdquo; view to choose a payment method.</li>
-<li>Link this payment method to Unbill using the <code class="prettyprint">/payment/add</code> endpoint.</li>
+<li>Link this payment method to Unbill using the <code class="prettyprint">/payment</code> endpoint.</li>
 <li>By default, bills will be paid automatically by using the payment method on file.</li>
-<li>To change this, you must make a request to the <code class="prettyprint">/payment/autopay</code> endpoint to disable autopay.</li>
-<li>When autopay is disabled, in order to make a payment, one must be scheduled via the <code class="prettyprint">/payment/make</code> endpoint.</li>
+<li>To change this, you must make a request to the <code class="prettyprint">/payment/settings</code> endpoint to disable recurring payments.</li>
+<li>When recurring payments are disabled, in order to make an on-demand payment, one must be scheduled via the <code class="prettyprint">/payment/schedule</code> endpoint.</li>
 </ol>
 
           <h1 id="resources">Resources</h1>
@@ -767,7 +767,7 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 
 <p>Returns a <code class="prettyprint">200</code> status code if an auth&rsquo;s hold was marked as being resolved. Returns an error otherwise.</p>
 
-          <h2 id="remove-auth">Remove auth</h2>
+          <h2 id="delete-auth">Delete auth</h2>
 
 <blockquote>
 <p>Sample Request</p>
@@ -778,11 +778,11 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>Removes an <code class="prettyprint">auth</code> and all its <code class="prettyprint">items</code> from the account.</p>
+<p>Deletes an <code class="prettyprint">auth</code> and all its <code class="prettyprint">items</code> from the account.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/auth/remove</code></p>
+<p><code class="prettyprint">POST https://unbill.co/partner/v2/auth/delete</code></p>
 
 <h3 id="post-parameters">Post Parameters</h3>
 
@@ -808,7 +808,7 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 
 <h3 id="returns">Returns</h3>
 
-<p>Returns a <code class="prettyprint">200</code> response if the <code class="prettyprint">auth</code> and its <code class="prettyprint">items</code> was successfully removed.</p>
+<p>Returns a <code class="prettyprint">200</code> response if the <code class="prettyprint">auth</code> and its <code class="prettyprint">items</code> was successfully deleted.</p>
 
           <h1 id="bill">Bill</h1>
 
@@ -823,11 +823,13 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
   </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"payDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+    </span><span class="nt">"recurring"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enabled"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"on-due-date"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
@@ -835,7 +837,8 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
     </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
       </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-    </span><span class="p">}</span><span class="w"> 
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"on-due-date"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -864,7 +867,11 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 </tr>
 <tr>
 <td><code class="prettyprint">lastPaidOn</code></td>
-<td>Date of last payment.</td>
+<td>The date when this bill was last paid.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">payDate</code></td>
+<td>The date when the next bill will be paid.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">status</code></td>
@@ -879,8 +886,12 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 <td>Settings for a bill.</td>
 </tr>
 <tr>
-<td><code class="prettyprint">settings.autopay</code></td>
-<td>Whether or not payments are scheduled automatically.</td>
+<td><code class="prettyprint">settings.recurring</code></td>
+<td>Whether or not payments are scheduled automatically. Possible values are <code class="prettyprint">enabled</code>, <code class="prettyprint">disabled</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">settings.schedule</code></td>
+<td>The <a href="#bill-payment-schedule">schedule</a> for when a bill payment will be made.</td>
 </tr>
 </tbody></table>
 
@@ -894,7 +905,8 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
     </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"syncing"</span><span class="w">
   </span><span class="p">},</span><span class="w"> 
   </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+    </span><span class="nt">"recurring"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enabled"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"day-before"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -907,7 +919,8 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
     </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zero-balance"</span><span class="w">
   </span><span class="p">},</span><span class="w"> 
   </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+    </span><span class="nt">"recurring"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enabled"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"day-before"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -918,11 +931,13 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.00"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-03-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"payDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-03-24T00:00:00.000Z"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"overdue"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+    </span><span class="nt">"recurring"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enabled"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"day-before"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -935,7 +950,11 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
     </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment-required"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="nt">"recurring"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enabled"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"day-before"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"requiredPayment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -948,7 +967,8 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
     </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment-declined"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="nt">"recurring"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enabled"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"day-before"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -959,11 +979,13 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.00"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"payDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-24T00:00:00.000Z"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+    </span><span class="nt">"recurring"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enabled"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"day-before"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -974,11 +996,13 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.00"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"payDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-24T00:00:00.000Z"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+    </span><span class="nt">"recurring"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enabled"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"day-before"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -993,7 +1017,8 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
   </span><span class="nt">"lastPaidAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.00"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"lastPaidOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+    </span><span class="nt">"recurring"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enabled"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"day-before"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -1018,8 +1043,8 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 
 <ul>
 <li>A user adds a bill that is already overdue.</li>
-<li><code class="prettyprint">autopay</code> is enabled and the user has no payment method or their payment method&rsquo;s status is <code class="prettyprint">failed</code>.</li>
-<li><code class="prettyprint">autopay</code> is disabled and a payment has not been scheduled via the <code class="prettyprint">/payment/make</code> endpoint.</li>
+<li><code class="prettyprint">recurring</code> is enabled and the user has no payment method or their payment method&rsquo;s status is <code class="prettyprint">failed</code>.</li>
+<li><code class="prettyprint">recurring</code> is disabled and a payment has not been scheduled via the <code class="prettyprint">/payment/make</code> endpoint.</li>
 </ul>
 
 <p><img alt="Bill Overdue" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-overdue.png" /></p>
@@ -1054,6 +1079,32 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 
 <p><img alt="Bill Paid" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-paid.png" /></p>
 
+          <h2 id="bill-payment-schedule">Bill payment schedule</h2>
+
+<p>A bill&rsquo;s <code class="prettyprint">settings.schedule</code> is the number of days before the due date when a bill will be paid. This schedule will be followed when <code class="prettyprint">settings.recurring</code> is enabled and the company allows it.
+<br><br>
+The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which the next bill payment will be made. When recurring payments are enabled, the <code class="prettyprint">payDate</code> is calculated by the assigned <code class="prettyprint">settings.schedule</code>. When recurring payments are disabled, one-time payments may be scheduled on-demand via the <code class="prettyprint">/payment/schedule</code> endpoint. Available <code class="prettyprint">settings.schedule</code> options are documented below.</p>
+
+<h3 id="ten-days-before">ten-days-before</h3>
+
+<p>A payment will be made ten days before the due date.</p>
+
+<h3 id="five-days-before">five-days-before</h3>
+
+<p>A payment will be made five days before the due date.</p>
+
+<h3 id="day-before">day-before</h3>
+
+<p>A payment will be made the day before the due date.</p>
+
+<h3 id="on-due-date">on-due-date</h3>
+
+<p>A payment will be made on the due date.</p>
+
+<h3 id="immediately">immediately</h3>
+
+<p>A payment will be made as soon as a new bill is received.</p>
+
           <h2 id="retrieve-bill-details">Retrieve bill details</h2>
 
 <blockquote>
@@ -1073,11 +1124,13 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
     </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"payDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="w">
     </span><span class="p">},</span><span class="w"> 
     </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+      </span><span class="nt">"recurring"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enabled"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"on-due-date"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
@@ -1085,7 +1138,8 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
       </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-      </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"on-due-date"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"payments"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
@@ -1104,7 +1158,8 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
     </span><span class="nt">"lastPaidAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"lastPaidOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
+      </span><span class="nt">"recurring"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enabled"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"on-due-date"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
@@ -1112,7 +1167,8 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
       </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
         </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-      </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"on-due-date"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"payments"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
@@ -1197,59 +1253,58 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 </blockquote>
 <pre class="highlight json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"syncing"</span><span class="w">
+    </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"payDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="w">
+      </span><span class="p">},</span><span class="w"> 
+      </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"recurring"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enabled"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"on-due-date"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"on-due-date"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Time Warner Cable"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/4c805851c738c006546b234e3c3c793d.png"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-      </span><span class="p">}</span><span class="w"> 
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">},</span><span class="w"> 
+    </span><span class="nt">"payments"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="w">
+    </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"paid"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"lastPaidAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"lastPaidOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"recurring"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enabled"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"day-before"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Grove at Auburn"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/0e9a971a96646da46f5faa68862d0f2d.jpg"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-      </span><span class="p">}</span><span class="w"> 
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">},</span><span class="w"> 
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"lastPaidAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"lastPaidOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-03-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"paid"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> 
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-      </span><span class="p">}</span><span class="w"> 
-    </span><span class="p">}</span><span class="w">
+    </span><span class="nt">"payments"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+      </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123.12"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"paidOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-01-01T00:00:00.000Z"</span><span class="w">
+    </span><span class="p">},{</span><span class="w">
+      </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"153.19"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"paidOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-01-02T00:00:00.000Z"</span><span class="w">
+    </span><span class="p">}]</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
@@ -1286,7 +1341,7 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 
 <h3 id="returns">Returns</h3>
 
-<p>Returns a list of bill objects.</p>
+<p>Returns a list of bill details.</p>
 
           <h1 id="company">Company</h1>
 
@@ -1309,7 +1364,7 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
     </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"requiredPayment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bank"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"forcesAutopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"on-due-date"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"urls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.netflix.com/Login"</span><span class="p">,</span><span class="w">
@@ -1379,8 +1434,8 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 <td>If a specific payment method type is required by this company, this will be defined. Possible values are <code class="prettyprint">bank</code>, <code class="prettyprint">card</code>.</td>
 </tr>
 <tr>
-<td><code class="prettyprint">forcesAutopay</code></td>
-<td>Whether or not the company enforces auto payments. Typically subscription companies such as Netflix have this value set to <code class="prettyprint">true</code>.</td>
+<td><code class="prettyprint">schedule</code></td>
+<td>The <a href="#bill-payment-schedule">bill payment schedule</a> this company follows. If this parameter is set, the schedule for a bill linked to this company may not be changed. Typically subscription companies such as Netflix have this parameter set since payments must be made on a specific date.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">auth</code></td>
@@ -1549,7 +1604,7 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
     </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"requiredPayment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bank"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"forcesAutopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"on-due-date"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"urls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.netflix.com/Login"</span><span class="p">,</span><span class="w">
@@ -1647,7 +1702,7 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
     </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"requiredPayment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bank"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"forcesAutopay"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"on-due-date"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"urls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.netflix.com/Login"</span><span class="p">,</span><span class="w">
@@ -1726,7 +1781,7 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 
           <h1 id="payment">Payment</h1>
 
-<p>In order to make payments towards a user&rsquo;s bill, they must first link a payment method using the <code class="prettyprint">/payment/add</code> endpoint. By default, after a payment method is linked, payments will be made towards a user&rsquo;s bills on time. The API allows you to add and retrieve a user&rsquo;s payment method, as well as make payments towards a bill&rsquo;s outstanding balance.</p>
+<p>In order to make payments towards a user&rsquo;s bill, they must first link a payment method using the <code class="prettyprint">/payment</code> endpoint. By default, after a payment method is linked, payments will be made towards a user&rsquo;s bills on time. The API allows you to add and retrieve a user&rsquo;s payment method, as well as make payments towards a bill&rsquo;s outstanding balance.</p>
 
           <h2 id="the-card-object">The card object</h2>
 
@@ -1874,7 +1929,7 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 <p>When a user&rsquo;s payment method fails to pay a bill, we set their payment method status as <code class="prettyprint">declined</code>. While their status is <code class="prettyprint">declined</code> no bill payments will be made in behalf of the user. To address this issue, you may take one of the following courses of action:</p>
 
 <ol>
-<li>Link a new payment method via the <code class="prettyprint">/payment/add</code> endpoint.</li>
+<li>Link a new payment method via the <code class="prettyprint">/payment</code> endpoint.</li>
 <li>Retry the payment method via the <code class="prettyprint">/payment/retry</code> endpoint.</li>
 </ol>
 
@@ -1895,10 +1950,11 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
   </span><span class="nt">"paymentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"debit"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"cardNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"378282246310005"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"cardCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"218"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"expDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"06/2019"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"expMonth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"expYear"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"zipcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sean"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hill"</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sean Hill"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"setAsDefault"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -1912,8 +1968,15 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
   </span><span class="nt">"accountNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9900000002"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"accountType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"checking"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"paymentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echeck"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sean"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hill"</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sean Hill"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"paymentMethodId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1ddbd1a05319bc198d36f"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -1929,7 +1992,7 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/payment/add</code></p>
+<p><code class="prettyprint">POST https://unbill.co/partner/v2/payment</code></p>
 
 <h3 id="post-parameters">Post Parameters</h3>
 
@@ -1956,12 +2019,20 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 <td>Credit card CVV</td>
 </tr>
 <tr>
-<td><code class="prettyprint">expDate</code></td>
-<td>Credit card expiration date</td>
+<td><code class="prettyprint">expMonth</code></td>
+<td>Credit card expiration month <code class="prettyprint">XX</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">expYear</code></td>
+<td>Credit card expiration year <code class="prettyprint">XXXX</code></td>
 </tr>
 <tr>
 <td><code class="prettyprint">zipcode</code></td>
 <td>Credit card zipcode</td>
+</tr>
+<tr>
+<td><code class="prettyprint">name</code></td>
+<td>The name as it appears on the payment account.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">routingNumber</code></td>
@@ -1976,12 +2047,8 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 <td>Type of bank account <code class="prettyprint">checking, savings</code>.</td>
 </tr>
 <tr>
-<td><code class="prettyprint">firstName</code></td>
-<td>The first name on the payment account.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">lastName</code></td>
-<td>The last name on the payment account.</td>
+<td><code class="prettyprint">setAsDefault</code></td>
+<td>Set this payment method as the default.</td>
 </tr>
 </tbody></table>
 
@@ -2007,24 +2074,26 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
   </span><span class="p">{</span><span class="w">
     </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3754dec21e861b5a3718"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sean Hill"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"card"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nt">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX4242"</span><span class="p">,</span><span class="w">
       </span><span class="nt">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"visa"</span><span class="p">,</span><span class="w">
       </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"credit"</span><span class="p">,</span><span class="w">
       </span><span class="nt">"expDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-01T12:00:00.000Z"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="p">{</span><span class="w">
     </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bank"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"declined"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sean Hill"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"bank"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nt">"routing"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX2531"</span><span class="p">,</span><span class="w">
       </span><span class="nt">"account"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX4124"</span><span class="p">,</span><span class="w">
       </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"checking"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"declined"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
@@ -2061,7 +2130,7 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 
 <p>Returns a list of card and bank objects. If no payment methods are on file, an empty array will be returned.</p>
 
-          <h2 id="remove-payment-method">Remove payment method</h2>
+          <h2 id="delete-payment-method">Delete payment method</h2>
 
 <blockquote>
 <p>Sample Request</p>
@@ -2084,15 +2153,15 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 <p>400 Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sorry! This payment method can't be removed because a payment was recently made with it. Please allow 24 hours before trying again."</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sorry! This payment method can't be deleted because a payment was recently made with it. Please allow 24 hours before trying again."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>Remove a payment method on file for bill payments. If a payment was made within the last 24 hours with this payment method, an error will be returned. Unbill requires a 24 hour time span after a payment has been made before a payment method can be removed.</p>
+<p>Delete a payment method on file for bill payments. If a payment was made within the last 24 hours with this payment method, an error will be returned. Unbill requires a 24 hour time span after a payment has been made before a payment method can be deleted.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/payment/remove</code></p>
+<p><code class="prettyprint">POST https://unbill.co/partner/v2/payment/delete</code></p>
 
 <h3 id="post-parameters">Post Parameters</h3>
 
@@ -2108,6 +2177,10 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 </tr>
 </tbody></table>
 
+<h3 id="returns">Returns</h3>
+
+<p>Returns a <code class="prettyprint">200</code> status code if the payment method was successfully deleted. Returns an error otherwise.</p>
+
           <h2 id="retry-payment-method">Retry payment method</h2>
 
 <blockquote>
@@ -2120,19 +2193,18 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 </span></code></pre>
 
 <blockquote>
-<p>Sample Response</p>
+<p>200 Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3754dec21e861b5a3718"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"card"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX4242"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"visa"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"credit"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"expDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-01T12:00:00.000Z"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>400 Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"No payment method found by that ID."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -2158,7 +2230,7 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 
 <h3 id="returns">Returns</h3>
 
-<p>Returns an updated payment object.</p>
+<p>Returns a <code class="prettyprint">200</code> status code if the payment method was set to retry. Returns an error otherwise.</p>
 
           <h2 id="default-payment-method">Default payment method</h2>
 
@@ -2172,19 +2244,10 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 </span></code></pre>
 
 <blockquote>
-<p>Sample Response</p>
+<p>200 Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3754dec21e861b5a3718"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"card"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX4242"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"visa"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"credit"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"expDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-12-01T12:00:00.000Z"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -2210,7 +2273,7 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 
 <h3 id="returns">Returns</h3>
 
-<p>Returns an updated payment object.</p>
+<p>Returns a <code class="prettyprint">200</code> status code if the payment method was successfully set as the default. Returns an error otherwise.</p>
 
           <h2 id="assign-payment-method">Assign payment method</h2>
 
@@ -2228,15 +2291,15 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 <p>200 Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bank"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"bank"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"routing"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX2531"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"account"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX4124"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"checking"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"assignedBills"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="w"> </span><span class="p">]</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>400 Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"No payment method found by that ID."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -2266,9 +2329,9 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 
 <h3 id="returns">Returns</h3>
 
-<p>Returns an updated payment object.</p>
+<p>Returns a <code class="prettyprint">200</code> status code if the payment method was successfully assigned. Returns an error otherwise.</p>
 
-          <h2 id="enable-or-disable-autopay">Enable or disable autopay</h2>
+          <h2 id="update-payment-settings">Update payment settings</h2>
 
 <blockquote>
 <p>Sample Request</p>
@@ -2276,7 +2339,16 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"billId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"autopay"</span><span class="p">:</span><span class="w"> </span><span class="s2">"disabled"</span><span class="w">
+  </span><span class="nt">"recurring"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enabled"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"five-days-before"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -2284,17 +2356,17 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 <p>400 Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"We couldn't disable auto pay for this company, sorry."</span><span class="w">
+  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Recurring payments may not be disabled for this company."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>Enable or disable autopay for a bill.</p>
+<p>Update payment settings for a bill.</p>
 
-<p>Some subscription companies, such as Netflix, Hulu, and Spotify require automatic payments to be enabled. If a request to the <code class="prettyprint">/payment/autopay</code> endpoint is made for one of these companies, a <code class="prettyprint">400</code> status code will be returned and autopay will not be disabled.</p>
+<p>Some subscription companies, such as Netflix, Hulu, and Spotify require recurring payments to be enabled. If a request to the <code class="prettyprint">/payment/settings</code> endpoint is made for one of these companies, a <code class="prettyprint">400</code> status code will be returned and recurring payments will not be disabled.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/payment/autopay</code></p>
+<p><code class="prettyprint">POST https://unbill.co/partner/v2/payment/settings</code></p>
 
 <h3 id="post-parameters">Post Parameters</h3>
 
@@ -2309,23 +2381,36 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 <td>Unbill bill ID.</td>
 </tr>
 <tr>
-<td><code class="prettyprint">autopay</code></td>
-<td>Whether autopay should be enabled or disabled. <code class="prettyprint">enabled, disabled</code></td>
+<td><code class="prettyprint">recurring</code></td>
+<td>Whether recurring payments should be <code class="prettyprint">enabled</code> or <code class="prettyprint">disabled</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">schedule</code></td>
+<td>The <a href="#bill-payment-schedule">bill payment schedule</a> for payments</td>
 </tr>
 </tbody></table>
 
 <h3 id="returns">Returns</h3>
 
-<p>Returns a <code class="prettyprint">200</code> status code if autopay was enabled or disabled.</p>
+<p>Returns a <code class="prettyprint">200</code> status code if settings were successfully updated.</p>
 
-          <h2 id="make-a-payment">Make a payment</h2>
+          <h2 id="schedule-payment">Schedule payment</h2>
 
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"billId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="w">
+  </span><span class="nt">"billId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"payDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -2337,11 +2422,11 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>Make a payment towards this company&rsquo;s outstanding balance.</p>
+<p>Schedule an on-demand payment towards a bill&rsquo;s outstanding balance.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/payment/make</code></p>
+<p><code class="prettyprint">POST https://unbill.co/partner/v2/payment/schedule</code></p>
 
 <h3 id="post-parameters">Post Parameters</h3>
 
@@ -2354,6 +2439,10 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 <tr>
 <td><code class="prettyprint">billId</code></td>
 <td>Unbill bill ID.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">date</code><br><small>(optional)</small></td>
+<td>An <code class="prettyprint">ISO 8601</code> formatted date that sets what day this bill will be paid. If no <code class="prettyprint">date</code> is specified, the bill is scheduled to be paid immediately.</td>
 </tr>
 </tbody></table>
 
