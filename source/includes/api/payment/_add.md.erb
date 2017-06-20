@@ -6,7 +6,7 @@
 {
   "apiKey": "<%= config.auth %>",
   "clientId": "56e1ddbd1a05319bc198d36f",
-  "paymentType": "debit",
+  "paymentType": "card",
   "cardNumber": "378282246310005",
   "cardCode": "218",
   "expMonth": "10",
@@ -26,7 +26,7 @@
   "routingNumber": "021000021",
   "accountNumber": "9900000002",
   "accountType": "checking",
-  "paymentType": "echeck",
+  "paymentType": "bank",
   "name": "Sean Hill"
 }
 ```
@@ -58,16 +58,16 @@ Add a payment method to an Unbill user.
 Param | Description
 ----- | -----------
 `clientId` | Unbill client ID.
-`paymentType` | Type of payment `credit, debit, echeck`.
-`cardNumber` | Credit card number
-`cardCode` | Credit card CVV
-`expMonth` | Credit card expiration month `XX`
-`expYear` | Credit card expiration year `XXXX`
-`zipcode` | Credit card zipcode
+`paymentType` | Type of payment. Possible values are `card`, `bank`.
+`cardNumber` | Credit card number.
+`cardCode` | Credit card CVV.
+`expMonth` | Credit card expiration month formatted as `XX`.
+`expYear` | Credit card expiration year formatted as `XXXX`.
+`zipcode` | Credit card zipcode.
 `name` | The name as it appears on the payment account.
-`routingNumber` | Bank routing number
-`accountNumber` | Bank account number
-`accountType` | Type of bank account `checking, savings`.
+`routingNumber` | Bank routing number.
+`accountNumber` | Bank account number.
+`accountType` | Type of bank account. Possible values are `checking`, `savings`.
 `setAsDefault` | Set this payment method as the default.
 
 ### Returns
