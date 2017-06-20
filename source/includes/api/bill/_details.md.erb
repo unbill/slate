@@ -17,11 +17,13 @@
     "_id": "579b695decfa11012711875d",
     "balance": "100",
     "dueDate": "<%= config.futureDate %>",
+    "payDate": "<%= config.futureDate %>",
     "status": {
       "type": "upcoming"
     }, 
     "settings": {
-      "autopay": true 
+      "recurring": "enabled",
+      "schedule": "on-due-date"
     },
     "company": {
       "_id": "579b695decea110719b1874d",
@@ -29,7 +31,8 @@
       "logo": {
         "url": "<%= config.billerLogo %>",
         "background": false
-      }
+      },
+      "schedule": "on-due-date"
     }
   },
   "payments": []
@@ -48,7 +51,8 @@
     "lastPaidAmount": "100",
     "lastPaidOn": "2016-01-01T00:00:00.000Z",
     "settings": {
-      "autopay": true 
+      "recurring": "enabled",
+      "schedule": "on-due-date"
     },
     "company": {
       "_id": "579b695decea110719b1874d",
@@ -56,7 +60,8 @@
       "logo": {
         "url": "<%= config.billerLogo %>",
         "background": false
-      }
+      },
+      "schedule": "on-due-date"
     }
   },
   "payments": [{

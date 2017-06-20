@@ -60,6 +60,7 @@ config.billerColor = 'FF041F'
 config.billerLogin = 'https://www.netflix.com/Login'
 config.billerSignup = 'https://www.netflix.com'
 config.futureDate = '2016-10-25T00:00:00.000Z'
+config.futureDateBefore = '2016-10-24T00:00:00.000Z'
 config.futureStatus = 'Due Oct 25'
 config.s3 = 'https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs'
 
@@ -77,7 +78,7 @@ config.companyResponseExample = [
 '    }',
 '  },',
 '  "requiredPayment": "bank",',
-'  "forcesAutopay": true,',
+'  "schedule": "on-due-date",',
 '  "auth": {',
 '    "urls": {',
 '      "login": "' + config.billerLogin + '",',
@@ -114,7 +115,7 @@ config.companyResponseDescription = [
   '`logo.svg.url` | URL of the company svg logo.',
   '`logo.svg.color` | Hex color of the Company logo.',
   '`requiredPayment` | If a specific payment method type is required by this company, this will be defined. Possible values are `bank`, `card`.',
-  '`forcesAutopay` | Whether or not the company enforces auto payments. Typically subscription companies such as Netflix have this value set to `true`.',
+  '`schedule` | The [bill payment schedule](#bill-payment-schedule) this company follows. If this parameter is set, the schedule for a bill linked to this company may not be changed. Typically subscription companies such as Netflix have this parameter set since payments must be made on a specific date.',
   '`auth` | Company auth fields.',
   '`auth.urls` | Company Auth Urls (login URL is always available, but the others can by null).',
   '`auth.urls.login` | Login URL.',

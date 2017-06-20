@@ -16,7 +16,7 @@ The payment method on file is not eligible to make payments. This may happen for
 
 When a user's payment method fails to pay a bill, we set their payment method status as `declined`. While their status is `declined` no bill payments will be made in behalf of the user. To address this issue, you may take one of the following courses of action:
 
-1. Link a new payment method via the `/payment/add` endpoint.
+1. Link a new payment method via the `/payment` endpoint.
 2. Retry the payment method via the `/payment/retry` endpoint.
 
 *Declined payment prompt*

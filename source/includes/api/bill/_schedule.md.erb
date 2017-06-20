@@ -1,0 +1,25 @@
+## Bill payment schedule
+
+A bill's `settings.schedule` is the number of days before the due date when a bill will be paid. This schedule will be followed when `settings.recurring` is enabled and the company allows it.
+<br><br>
+The bill's `payDate` is the date in which the next bill payment will be made. When recurring payments are enabled, the `payDate` is calculated by the assigned `settings.schedule`. When recurring payments are disabled, one-time payments may be scheduled on-demand via the `/payment/schedule` endpoint. Available `settings.schedule` options are documented below.
+
+### ten-days-before
+
+A payment will be made ten days before the due date.
+
+### five-days-before
+
+A payment will be made five days before the due date.
+
+### day-before
+
+A payment will be made the day before the due date.
+
+### on-due-date
+
+A payment will be made on the due date.
+
+### immediately
+
+A payment will be made as soon as a new bill is received.

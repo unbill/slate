@@ -9,10 +9,11 @@
   "paymentType": "debit",
   "cardNumber": "378282246310005",
   "cardCode": "218",
-  "expDate": "06/2019",
+  "expMonth": "10",
+  "expYear": "2017",
   "zipcode": "12345",
-  "firstName": "Sean",
-  "lastName": "Hill"
+  "name": "Sean Hill",
+  "setAsDefault": true
 }
 ```
 
@@ -26,8 +27,15 @@
   "accountNumber": "9900000002",
   "accountType": "checking",
   "paymentType": "echeck",
-  "firstName": "Sean",
-  "lastName": "Hill"
+  "name": "Sean Hill"
+}
+```
+
+> 200 Response
+
+```json
+{
+  "paymentMethodId": "56e1ddbd1a05319bc198d36f"
 }
 ```
 
@@ -43,7 +51,7 @@ Add a payment method to an Unbill user.
 
 ### HTTP Request
 
-`POST <%= config.host %>/payment/add`
+`POST <%= config.host %>/payment`
 
 ### Post Parameters
 
@@ -53,13 +61,14 @@ Param | Description
 `paymentType` | Type of payment `credit, debit, echeck`.
 `cardNumber` | Credit card number
 `cardCode` | Credit card CVV
-`expDate` | Credit card expiration date
+`expMonth` | Credit card expiration month `XX`
+`expYear` | Credit card expiration year `XXXX`
 `zipcode` | Credit card zipcode
+`name` | The name as it appears on the payment account.
 `routingNumber` | Bank routing number
 `accountNumber` | Bank account number
 `accountType` | Type of bank account `checking, savings`.
-`firstName` | The first name on the payment account.
-`lastName` | The last name on the payment account.
+`setAsDefault` | Set this payment method as the default.
 
 ### Returns
 

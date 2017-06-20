@@ -14,15 +14,15 @@
 
 ```json
 {
-  "_id": "580e3e11dec21e861b5a3719",
-  "type": "bank",
-  "bank": {
-    "routing": "XXXX2531",
-    "account": "XXXX4124",
-    "type": "checking"
-  },
-  "status": "verified",
-  "assignedBills": [ "579b695decea110719b1874d" ]
+  "success": true
+}
+```
+
+> 400 Response
+
+```json
+{
+  "message": "No payment method found by that ID."
 }
 ```
 
@@ -41,4 +41,4 @@ Param | Description
 
 ### Returns
 
-Returns an updated payment object.
+Returns a `200` status code if the payment method was successfully assigned. Returns an error otherwise.

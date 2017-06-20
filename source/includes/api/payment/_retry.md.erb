@@ -9,20 +9,19 @@
 }
 ```
 
-> Sample Response
+> 200 Response
 
 ```json
 {
-  "_id": "580e3754dec21e861b5a3718",
-  "type": "card",
-  "card": {
-    "number": "XXXX4242",
-    "brand": "visa",
-    "type": "credit",
-    "expDate": "2016-12-01T12:00:00.000Z"
-  },
-  "status": "verified",
-  "default": true
+  "success": true
+}
+```
+
+> 400 Response
+
+```json
+{
+  "message": "No payment method found by that ID."
 }
 ```
 
@@ -40,4 +39,4 @@ Param | Description
 
 ### Returns
 
-Returns an updated payment object.
+Returns a `200` status code if the payment method was set to retry. Returns an error otherwise.

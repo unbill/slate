@@ -1,0 +1,42 @@
+## Delete payment method
+
+> Sample Request
+
+```json
+{
+  "apiKey": "<%= config.auth %>",
+  "paymentMethodId": "566595c8ce88ccec69328566"
+}
+```
+
+> 200 Response
+
+```json
+{
+  "success": true
+}
+```
+
+> 400 Response
+
+```json
+{
+  "message": "Sorry! This payment method can't be deleted because a payment was recently made with it. Please allow 24 hours before trying again."
+}
+```
+
+Delete a payment method on file for bill payments. If a payment was made within the last 24 hours with this payment method, an error will be returned. Unbill requires a 24 hour time span after a payment has been made before a payment method can be deleted.
+
+### HTTP Request
+
+`POST <%= config.host %>/payment/delete`
+
+### Post Parameters
+
+Param | Description
+----- | -----------
+`paymentMethodId` | Payment method ID.
+
+### Returns
+
+Returns a `200` status code if the payment method was successfully deleted. Returns an error otherwise.

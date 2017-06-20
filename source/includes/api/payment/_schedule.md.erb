@@ -1,0 +1,44 @@
+## Schedule payment
+
+> Sample Request
+
+```json
+{
+  "apiKey": "<%= config.auth %>",
+  "billId": "566595c8ce88ccec69328566",
+  "payDate": "<%= config.futureDate %>"
+}
+```
+
+> 200 Response
+
+```json
+{
+  "success": true
+}
+```
+
+> 400 Response
+
+```json
+{
+  "message": "Please provide a billId to make a payment for."
+}
+```
+
+Schedule an on-demand payment towards a bill's outstanding balance.
+
+### HTTP Request
+
+`POST <%= config.host %>/payment/schedule`
+
+### Post Parameters
+
+Param | Description
+----- | -----------
+`billId` | Unbill bill ID.
+`date`<br><small>(optional)</small> | An `ISO 8601` formatted date that sets what day this bill will be paid. If no `date` is specified, the bill is scheduled to be paid immediately.
+
+### Returns
+
+Returns a `200` status code if a payment is successfully scheduled. Returns an error otherwise.

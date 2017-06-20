@@ -8,7 +8,8 @@
     "type": "syncing"
   }, 
   "settings": {
-    "autopay": true 
+    "recurring": "enabled",
+    "schedule": "day-before"
   }
 }
 ```
@@ -21,7 +22,8 @@
     "type": "zero-balance"
   }, 
   "settings": {
-    "autopay": true 
+    "recurring": "enabled",
+    "schedule": "day-before"
   }
 }
 ```
@@ -32,11 +34,13 @@
 {
   "balance": "100.00",
   "dueDate": "2016-03-25T00:00:00.000Z",
+  "payDate": "2016-03-24T00:00:00.000Z",
   "status": {
     "type": "overdue"
   },
   "settings": {
-    "autopay": true 
+    "recurring": "enabled",
+    "schedule": "day-before"
   }
 }
 ```
@@ -49,7 +53,11 @@
     "type": "payment-required"
   },
   "settings": {
-    "autopay": true
+    "recurring": "enabled",
+    "schedule": "day-before"
+  },
+  "company": {
+    "requiredPayment": "card"
   }
 }
 ```
@@ -62,7 +70,8 @@
     "type": "payment-declined"
   },
   "settings": {
-    "autopay": true
+    "recurring": "enabled",
+    "schedule": "day-before"
   }
 }
 ```
@@ -73,11 +82,13 @@
 {
   "balance": "100.00",
   "dueDate": "<%= config.futureDate %>",
+  "payDate": "<%= config.futureDateBefore %>",
   "status": {
     "type": "upcoming"
   },
   "settings": {
-    "autopay": true 
+    "recurring": "enabled",
+    "schedule": "day-before"
   }
 }
 ```
@@ -88,11 +99,13 @@
 {
   "balance": "100.00",
   "dueDate": "<%= config.futureDate %>",
+  "payDate": "<%= config.futureDateBefore %>",
   "status": {
     "type": "pending"
   },
   "settings": {
-    "autopay": true 
+    "recurring": "enabled",
+    "schedule": "day-before"
   }
 }
 ```
@@ -107,7 +120,8 @@
   "lastPaidAmount": "100.00",
   "lastPaidOn": "2016-01-01T00:00:00.000Z",
   "settings": {
-    "autopay": true 
+    "recurring": "enabled",
+    "schedule": "day-before"
   }
 }
 ```
@@ -131,8 +145,8 @@ Bill data is not available yet. Most common reason is that the user hasn't recei
 The due date for the bill has passed, and no payment has been made. Common reasons for an overdue bill are:
 
 - A user adds a bill that is already overdue.
-- `autopay` is enabled and the user has no payment method or their payment method's status is `failed`.
-- `autopay` is disabled and a payment has not been scheduled via the `/payment/make` endpoint.
+- `recurring` is enabled and the user has no payment method or their payment method's status is `failed`.
+- `recurring` is disabled and a payment has not been scheduled via the `/payment/make` endpoint.
 
 ![Bill Overdue](<%= config.s3 %>/bill-overdue.png)
 

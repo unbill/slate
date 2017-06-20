@@ -1,0 +1,48 @@
+## Update payment settings
+
+> Sample Request
+
+```json
+{
+  "apiKey": "<%= config.auth %>",
+  "billId": "566595c8ce88ccec69328566",
+  "recurring": "enabled",
+  "schedule": "five-days-before"
+}
+```
+
+> 200 Response
+
+```json
+{
+  "success": true
+}
+```
+
+> 400 Response
+
+```json
+{
+  "message": "Recurring payments may not be disabled for this company."
+}
+```
+
+Update payment settings for a bill.
+
+Some subscription companies, such as Netflix, Hulu, and Spotify require recurring payments to be enabled. If a request to the `/payment/settings` endpoint is made for one of these companies, a `400` status code will be returned and recurring payments will not be disabled.
+
+### HTTP Request
+
+`POST <%= config.host %>/payment/settings`
+
+### Post Parameters
+
+Param | Description
+----- | -----------
+`billId` | Unbill bill ID.
+`recurring` | Whether recurring payments should be `enabled` or `disabled`.
+`schedule` | The [bill payment schedule](#bill-payment-schedule) for payments
+
+### Returns
+
+Returns a `200` status code if settings were successfully updated.

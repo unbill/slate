@@ -7,11 +7,13 @@
   "_id": "579b695decea110719b1874d",
   "balance": "100",
   "dueDate": "<%= config.futureDate %>",
+  "payDate": "<%= config.futureDate %>",
   "status": {
     "type": "upcoming"
   },
   "settings": {
-    "autopay": true 
+    "recurring": "enabled",
+    "schedule": "on-due-date"
   },
   "company": {
     "_id": "579b695decea110719b1874d",
@@ -19,7 +21,8 @@
     "logo": {
       "url": "https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png",
       "background": false
-    } 
+    },
+    "schedule": "on-due-date"
   }
 }
 ```
@@ -30,8 +33,10 @@ Attribute | Description
 `balance` | Current bill balance.
 `dueDate` | Current bill due date.
 `lastPaidAmount` | Amount of last payment.
-`lastPaidOn` | Date of last payment.
+`lastPaidOn` | The date when this bill was last paid.
+`payDate` | The date when the next bill will be paid.
 `status` | [Status](#bill-status) of the bill.
 `company` | Company Object
 `settings` | Settings for a bill.
-`settings.autopay` | Whether or not payments are scheduled automatically.
+`settings.recurring` | Whether or not payments are scheduled automatically. Possible values are `enabled`, `disabled`.
+`settings.schedule` | The [schedule](#bill-payment-schedule) for when a bill payment will be made.
