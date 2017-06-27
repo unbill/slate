@@ -59,8 +59,8 @@ config.statusSvg = 'https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/api
 config.billerColor = 'FF041F'
 config.billerLogin = 'https://www.netflix.com/Login'
 config.billerSignup = 'https://www.netflix.com'
-config.futureDate = '2016-10-25T00:00:00.000Z'
-config.futureDateBefore = '2016-10-24T00:00:00.000Z'
+config.futureDate = '2018-10-25T00:00:00.000Z'
+config.futureDateBefore = '2018-10-24T00:00:00.000Z'
 config.futureStatus = 'Due Oct 25'
 config.s3 = 'https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs'
 
