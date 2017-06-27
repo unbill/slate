@@ -183,10 +183,12 @@ https://unbill.co/partner/v2 (production)
 <p>Sample Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nt">"authId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-08-03T00:00:00.000Z"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+    </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-25T00:00:00.000Z"</span><span class="w">
+  </span><span class="p">}]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -327,7 +329,7 @@ https://unbill.co/partner/v2 (production)
   </span><span class="nt">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
     </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="w">
+    </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-25T00:00:00.000Z"</span><span class="w">
   </span><span class="p">}]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -449,7 +451,7 @@ https://unbill.co/partner/v2 (production)
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="w">
+  </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-25T00:00:00.000Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -822,8 +824,8 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"payDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"payDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="w">
   </span><span class="p">},</span><span class="w">
@@ -978,8 +980,8 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.00"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"payDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-24T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"payDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-24T00:00:00.000Z"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="w">
   </span><span class="p">},</span><span class="w">
@@ -995,8 +997,8 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.00"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"payDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-24T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"payDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-24T00:00:00.000Z"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="w">
   </span><span class="p">},</span><span class="w">
@@ -1123,8 +1125,8 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
   </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"payDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"payDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="w">
     </span><span class="p">},</span><span class="w"> 
@@ -1256,8 +1258,8 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
     </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
       </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"payDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"payDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
       </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="w">
       </span><span class="p">},</span><span class="w"> 
@@ -2402,7 +2404,7 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"billId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"payDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-10-25T00:00:00.000Z"</span><span class="w">
+  </span><span class="nt">"payDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-25T00:00:00.000Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
