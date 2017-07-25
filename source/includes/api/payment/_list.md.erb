@@ -12,32 +12,34 @@
 > 200 Response
 
 ```json
-[
-  {
-    "_id": "580e3754dec21e861b5a3718",
-    "type": "card",
-    "status": "verified",
-    "default": true,
-    "name": "Sean Hill",
-    "card": {
-      "number": "XXXX4242",
-      "brand": "visa",
-      "type": "credit",
-      "expDate": "2016-12-01T12:00:00.000Z"
+{
+  "data": [
+    {
+      "_id": "580e3754dec21e861b5a3718",
+      "type": "card",
+      "status": "verified",
+      "default": true,
+      "name": "Sean Hill",
+      "card": {
+        "number": "XXXX4242",
+        "brand": "visa",
+        "type": "credit",
+        "expDate": "2016-12-01T12:00:00.000Z"
+      }
+    },
+    {
+      "_id": "580e3e11dec21e861b5a3719",
+      "type": "bank",
+      "status": "declined",
+      "name": "Sean Hill",
+      "bank": {
+        "routing": "XXXX2531",
+        "account": "XXXX4124",
+        "type": "checking"
+      }
     }
-  },
-  {
-    "_id": "580e3e11dec21e861b5a3719",
-    "type": "bank",
-    "status": "declined",
-    "name": "Sean Hill",
-    "bank": {
-      "routing": "XXXX2531",
-      "account": "XXXX4124",
-      "type": "checking"
-    }
-  }
-]
+  ]
+}
 ```
 
 > 400 Response
@@ -62,4 +64,4 @@ Param | Description
 
 ### Returns
 
-Returns a list of card and bank objects. If no payment methods are on file, an empty array will be returned.
+A dictionary with a `data` property that contains an array of payment method objects.

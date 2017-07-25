@@ -12,62 +12,64 @@
 > 200 Response
 
 ```json
-[
-  {
-    "bill": {
-      "_id": "579b695decfa11012711875d",
-      "balance": "100",
-      "dueDate": "<%= config.futureDate %>",
-      "payDate": "<%= config.futureDate %>",
-      "status": {
-        "type": "upcoming"
-      }, 
-      "settings": {
-        "recurring": "enabled",
-        "schedule": "on-due-date"
-      },
-      "company": {
-        "_id": "579b695decea110719b1874d",
-        "name": "<%= config.billerName %>",
-        "logo": {
-          "url": "<%= config.billerLogo %>",
-          "background": false
+{
+  "data": [
+    {
+      "bill": {
+        "_id": "579b695decfa11012711875d",
+        "balance": "100",
+        "dueDate": "<%= config.futureDate %>",
+        "payDate": "<%= config.futureDate %>",
+        "status": {
+          "type": "upcoming"
+        }, 
+        "settings": {
+          "recurring": "enabled",
+          "schedule": "on-due-date"
         },
-        "schedule": "on-due-date"
-      }
-    },
-    "payments": []
-  },
-  {
-    "bill": {
-      "_id": "579b695decfa11012711875d",
-      "status": {
-        "type": "paid"
-      },
-      "lastPaidAmount": "100",
-      "lastPaidOn": "2016-01-01T00:00:00.000Z",
-      "settings": {
-        "recurring": "enabled",
-        "schedule": "day-before"
-      },
-      "company": {
-        "_id": "579b695decea110719b1874d",
-        "name": "<%= config.billerName %>",
-        "logo": {
-          "url": "<%= config.billerLogo %>",
-          "background": false
+        "company": {
+          "_id": "579b695decea110719b1874d",
+          "name": "<%= config.billerName %>",
+          "logo": {
+            "url": "<%= config.billerLogo %>",
+            "background": false
+          },
+          "schedule": "on-due-date"
         }
-      }
+      },
+      "payments": []
     },
-    "payments": [{
-      "amount": "123.12",
-      "paidOn": "2016-01-01T00:00:00.000Z"
-    },{
-      "amount": "153.19",
-      "paidOn": "2016-01-02T00:00:00.000Z"
-    }]
-  }
-]
+    {
+      "bill": {
+        "_id": "579b695decfa11012711875d",
+        "status": {
+          "type": "paid"
+        },
+        "lastPaidAmount": "100",
+        "lastPaidOn": "2016-01-01T00:00:00.000Z",
+        "settings": {
+          "recurring": "enabled",
+          "schedule": "day-before"
+        },
+        "company": {
+          "_id": "579b695decea110719b1874d",
+          "name": "<%= config.billerName %>",
+          "logo": {
+            "url": "<%= config.billerLogo %>",
+            "background": false
+          }
+        }
+      },
+      "payments": [{
+        "amount": "123.12",
+        "paidOn": "2016-01-01T00:00:00.000Z"
+      },{
+        "amount": "153.19",
+        "paidOn": "2016-01-02T00:00:00.000Z"
+      }]
+    }
+  ]
+}
 ```
 
 > 400 Response
@@ -95,4 +97,4 @@ Param | Description
 
 ### Returns
 
-Returns a list of bill details.
+A dictionary with a `data` property that contains an array of bill details.
