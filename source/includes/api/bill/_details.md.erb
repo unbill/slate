@@ -1,15 +1,14 @@
 ## Retrieve bill details
 
-> Sample Request
+> Example Request
 
-```json
-{
-  "apiKey": "<%= config.auth %>",
-  "billId": "56e1dbb5443b10a3bd403fcf"
-}
+```shell
+curl "<%= config.host %>/bill/566595c8ce88ccec69328566" \
+  -H "<%= config.auth %>" \
+  -G
 ```
 
-> Sample Upcoming Response
+> Example Upcoming Response
 
 ```json
 {
@@ -39,7 +38,7 @@
 }
 ```
 
-> Sample Paid Response
+> Example Paid Response
 
 ```json
 {
@@ -74,33 +73,20 @@
 }
 ```
 
-> 400 Response
-
-```json
-{
-  "message": "We couldn't get information about this company, sorry."
-}
-```
-
 Retrieve details about a bill including outstanding balance, due date, settings, status, and payment history.
 
 ![Detail](<%= config.s3 %>/detail.png)
 
 ### HTTP Request
 
-`POST <%= config.host %>/bill/details`
+`GET <%= config.host %>/bill/{billId}`
 
-### Post Parameters
+### Arguments
 
-Param | Description
+Parameter | Description
 ----- | -----------
-`billId` | Unbill bill ID.
+`billId` | ID of bill to retrieve.
 
-### 200 Response Body
+### Returns
 
-Attribute | Description
---------- | -----------
-`bill` | Bill object
-`payments` | List of past bill payments
-`payments.amount` | Amount paid
-`payments.paidOn` | Date of payment
+Returns details for a bill if a valid `billId` was provided. Returns an error otherwise.

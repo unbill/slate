@@ -1,46 +1,82 @@
 ## Search for companies
 
-> Sample Requests
+> Example Requests
+
+```shell
+curl "<%= config.host %>/company/search" \
+  -H "<%= config.auth %>" \
+  -d '{
+    "query": "Netflix"
+  }'
+```
+
+```shell
+curl "<%= config.host %>/company/search" \
+  -H "<%= config.auth %>" \
+  -d '{
+    "category": "gas"
+  }'
+```
+
+```shell
+curl "<%= config.host %>/company/search" \
+  -H "<%= config.auth %>" \
+  -d '{
+    "geo": {
+      "lat": 40.233845,
+      "lng": -111.65852
+    }
+  }'
+```
+
+> Example Response
 
 ```json
 {
-  "apiKey": "<%= config.auth %>",
-  "query": "Netflix"
+  "data": [
+    {
+      "_id": "579b695decea110719b1874d",
+      "name": "Netflix",
+      "logo": {
+        "url": "https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png",
+        "background": false,
+        "svg": {
+          "url": "https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.svg",
+          "color": "FF041F"
+        }
+      },
+      "requiredPayment": "bank",
+      "schedule": "on-due-date",
+      "auth": {
+        "urls": {
+          "login": "https://www.netflix.com/Login",
+          "signup": "https://www.netflix.com"
+        },
+        "loginFields": [{
+          "placeholder": "Username",
+          "formType": "text",
+          "name": "username",
+          "label": "Username"
+        }, {
+          "placeholder": "Password",
+          "formType": "password",
+          "name": "password",
+          "label": "Password"
+        }]
+      },
+      "geo": {
+        "lat": 30.70,
+        "lng": -95.53,
+        "state_short": "TX",
+        "state_long": "Texas",
+        "zipcode": "77340"
+      }
+    }
+  ]
 }
 ```
 
-```json
-{
-  "apiKey": "<%= config.auth %>",
-  "category": "gas"
-}
-```
-
-```json
-{
-  "apiKey": "<%= config.auth %>",
-  "geo": {
-	"lat": "40.233845",
-  	"lng": "-111.658531"
-  }
-}
-```
-
-> 200 Response
-
-```json
-[<%= config.companyResponseExample %>]
-```
-
-> 400 Response
-
-```json
-{
-  "message": "Please provide search query."
-}
-```
-
-Search for companies by name, category, or geo.
+Search for companies by name, category, or nearby a geo coordinate.
 
 ![Company Categories](<%= config.s3 %>/company-categories.png)
 
@@ -48,9 +84,9 @@ Search for companies by name, category, or geo.
 
 `POST <%= config.host %>/company/search`
 
-### Post Parameters
+### Arguments
 
-Param | Description
+Parameter | Description
 ----- | -----------
 `query` | The text string on which to search companies by name.
 `category` | Category `type` retrieved from the `/company/categories` endpoint.
@@ -60,4 +96,4 @@ Param | Description
 
 ### Returns
 
-Returns a list of company objects that match the provided `query` or `category`.
+A dictionary with a `data` property that contains an array of [company objects](#the-company-object) that match the provided search filters.

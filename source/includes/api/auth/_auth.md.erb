@@ -1,21 +1,22 @@
 ## Add an auth
 
-> Sample Request
+> Example Request
 
-```json
-{
-  "apiKey": "<%= config.auth %>",
-  "clientId": "566595c8ce88ccec69328566",
-  "companyId": "56e1dbb5443b10a3bd403fcf",
-  "items": ["bill"],
-  "form": {
-    "username": "Johnny",
-    "password": "Appleseed"
-  }
-}
+```shell
+curl "<%= config.host %>/auth" \
+  -H "<%= config.auth %>" \
+  -d '{
+    "clientId": "566595c8ce88ccec69328566",
+    "companyId": "56e1dbb5443b10a3bd403fcf",
+    "items": ["bill"],
+    "form": {
+      "username": "Johnny",
+      "password": "Appleseed"
+    }
+  }'
 ```
 
-> 200 Response (Authenticated)
+> Example 200 Response (Authenticated)
 
 ```json
 {
@@ -29,7 +30,7 @@
 }
 ```
 
-> 201 Response (Question Based MFA)
+> Example 201 Response (Question Based MFA)
 
 ```json
 {
@@ -42,25 +43,17 @@
 }
 ```
 
-> 201 Response (Code Based MFA)
+> Example 201 Response (Code Based MFA)
 
 ```json
 {
   "token": "566595c8ce88ccec69328566",
   "method": "code",
   "mfa": [
-  	{ "mask": "t...t@unbill.us", "type": "email", "identifier": "r1g0mvVg1Z", "label": "Email: t...t@unbill.us" },
+  	{ "mask": "t...t@example.com", "type": "email", "identifier": "r1g0mvVg1Z", "label": "Email: t...t@example.com" },
     { "mask": "xxx-xxx-1234", "type": "phone", "identifier": "B1gyVvElJZ", "label": "Phone: xxx-xxx-1234" },
     { "mask": "xxx-xxx-1234", "type": "text", "identifier": "SkbkEP4ekW", "label": "Text: xxx-xxx-1234" }
   ]
-}
-```
-
-> 400 Response
-
-```json
-{
-  "message": "You may want to double check your information."
 }
 ```
 
@@ -68,30 +61,16 @@
 
 `POST <%= config.host %>/auth`
 
-### Post Parameters
+### Arguments
 
-Param | Description
+Parameter | Description
 ----- | -----------
 `clientId` | ID of user being authenticated.
 `companyId` | ID of company being authenticated.
-`items`<br><small>(optional)</small> | The list of items you'd like attached to this auth. If not specified, all available items will be returned. If you're only interested in verifying credentials, set this parameter as an empty array `[]`, otherwise specify which [items](#auth-items) you'd like.
+`items`<br><small class="opt">(optional)</small> | The list of items you'd like attached to this auth. If not specified, all available items will be returned. If you're only interested in verifying credentials, set this parameter as an empty array `[]`, otherwise specify which [items](#auth-items) you'd like.
 `form` | Credentials to authenticate.
 
-### Testing
 
-To test an MFA 201 response, pass in a `mfaTest` flag whose value can be `questions` for a question based response, or `code` for a code based response. In this response will be provided the `token` which you can submit to the `/auth/step` endpoint for additional testing.
+### Returns
 
-### 200 Response Body
-
-Attribute | Description
---------- | -----------
-`authId` | The ID of the auth.
-`items` | A list of [items](#auth-items) attached to this auth.
-
-### 201 Response Body ([MFA](#auth-mfa))
-
-Attribute | Description
---------- | -----------
-`token` | Token to be used when stepping through MFA via the `/auth/step` endpoint.
-`method` | The method of MFA being applied. `questions, code`
-`mfa` | List of required MFA to pass.
+Returns a list of available `items` linked to an `auth`, or the MFA to be submitted to the `/auth/step` endpoint.

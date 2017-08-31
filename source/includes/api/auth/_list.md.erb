@@ -1,15 +1,14 @@
 ## List all auths
 
-> Sample Request
+> Example Request
 
-```json
-{
-  "apiKey": "<%= config.auth %>",
-  "clientId": "56e1dbb5443b10a3bd403fcf"
-}
+```shell
+curl "<%= config.host %>/auth/list/566595c8ce88ccec69328566" \
+  -H "<%= config.auth %>" \
+  -G
 ```
 
-> 200 Response
+> Example Response
 
 ```json
 {
@@ -46,27 +45,18 @@
 }
 ```
 
-> 400 Response
-
-```json
-{
-  "message": "No auths found by that ID."
-}
-```
-
 Retrieves a list of user's auths.
 
 ### HTTP Request
 
-`POST <%= config.host %>/auth/list`
+`GET <%= config.host %>/auth/list/{clientId}`
 
-### Post Parameters
+### Arguments
 
-Param | Description
+Parameter | Description
 ----- | -----------
-`clientId` | Unbill client ID.
-
+`clientId` | ID of client to retrieve auths for.
 
 ### Returns
 
-A dictionary with a `data` property that contains an array of auth objects.
+A dictionary with a `data` property that contains an array of [auth objects](#the-auth-object).

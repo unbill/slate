@@ -1,35 +1,63 @@
 ## Retrieve a company
 
-> Sample Request
+> Example Request
+
+```shell
+curl "<%= config.host %>/company/566595c8ce88ccec69328566" \
+  -H "<%= config.auth %>" \
+  -G
+```
+
+> Example Response
 
 ```json
 {
-  "apiKey": "<%= config.auth %>",
-  "companyId": "56e1dbb5443b10a3bd403fcf"
+  "_id": "579b695decea110719b1874d",
+  "name": "Netflix",
+  "logo": {
+    "url": "https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png",
+    "background": false,
+    "svg": {
+      "url": "https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.svg",
+      "color": "FF041F"
+    }
+  },
+  "requiredPayment": "bank",
+  "schedule": "on-due-date",
+  "auth": {
+    "urls": {
+      "login": "https://www.netflix.com/Login",
+      "signup": "https://www.netflix.com"
+    },
+    "loginFields": [{
+      "placeholder": "Username",
+      "formType": "text",
+      "name": "username",
+      "label": "Username"
+    }, {
+      "placeholder": "Password",
+      "formType": "password",
+      "name": "password",
+      "label": "Password"
+    }]
+  },
+  "geo": {
+    "lat": 30.70,
+    "lng": -95.53,
+    "state_short": "TX",
+    "state_long": "Texas",
+    "zipcode": "77340"
+  }
 }
 ```
 
-> 200 Response
-
-```json
-<%= config.companyResponseExample %>
-```
-
-> 400 Response
-
-```json
-{
-  "message": "No company found by that ID."
-}
-```
-
-Gets an Unbill company by Unbill company ID or partner company ID.
+Retrieves the company with the given ID.
 
 ### HTTP Request
 
-`POST <%= config.host %>/company/get`
+`GET <%= config.host %>/company/{companyId}`
 
-### Post Parameters
+### Arguments
 
 Param | Description
 ----- | -----------
@@ -38,4 +66,4 @@ Param | Description
 
 ### Returns
 
-Returns a company object if a valid `companyId` was provided.
+Returns a company object if a valid `companyId` was provided. Returns an error otherwise.

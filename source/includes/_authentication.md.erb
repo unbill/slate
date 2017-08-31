@@ -1,3 +1,12 @@
 ## Authentication
 
-Every request made must include your `apiKey` token provided to you. If the `apiKey` is not passed in the `POST` request, you will receive a `401 Not Authorized` response.
+> Example Request
+
+```shell
+  curl "<%= config.host %>/auth"
+    -H "<%= config.auth %>"
+```
+
+Authenticate your account when using the API by including your secret API key in the request. Your API keys carry many privileges, so be sure to keep them secret! Do not share your secret API keys in publicly accessible areas such GitHub, client-side code, and so forth.
+
+Authentication to the API is performed via the [OAuth2 Protocol](https://oauth.net/2/). Pass your API Key as a bearer token in the `Authorization` header.

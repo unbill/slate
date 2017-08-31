@@ -50,8 +50,10 @@ set :port, 4567
 config.mpToken = '16aa17c5de12dd4ba07edc5c4fb73ddf'; # Prod
 
 # Api Configuration
-config.host = 'https://unbill.co/partner/v2'
-config.auth = 'dc220490-e6ee-11e5-8a94-e7385a8d929e'
+config.brand = 'Q2'
+config.apiName = 'Q2 Biller Direct API'
+config.host = 'https://api.unbill.co/v1'
+config.auth = 'Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e'
 config.billerName = 'Netflix'
 config.billerLogo = 'https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png'
 config.billerLogoSvg = 'https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.svg'
@@ -65,46 +67,6 @@ config.futureStatus = 'Due Oct 25'
 config.s3 = 'https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs'
 
 # Response Configuration
-config.companyResponseExample = [
-'{',
-'  "_id": "579b695decea110719b1874d",',
-'  "name": "' + config.billerName + '",',
-'  "logo": {',
-'    "url": "' + config.billerLogo + '",',
-'    "background": false,',
-'    "svg": {',
-'      "url": "' + config.billerLogoSvg + '",',
-'      "color": "' + config.billerColor + '"',
-'    }',
-'  },',
-'  "requiredPayment": "bank",',
-'  "schedule": "on-due-date",',
-'  "auth": {',
-'    "urls": {',
-'      "login": "' + config.billerLogin + '",',
-'      "signup": "' + config.billerSignup + '"',
-'    },',
-'    "loginFields": [{',
-'      "placeholder": "Username",',
-'      "formType": "text",',
-'      "name": "username",',
-'      "label": "Username"',
-'    }, {',
-'      "placeholder": "Password",',
-'      "formType": "password",',
-'      "name": "password",',
-'      "label": "Password"',
-'    }]',
-'  },',
-'  "geo": {',
-'    "loc": [ -95.53, 30.70 ],',
-'    "state_short": "TX",',
-'    "state_long": "Texas",',
-'    "zipcode": "77340"',
-'  }',
-'}'
-].join("\n")
-
 config.companyResponseDescription = [
   '`_id` | ID of the company.',
   '`name` | Name of the company.',
@@ -128,7 +90,8 @@ config.companyResponseDescription = [
   '`auth.loginFields.name` | Input `name` field.',
   '`auth.loginFields.label` | Label for `input`.',
   '`geo` | Geo based location (not available for regional or national company).',
-  '`geo.loc` | Coordinates with syntax `[ longitude, latitude ]`.',
+  '`geo.lat` | Latitude coordinate.',
+  '`geo.lng` | Longitude coordinate.',
   '`geo.stateShort` | Abbreviated state name.',
   '`geo.stateLong` | Full state name.',
   '`geo.zipcode` | Zipcode.',

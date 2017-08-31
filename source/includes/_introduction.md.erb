@@ -5,7 +5,7 @@
 > API Host
 
 ```
-https://sandbox.unbill.co/partner/v2 (development)
+https://api-sb.unbill.co/v1 (development)
 <%= config.host %> (production)
 ```
 
@@ -19,14 +19,14 @@ https://sandbox.unbill.co/partner/v2 (development)
 /client
 ```
 
-Welcome! The Unbill API allows developers to receive user-authorized bill data and make payments on behalf of a user. With over 4000 companies and counting, supercharge your platform with the Unbill API. 
+Welcome! The <%= config.apiName %> allows developers to receive user-authorized bill data and make payments on behalf of a user. With over 5000 companies and counting, supercharge your platform with the <%= config.apiName %>. 
 
-Here you will find information on how to integrate with and use the Unbill API. We've tried to make this documentation user-friendly and example-filled, but please [drop us a line](mailto:api@unbill.us) with any questions. If you're planning to use our API in production, you should take a look at our [privacy policy](http://unbill.us/privacy.html).
+Here you will find information on how to integrate with and use the <%= config.apiName %>. We've tried to make this documentation user-friendly and example-filled, but please [drop us a line](mailto:api@unbill.us) with any questions. If you're planning to use our API in production, you should take a look at our [privacy policy](http://unbill.us/privacy.html).
 
-The Unbill API uses standard HTTP [verbs](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) to communicate and HTTP [response codes](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) to indicate status and errors. All responses come in standard [JSON](http://www.json.org/). The Unbill API is served over HTTPS to ensure data privacy; HTTP is not supported. Every request must include your `apiKey`.
+The <%= config.apiName %> uses standard HTTP [verbs](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) to communicate and HTTP [response codes](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) to indicate status and errors. All responses come in standard [JSON](http://www.json.org/). The <%= config.apiName %> is served over HTTPS to ensure data privacy, HTTP is not supported.
 
 ![Overview](<%= config.s3 %>/unbill.png)
 
 ## Gaining Access
 
-To gain access to the Unbill API, please [contact us](mailto:api@unbill.us). After our review process is complete, you'll be provided with an `apiKey` which you can use for your requests.
+To gain access to the <%= config.apiName %>, please [contact us](mailto:api@unbill.us). After our review process is complete, you'll be provided with an API key which you can use for your requests.

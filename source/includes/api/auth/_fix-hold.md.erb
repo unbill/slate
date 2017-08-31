@@ -1,32 +1,31 @@
 ## Fix auth hold
 
-> Sample Request
+> Example Request
+
+```shell
+curl "<%= config.host %>/auth/566595c8ce88ccec69328566/fix-hold" \
+  -H "<%= config.auth %>" \
+  -X PATCH
+```
+
+> Example Response
 
 ```json
 {
-  "apiKey": "<%= config.auth %>",
-  "authId": "56e1dbb5443b10a3bd403fcf"
+  "success": true
 }
 ```
 
 ### HTTP Request
 
-`POST <%= config.host %>/auth/fix-hold`
+`PATCH <%= config.host %>/auth/{authId}/fix-hold`
 
-### Post Parameters
+### Arguments
 
-Param | Description
+Parameter | Description
 ----- | -----------
-`authId` | Unbill auth ID.
-
-> 400 Response
-
-```json
-{
-  "message": "Please provide the authId."
-}
-```
+`authId` | ID of auth to fix.
 
 ### Returns
 
-Returns a `200` status code if an auth's hold was marked as being resolved. Returns an error otherwise.
+Returns an object with a `success` property if the hold was fixed. If the `authId` does not exist, this call returns an error.

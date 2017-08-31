@@ -126,7 +126,7 @@
 }
 ```
 
-A bill `status.type` can be a variety of types. Each type is documented below with a description of the status and a typical use case.
+A bill's `status.type` can be a variety of types. Each type is documented below with a description of the status and a typical use case.
 
 ### syncing
 
@@ -146,19 +146,19 @@ The due date for the bill has passed, and no payment has been made. Common reaso
 
 - A user adds a bill that is already overdue.
 - `recurring` is enabled and the user has no payment method or their payment method's status is `failed`.
-- `recurring` is disabled and a payment has not been scheduled via the `/payment/make` endpoint.
+- `recurring` is disabled and a payment has not been scheduled via the `/payment/schedule` endpoint.
 
 ![Bill Overdue](<%= config.s3 %>/bill-overdue.png)
 
 ### payment-required
 
-The payment method specified by `company.requiredPayment` is required to pay this bill. A linked payment method must be assigned before bill payments will resume. This can be done via the `/payment/assign` endpoint.
+The payment method specified by `company.requiredPayment` is required to pay this bill. A linked payment method must be assigned before bill payments will resume. This can be done via the `/payment/{paymentMethodId}/assign` endpoint.
 
 ![Payment required](<%= config.s3 %>/bill-authenticate.png)
 
 ### payment-declined
 
-The payment method used to pay this bill was declined. To resume bill payments, have the user try their payment method again via the `/payment/retry` endpoint, or assign another one via the `/payment/assign` endpoint.
+The payment method used to pay this bill was declined. To resume bill payments, have the user try their payment method again via the `/payment/{paymentMethodId}/retry` endpoint, or assign another one via the `/payment/{paymentMethodId}/assign` endpoint.
 
 ![Payment declined](<%= config.s3 %>/bill-authenticate.png)
 

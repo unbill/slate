@@ -48,7 +48,7 @@ The user's credentials no longer work with the company's website and need to be 
 
 ### hold 
 
-For a number of reasons an auth can have the status of `hold`. When an auth is on hold we'll present you with a `reason` that you in turn can present to your users. To remove this status, the user must take the appropriate action as described in the `reason`. This usually involves them needing to login into their online account. Once the user has completed the action, make a request to the `/auth/fix-hold` endpoint to resume their services.
+For a number of reasons an auth can have the status of `hold`. When an auth is on hold we'll present you with a `reason` that you in turn can present to your users. To remove this status, the user must take the appropriate action as described in the `reason`. This usually involves them needing to login into their online account. Once the user has completed the action, make a request to the `/auth/{authId}/fix-hold` endpoint to resume their services.
 
 *Display hold reason*
 

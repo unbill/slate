@@ -1,11 +1,18 @@
 ## Delete auth
 
-> Sample Request
+> Example Request
+
+```shell
+curl "<%= config.host %>/auth/566595c8ce88ccec69328566" \
+  -H "<%= config.auth %>" \
+  -X DELETE
+```
+
+> Example Response
 
 ```json
 {
-  "apiKey": "<%= config.auth %>",
-  "authId": "56e1dbb5443b10a3bd403fcf"
+  "success": true
 }
 ```
 
@@ -13,22 +20,14 @@ Deletes an `auth` and all its `items` from the account.
 
 ### HTTP Request
 
-`POST <%= config.host %>/auth/delete`
+`DELETE <%= config.host %>/auth/{authId}`
 
-### Post Parameters
+### Arguments
 
-Param | Description
+Parameters | Description
 ----- | -----------
-`authId` | Unbill auth ID.
-
-> 400 Response
-
-```json
-{
-  "message": "Please provide the authId."
-}
-```
+`authId` | ID of bill to delete.
 
 ### Returns
 
-Returns a `200` response if the `auth` and its `items` was successfully deleted.
+Returns an object with a `success` property if the auth was deleted. If the `authId` does not exist, this call returns an error.

@@ -1,15 +1,14 @@
 ## List all bills
 
-> Sample Request
+> Example Request
 
-```json
-{
-  "apiKey": "<%= config.auth %>",
-  "clientId": "56e1dbb5443b10a3bd403fcf"
-}
+```shell
+  curl <%= config.host %>/bill/list/579b695decfa11012711875d
+    -H "<%= config.auth %>"
+    -G 
 ```
 
-> 200 Response
+> Example Response
 
 ```json
 {
@@ -72,27 +71,19 @@
 }
 ```
 
-> 400 Response
-
-```json
-{
-  "message": "No bills found by that ID."
-}
-```
-
 Retrieves a list of user's bills.
 
 ![Overview](<%= config.s3 %>/overview.png)
 
 ### HTTP Request
 
-`POST <%= config.host %>/bill/list`
+`GET <%= config.host %>/bill/list/{clientId}`
 
-### Post Parameters
+### Arguments
 
-Param | Description
+Parameter | Description
 ----- | -----------
-`clientId` | Unbill client ID.
+`clientId` | ID of the client to retrieve bills for.
 
 
 ### Returns

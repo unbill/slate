@@ -1,68 +1,35 @@
 ## Auth MFA
 
-> Sample Request (Question Based MFA)
+> Example Request (Question Based MFA)
 
-```json
-{
-  "apiKey": "<%= config.auth %>",
-  "mfa": [{
-    "answer": "Secret Answer",
-    "identifier": "Bk0zwVx1Z"
-  }],
-  "token": "56e1dbb5443b10a3bd403fcf"
-}
+```shell
+curl "<%= config.host %>/auth" \
+  -H "<%= config.auth %>" \
+  -d '{
+    "mfa": [{
+      "answer": "Secret Answer",
+      "identifier": "Bk0zwVx1Z"
+    }],
+    "token": "56e1dbb5443b10a3bd403fcf"
+  }'
 ```
 
-> Sample Request (Code Based MFA)
+> Example Request (Code Based MFA)
 
-```json
-{
-  "apiKey": "<%= config.auth %>",
-  "mfa": { 
-    "identifier": "ByDXD4eJW" 
-  },
-  "token": "56e1dbb5443b10a3bd403fcf"
-}
+```shell
+curl "<%= config.host %>/auth" \
+  -H "<%= config.auth %>" \
+  -d '{
+    "mfa": { 
+      "identifier": "ByDXD4eJW" 
+    },
+    "token": "56e1dbb5443b10a3bd403fcf"
+  }'
 ```
 
-> 201 Response (Question Based MFA)
+Some companies require multi-factor authentication (MFA) and the `/auth/step` route is built to submit the additional information needed. Users are first submitted via the standard authenticate process via the `/auth` endpoint, and the MFA data is sent through an additional request to the `/auth/step` route.
 
-```json
-{
-  "token": "566595c8ce88ccec69328566",
-  "method": "questions",
-  "mfa": [{ 
-    "question": "What is the name of your first pet?",
-    "identifier": "Bk0zwVx1Z"
-  }]
-}
-```
-
-> 201 Response (Code Based MFA)
-
-```json
-{
-  "token": "566595c8ce88ccec69328566",
-  "method": "code",
-  "mfa": [
-  	{ "mask": "t...t@unbill.us", "type": "email", "identifier": "r1g0mvVg1Z", "label": "Email: t...t@unbill.us" },
-    { "mask": "xxx-xxx-1234", "type": "phone", "identifier": "B1gyVvElJZ", "label": "Phone: xxx-xxx-1234" },
-    { "mask": "xxx-xxx-1234", "type": "text", "identifier": "SkbkEP4ekW", "label": "Text: xxx-xxx-1234" }
-  ]
-}
-```
-
-> 400 Response
-
-```json
-{
-  "message": "You may want to double check your information."
-}
-```
-
-Some companies require multi-factor authentication (MFA) and the` /auth/step` route is built to submit the additional information needed. Users are first submitted via the standard authenticate process via the `/auth` endpoint, and the MFA data is sent through an additional request to the `/auth/step` route.
-
-For `questions` (Question Based MFA) return the answers formatted as an array of objects, where each object includes the `answer` of the question and the `identifier` received from previous `auth` response. For `code` (Code Based MFA) return the desired option by passing the `identifier` field given to you from the previous `auth` response. Continue to POST to the `/auth/step` with the required answers until a `200` status code is returned. At that point the user will be authenticated and you'll have access to bill data.
+For `questions` (Question Based MFA) return the answers formatted as an array of objects, where each object includes the `answer` of the question and the `identifier` received from the previous `auth` response. For `code` (Code Based MFA) return the desired option by passing the `identifier` field given to you from the previous `auth` response. Continue to POST to the `/auth/step` with the required answers until a `200` status code is returned. At that point the user will be authenticated and you'll have access to available [items]('#auth-items')
 
 ![Credentials MFA View](<%= config.s3 %>/credentials-mfa-view.png)
 
@@ -70,17 +37,13 @@ For `questions` (Question Based MFA) return the answers formatted as an array of
 
 `POST <%= config.host %>/auth/step`
 
-### Post Parameters
+### Arguments
 
-Param | Description
+Parameter | Description
 ----- | -----------
 `token` | Token provided to you from the `/auth` response.
 `mfa` | The extra information needed for MFA authentication.
 
-### 201 Response Body (MFA)
+### Returns
 
-Attribute | Description
---------- | -----------
-`token` | Token to be used when stepping through MFA via the `/auth/step` endpoint.
-`method` | The method of MFA being applied. `questions, code`
-`mfa` | List of required MFA to pass.
+Returns a list of available `items` linked to an `auth`, or any additional MFA to be submitted to the `/auth/step` endpoint.

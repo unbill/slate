@@ -1,26 +1,21 @@
 ## Getting Started
 
-> Quickstart
+> Example Request
 
-```
-<%= config.host %>/auth
-```
-
-> Sample Request
-
-```json
-{
-  "apiKey": "<%= config.auth %>",
-  "clientId": "566595c8ce88ccec69328566",
-  "companyId": "56e1dbb5443b10a3bd403fcf",
-  "form": {
-    "username": "Johnny",
-    "password": "Appleseed"
-  }
-}
+```shell
+curl "<%= config.host %>/auth" \
+  -H "<%= config.auth %>" \
+  -d '{
+    "clientId": "566595c8ce88ccec69328566",
+    "companyId": "56e1dbb5443b10a3bd403fcf",
+    "form": {
+      "username": "Johnny",
+      "password": "Appleseed"
+    }
+  }'
 ```
 
-> Sample Response
+> Example Response
 
 ```json
 {
@@ -39,24 +34,24 @@ To authenticate bills with your users, you may use the following flow.
 ### User Creation
 
 1. User signs up in your app.
-2. Make a request to the `/client/add` endpoint to retrieve an Unbill `clientId` to store in your database for future requests.
+2. Make a request to the `/client/create` endpoint to retrieve an Unbill `clientId` to store in your database for future requests.
 
 ### Authentication
 
 1. Search for the company you'd like to add from the `/company/search` endpoint.
 2. Provide your user with a "bill authentication" view populated with the login fields retrieved from the desired company.
 3. Have your user fill out their credentials, and then send those credentials to the `/auth` endpoint.
-4. Unbill will begin the authentication process and if successful, will return available [items](#auth-items).
+4. <%= config.brand %> will begin the authentication process and if successful, will return available [items](#auth-items).
 
 ### Bills
 
-1. Requests can be made to the `/bill/list` endpoint to retrieve the list of authenticated bills and balance information.
-2. Requests can be made to the `/bill/details` endpoint to retrieve details on a specific bill.
+1. Requests can be made to the `/bill/list/{clientId}` endpoint to retrieve the list of authenticated bills and balance information.
+2. Requests can be made to the `/bill/{billId}` endpoint to retrieve details on a specific bill.
 
 ### Payments
 
 1. Provide your user with a "link payment" view to choose a payment method.
 2. Link this payment method to Unbill using the `/payment` endpoint.
 3. By default, bills will be paid automatically by using the payment method on file.
-4. To change this, you must make a request to the `/payment/settings` endpoint to disable recurring payments.
+4. To change this, you must make a request to the `/payment/{paymentMethodId}/settings` endpoint to disable recurring payments.
 5. When recurring payments are disabled, in order to make an on-demand payment, one must be scheduled via the `/payment/schedule` endpoint.
