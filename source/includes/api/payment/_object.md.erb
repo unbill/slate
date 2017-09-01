@@ -1,6 +1,6 @@
 ## The payment method object
 
-> Sample Response
+> Example Response
 
 ```json
 {
@@ -25,5 +25,5 @@ Attribute | Description
 `status` | The status of the payment method on file. Possible values are `verified`, `declined`.
 `default` | If this is the default payment method. Default means that it will pay any bills not specifically assigned a payment method.
 `assignedBills` | A list of bill ID's this payment method was specifically assigned to.
-`card` | Card object
-`bank` | Bank object
+`card` | [Card object](#the-card-object)
+`bank` | [Bank object](#the-bank-object)

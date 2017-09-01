@@ -1,6 +1,15 @@
 ## Schedule payment
 
-> Sample Request
+> Example Request
+
+```shell
+curl "<%= config.host %>/payment/schedule" \
+  -H "<%= config.auth %>" \
+  -d '{
+    "billId": "566595c8ce88ccec69328566",
+    "payDate": "<%= config.futureDate %>"
+  }'
+```
 
 ```json
 {
@@ -10,19 +19,11 @@
 }
 ```
 
-> 200 Response
+> Example Response
 
 ```json
 {
   "success": true
-}
-```
-
-> 400 Response
-
-```json
-{
-  "message": "Please provide a billId to make a payment for."
 }
 ```
 
@@ -32,13 +33,13 @@ Schedule an on-demand payment towards a bill's outstanding balance.
 
 `POST <%= config.host %>/payment/schedule`
 
-### Post Parameters
+### Arguments
 
-Param | Description
+Parameter | Description
 ----- | -----------
-`billId` | Unbill bill ID.
-`date`<br><small>(optional)</small> | An `ISO 8601` formatted date that sets what day this bill will be paid. If no `date` is specified, the bill is scheduled to be paid immediately.
+`billId` | ID of bill to schedule payment for.
+`date`<br><small class="opt">(optional)</small> | An `ISO 8601` formatted date that sets what day this bill will be paid. If no `date` is specified, the bill is scheduled to be paid immediately.
 
 ### Returns
 
-Returns a `200` status code if a payment is successfully scheduled. Returns an error otherwise.
+Returns an object with a `success` property if a payment was scheduled. Returns an error otherwise.

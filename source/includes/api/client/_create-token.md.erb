@@ -1,33 +1,26 @@
 ## Create Token
 
-> Sample Request
+> Example Request
 
-```json
-{
-  "apiKey": "<%= config.auth %>",
-  "identifier": "unique-user-id",
-  "nonce": true,
-  "meta": {
-    "firstName": "Sean",
-    "lastName": "Hill",
-    "zipcode": "12345"
-  }
-}
+```shell
+curl "<%= config.host %>/client/create-token" \
+  -H "<%= config.auth %>" \
+  -d '{
+    "identifier": "Bk0zwVx1Z",
+    "nonce": false,
+    "meta": {
+      "firstName": "Sean",
+      "lastName": "Hill",
+      "zipcode": "12345"
+    }
+  }'
 ```
 
-> 200 Response
+> Example Response
 
 ```json
 {
   "token": "566595c8ce88ccec69328566c8ce8595c8"
-}
-```
-
-> 400 Response
-
-```json
-{
-  "message": "Please fill in all required fields."
 }
 ```
 
@@ -37,16 +30,14 @@ Create a token to be used for SSO into applications.
 
 `POST <%= config.host %>/client/create-token`
 
-### Post Parameters
+### Arguments
 
-Param | Description
+Parameter | Description
 ----- | -----------
 `identifier` | A unique identifier that represents a user in your system.
 `nonce` | Tokens are instantly consumed upon use. If you would like to make a re-useable token, you may set `nonce` to `false`.
 `meta` | Additional information about the user in your system.
 
-### 200 Response Body
+### Returns
 
-Attribute | Description
---------- | -----------
-`token` | The token to be used for SSO into applications.
+Returns an object with a `token` property that can be used to SSO into applications.

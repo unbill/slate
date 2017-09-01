@@ -1,15 +1,16 @@
 ## Create Client
 
-> Sample Request
+> Example Request
 
-```json
-{
-  "apiKey": "<%= config.auth %>",
-  "identifier": "unique-user-id"
-}
+```shell
+curl "<%= config.host %>/client/create" \
+  -H "<%= config.auth %>" \
+  -d '{
+    "identifier": "Bk0zwVx1Z"
+  }'
 ```
 
-> 200 Response
+> Example Response
 
 ```json
 {
@@ -17,15 +18,18 @@
 }
 ```
 
-Creates a client to be used with requests.
+Creates or returns an existing client to be used with requests.
 
 ### HTTP Request
 
 `POST <%= config.host %>/client/create`
 
-### 200 Response Body
+### Arguments
 
-Attribute | Description
+Parameter | Description
 --------- | -----------
-`clientId` | The ID to be used with requests.
 `identifier` | A unique identifier that represents a user in your system.
+
+### Returns
+
+Returns an object with a `clientId` property that can be used for requests.

@@ -1,15 +1,14 @@
 ## Default payment method
 
-> Sample Request
+> Example Request
 
-```json
-{
-  "apiKey": "<%= config.auth %>",
-  "paymentMethodId": "566595c8ce88ccec69328566"
-}
+```shell
+curl "<%= config.host %>/payment/566595c8ce88ccec69328566/set-default" \
+  -H "<%= config.auth %>" \
+  -X PATCH
 ```
 
-> 200 Response
+> Example Response
 
 ```json
 {
@@ -21,14 +20,14 @@ Set a payment method as the `default` for bill payments.
 
 ### HTTP Request
 
-`POST <%= config.host %>/payment/set-default`
+`PATCH <%= config.host %>/payment/{paymentMethodId}/set-default`
 
-### Post Parameters
+### Arguments
 
-Param | Description
+Parameter | Description
 ----- | -----------
-`paymentMethodId` | Payment method ID.
+`paymentMethodId` | ID of payment method to set as default.
 
 ### Returns
 
-Returns a `200` status code if the payment method was successfully set as the default. Returns an error otherwise.
+Returns an object with a `success` property if the payment method was set as default. Returns an error otherwise.

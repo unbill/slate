@@ -2,14 +2,13 @@
 
 > Sample Request
 
-```json
-{
-  "apiKey": "<%= config.auth %>",
-  "paymentMethodId": "566595c8ce88ccec69328566"
-}
+```shell
+curl "<%= config.host %>/payment/566595c8ce88ccec69328566/retry" \
+  -H "<%= config.auth %>" \
+  -X PATCH
 ```
 
-> 200 Response
+> Example Response
 
 ```json
 {
@@ -17,26 +16,18 @@
 }
 ```
 
-> 400 Response
-
-```json
-{
-  "message": "No payment method found by that ID."
-}
-```
-
 Retry a `declined` payment method on file for bill payments.
 
 ### HTTP Request
 
-`POST <%= config.host %>/payment/retry`
+`PATCH <%= config.host %>/payment/{paymentMethodId}/retry`
 
-### Post Parameters
+### Arguments
 
-Param | Description
+Parameter | Description
 ----- | -----------
-`paymentMethodId` | Payment method ID.
+`paymentMethodId` | ID of payment method to retry.
 
 ### Returns
 
-Returns a `200` status code if the payment method was set to retry. Returns an error otherwise.
+Returns an object with a `success` property if the payment method will be retried. Returns an error otherwise.

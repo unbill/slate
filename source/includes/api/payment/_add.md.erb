@@ -1,37 +1,39 @@
 ## Add a payment method
 
-> Request Credit Card Example
+> Example Card Request
 
-```json
-{
-  "apiKey": "<%= config.auth %>",
-  "clientId": "56e1ddbd1a05319bc198d36f",
-  "paymentType": "card",
-  "cardNumber": "378282246310005",
-  "cardCode": "218",
-  "expMonth": "10",
-  "expYear": "2017",
-  "zipcode": "12345",
-  "name": "Sean Hill",
-  "setAsDefault": true
-}
+```shell
+curl "<%= config.host %>/auth" \
+  -H "<%= config.auth %>" \
+  -d '{
+    "clientId": "56e1ddbd1a05319bc198d36f",
+    "paymentType": "card",
+    "cardNumber": "378282246310005",
+    "cardCode": "218",
+    "expMonth": "10",
+    "expYear": "2017",
+    "zipcode": "12345",
+    "name": "Sean Hill",
+    "setAsDefault": true
+  }'
 ```
 
-> Request Bank Account Example
+> Example Bank Request
 
-```json
-{
-  "apiKey": "<%= config.auth %>",
-  "clientId": "56e1ddbd1a05319bc198d36f",
-  "paymentType": "bank",
-  "routingNumber": "021000021",
-  "accountNumber": "9900000002",
-  "accountType": "checking",
-  "name": "Sean Hill"
-}
+```shell
+curl "<%= config.host %>/auth" \
+  -H "<%= config.auth %>" \
+  -d '{
+    "clientId": "56e1ddbd1a05319bc198d36f",
+    "paymentType": "bank",
+    "routingNumber": "021000021",
+    "accountNumber": "9900000002",
+    "accountType": "checking",
+    "name": "Sean Hill"
+  }'
 ```
 
-> 200 Response
+> Example Response
 
 ```json
 {
@@ -39,23 +41,15 @@
 }
 ```
 
-> 400 Response
-
-```json
-{
-  "message": "That card number doesn't look valid. Try again perhaps?"
-}
-```
-
-Add a payment method to an Unbill user.
+Add a payment method to a user.
 
 ### HTTP Request
 
 `POST <%= config.host %>/payment`
 
-### Post Parameters
+### Arguments
 
-Param | Description
+Parameter | Description
 ----- | -----------
 `clientId` | Unbill client ID.
 `paymentType` | Type of payment. Possible values are `card`, `bank`.
@@ -72,4 +66,4 @@ Param | Description
 
 ### Returns
 
-Returns a `200` status code if the payment method was successfully added. Returns an error otherwise.
+Returns an object with a`paymentMethodId` property if the payment method was successfully added. Returns an error otherwise.
