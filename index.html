@@ -5,7 +5,7 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="images/favicon.ico" rel="icon" type="image/x-icon">
-    <title>Unbill API</title>
+    <title>Q2 Biller Direct API</title>
     <meta name="description" content="API for bill payments. Rent, electric, phone, loan, tv, you name it.">
 
     <style>
@@ -106,7 +106,7 @@
       </span>
     </a>
     <div class="tocify-wrapper">
-      <img src="images/logo.svg" />
+      <img style="width: 70px" src="images/logo.svg" />
         <div class="lang-selector">
         </div>
         <div class="search">
@@ -127,9 +127,13 @@
 <blockquote>
 <p>API Host</p>
 </blockquote>
-<pre class="highlight plaintext"><code>https://sandbox.unbill.co/partner/v2 (development)
-https://unbill.co/partner/v2 (production)
+<pre class="highlight plaintext"><code>https://sb.unbill.co/v1 (sandbox)
+https://api.unbill.co/v1 (production)
 </code></pre>
+
+<div class="swagger">
+  <a href="https://sb.unbill.co/documentation", target="_blank">Test with Swagger</a>
+</div>
 
 <blockquote>
 <p>Resource URL Patterns</p>
@@ -141,46 +145,94 @@ https://unbill.co/partner/v2 (production)
 /client
 </code></pre>
 
-<p>Welcome! The Unbill API allows developers to receive user-authorized bill data and make payments on behalf of a user. With over 4000 companies and counting, supercharge your platform with the Unbill API. </p>
+<p>Welcome! The Q2 Biller Direct API allows developers to receive user-authorized bill data and make payments on behalf of a user.</p>
 
-<p>Here you will find information on how to integrate with and use the Unbill API. We&rsquo;ve tried to make this documentation user-friendly and example-filled, but please <a href="mailto:api@unbill.us">drop us a line</a> with any questions. If you&rsquo;re planning to use our API in production, you should take a look at our <a href="http://unbill.us/privacy.html">privacy policy</a>.</p>
+<p>Here you will find information on how to integrate with and use the Q2 Biller Direct API. We&rsquo;ve tried to make this documentation user-friendly and example-filled, but please <a href="mailto:api@unbill.us">drop us a line</a> with any questions. If you&rsquo;re planning to use our API in production, you should take a look at our <a href="http://unbill.us/privacy.html">privacy policy</a>.</p>
 
-<p>The Unbill API uses standard HTTP <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">verbs</a> to communicate and HTTP <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">response codes</a> to indicate status and errors. All responses come in standard <a href="http://www.json.org/">JSON</a>. The Unbill API is served over HTTPS to ensure data privacy; HTTP is not supported. Every request must include your <code class="prettyprint">apiKey</code>.</p>
+<p>The Q2 Biller Direct API uses standard HTTP <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">verbs</a> to communicate and HTTP <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">response codes</a> to indicate status and errors. All responses come in standard <a href="http://www.json.org/">JSON</a>. The Q2 Biller Direct API is served over HTTPS to ensure data privacy, HTTP is not supported.</p>
 
 <p><img alt="Overview" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/unbill.png" /></p>
 
 <h2 id="gaining-access">Gaining Access</h2>
 
-<p>To gain access to the Unbill API, please <a href="mailto:api@unbill.us">contact us</a>. After our review process is complete, you&rsquo;ll be provided with an <code class="prettyprint">apiKey</code> which you can use for your requests.</p>
+<p>To gain access to the Q2 Biller Direct API, please <a href="mailto:api@unbill.us">contact us</a>. After our review process is complete, you&rsquo;ll be provided with an API key which you can use for your requests.</p>
 
           <h2 id="authentication">Authentication</h2>
 
-<p>Every request made must include your <code class="prettyprint">apiKey</code> token provided to you. If the <code class="prettyprint">apiKey</code> is not passed in the <code class="prettyprint">POST</code> request, you will receive a <code class="prettyprint">401 Not Authorized</code> response.</p>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell"><code>  curl <span class="s2">"https://api.unbill.co/v1/auth"</span>
+    -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span>
+</code></pre>
+
+<p>Authenticate your account when using the API by including your secret API key in the request. Your API keys carry many privileges, so be sure to keep them secret! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.</p>
+
+<p>Authentication to the API is performed via the <a href="https://oauth.net/2/">OAuth2 Protocol</a>. Pass your API Key as a bearer token in the <code class="prettyprint">Authorization</code> header.</p>
+
+          <h2 id="errors">Errors</h2>
+
+<p>The Q2 Biller Direct API uses conventional HTTP response codes to indicate the success or failure of an API request. In general, codes in the <code class="prettyprint">2xx</code> range indicate success, codes in the <code class="prettyprint">4xx</code> range indicate an error that failed given the information provided (e.g., a required parameter was omitted, a charge failed, etc.), and codes in the <code class="prettyprint">5xx</code> range indicate an error with Q2&rsquo;s servers (these are rare).</p>
+
+<table><thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200 - OK</td>
+<td>Everything worked as expected.</td>
+</tr>
+<tr>
+<td>400 - Bad Request</td>
+<td>The request was unacceptable, often due to missing a required parameter.</td>
+</tr>
+<tr>
+<td>401 - Unauthorized</td>
+<td>No valid API key provided.</td>
+</tr>
+<tr>
+<td>402 - Request Failed</td>
+<td>The parameters were valid but the request failed.</td>
+</tr>
+<tr>
+<td>404 - Not Found</td>
+<td>The requested resource doesn&rsquo;t exist.</td>
+</tr>
+<tr>
+<td>429 - Too Many Requests</td>
+<td>Too many requests hit the API too quickly. We recommend an exponential backoff of your requests.</td>
+</tr>
+<tr>
+<td>500, 502, 503, 504 - Server Errors</td>
+<td>Something went wrong on Q2&rsquo;s end. (These are rare.)</td>
+</tr>
+</tbody></table>
+
+          <h2 id="request-ids">Request IDs</h2>
+
+<p>Each API request has an associated request identifier. You can find this value in the response headers, under <code class="prettyprint">request-id</code>. If you need to contact us about a specific request, providing the request identifier will ensure the fastest possible resolution.</p>
 
           <h2 id="getting-started">Getting Started</h2>
 
 <blockquote>
-<p>Quickstart</p>
+<p>Example Request</p>
 </blockquote>
-<pre class="highlight plaintext"><code>https://unbill.co/partner/v2/auth
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/auth"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -d <span class="s1">'{
+    "clientId": "566595c8ce88ccec69328566",
+    "companyId": "56e1dbb5443b10a3bd403fcf",
+    "form": {
+      "username": "Johnny",
+      "password": "Appleseed"
+    }
+  }'</span>
 </code></pre>
 
 <blockquote>
-<p>Sample Request</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"companyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Johnny"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Appleseed"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<blockquote>
-<p>Sample Response</p>
+<p>Example Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"authId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="p">,</span><span class="w">
@@ -199,7 +251,7 @@ https://unbill.co/partner/v2 (production)
 
 <ol>
 <li>User signs up in your app.</li>
-<li>Make a request to the <code class="prettyprint">/client/add</code> endpoint to retrieve an Unbill <code class="prettyprint">clientId</code> to store in your database for future requests.</li>
+<li>Make a request to the <code class="prettyprint">/client/create</code> endpoint to retrieve a <code class="prettyprint">clientId</code> to store in your database for future requests.</li>
 </ol>
 
 <h3 id="authentication">Authentication</h3>
@@ -208,66 +260,36 @@ https://unbill.co/partner/v2 (production)
 <li>Search for the company you&rsquo;d like to add from the <code class="prettyprint">/company/search</code> endpoint.</li>
 <li>Provide your user with a &ldquo;bill authentication&rdquo; view populated with the login fields retrieved from the desired company.</li>
 <li>Have your user fill out their credentials, and then send those credentials to the <code class="prettyprint">/auth</code> endpoint.</li>
-<li>Unbill will begin the authentication process and if successful, will return available <a href="#auth-items">items</a>.</li>
+<li>Q2 will begin the authentication process and if successful, will return available <a href="#auth-items">items</a>.</li>
 </ol>
 
 <h3 id="bills">Bills</h3>
 
 <ol>
-<li>Requests can be made to the <code class="prettyprint">/bill/list</code> endpoint to retrieve the list of authenticated bills and balance information.</li>
-<li>Requests can be made to the <code class="prettyprint">/bill/details</code> endpoint to retrieve details on a specific bill.</li>
+<li>Requests can be made to the <code class="prettyprint">/bill/list/{clientId}</code> endpoint to retrieve the list of authenticated bills and balance information.</li>
+<li>Requests can be made to the <code class="prettyprint">/bill/{billId}</code> endpoint to retrieve details on a specific bill.</li>
 </ol>
 
 <h3 id="payments">Payments</h3>
 
 <ol>
 <li>Provide your user with a &ldquo;link payment&rdquo; view to choose a payment method.</li>
-<li>Link this payment method to Unbill using the <code class="prettyprint">/payment</code> endpoint.</li>
+<li>Link this payment method using the <code class="prettyprint">/payment</code> endpoint.</li>
 <li>By default, bills will be paid automatically by using the payment method on file.</li>
-<li>To change this, you must make a request to the <code class="prettyprint">/payment/settings</code> endpoint to disable recurring payments.</li>
+<li>To change this, you must make a request to the <code class="prettyprint">/payment/{paymentMethodId}/settings</code> endpoint to disable recurring payments.</li>
 <li>When recurring payments are disabled, in order to make an on-demand payment, one must be scheduled via the <code class="prettyprint">/payment/schedule</code> endpoint.</li>
 </ol>
 
-          <h1 id="resources">Resources</h1>
-
-<h2 id="introduction">Introduction</h2>
-
-<p>All open source libraries and sample apps for Unbill are listed below. If you&rsquo;ve built anything that you&rsquo;d be willing to share, please let us know and we&rsquo;ll link to it here (and send you a t-shirt)!</p>
-
-<h2 id="official-libraries">Official Libraries</h2>
-
-<div class="resources">
-    <a id="unbill-node" href="https://github.com/unbill/unbill-node" target="_blank" class="resource">
-        <img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/node.svg" />
-        <div class="content">
-            <h3>Node</h3>
-            <p>unbill-node</p>
-        </div>
-    </a>
-</div>
-
-<h2 id="official-apps">Official Apps</h2>
-
-<div class="resources">
-    <a id="unbill-ionic" href="https://github.com/unbill/unbill-ionic" target="_blank" class="resource">
-        <img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/ionic.png" />
-        <div class="content">
-            <h3>Ionic</h3>
-            <p>unbill-ionic</p>
-        </div>
-    </a>
-</div>
-
           <h1 id="auth">Auth</h1>
 
-<p>Authenticate a user&rsquo;s bill credentials via Unbill. This process may take anywhere from 5-30 seconds depending on the responsiveness of the company&rsquo;s website. If a <code class="prettyprint">200</code> status code is returned, no additional MFA is required. If a <code class="prettyprint">201</code> status code is returned, additional MFA is required to authenticate with the company and must be submitted via the <code class="prettyprint">/auth/step</code> endpoint.</p>
+<p>Authenticate a user&rsquo;s bill credentials. This process may take anywhere from 5-30 seconds depending on the responsiveness of the company&rsquo;s website. If a <code class="prettyprint">200</code> status code is returned, no additional MFA is required. If a <code class="prettyprint">201</code> status code is returned, additional MFA is required to authenticate with the company and must be submitted via the <code class="prettyprint">/auth/step</code> endpoint.</p>
 
 <p><img alt="Credentials View" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/credentials-view.png" /></p>
 
           <h2 id="the-auth-object">The auth object</h2>
 
 <blockquote>
-<p>Sample Response</p>
+<p>Example Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
@@ -308,22 +330,23 @@ https://unbill.co/partner/v2 (production)
           <h2 id="add-an-auth">Add an auth</h2>
 
 <blockquote>
-<p>Sample Request</p>
+<p>Example Request</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"companyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"bill"</span><span class="p">],</span><span class="w">
-  </span><span class="nt">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Johnny"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Appleseed"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/auth"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -d <span class="s1">'{
+    "clientId": "566595c8ce88ccec69328566",
+    "companyId": "56e1dbb5443b10a3bd403fcf",
+    "items": ["bill"],
+    "form": {
+      "username": "Johnny",
+      "password": "Appleseed"
+    }
+  }'</span>
+</code></pre>
 
 <blockquote>
-<p>200 Response (Authenticated)</p>
+<p>Example 200 Response (Authenticated)</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"authId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="p">,</span><span class="w">
@@ -337,7 +360,7 @@ https://unbill.co/partner/v2 (production)
 </span></code></pre>
 
 <blockquote>
-<p>201 Response (Question Based MFA)</p>
+<p>Example 201 Response (Question Based MFA)</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
@@ -350,36 +373,28 @@ https://unbill.co/partner/v2 (production)
 </span></code></pre>
 
 <blockquote>
-<p>201 Response (Code Based MFA)</p>
+<p>Example 201 Response (Code Based MFA)</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"code"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"t...t@unbill.us"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"r1g0mvVg1Z"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Email: t...t@unbill.us"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"t...t@example.com"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"r1g0mvVg1Z"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Email: t...t@example.com"</span><span class="w"> </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx-xxx-1234"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"phone"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B1gyVvElJZ"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Phone: xxx-xxx-1234"</span><span class="w"> </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx-xxx-1234"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SkbkEP4ekW"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Text: xxx-xxx-1234"</span><span class="w"> </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<blockquote>
-<p>400 Response</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"You may want to double check your information."</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/auth</code></p>
+<p><code class="prettyprint">POST https://api.unbill.co/v1/auth</code></p>
 
-<h3 id="post-parameters">Post Parameters</h3>
+<h3 id="arguments">Arguments</h3>
 
 <table><thead>
 <tr>
-<th>Param</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -392,7 +407,7 @@ https://unbill.co/partner/v2 (production)
 <td>ID of company being authenticated.</td>
 </tr>
 <tr>
-<td><code class="prettyprint">items</code><br><small>(optional)</small></td>
+<td><code class="prettyprint">items</code><br><small class="opt">(optional)</small></td>
 <td>The list of items you&rsquo;d like attached to this auth. If not specified, all available items will be returned. If you&rsquo;re only interested in verifying credentials, set this parameter as an empty array <code class="prettyprint">[]</code>, otherwise specify which <a href="#auth-items">items</a> you&rsquo;d like.</td>
 </tr>
 <tr>
@@ -401,54 +416,30 @@ https://unbill.co/partner/v2 (production)
 </tr>
 </tbody></table>
 
-<h3 id="testing">Testing</h3>
+<h3 id="returns">Returns</h3>
 
-<p>To test an MFA 201 response, pass in a <code class="prettyprint">mfaTest</code> flag whose value can be <code class="prettyprint">questions</code> for a question based response, or <code class="prettyprint">code</code> for a code based response. In this response will be provided the <code class="prettyprint">token</code> which you can submit to the <code class="prettyprint">/auth/step</code> endpoint for additional testing.</p>
+<p>Returns a list of available <code class="prettyprint">items</code> linked to an <code class="prettyprint">auth</code>, or the MFA to be submitted to the <code class="prettyprint">/auth/step</code> endpoint.</p>
 
-<h3 id="200-response-body">200 Response Body</h3>
+          <h2 id="auth-flow">Auth flow</h2>
 
-<table><thead>
-<tr>
-<th>Attribute</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><code class="prettyprint">authId</code></td>
-<td>The ID of the auth.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">items</code></td>
-<td>A list of <a href="#auth-items">items</a> attached to this auth.</td>
-</tr>
-</tbody></table>
+<p>The authentication flow may vary depending on the company. Below you&rsquo;ll find approaches to test the possible flows within your app. For each flow set <code class="prettyprint">form.password</code> to <code class="prettyprint">test</code>.</p>
 
-<h3 id="201-response-body-mfa">201 Response Body (<a href="#auth-mfa">MFA</a>)</h3>
+<h3 id="basic-auth">Basic Auth</h3>
 
-<table><thead>
-<tr>
-<th>Attribute</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><code class="prettyprint">token</code></td>
-<td>Token to be used when stepping through MFA via the <code class="prettyprint">/auth/step</code> endpoint.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">method</code></td>
-<td>The method of MFA being applied. <code class="prettyprint">questions, code</code></td>
-</tr>
-<tr>
-<td><code class="prettyprint">mfa</code></td>
-<td>List of required MFA to pass.</td>
-</tr>
-</tbody></table>
+<p>The most common approach used by companies is a simple username &amp; password combination. To test this set <code class="prettyprint">form.username</code> to <code class="prettyprint">test</code>.</p>
+
+<h3 id="multi-factor-authentication">Multi-factor Authentication</h3>
+
+<p>Some companies require multi-factor authentication (MFA). To test this set <code class="prettyprint">form.username</code> to <code class="prettyprint">testmfaquestions</code> for a question based response or <code class="prettyprint">testmfacode</code> for a code based response. In this response will be provided the <code class="prettyprint">token</code> which you can then submit to the <code class="prettyprint">/auth/step</code> endpoint to complete the authentication.</p>
+
+<h3 id="example-auth-items">Example Auth Items</h3>
+
+<p>An Auth may have various <a href="#auth-items">items</a> linked to it. To test bill items you may set <code class="prettyprint">form.username</code> to <code class="prettyprint">testsyncing</code>, <code class="prettyprint">testupcoming</code>, or <code class="prettyprint">testpaid</code>.</p>
 
           <h2 id="auth-items">Auth items</h2>
 
 <blockquote>
-<p>Sample Bill Item</p>
+<p>Example Bill Item</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill"</span><span class="p">,</span><span class="w">
@@ -460,103 +451,50 @@ https://unbill.co/partner/v2 (production)
 <p>After a successful authentication is made, a list of available <code class="prettyprint">items</code> attached to an auth will be returned for convience. For more details about each of these items, access the items endpoints.
 Currently only <code class="prettyprint">bill</code> items are supported, but additional items like <code class="prettyprint">usage</code> and <code class="prettyprint">transactions</code> are coming soon!</p>
 
-<table><thead>
-<tr>
-<th>Attribute</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><code class="prettyprint">type</code></td>
-<td>Type of item. <code class="prettyprint">bill</code></td>
-</tr>
-<tr>
-<td><code class="prettyprint">balance</code></td>
-<td>Current balance of a bill item</td>
-</tr>
-<tr>
-<td><code class="prettyprint">dueDate</code></td>
-<td>Current due date of a bill item</td>
-</tr>
-</tbody></table>
-
           <h2 id="auth-mfa">Auth MFA</h2>
 
 <blockquote>
-<p>Sample Request (Question Based MFA)</p>
+<p>Example Request (Question Based MFA)</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
-    </span><span class="nt">"answer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Secret Answer"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bk0zwVx1Z"</span><span class="w">
-  </span><span class="p">}],</span><span class="w">
-  </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/auth"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -d <span class="s1">'{
+    "mfa": [{
+      "answer": "Secret Answer",
+      "identifier": "Bk0zwVx1Z"
+    }],
+    "token": "56e1dbb5443b10a3bd403fcf"
+  }'</span>
+</code></pre>
 
 <blockquote>
-<p>Sample Request (Code Based MFA)</p>
+<p>Example Request (Code Based MFA)</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> 
-    </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ByDXD4eJW"</span><span class="w"> 
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/auth"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -d <span class="s1">'{
+    "mfa": { 
+      "identifier": "ByDXD4eJW" 
+    },
+    "token": "56e1dbb5443b10a3bd403fcf"
+  }'</span>
+</code></pre>
 
-<blockquote>
-<p>201 Response (Question Based MFA)</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"questions"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> 
-    </span><span class="nt">"question"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What is the name of your first pet?"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bk0zwVx1Z"</span><span class="w">
-  </span><span class="p">}]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<p>Some companies require multi-factor authentication (MFA) and the <code class="prettyprint">/auth/step</code> route is built to submit the additional information needed. Users are first submitted via the standard authenticate process via the <code class="prettyprint">/auth</code> endpoint, and the MFA data is sent through an additional request to the <code class="prettyprint">/auth/step</code> route.</p>
 
-<blockquote>
-<p>201 Response (Code Based MFA)</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"code"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"t...t@unbill.us"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"r1g0mvVg1Z"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Email: t...t@unbill.us"</span><span class="w"> </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx-xxx-1234"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"phone"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B1gyVvElJZ"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Phone: xxx-xxx-1234"</span><span class="w"> </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w"> </span><span class="nt">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx-xxx-1234"</span><span class="p">,</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SkbkEP4ekW"</span><span class="p">,</span><span class="w"> </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Text: xxx-xxx-1234"</span><span class="w"> </span><span class="p">}</span><span class="w">
-  </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<blockquote>
-<p>400 Response</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"You may want to double check your information."</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<p>Some companies require multi-factor authentication (MFA) and the<code class="prettyprint">/auth/step</code> route is built to submit the additional information needed. Users are first submitted via the standard authenticate process via the <code class="prettyprint">/auth</code> endpoint, and the MFA data is sent through an additional request to the <code class="prettyprint">/auth/step</code> route.</p>
-
-<p>For <code class="prettyprint">questions</code> (Question Based MFA) return the answers formatted as an array of objects, where each object includes the <code class="prettyprint">answer</code> of the question and the <code class="prettyprint">identifier</code> received from previous <code class="prettyprint">auth</code> response. For <code class="prettyprint">code</code> (Code Based MFA) return the desired option by passing the <code class="prettyprint">identifier</code> field given to you from the previous <code class="prettyprint">auth</code> response. Continue to POST to the <code class="prettyprint">/auth/step</code> with the required answers until a <code class="prettyprint">200</code> status code is returned. At that point the user will be authenticated and you&rsquo;ll have access to bill data.</p>
+<p>For <code class="prettyprint">questions</code> (Question Based MFA) return the answers formatted as an array of objects, where each object includes the <code class="prettyprint">answer</code> of the question and the <code class="prettyprint">identifier</code> received from the previous <code class="prettyprint">auth</code> response. For <code class="prettyprint">code</code> (Code Based MFA) return the desired option by passing the <code class="prettyprint">identifier</code> field given to you from the previous <code class="prettyprint">auth</code> response. Continue to POST to the <code class="prettyprint">/auth/step</code> with the required answers until a <code class="prettyprint">200</code> status code is returned. At that point the user will be authenticated and you&rsquo;ll have access to available <a href="'#auth-items'">items</a>.</p>
 
 <p><img alt="Credentials MFA View" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/credentials-mfa-view.png" /></p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/auth/step</code></p>
+<p><code class="prettyprint">POST https://api.unbill.co/v1/auth/step</code></p>
 
-<h3 id="post-parameters">Post Parameters</h3>
+<h3 id="arguments">Arguments</h3>
 
 <table><thead>
 <tr>
-<th>Param</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -570,27 +508,9 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 </tr>
 </tbody></table>
 
-<h3 id="201-response-body-mfa">201 Response Body (MFA)</h3>
+<h3 id="returns">Returns</h3>
 
-<table><thead>
-<tr>
-<th>Attribute</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><code class="prettyprint">token</code></td>
-<td>Token to be used when stepping through MFA via the <code class="prettyprint">/auth/step</code> endpoint.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">method</code></td>
-<td>The method of MFA being applied. <code class="prettyprint">questions, code</code></td>
-</tr>
-<tr>
-<td><code class="prettyprint">mfa</code></td>
-<td>List of required MFA to pass.</td>
-</tr>
-</tbody></table>
+<p>Returns a list of available <code class="prettyprint">items</code> linked to an <code class="prettyprint">auth</code>, or any additional MFA to be submitted to the <code class="prettyprint">/auth/step</code> endpoint.</p>
 
           <h2 id="auth-status">Auth status</h2>
 
@@ -642,7 +562,7 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 
 <h3 id="hold">hold</h3>
 
-<p>For a number of reasons an auth can have the status of <code class="prettyprint">hold</code>. When an auth is on hold we&rsquo;ll present you with a <code class="prettyprint">reason</code> that you in turn can present to your users. To remove this status, the user must take the appropriate action as described in the <code class="prettyprint">reason</code>. This usually involves them needing to login into their online account. Once the user has completed the action, make a request to the <code class="prettyprint">/auth/fix-hold</code> endpoint to resume their services.</p>
+<p>For a number of reasons an auth can have the status of <code class="prettyprint">hold</code>. When an auth is on hold we&rsquo;ll present you with a <code class="prettyprint">reason</code> that you in turn can present to your users. To remove this status, the user must take the appropriate action as described in the <code class="prettyprint">reason</code>. This usually involves them needing to login into their online account. Once the user has completed the action, make a request to the <code class="prettyprint">/auth/{authId}/fix-hold</code> endpoint to resume their services.</p>
 
 <p><em>Display hold reason</em></p>
 
@@ -655,16 +575,15 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
           <h2 id="list-all-auths">List all auths</h2>
 
 <blockquote>
-<p>Sample Request</p>
+<p>Example Request</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/auth/list/566595c8ce88ccec69328566"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -G
+</code></pre>
 
 <blockquote>
-<p>200 Response</p>
+<p>Example Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -700,87 +619,85 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<blockquote>
-<p>400 Response</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"No auths found by that ID."</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
 <p>Retrieves a list of user&rsquo;s auths.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/auth/list</code></p>
+<p><code class="prettyprint">GET https://api.unbill.co/v1/auth/list/{clientId}</code></p>
 
-<h3 id="post-parameters">Post Parameters</h3>
+<h3 id="arguments">Arguments</h3>
 
 <table><thead>
 <tr>
-<th>Param</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td><code class="prettyprint">clientId</code></td>
-<td>Unbill client ID.</td>
+<td>ID of client to retrieve auths for.</td>
 </tr>
 </tbody></table>
 
 <h3 id="returns">Returns</h3>
 
-<p>A dictionary with a <code class="prettyprint">data</code> property that contains an array of auth objects.</p>
+<p>A dictionary with a <code class="prettyprint">data</code> property that contains an array of <a href="#the-auth-object">auth objects</a>.</p>
 
           <h2 id="fix-auth-hold">Fix auth hold</h2>
 
 <blockquote>
-<p>Sample Request</p>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/auth/566595c8ce88ccec69328566/fix-hold"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -X POST
+</code></pre>
+
+<blockquote>
+<p>Example Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"authId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/auth/fix-hold</code></p>
+<p><code class="prettyprint">POST https://api.unbill.co/v1/auth/{authId}/fix-hold</code></p>
 
-<h3 id="post-parameters">Post Parameters</h3>
+<h3 id="arguments">Arguments</h3>
 
 <table><thead>
 <tr>
-<th>Param</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td><code class="prettyprint">authId</code></td>
-<td>Unbill auth ID.</td>
+<td>ID of auth to fix.</td>
 </tr>
 </tbody></table>
 
-<blockquote>
-<p>400 Response</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Please provide the authId."</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
 <h3 id="returns">Returns</h3>
 
-<p>Returns a <code class="prettyprint">200</code> status code if an auth&rsquo;s hold was marked as being resolved. Returns an error otherwise.</p>
+<p>Returns an object with a <code class="prettyprint">success</code> property if the hold was fixed. If the <code class="prettyprint">authId</code> does not exist, this call returns an error.</p>
 
           <h2 id="delete-auth">Delete auth</h2>
 
 <blockquote>
-<p>Sample Request</p>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/auth/566595c8ce88ccec69328566"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -X DELETE
+</code></pre>
+
+<blockquote>
+<p>Example Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"authId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
+  </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -788,33 +705,25 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/auth/delete</code></p>
+<p><code class="prettyprint">DELETE https://api.unbill.co/v1/auth/{authId}</code></p>
 
-<h3 id="post-parameters">Post Parameters</h3>
+<h3 id="arguments">Arguments</h3>
 
 <table><thead>
 <tr>
-<th>Param</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td><code class="prettyprint">authId</code></td>
-<td>Unbill auth ID.</td>
+<td>ID of bill to delete.</td>
 </tr>
 </tbody></table>
 
-<blockquote>
-<p>400 Response</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Please provide the authId."</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
 <h3 id="returns">Returns</h3>
 
-<p>Returns a <code class="prettyprint">200</code> response if the <code class="prettyprint">auth</code> and its <code class="prettyprint">items</code> was successfully deleted.</p>
+<p>Returns an object with a <code class="prettyprint">success</code> property if the auth was deleted. If the <code class="prettyprint">authId</code> does not exist, this call returns an error.</p>
 
           <h1 id="bill">Bill</h1>
 
@@ -823,7 +732,7 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
           <h2 id="the-bill-object">The bill object</h2>
 
 <blockquote>
-<p>Sample Response</p>
+<p>Example Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
@@ -1029,7 +938,7 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>A bill <code class="prettyprint">status.type</code> can be a variety of types. Each type is documented below with a description of the status and a typical use case.</p>
+<p>A bill&rsquo;s <code class="prettyprint">status.type</code> can be a variety of types. Each type is documented below with a description of the status and a typical use case.</p>
 
 <h3 id="syncing">syncing</h3>
 
@@ -1050,20 +959,20 @@ Currently only <code class="prettyprint">bill</code> items are supported, but ad
 <ul>
 <li>A user adds a bill that is already overdue.</li>
 <li><code class="prettyprint">recurring</code> is enabled and the user has no payment method or their payment method&rsquo;s status is <code class="prettyprint">failed</code>.</li>
-<li><code class="prettyprint">recurring</code> is disabled and a payment has not been scheduled via the <code class="prettyprint">/payment/make</code> endpoint.</li>
+<li><code class="prettyprint">recurring</code> is disabled and a payment has not been scheduled via the <code class="prettyprint">/payment/schedule</code> endpoint.</li>
 </ul>
 
 <p><img alt="Bill Overdue" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-overdue.png" /></p>
 
 <h3 id="payment-required">payment-required</h3>
 
-<p>The payment method specified by <code class="prettyprint">company.requiredPayment</code> is required to pay this bill. A linked payment method must be assigned before bill payments will resume. This can be done via the <code class="prettyprint">/payment/assign</code> endpoint.</p>
+<p>The payment method specified by <code class="prettyprint">company.requiredPayment</code> is required to pay this bill. A linked payment method must be assigned before bill payments will resume. This can be done via the <code class="prettyprint">/payment/{paymentMethodId}/assign</code> endpoint.</p>
 
 <p><img alt="Payment required" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-authenticate.png" /></p>
 
 <h3 id="payment-declined">payment-declined</h3>
 
-<p>The payment method used to pay this bill was declined. To resume bill payments, have the user try their payment method again via the <code class="prettyprint">/payment/retry</code> endpoint, or assign another one via the <code class="prettyprint">/payment/assign</code> endpoint.</p>
+<p>The payment method used to pay this bill was declined. To resume bill payments, have the user try their payment method again via the <code class="prettyprint">/payment/{paymentMethodId}/retry</code> endpoint, or assign another one via the <code class="prettyprint">/payment/{paymentMethodId}/assign</code> endpoint.</p>
 
 <p><img alt="Payment declined" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-authenticate.png" /></p>
 
@@ -1114,16 +1023,15 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
           <h2 id="retrieve-bill-details">Retrieve bill details</h2>
 
 <blockquote>
-<p>Sample Request</p>
+<p>Example Request</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"billId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/bill/566595c8ce88ccec69328566"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -G
+</code></pre>
 
 <blockquote>
-<p>Sample Upcoming Response</p>
+<p>Example Upcoming Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1153,7 +1061,7 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 </span></code></pre>
 
 <blockquote>
-<p>Sample Paid Response</p>
+<p>Example Paid Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1187,75 +1095,44 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<blockquote>
-<p>400 Response</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"We couldn't get information about this company, sorry."</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
 <p>Retrieve details about a bill including outstanding balance, due date, settings, status, and payment history.</p>
 
 <p><img alt="Detail" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/detail.png" /></p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/bill/details</code></p>
+<p><code class="prettyprint">GET https://api.unbill.co/v1/bill/{billId}</code></p>
 
-<h3 id="post-parameters">Post Parameters</h3>
+<h3 id="arguments">Arguments</h3>
 
 <table><thead>
 <tr>
-<th>Param</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td><code class="prettyprint">billId</code></td>
-<td>Unbill bill ID.</td>
+<td>ID of bill to retrieve.</td>
 </tr>
 </tbody></table>
 
-<h3 id="200-response-body">200 Response Body</h3>
+<h3 id="returns">Returns</h3>
 
-<table><thead>
-<tr>
-<th>Attribute</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><code class="prettyprint">bill</code></td>
-<td>Bill object</td>
-</tr>
-<tr>
-<td><code class="prettyprint">payments</code></td>
-<td>List of past bill payments</td>
-</tr>
-<tr>
-<td><code class="prettyprint">payments.amount</code></td>
-<td>Amount paid</td>
-</tr>
-<tr>
-<td><code class="prettyprint">payments.paidOn</code></td>
-<td>Date of payment</td>
-</tr>
-</tbody></table>
+<p>Returns details for a bill if a valid <code class="prettyprint">billId</code> was provided. Returns an error otherwise.</p>
 
           <h2 id="list-all-bills">List all bills</h2>
 
 <blockquote>
-<p>Sample Request</p>
+<p>Example Request</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<pre class="highlight shell"><code>  curl https://api.unbill.co/v1/bill/list/579b695decfa11012711875d
+    -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span>
+    -G 
+</code></pre>
 
 <blockquote>
-<p>200 Response</p>
+<p>Example Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -1317,33 +1194,25 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<blockquote>
-<p>400 Response</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"No bills found by that ID."</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
 <p>Retrieves a list of user&rsquo;s bills.</p>
 
 <p><img alt="Overview" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/overview.png" /></p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/bill/list</code></p>
+<p><code class="prettyprint">GET https://api.unbill.co/v1/bill/list/{clientId}</code></p>
 
-<h3 id="post-parameters">Post Parameters</h3>
+<h3 id="arguments">Arguments</h3>
 
 <table><thead>
 <tr>
-<th>Param</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td><code class="prettyprint">clientId</code></td>
-<td>Unbill client ID.</td>
+<td>ID of the client to retrieve bills for.</td>
 </tr>
 </tbody></table>
 
@@ -1391,7 +1260,8 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
     </span><span class="p">}]</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"geo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"loc"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mf">-95.53</span><span class="p">,</span><span class="w"> </span><span class="mf">30.70</span><span class="w"> </span><span class="p">],</span><span class="w">
+    </span><span class="nt">"lat"</span><span class="p">:</span><span class="w"> </span><span class="mf">30.70</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"lng"</span><span class="p">:</span><span class="w"> </span><span class="mf">-95.53</span><span class="p">,</span><span class="w">
     </span><span class="nt">"state_short"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TX"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"state_long"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Texas"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"zipcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"77340"</span><span class="w">
@@ -1435,7 +1305,7 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 </tr>
 <tr>
 <td><code class="prettyprint">logo.svg.color</code></td>
-<td>Hex color of the Company logo.</td>
+<td>Hex color of the company logo.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">requiredPayment</code></td>
@@ -1494,8 +1364,12 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 <td>Geo based location (not available for regional or national company).</td>
 </tr>
 <tr>
-<td><code class="prettyprint">geo.loc</code></td>
-<td>Coordinates with syntax <code class="prettyprint">[ longitude, latitude ]</code>.</td>
+<td><code class="prettyprint">geo.lat</code></td>
+<td>Latitude coordinate.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">geo.lng</code></td>
+<td>Longitude coordinate.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">geo.stateShort</code></td>
@@ -1517,7 +1391,7 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 
           <h2 id="company-logos">Company logos</h2>
 
-<p>The Unbill API provides image URL&rsquo;s for each company&rsquo;s logo. For our most popular companies, we also provide a white svg logo, along with the hex color of the company&rsquo;s brand. There are three ideal ways of presenting these logos in your apps.</p>
+<p>The Q2 Biller Direct API provides image URL&rsquo;s for each company&rsquo;s logo. For our most popular companies, we also provide a white svg logo, along with the hex color of the company&rsquo;s brand. There are three ideal ways of presenting these logos in your apps.</p>
 
 <ol>
 <li><p>When the <code class="prettyprint">company.logo.svg</code> is available, the svg logo looks best on the <code class="prettyprint">company.logo.svg.color</code> background.</p>
@@ -1534,71 +1408,49 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
           <h2 id="company-categories">Company categories</h2>
 
 <blockquote>
-<p>Sample Request</p>
+<p>Example Request</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/company/categories"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -G
+</code></pre>
 
 <blockquote>
-<p>Sample Response</p>
+<p>Example Response</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">[{</span><span class="w">
-  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Electric"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"electric"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/mobile/billers/category_icons/electric.svg"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}]</span><span class="w">
-
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Electric"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"electric"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/mobile/billers/category_icons/electric.svg"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}]</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre>
 
 <p>Retrieve a list of company categories you can use to search for companies by category <code class="prettyprint">type</code>.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/company/categories</code></p>
+<p><code class="prettyprint">GET https://api.unbill.co/v1/company/categories</code></p>
 
-<h3 id="200-response-body">200 Response Body</h3>
+<h3 id="returns">Returns</h3>
 
-<table><thead>
-<tr>
-<th>Attribute</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><code class="prettyprint">name</code></td>
-<td>Name of the category.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">type</code></td>
-<td>Type of category (used when searching for companies).</td>
-</tr>
-<tr>
-<td><code class="prettyprint">image</code></td>
-<td>Category image object.</td>
-</tr>
-<tr>
-<td><code class="prettyprint">image.url</code></td>
-<td>URL of category image svg.</td>
-</tr>
-</tbody></table>
+<p>A dictionary with a <code class="prettyprint">data</code> property that contains an array of company categories.</p>
 
           <h2 id="retrieve-a-company">Retrieve a company</h2>
 
 <blockquote>
-<p>Sample Request</p>
+<p>Example Request</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"companyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1dbb5443b10a3bd403fcf"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/company/566595c8ce88ccec69328566"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -G
+</code></pre>
 
 <blockquote>
-<p>200 Response</p>
+<p>Example Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
@@ -1631,7 +1483,8 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
     </span><span class="p">}]</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nt">"geo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"loc"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mf">-95.53</span><span class="p">,</span><span class="w"> </span><span class="mf">30.70</span><span class="w"> </span><span class="p">],</span><span class="w">
+    </span><span class="nt">"lat"</span><span class="p">:</span><span class="w"> </span><span class="mf">30.70</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"lng"</span><span class="p">:</span><span class="w"> </span><span class="mf">-95.53</span><span class="p">,</span><span class="w">
     </span><span class="nt">"state_short"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TX"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"state_long"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Texas"</span><span class="p">,</span><span class="w">
     </span><span class="nt">"zipcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"77340"</span><span class="w">
@@ -1639,125 +1492,117 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<blockquote>
-<p>400 Response</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"No company found by that ID."</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<p>Gets an Unbill company by Unbill company ID or partner company ID.</p>
+<p>Retrieves the company with the given ID.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/company/get</code></p>
+<p><code class="prettyprint">GET https://api.unbill.co/v1/company/{companyId}</code></p>
 
-<h3 id="post-parameters">Post Parameters</h3>
+<h3 id="arguments">Arguments</h3>
 
 <table><thead>
 <tr>
-<th>Param</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td><code class="prettyprint">companyId</code></td>
-<td>Unbill company ID or partner company ID.</td>
+<td>ID of company to retrieve.</td>
 </tr>
 </tbody></table>
 
 <h3 id="returns">Returns</h3>
 
-<p>Returns a company object if a valid <code class="prettyprint">companyId</code> was provided.</p>
+<p>Returns a <a href="#the-company-object">company object</a> if a valid <code class="prettyprint">companyId</code> was provided. Returns an error otherwise.</p>
 
           <h2 id="search-for-companies">Search for companies</h2>
 
 <blockquote>
-<p>Sample Requests</p>
+<p>Example Requests</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gas"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"geo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"lat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40.233845"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"lng"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-111.658531"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/company/search"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -d <span class="s1">'{
+    "query": "Netflix"
+  }'</span>
+</code></pre>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/company/search"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -d <span class="s1">'{
+    "category": "gas"
+  }'</span>
+</code></pre>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/company/search"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -d <span class="s1">'{
+    "geo": {
+      "lat": 40.233845,
+      "lng": -111.65852
+    }
+  }'</span>
+</code></pre>
 
 <blockquote>
-<p>200 Response</p>
+<p>Example Response</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">[{</span><span class="w">
-  </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"svg"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.svg"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FF041F"</span><span class="w">
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"svg"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.svg"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FF041F"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"requiredPayment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bank"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"on-due-date"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"urls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.netflix.com/Login"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"signup"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.netflix.com"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"loginFields"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+          </span><span class="nt">"placeholder"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Username"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"formType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"username"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Username"</span><span class="w">
+        </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"placeholder"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Password"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"formType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Password"</span><span class="w">
+        </span><span class="p">}]</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"geo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"lat"</span><span class="p">:</span><span class="w"> </span><span class="mf">30.70</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"lng"</span><span class="p">:</span><span class="w"> </span><span class="mf">-95.53</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"state_short"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TX"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"state_long"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Texas"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"zipcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"77340"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"requiredPayment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bank"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"on-due-date"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"urls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.netflix.com/Login"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"signup"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.netflix.com"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"loginFields"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
-      </span><span class="nt">"placeholder"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Username"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"formType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"username"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Username"</span><span class="w">
-    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"placeholder"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Password"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"formType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Password"</span><span class="w">
-    </span><span class="p">}]</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nt">"geo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"loc"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mf">-95.53</span><span class="p">,</span><span class="w"> </span><span class="mf">30.70</span><span class="w"> </span><span class="p">],</span><span class="w">
-    </span><span class="nt">"state_short"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TX"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"state_long"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Texas"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"zipcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"77340"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}]</span><span class="w">
-</span></code></pre>
-
-<blockquote>
-<p>400 Response</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Please provide search query."</span><span class="w">
+  </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>Search for companies by name, category, or geo.</p>
+<p>Search for companies by name, category, or nearby a geo coordinate.</p>
 
 <p><img alt="Company Categories" src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/company-categories.png" /></p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/company/search</code></p>
+<p><code class="prettyprint">POST https://api.unbill.co/v1/company/search</code></p>
 
-<h3 id="post-parameters">Post Parameters</h3>
+<h3 id="arguments">Arguments</h3>
 
 <table><thead>
 <tr>
-<th>Param</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -1785,7 +1630,7 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 
 <h3 id="returns">Returns</h3>
 
-<p>Returns a list of company objects that match the provided <code class="prettyprint">query</code> or <code class="prettyprint">category</code>.</p>
+<p>A dictionary with a <code class="prettyprint">data</code> property that contains an array of <a href="#the-company-object">company objects</a> that match the provided search filters.</p>
 
           <h1 id="payment">Payment</h1>
 
@@ -1794,7 +1639,7 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
           <h2 id="the-card-object">The card object</h2>
 
 <blockquote>
-<p>Sample Response</p>
+<p>Example Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX0005"</span><span class="p">,</span><span class="w">
@@ -1831,7 +1676,7 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
           <h2 id="the-bank-object">The bank object</h2>
 
 <blockquote>
-<p>Sample Response</p>
+<p>Example Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"routingNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX0002"</span><span class="p">,</span><span class="w">
@@ -1863,7 +1708,7 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
           <h2 id="the-payment-method-object">The payment method object</h2>
 
 <blockquote>
-<p>Sample Response</p>
+<p>Example Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
@@ -1908,11 +1753,11 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 </tr>
 <tr>
 <td><code class="prettyprint">card</code></td>
-<td>Card object</td>
+<td><a href="#the-card-object">Card object</a></td>
 </tr>
 <tr>
 <td><code class="prettyprint">bank</code></td>
-<td>Bank object</td>
+<td><a href="#the-bank-object">Bank object</a></td>
 </tr>
 </tbody></table>
 
@@ -1938,7 +1783,7 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 
 <ol>
 <li>Link a new payment method via the <code class="prettyprint">/payment</code> endpoint.</li>
-<li>Retry the payment method via the <code class="prettyprint">/payment/retry</code> endpoint.</li>
+<li>Retry the payment method via the <code class="prettyprint">/payment/{paymentMethodId}/retry</code> endpoint.</li>
 </ol>
 
 <p><em>Declined payment prompt</em></p>
@@ -1950,63 +1795,57 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
           <h2 id="add-a-payment-method">Add a payment method</h2>
 
 <blockquote>
-<p>Request Credit Card Example</p>
+<p>Example Card Request</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1ddbd1a05319bc198d36f"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"paymentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"cardNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"378282246310005"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"cardCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"218"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"expMonth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"expYear"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"zipcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sean Hill"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"setAsDefault"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/auth"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -d <span class="s1">'{
+    "clientId": "56e1ddbd1a05319bc198d36f",
+    "paymentType": "card",
+    "cardNumber": "378282246310005",
+    "cardCode": "218",
+    "expMonth": "10",
+    "expYear": "2017",
+    "zipcode": "12345",
+    "name": "Sean Hill",
+    "setAsDefault": true
+  }'</span>
+</code></pre>
 
 <blockquote>
-<p>Request Bank Account Example</p>
+<p>Example Bank Request</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1ddbd1a05319bc198d36f"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"paymentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bank"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"routingNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"021000021"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"accountNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9900000002"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"accountType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"checking"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sean Hill"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/auth"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -d <span class="s1">'{
+    "clientId": "56e1ddbd1a05319bc198d36f",
+    "paymentType": "bank",
+    "routingNumber": "021000021",
+    "accountNumber": "9900000002",
+    "accountType": "checking",
+    "name": "Sean Hill"
+  }'</span>
+</code></pre>
 
 <blockquote>
-<p>200 Response</p>
+<p>Example Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"paymentMethodId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1ddbd1a05319bc198d36f"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<blockquote>
-<p>400 Response</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"That card number doesn't look valid. Try again perhaps?"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<p>Add a payment method to an Unbill user.</p>
+<p>Add a payment method to a user.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/payment</code></p>
+<p><code class="prettyprint">POST https://api.unbill.co/v1/payment</code></p>
 
-<h3 id="post-parameters">Post Parameters</h3>
+<h3 id="arguments">Arguments</h3>
 
 <table><thead>
 <tr>
-<th>Param</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -2062,21 +1901,20 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 
 <h3 id="returns">Returns</h3>
 
-<p>Returns a <code class="prettyprint">200</code> status code if the payment method was successfully added. Returns an error otherwise.</p>
+<p>Returns an object with a<code class="prettyprint">paymentMethodId</code> property if the payment method was successfully added. Returns an error otherwise.</p>
 
           <h2 id="list-all-payment-methods">List all payment methods</h2>
 
 <blockquote>
-<p>Sample Request</p>
+<p>Example Request</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"56e1ddbd1a05319bc198d36f"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/payment/list/566595c8ce88ccec69328566"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -G
+</code></pre>
 
 <blockquote>
-<p>200 Response</p>
+<p>Example Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -2108,113 +1946,87 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<blockquote>
-<p>400 Response</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Oddly enough, we couldn't load your payment info."</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<p>Retrieve a list of payment methods on file for a user. When in Sandbox, <code class="prettyprint">type</code> will be <code class="prettyprint">credit</code> and <code class="prettyprint">brand</code> will be <code class="prettyprint">visa</code>.</p>
+<p>Retrieve a list of payment methods on file for a user.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/payment/list</code></p>
+<p><code class="prettyprint">GET https://api.unbill.co/v1/payment/list/{clientId}</code></p>
 
-<h3 id="post-parameters">Post Parameters</h3>
+<h3 id="arguments">Arguments</h3>
 
 <table><thead>
 <tr>
-<th>Param</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td><code class="prettyprint">clientId</code></td>
-<td>Unbill client ID.</td>
+<td>ID of client to retrieve payment methods for.</td>
 </tr>
 </tbody></table>
 
 <h3 id="returns">Returns</h3>
 
-<p>A dictionary with a <code class="prettyprint">data</code> property that contains an array of payment method objects.</p>
+<p>A dictionary with a <code class="prettyprint">data</code> property that contains an array of <a href="#the-payment-method-object">payment method objects</a>.</p>
 
           <h2 id="delete-payment-method">Delete payment method</h2>
 
 <blockquote>
-<p>Sample Request</p>
+<p>Example Request</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"paymentMethodId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/payment/566595c8ce88ccec69328566"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -X DELETE
+</code></pre>
 
 <blockquote>
-<p>200 Response</p>
+<p>Example Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<blockquote>
-<p>400 Response</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sorry! This payment method can't be deleted because a payment was recently made with it. Please allow 24 hours before trying again."</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<p>Delete a payment method on file for bill payments. If a payment was made within the last 24 hours with this payment method, an error will be returned. Unbill requires a 24 hour time span after a payment has been made before a payment method can be deleted.</p>
+<p>Delete a payment method on file for bill payments. If a payment was made within the last 24 hours with this payment method, an error will be returned. Q2 requires a 24 hour time span after a payment has been made before a payment method can be deleted.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/payment/delete</code></p>
+<p><code class="prettyprint">DELETE https://api.unbill.co/v1/payment/{paymentMethodId}</code></p>
 
-<h3 id="post-parameters">Post Parameters</h3>
+<h3 id="arguments">Arguments</h3>
 
 <table><thead>
 <tr>
-<th>Param</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td><code class="prettyprint">paymentMethodId</code></td>
-<td>Payment method ID.</td>
+<td>ID of payment method to delete.</td>
 </tr>
 </tbody></table>
 
 <h3 id="returns">Returns</h3>
 
-<p>Returns a <code class="prettyprint">200</code> status code if the payment method was successfully deleted. Returns an error otherwise.</p>
+<p>Returns an object with a <code class="prettyprint">success</code> property if the payment method was deleted. Returns an error otherwise.</p>
 
           <h2 id="retry-payment-method">Retry payment method</h2>
 
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"paymentMethodId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/payment/566595c8ce88ccec69328566/retry"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -X POST
+</code></pre>
 
 <blockquote>
-<p>200 Response</p>
+<p>Example Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<blockquote>
-<p>400 Response</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"No payment method found by that ID."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -2222,39 +2034,38 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/payment/retry</code></p>
+<p><code class="prettyprint">POST https://api.unbill.co/v1/payment/{paymentMethodId}/retry</code></p>
 
-<h3 id="post-parameters">Post Parameters</h3>
+<h3 id="arguments">Arguments</h3>
 
 <table><thead>
 <tr>
-<th>Param</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td><code class="prettyprint">paymentMethodId</code></td>
-<td>Payment method ID.</td>
+<td>ID of payment method to retry.</td>
 </tr>
 </tbody></table>
 
 <h3 id="returns">Returns</h3>
 
-<p>Returns a <code class="prettyprint">200</code> status code if the payment method was set to retry. Returns an error otherwise.</p>
+<p>Returns an object with a <code class="prettyprint">success</code> property if the payment method will be retried. Returns an error otherwise.</p>
 
           <h2 id="default-payment-method">Default payment method</h2>
 
 <blockquote>
-<p>Sample Request</p>
+<p>Example Request</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"paymentMethodId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/payment/566595c8ce88ccec69328566/set-default"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -X POST
+</code></pre>
 
 <blockquote>
-<p>200 Response</p>
+<p>Example Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
@@ -2265,51 +2076,44 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/payment/set-default</code></p>
+<p><code class="prettyprint">POST https://api.unbill.co/v1/payment/{paymentMethodId}/set-default</code></p>
 
-<h3 id="post-parameters">Post Parameters</h3>
+<h3 id="arguments">Arguments</h3>
 
 <table><thead>
 <tr>
-<th>Param</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td><code class="prettyprint">paymentMethodId</code></td>
-<td>Payment method ID.</td>
+<td>ID of payment method to set as default.</td>
 </tr>
 </tbody></table>
 
 <h3 id="returns">Returns</h3>
 
-<p>Returns a <code class="prettyprint">200</code> status code if the payment method was successfully set as the default. Returns an error otherwise.</p>
+<p>Returns an object with a <code class="prettyprint">success</code> property if the payment method was set as default. Returns an error otherwise.</p>
 
           <h2 id="assign-payment-method">Assign payment method</h2>
 
 <blockquote>
-<p>Sample Request</p>
+<p>Example Request</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"paymentMethodId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"billId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/payment/566595c8ce88ccec69328566/assign"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -d <span class="s1">'{
+    "billId": "566595c8ce88ccec69328566",
+  }'</span>
+  -X POST
+</code></pre>
 
 <blockquote>
-<p>200 Response</p>
+<p>Example Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<blockquote>
-<p>400 Response</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"No payment method found by that ID."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -2317,78 +2121,68 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/payment/assign</code></p>
+<p><code class="prettyprint">POST https://api.unbill.co/v1/payment/{paymentMethodId}/assign</code></p>
 
-<h3 id="post-parameters">Post Parameters</h3>
+<h3 id="arguments">Arguments</h3>
 
 <table><thead>
 <tr>
-<th>Param</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td><code class="prettyprint">paymentMethodId</code></td>
-<td>Payment method ID.</td>
+<td>ID of payment method to assign.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">billId</code></td>
-<td>Bill ID to assign.</td>
+<td>ID of bill to assign payment method to.</td>
 </tr>
 </tbody></table>
 
 <h3 id="returns">Returns</h3>
 
-<p>Returns a <code class="prettyprint">200</code> status code if the payment method was successfully assigned. Returns an error otherwise.</p>
+<p>Returns an object with a <code class="prettyprint">success</code> property if the payment method was assigned. Returns an error otherwise.</p>
 
           <h2 id="update-payment-settings">Update payment settings</h2>
 
 <blockquote>
-<p>Sample Request</p>
+<p>Example Request</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"billId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"recurring"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enabled"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"five-days-before"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/payment/566595c8ce88ccec69328566/settings"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -d <span class="s1">'{
+    "billId": "566595c8ce88ccec69328566",
+    "recurring": "enabled",
+    "schedule": "five-days-before"
+  }'</span>
+  -X POST
+</code></pre>
 
 <blockquote>
-<p>200 Response</p>
+<p>Example Response</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<blockquote>
-<p>400 Response</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Recurring payments may not be disabled for this company."</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
 
 <p>Update payment settings for a bill.</p>
 
-<p>Some subscription companies, such as Netflix, Hulu, and Spotify require recurring payments to be enabled. If a request to the <code class="prettyprint">/payment/settings</code> endpoint is made for one of these companies, a <code class="prettyprint">400</code> status code will be returned and recurring payments will not be disabled.</p>
+<p>Some subscription companies, such as Netflix, Hulu, and Spotify require recurring payments to be enabled. If a request to the <code class="prettyprint">/payment/{paymentMethodId}/settings</code> endpoint is made for one of these companies, an error will be returned and recurring payments will not be disabled.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/payment/settings</code></p>
+<p><code class="prettyprint">POST https://api.unbill.co/v1/payment/settings</code></p>
 
-<h3 id="post-parameters">Post Parameters</h3>
+<h3 id="arguments">Arguments</h3>
 
 <table><thead>
 <tr>
-<th>Param</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td><code class="prettyprint">billId</code></td>
-<td>Unbill bill ID.</td>
+<td>ID of bill to update payment settings for.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">recurring</code></td>
@@ -2402,33 +2196,32 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 
 <h3 id="returns">Returns</h3>
 
-<p>Returns a <code class="prettyprint">200</code> status code if settings were successfully updated.</p>
+<p>Returns an object with a <code class="prettyprint">success</code> property if payment settings were successfully updated. Returns an error otherwise.</p>
 
           <h2 id="schedule-payment">Schedule payment</h2>
 
 <blockquote>
-<p>Sample Request</p>
+<p>Example Request</p>
 </blockquote>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/payment/schedule"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -d <span class="s1">'{
+    "billId": "566595c8ce88ccec69328566",
+    "payDate": "2018-10-25T00:00:00.000Z"
+  }'</span>
+</code></pre>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"billId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
   </span><span class="nt">"payDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-25T00:00:00.000Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
 <blockquote>
-<p>200 Response</p>
+<p>Example Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<blockquote>
-<p>400 Response</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Please provide a billId to make a payment for."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -2436,29 +2229,29 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/payment/schedule</code></p>
+<p><code class="prettyprint">POST https://api.unbill.co/v1/payment/schedule</code></p>
 
-<h3 id="post-parameters">Post Parameters</h3>
+<h3 id="arguments">Arguments</h3>
 
 <table><thead>
 <tr>
-<th>Param</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td><code class="prettyprint">billId</code></td>
-<td>Unbill bill ID.</td>
+<td>ID of bill to schedule payment for.</td>
 </tr>
 <tr>
-<td><code class="prettyprint">date</code><br><small>(optional)</small></td>
+<td><code class="prettyprint">date</code><br><small class="opt">(optional)</small></td>
 <td>An <code class="prettyprint">ISO 8601</code> formatted date that sets what day this bill will be paid. If no <code class="prettyprint">date</code> is specified, the bill is scheduled to be paid immediately.</td>
 </tr>
 </tbody></table>
 
 <h3 id="returns">Returns</h3>
 
-<p>Returns a <code class="prettyprint">200</code> status code if a payment is successfully scheduled. Returns an error otherwise.</p>
+<p>Returns an object with a <code class="prettyprint">success</code> property if a payment was scheduled. Returns an error otherwise.</p>
 
           <h1 id="client">Client</h1>
 
@@ -2467,76 +2260,70 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
           <h2 id="create-client">Create Client</h2>
 
 <blockquote>
-<p>Sample Request</p>
+<p>Example Request</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unique-user-id"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/client/create"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -d <span class="s1">'{
+    "identifier": "Bk0zwVx1Z"
+  }'</span>
+</code></pre>
 
 <blockquote>
-<p>200 Response</p>
+<p>Example Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>Creates a client to be used with requests.</p>
+<p>Creates or returns an existing client to be used with requests.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/client/create</code></p>
+<p><code class="prettyprint">POST https://api.unbill.co/v1/client/create</code></p>
 
-<h3 id="200-response-body">200 Response Body</h3>
+<h3 id="arguments">Arguments</h3>
 
 <table><thead>
 <tr>
-<th>Attribute</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
-<tr>
-<td><code class="prettyprint">clientId</code></td>
-<td>The ID to be used with requests.</td>
-</tr>
 <tr>
 <td><code class="prettyprint">identifier</code></td>
 <td>A unique identifier that represents a user in your system.</td>
 </tr>
 </tbody></table>
 
+<h3 id="returns">Returns</h3>
+
+<p>Returns an object with a <code class="prettyprint">clientId</code> property that can be used for requests.</p>
+
           <h2 id="create-token">Create Token</h2>
 
 <blockquote>
-<p>Sample Request</p>
+<p>Example Request</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"apiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dc220490-e6ee-11e5-8a94-e7385a8d929e"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unique-user-id"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sean"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hill"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"zipcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/client/create-token"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -d <span class="s1">'{
+    "identifier": "Bk0zwVx1Z",
+    "nonce": false,
+    "meta": {
+      "firstName": "Sean",
+      "lastName": "Hill",
+      "zipcode": "12345"
+    }
+  }'</span>
+</code></pre>
 
 <blockquote>
-<p>200 Response</p>
+<p>Example Response</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566c8ce8595c8"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<blockquote>
-<p>400 Response</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Please fill in all required fields."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
@@ -2544,13 +2331,13 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://unbill.co/partner/v2/client/create-token</code></p>
+<p><code class="prettyprint">POST https://api.unbill.co/v1/client/create-token</code></p>
 
-<h3 id="post-parameters">Post Parameters</h3>
+<h3 id="arguments">Arguments</h3>
 
 <table><thead>
 <tr>
-<th>Param</th>
+<th>Parameter</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -2568,19 +2355,9 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 </tr>
 </tbody></table>
 
-<h3 id="200-response-body">200 Response Body</h3>
+<h3 id="returns">Returns</h3>
 
-<table><thead>
-<tr>
-<th>Attribute</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><code class="prettyprint">token</code></td>
-<td>The token to be used for SSO into applications.</td>
-</tr>
-</tbody></table>
+<p>Returns an object with a <code class="prettyprint">token</code> property that can be used to SSO into applications.</p>
 
       </div>
       <div class="dark-box">
