@@ -75,7 +75,7 @@ config.companyResponseDescription = [
   '`logo.background` | If this is `true`, then the logo looks best as a background image.',
   '`logo.svg` | Company logo svg object.',
   '`logo.svg.url` | URL of the company svg logo.',
-  '`logo.svg.color` | Hex color of the Company logo.',
+  '`logo.svg.color` | Hex color of the company logo.',
   '`requiredPayment` | If a specific payment method type is required by this company, this will be defined. Possible values are `bank`, `card`.',
   '`schedule` | The [bill payment schedule](#bill-payment-schedule) this company follows. If this parameter is set, the schedule for a bill linked to this company may not be changed. Typically subscription companies such as Netflix have this parameter set since payments must be made on a specific date.',
   '`auth` | Company auth fields.',

@@ -8,7 +8,7 @@ curl "<%= config.host %>/payment/566595c8ce88ccec69328566/assign" \
   -d '{
     "billId": "566595c8ce88ccec69328566",
   }'
-  -X PATCH
+  -X POST
 ```
 
 > Example Response
@@ -23,7 +23,7 @@ Assign a linked payment method to pay a specific bill. This is required when a c
 
 ### HTTP Request
 
-`PATCH <%= config.host %>/payment/{paymentMethodId}assign`
+`POST <%= config.host %>/payment/{paymentMethodId}/assign`
 
 ### Arguments
 

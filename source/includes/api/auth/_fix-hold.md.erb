@@ -5,7 +5,7 @@
 ```shell
 curl "<%= config.host %>/auth/566595c8ce88ccec69328566/fix-hold" \
   -H "<%= config.auth %>" \
-  -X PATCH
+  -X POST
 ```
 
 > Example Response
@@ -18,7 +18,7 @@ curl "<%= config.host %>/auth/566595c8ce88ccec69328566/fix-hold" \
 
 ### HTTP Request
 
-`PATCH <%= config.host %>/auth/{authId}/fix-hold`
+`POST <%= config.host %>/auth/{authId}/fix-hold`
 
 ### Arguments
 

@@ -1,0 +1,25 @@
+## Add a swap
+
+> Example Request
+
+```shell
+curl "<%= config.host %>/auth" \
+  -H "<%= config.auth %>" \
+  -d '{
+    "authId": "566595c8ce88ccec69328566"
+  }'
+```
+
+### HTTP Request
+
+`POST <%= config.host %>/swap`
+
+### Arguments
+
+Parameter | Description
+----- | -----------
+`authId` | ID of auth to create a swap for.
+
+### Returns
+
+Returns an object with a `success` property if the swap was created. Returns an error otherwise.

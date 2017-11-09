@@ -5,7 +5,7 @@
 
 @import 'normalize';
 // @import 'variables'; revert to tripit defaults
-@import 'variables2'; // tradegecko overrides
+@import 'variables2'; // overrides
 @import 'icon-font';
 
 /*
@@ -616,8 +616,8 @@ body {
   }
 
   %right-col {
-    width: auto;
-    float: none;
+    width: auto !important;
+    float: none !important;
   }
 
   %right-col + %left-col {
@@ -672,4 +672,23 @@ body {
 .opt {
   margin-left: 5px;
   opacity: 0.5;
+}
+
+.swagger {
+  background-color: $code-annotation-bg;
+  padding: 1em $main-padding;
+  margin: 0;
+  width: $examples-width;
+  float: right;
+  clear: right;
+  box-sizing: border-box;
+  @extend %right-col;
+
+  a {
+    padding: 10px 15px;
+    background: #fff;
+    color: $code-annotation-bg;
+    font-weight: 600;
+    border-radius: 4px;
+  }
 }
