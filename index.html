@@ -251,7 +251,7 @@ https://api.unbill.co/v1 (production)
 
 <ol>
 <li>User signs up in your app.</li>
-<li>Make a request to the <code class="prettyprint">/client/create</code> endpoint to retrieve a <code class="prettyprint">clientId</code> to store in your database for future requests.</li>
+<li>Make a request to the <code class="prettyprint">/client</code> endpoint to retrieve a <code class="prettyprint">clientId</code> to store in your database for future requests.</li>
 </ol>
 
 <h3 id="authentication">Authentication</h3>
@@ -276,7 +276,7 @@ https://api.unbill.co/v1 (production)
 <li>Provide your user with a &ldquo;link payment&rdquo; view to choose a payment method.</li>
 <li>Link this payment method using the <code class="prettyprint">/payment</code> endpoint.</li>
 <li>By default, bills will be paid automatically by using the payment method on file.</li>
-<li>To change this, you must make a request to the <code class="prettyprint">/payment/{paymentMethodId}/settings</code> endpoint to disable recurring payments.</li>
+<li>To change this, you must make a request to the <code class="prettyprint">/payment/settings</code> endpoint to disable recurring payments.</li>
 <li>When recurring payments are disabled, in order to make an on-demand payment, one must be scheduled via the <code class="prettyprint">/payment/schedule</code> endpoint.</li>
 </ol>
 
@@ -2150,7 +2150,7 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/payment/566595c8ce88ccec69328566/settings"</span> <span class="se">\</span>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/payment/settings"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -d <span class="s1">'{
     "billId": "566595c8ce88ccec69328566",
@@ -2166,7 +2166,7 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 
 <p>Update payment settings for a bill.</p>
 
-<p>Some subscription companies, such as Netflix, Hulu, and Spotify require recurring payments to be enabled. If a request to the <code class="prettyprint">/payment/{paymentMethodId}/settings</code> endpoint is made for one of these companies, an error will be returned and recurring payments will not be disabled.</p>
+<p>Some subscription companies, such as Netflix, Hulu, and Spotify require recurring payments to be enabled. If a request to the <code class="prettyprint">/payment/settings</code> endpoint is made for one of these companies, an error will be returned and recurring payments will not be disabled.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
@@ -2262,10 +2262,19 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/client/create"</span> <span class="se">\</span>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api.unbill.co/v1/client"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -d <span class="s1">'{
-    "identifier": "Bk0zwVx1Z"
+    "identifier": "Bk0zwVx1Z",
+    "meta": {
+      "firstName": "Sean",
+      "lastName": "Hill",
+      "address1": "123 Api St.",
+      "address2": "P.O. Box 283",
+      "city": "Mesa",
+      "state": "AZ",
+      "zipcode": "12345"
+    }
   }'</span>
 </code></pre>
 
@@ -2281,7 +2290,7 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST https://api.unbill.co/v1/client/create</code></p>
+<p><code class="prettyprint">POST https://api.unbill.co/v1/client</code></p>
 
 <h3 id="arguments">Arguments</h3>
 
@@ -2294,6 +2303,10 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 <tr>
 <td><code class="prettyprint">identifier</code></td>
 <td>A unique identifier that represents a user in your system.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">meta</code></td>
+<td>Additional information about the user in your system.</td>
 </tr>
 </tbody></table>
 
@@ -2314,6 +2327,10 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
     "meta": {
       "firstName": "Sean",
       "lastName": "Hill",
+      "address1": "123 Api St.",
+      "address2": "P.O. Box 283",
+      "city": "Mesa",
+      "state": "AZ",
       "zipcode": "12345"
     }
   }'</span>
