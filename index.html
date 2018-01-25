@@ -1851,7 +1851,7 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 </thead><tbody>
 <tr>
 <td><code class="prettyprint">clientId</code></td>
-<td>Unbill client ID.</td>
+<td>ID of the client to add a payment method to.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">paymentType</code></td>
@@ -1901,7 +1901,7 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 
 <h3 id="returns">Returns</h3>
 
-<p>Returns an object with a<code class="prettyprint">paymentMethodId</code> property if the payment method was successfully added. Returns an error otherwise.</p>
+<p>Returns an object with a <code class="prettyprint">paymentMethodId</code> property if the payment method was successfully added. Returns an error otherwise.</p>
 
           <h2 id="list-all-payment-methods">List all payment methods</h2>
 
@@ -1946,7 +1946,7 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>Retrieve a list of payment methods on file for a user.</p>
+<p>Retrieve a list of payment methods on file for a client.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
@@ -2484,6 +2484,204 @@ The bill&rsquo;s <code class="prettyprint">payDate</code> is the date in which t
 <h3 id="returns">Returns</h3>
 
 <p>A dictionary with a <code class="prettyprint">data</code> property that contains an array of <a href="#the-company-object">company objects</a> that support swaps.</p>
+
+          <h1 id="event">Event</h1>
+
+<p>Events are our way of letting you know when something interesting happens on behalf of your users.
+When an interesting event occurs, we create a new <code class="prettyprint">Event</code> object. For example, when a new bill is received, we create a <code class="prettyprint">bill.update</code> event; when a bill payment is sent, we create a <code class="prettyprint">bill.payment</code> event.</p>
+
+<p>We have system for sending the event objects directly to an endpoint on your server, called <a href="http://en.wikipedia.org/wiki/Webhook">webhooks</a>. Webhooks are managed by our team, and our customer support team will help you get set up.</p>
+
+          <h2 id="the-event-object">The event object</h2>
+
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill.update"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"previous"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25.21"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"current"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"52.11"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">_id</code></td>
+<td>ID of the event.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">type</code></td>
+<td>Description of the event: e.g. <code class="prettyprint">bill.issued</code>, <code class="prettyprint">bill.updated</code>, etc.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">created</code></td>
+<td>An <code class="prettyprint">ISO 8601</code> formatted date of when this event was created.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">payload</code></td>
+<td>Object containing data associated with the event..</td>
+</tr>
+<tr>
+<td><code class="prettyprint">payload.resource</code></td>
+<td>Object containing data associated with the resource of the event.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">payload.resource.id</code></td>
+<td>ID of the resource associated with the event.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">payload.resource.type</code></td>
+<td>The type of resource associated with the event. Possible values are <code class="prettyprint">bill</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">payload.data</code></td>
+<td>Object containing unique attributes per <code class="prettyprint">type</code> as described in <a href="#types-of-events">types of events</a>.</td>
+</tr>
+</tbody></table>
+
+          <h2 id="types-of-events">Types of events</h2>
+
+<blockquote>
+<p>Example <code class="prettyprint">bill.update</code> Event</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill.update"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"previous"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25.21"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"current"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"52.11"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+<p>Example <code class="prettyprint">bill.payment</code> Event</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill.payment"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25.21"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"surcharge"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"debit card"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"rate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.50"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This is a list of all the types of events we currently send. We may add more at any time, so you shouldn&rsquo;t rely on only these types existing in your code.</p>
+
+<p>You&rsquo;ll notice that these events follow a pattern: <code class="prettyprint">resource.event</code>. Our goal is to design a consistent system that makes things easier to anticipate and code against.</p>
+
+<p>Each event object includes a <code class="prettyprint">payload.data</code> property which contains unique values for each <code class="prettyprint">type</code> of event. Each event type below describes these unique values.</p>
+
+<h3 id="bill-update">Bill update</h3>
+
+<p>When a bill&rsquo;s outstanding balance changes. Note that the <code class="prettyprint">data.previous</code> value may not always be available. For instance, when the system first aggregates bill data, the previous bill balance may not have been known. Also note that when the <code class="prettyprint">data.previous.balance</code> is <code class="prettyprint">0.00</code> and there is a new current balance, this means that a new bill was issued by the company&rsquo;s system.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">type</code></td>
+<td><code class="prettyprint">bill.update</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">data.company</code></td>
+<td>The <a href="#the-company-object">company object</a> linked to this resource.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">data.previous</code></td>
+<td>Object containing the names of the attributes that have changed and their previous values.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">data.current</code></td>
+<td>Object containing the names of the attributes that have changed and their current values.</td>
+</tr>
+</tbody></table>
+
+<h3 id="bill-payment">Bill payment</h3>
+
+<p>When a payment is made towards a bill&rsquo;s outstanding balance. Note that the <code class="prettyprint">data.surcharge</code> may not be available when a company does not require it.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">type</code></td>
+<td><code class="prettyprint">bill.payment</code></td>
+</tr>
+<tr>
+<td><code class="prettyprint">data.company</code></td>
+<td>The <a href="#the-company-object">company object</a> linked to this resource.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">data.amount</code></td>
+<td>The amount sent to the company.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">data.surcharge</code></td>
+<td>The surcharge required by the company to process the payment.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">data.surcharge.type</code></td>
+<td>The type of surcharge required. Possible values are <code class="prettyprint">credit card</code>, <code class="prettyprint">debit card</code>, or <code class="prettyprint">ACH</code>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">data.surcharge.rate</code></td>
+<td>The fee amount the company requires to process the payment.</td>
+</tr>
+</tbody></table>
 
       </div>
       <div class="dark-box">
