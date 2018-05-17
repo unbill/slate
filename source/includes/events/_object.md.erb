@@ -1,0 +1,36 @@
+## The event object
+
+> Example Response
+
+```json
+{
+  "_id": "580e3e11dec21e861b5a3719",
+  "type": "bill.update",
+  "created": "2016-04-20T16:51:12Z",
+  "payload": {
+    "resource": {
+      "id": "579b695decfa11012711875d",
+      "type": "bill"
+    },
+    "data": {
+      "previous": {
+        "balance": "25.21"
+      },
+      "current": {
+        "balance": "52.11"
+      }
+    }
+  }
+}
+```
+
+Attribute | Description
+--------- | -----------
+`_id` | ID of the event.
+`type` | Description of the event: e.g. `bill.issued`, `bill.updated`, etc.
+`created` | An `ISO 8601` formatted date of when this event was created.
+`payload` | Object containing data associated with the event..
+`payload.resource` | Object containing data associated with the resource of the event.
+`payload.resource.id` | ID of the resource associated with the event.
+`payload.resource.type` | The type of resource associated with the event. Possible values are `bill`.
+`payload.data` | Object containing unique attributes per `type` as described in [types of events](#types-of-events).

@@ -1,0 +1,48 @@
+## Request notification code 
+
+> Example Email Request
+
+```shell
+curl "<%= config.host %>/client/notification/request-code" \
+  -H "<%= config.auth %>" \
+  -d '{
+    "clientId": "56e1ddbd1a05319bc198d36f",
+    "destination": "sean.hill@notification.com"
+  }'
+```
+
+> Example Phone Number Request
+
+```shell
+curl "<%= config.host %>/client/notification/request-code" \
+  -H "<%= config.auth %>" \
+  -d '{
+    "clientId": "56e1ddbd1a05319bc198d36f",
+    "destination": "1234567890"
+  }'
+```
+
+> Example Response
+
+```json
+{
+  "success": true
+}
+```
+
+Requests a verification code to be sent to a specified `destination`.
+
+### HTTP Request
+
+`POST <%= config.host %>/client/notification/request-code`
+
+### Arguments
+
+Parameter | Description
+----- | -----------
+`clientId` | ID of the client to send the verification code to.
+`destination` | A valid email address or US phone number.
+
+### Returns
+
+Returns an object with a `success` if the code was successfully sent to the `destination`. Returns an error otherwise.

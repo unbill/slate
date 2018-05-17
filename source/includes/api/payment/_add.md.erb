@@ -51,7 +51,7 @@ Add a payment method to a user.
 
 Parameter | Description
 ----- | -----------
-`clientId` | Unbill client ID.
+`clientId` | ID of the client to add a payment method to.
 `paymentType` | Type of payment. Possible values are `card`, `bank`.
 `cardNumber` | Credit card number.
 `cardCode` | Credit card CVV.
@@ -66,4 +66,4 @@ Parameter | Description
 
 ### Returns
 
-Returns an object with a`paymentMethodId` property if the payment method was successfully added. Returns an error otherwise.
+Returns an object with a `paymentMethodId` property if the payment method was successfully added. Returns an error otherwise.
