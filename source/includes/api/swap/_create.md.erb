@@ -5,6 +5,7 @@
 ```shell
 curl "<%= config.host %>/auth" \
   -H "<%= config.auth %>" \
+  -H "Content-Type: application/json" \
   -d '{
     "authId": "566595c8ce88ccec69328566"
   }'
