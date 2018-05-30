@@ -5,6 +5,7 @@
 ```shell
 curl "<%= config.host %>/company/search" \
   -H "<%= config.auth %>" \
+  -H "Content-Type: application/json" \
   -d '{
     "query": "Netflix"
   }'
@@ -13,6 +14,7 @@ curl "<%= config.host %>/company/search" \
 ```shell
 curl "<%= config.host %>/company/search" \
   -H "<%= config.auth %>" \
+  -H "Content-Type: application/json" \
   -d '{
     "category": "gas"
   }'
@@ -21,6 +23,7 @@ curl "<%= config.host %>/company/search" \
 ```shell
 curl "<%= config.host %>/company/search" \
   -H "<%= config.auth %>" \
+  -H "Content-Type: application/json" \
   -d '{
     "geo": {
       "lat": 40.233845,
