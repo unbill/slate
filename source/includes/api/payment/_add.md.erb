@@ -5,7 +5,6 @@
 ```shell
 curl "<%= config.host %>/auth" \
   -H "<%= config.auth %>" \
-  -H "Content-Type: application/json" \
   -d '{
     "clientId": "56e1ddbd1a05319bc198d36f",
     "paymentType": "card",
@@ -24,7 +23,6 @@ curl "<%= config.host %>/auth" \
 ```shell
 curl "<%= config.host %>/auth" \
   -H "<%= config.auth %>" \
-  -H "Content-Type: application/json" \
   -d '{
     "clientId": "56e1ddbd1a05319bc198d36f",
     "paymentType": "bank",

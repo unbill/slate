@@ -5,7 +5,6 @@
 ```shell
 curl "<%= config.host %>/auth" \
   -H "<%= config.auth %>" \
-  -H "Content-Type: application/json" \
   -d '{
     "mfa": [{
       "answer": "Secret Answer",
@@ -20,7 +19,6 @@ curl "<%= config.host %>/auth" \
 ```shell
 curl "<%= config.host %>/auth" \
   -H "<%= config.auth %>" \
-  -H "Content-Type: application/json" \
   -d '{
     "mfa": { 
       "identifier": "ByDXD4eJW" 
