@@ -1,4 +1,5 @@
-require 'date'
+# Unique header generation
+require './lib/unique_head.rb'
 
 # Markdown
 set :markdown_engine, :redcarpet
@@ -9,7 +10,8 @@ set :markdown,
     prettify: true,
     tables: true,
     with_toc_data: true,
-    no_intra_emphasis: true
+    no_intra_emphasis: true,
+    renderer: UniqueHeadCounter
 
 # Assets
 set :css_dir, 'stylesheets'
@@ -19,6 +21,11 @@ set :fonts_dir, 'fonts'
 
 # Activate the syntax highlighter
 activate :syntax
+ready do
+  require './lib/multilang.rb'
+end
+
+activate :sprockets
 
 activate :autoprefixer do |config|
   config.browsers = ['last 2 version', 'Firefox ESR']
@@ -45,8 +52,13 @@ end
 # If you want Middleman to listen on a different port, you can set that below
 set :port, 4567
 
-# MP Configuration
-# config.mpToken = 'e788ba023f216bd848a4a4b0316f9ef6'; # Dev
+helpers do
+  require './lib/toc_data.rb'
+end
+
+# ====================
+# Custom Configuration
+# ====================
 config.mpToken = '16aa17c5de12dd4ba07edc5c4fb73ddf'; # Prod
 
 # Api Configuration
@@ -65,8 +77,6 @@ config.futureDate = '2018-10-25T00:00:00.000Z'
 config.futureDateBefore = '2018-10-24T00:00:00.000Z'
 config.futureStatus = 'Due Oct 25'
 config.s3 = 'https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs'
-
-# Response Configuration
 config.companyResponseDescription = [
   '`_id` | ID of the company.',
   '`name` | Name of the company.',

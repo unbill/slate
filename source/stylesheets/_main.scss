@@ -1,7 +1,7 @@
 @charset "utf-8";
 
-@import url("//fonts.googleapis.com/css?family=Open+Sans:400,600,700");
-@import url("//fonts.googleapis.com/css?family=Raleway:300,500,700");
+@import url('//fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+@import url('//fonts.googleapis.com/css?family=Raleway:300,500,700');
 
 @import 'normalize';
 // @import 'variables'; revert to tripit defaults
@@ -53,7 +53,21 @@ body {
   width: 20px;
 }
 
-.tocify-wrapper {
+.toc-link,
+.toc-footer li {
+  padding: 10px 20px;
+  display: block;
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-decoration: none;
+  color: #fff;
+  transition-property: background;
+  transition-timing-function: linear;
+  transition-duration: 130ms;
+}
+
+.toc-wrapper {
   transition: left 0.3s ease-in-out;
 
   overflow-y: auto;
@@ -66,6 +80,10 @@ body {
   width: $nav-width;
   background-color: $nav-bg;
   box-sizing: border-box;
+
+  .toc-h2 {
+    padding-left: 50px;
+  }
 
   @extend %nav-font;
 
@@ -161,7 +179,6 @@ body {
 
   li {
     color: $nav-text;
-    padding: 0 0 0 20px;
     transition-property: background;
     transition-timing-function: linear;
     transition-duration: 230ms;
@@ -172,6 +189,7 @@ body {
   }
 
   // This is the currently selected ToC entry
+  .toc-link.active,
   .tocify-focus {
     background-color: $nav-active-bg;
     color: $nav-active-text;
@@ -580,7 +598,7 @@ body {
     padding-top: $main-padding;
   }
 
-  .tocify-wrapper {
+  .toc-wrapper {
     left: -$nav-width;
 
     &.open {
@@ -606,7 +624,7 @@ body {
     margin-right: 0;
   }
 
-  .tocify-wrapper .lang-selector {
+  .toc-wrapper .lang-selector {
     display: block;
     margin: $nav-padding 0;
   }
