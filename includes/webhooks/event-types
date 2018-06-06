@@ -1,109 +1,93 @@
-<h2 id="event-types">Event Types</h2>
-
+<h2 id='event-types'>Event Types</h2>
 <blockquote>
 <p>Company Added Event</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"company-added"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"summary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Time Warner Cable was added to the Unbill system."</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;company-object&gt;"</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"company-added"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"summary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Time Warner Cable was added to the Unbill system."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"company"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;company-object&gt;"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-
 <blockquote>
 <p>Company Updated Event</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"company-updated"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"summary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Time Warner Cable was updated in the Unbill system."</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"company"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;company-object&gt;"</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"company-updated"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"summary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Time Warner Cable was updated in the Unbill system."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"company"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;company-object&gt;"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-
 <blockquote>
 <p>Bill Updated Event</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill-updated"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"billId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"521b695dewfa11521711875d"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"changes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"balance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"before"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25.21"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"after"</span><span class="p">:</span><span class="w"> </span><span class="s2">"52.11"</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill-updated"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"billId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"521b695dewfa11521711875d"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"changes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"balance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"before"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25.21"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"after"</span><span class="p">:</span><span class="w"> </span><span class="s2">"52.11"</span><span class="w">
       </span><span class="p">},</span><span class="w">
-      </span><span class="nt">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"before"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"after"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-02-01T00:00:00.000Z"</span><span class="w">
+      </span><span class="s2">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"before"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-01-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"after"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-02-01T00:00:00.000Z"</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-
 <blockquote>
 <p>Payment Completed Event</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment-completed"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"summary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Payment made towards Time Warner Cable for $82.24"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"billId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"512b695defwq11071f2g874d"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"82.24"</span><span class="p">,</span><span class="w">
-      </span><span class="nt">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"surcharge"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.50"</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment-completed"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"summary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Payment made towards Time Warner Cable for $82.24"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"billId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"512b695defwq11071f2g874d"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="s2">"82.24"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"surcharge"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.50"</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-
 <blockquote>
 <p>Payment Failed Event</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment-failed"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"summary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Payment failed towards Time Warner Cable for $82.24"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"billId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"512b695defwq11071f2g874d"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Card *1523 was declined."</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment-failed"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"summary"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Payment failed towards Time Warner Cable for $82.24"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"billId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"512b695defwq11071f2g874d"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Card *1523 was declined."</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-
-<p>Included in each webhook event is an <code class="prettyprint">eventType</code>. Each type is documented below with a description of the type and a typical use case.</p>
-
-<h3 id="company-added">company-added</h3>
-
+<p>Included in each webhook event is an <code>eventType</code>. Each type is documented below with a description of the type and a typical use case.</p>
+<h3 id='company-added'>company-added</h3>
 <p>A new company was requested and added to the Unbill system. </p>
-
-<h3 id="company-updated">company-updated</h3>
-
-<p>An existing company&rsquo;s data was updated in the Unbill system.</p>
-
-<h3 id="bill-updated">bill-updated</h3>
-
-<p>A bill&rsquo;s <code class="prettyprint">balance</code>, <code class="prettyprint">dueDate</code>, <code class="prettyprint">lastPaidAmount</code>, or <code class="prettyprint">lastPaidOn</code> data changed.</p>
-
-<h3 id="payment-completed">payment-completed</h3>
-
-<p>A payment was successfully made towards a bill&rsquo;s outstanding balance.</p>
-
-<h3 id="payment-failed">payment-failed</h3>
-
-<p>A payment failed when making a payment towards a bill&rsquo;s outstanding balance.</p>
+<h3 id='company-updated'>company-updated</h3>
+<p>An existing company&#39;s data was updated in the Unbill system.</p>
+<h3 id='bill-updated'>bill-updated</h3>
+<p>A bill&#39;s <code>balance</code>, <code>dueDate</code>, <code>lastPaidAmount</code>, or <code>lastPaidOn</code> data changed.</p>
+<h3 id='payment-completed'>payment-completed</h3>
+<p>A payment was successfully made towards a bill&#39;s outstanding balance.</p>
+<h3 id='payment-failed'>payment-failed</h3>
+<p>A payment failed when making a payment towards a bill&#39;s outstanding balance.</p>
