@@ -1,5 +1,7 @@
 ## Add an auth
 
+Authenticate a user's credentials. This process may take up to 30 seconds, but could extend if additional verification is required. The authentication process is event driven. The following [events](#event) may be emitted during an authentication: [auth.success](#auth-success), [auth.mfa-required](#auth-mfa-required), and [auth.failed](#auth-failed).
+
 > Example Request
 
 ```shell

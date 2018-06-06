@@ -31,7 +31,7 @@ curl "<%= config.host %>/auth" \
 
 Some companies require multi-factor authentication (MFA) and the `/auth/step` route is built to submit the additional information needed. Users are first submitted via the standard authenticate process via the `/auth` endpoint, and the MFA data is sent through an additional request to the `/auth/step` route.
 
-For `questions` (Question Based MFA) return the answers formatted as an array of objects, where each object includes the `answer` of the question and the `identifier` received from the [mfa required](#auth-mfa-required) event. For `code` (Code Based MFA) return the desired option by passing the `identifier` field given to you from the previous `auth` response.
+For `questions` (Question Based MFA) return the answers formatted as an array of objects, where each object includes the `answer` of the question and the `identifier` received by the [auth.mfa-required](#auth-mfa-required) event. For `code` (Code Based MFA) return the desired option by passing the `identifier` received by the [auth.mfa-required](#auth-mfa-required) event.
 
 ![Credentials MFA View](<%= config.s3 %>/credentials-mfa-view.png)
 
