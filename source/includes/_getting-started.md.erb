@@ -16,20 +16,6 @@ curl "<%= config.host %>/auth" \
   }'
 ```
 
-> Example Response
-
-```json
-{
-  "authId": "56e1dbb5443b10a3bd403fcf",
-  "items": [{
-    "_id": "56e1dbb5443b10a3bd403fcf",
-    "type": "bill",
-    "balance": "100",
-    "dueDate": "<%= config.futureDate %>"
-  }]
-}
-```
-
 To authenticate bills with your users, you may use the following flow.
 
 ### User Creation
@@ -42,7 +28,7 @@ To authenticate bills with your users, you may use the following flow.
 1. Search for the company you'd like to add from the `/company/search` endpoint.
 2. Provide your user with a "bill authentication" view populated with the login fields retrieved from the desired company.
 3. Have your user fill out their credentials, and then send those credentials to the `/auth` endpoint.
-4. <%= config.brand %> will begin the authentication process and if successful, will return available [items](#auth-items).
+4. <%= config.brand %> will begin the authentication process and response with [events](#event).
 
 ### Bills
 

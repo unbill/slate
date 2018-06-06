@@ -1,0 +1,37 @@
+## Bill update
+
+> Example `bill.update` Event
+
+```json
+{
+  "_id": "580e3e11dec21e861b5a3719",
+  "type": "bill.update",
+  "created": "2016-04-20T16:51:12Z",
+  "payload": {
+    "resource": {
+      "type": "bill",
+      "id": "579b695decfa11012711875d"
+    },
+    "data": {
+      "company": {
+        "name": "Netflix"
+      },
+      "previous": {
+        "balance": "25.21"
+      },
+      "current": {
+        "balance": "52.11"
+      }
+    }
+  }
+}
+```
+
+When a bill's outstanding balance changes. Note that the `payload.data.previous` value may not always be available. For instance, when the system first aggregates bill data, the previous bill balance may not have been known. Also note that when the `payload.data.previous.balance` is `0.00` and there is a new current balance, this means that a new bill was issued by the company's system.
+
+Attribute | Description
+--------- | -----------
+`type` | `bill.update`
+`payload.data.company` | The [company object](#the-company-object) linked to this resource.
+`payload.data.previous` | Object containing the names of the attributes that have changed and their previous values. 
+`payload.data.current` | Object containing the names of the attributes that have changed and their current values.

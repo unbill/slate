@@ -31,7 +31,7 @@ curl "<%= config.host %>/auth" \
 
 Some companies require multi-factor authentication (MFA) and the `/auth/step` route is built to submit the additional information needed. Users are first submitted via the standard authenticate process via the `/auth` endpoint, and the MFA data is sent through an additional request to the `/auth/step` route.
 
-For `questions` (Question Based MFA) return the answers formatted as an array of objects, where each object includes the `answer` of the question and the `identifier` received from the previous `auth` response. For `code` (Code Based MFA) return the desired option by passing the `identifier` field given to you from the previous `auth` response. Continue to POST to the `/auth/step` with the required answers until a `200` status code is returned. At that point the user will be authenticated and you'll have access to available [items]('#auth-items').
+For `questions` (Question Based MFA) return the answers formatted as an array of objects, where each object includes the `answer` of the question and the `identifier` received from the [mfa required](#auth-mfa-required) event. For `code` (Code Based MFA) return the desired option by passing the `identifier` field given to you from the previous `auth` response.
 
 ![Credentials MFA View](<%= config.s3 %>/credentials-mfa-view.png)
 
@@ -48,4 +48,4 @@ Parameter | Description
 
 ### Returns
 
-Returns a list of available `items` linked to an `auth`, or any additional MFA to be submitted to the `/auth/step` endpoint.
+Returns an object with a `success` property if the mfa request was created. Returns an error otherwise.

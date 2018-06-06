@@ -11,8 +11,8 @@ includes:
   - api/auth/index
   - api/auth/object
   - api/auth/auth
-  - api/auth/auth-flow
-  - api/auth/item
+#  - api/auth/auth-flow
+#  - api/auth/item
   - api/auth/auth-step
   - api/auth/status
   - api/auth/list
@@ -58,6 +58,15 @@ includes:
   - events/index
   - events/object
   - events/types
+  - events/auth.created
+  - events/auth.success
+  - events/auth.mfa
+  - events/auth.failed
+  - events/auth.invalid
+  - events/auth.hold
+  - events/bill.created
+  - events/bill.update
+  - events/bill.payment.sent
 
 search: true
 ---

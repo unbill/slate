@@ -1,0 +1,40 @@
+## Auth success
+
+> Example `auth.success` Event
+
+```json
+{
+  "_id": "580e3e11dec21e861b5a3719",
+  "type": "auth.success",
+  "created": "2016-04-20T16:51:12Z",
+  "payload": {
+    "resource": {
+      "type": "client",
+      "id": "579b695decfa11012711875d"
+    },
+    "data": { 
+      "auth" : {
+        "_id" : "5b157888cb7e60000bfcaa41",
+        "items" : [
+          "bill"
+        ], 
+        "company" : {
+          "_id" : "55942f330cfcfd6c4ed529d8",
+          "name" : "Geico"
+        }, 
+        "status" : {
+          "type" : "verified"
+        }
+      }
+    }
+  }
+}
+```
+
+When a client has successfully completed the authentication process.
+
+Attribute | Description
+--------- | -----------
+`type` | `auth.success`
+`payload.data.id` | The ID of the client who was authenticating.
+`payload.data.auth` | The [auth object](#the-auth-object) linked to this resource.
