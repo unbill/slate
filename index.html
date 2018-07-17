@@ -114,6 +114,9 @@
                     <a href="#introduction" class="toc-h2 toc-link" data-title="Introduction">Introduction</a>
                   </li>
                   <li>
+                    <a href="#testing" class="toc-h2 toc-link" data-title="Testing">Testing</a>
+                  </li>
+                  <li>
                     <a href="#gaining-access" class="toc-h2 toc-link" data-title="Gaining Access">Gaining Access</a>
                   </li>
                   <li>
@@ -300,8 +303,8 @@
 <blockquote>
 <p>API Host</p>
 </blockquote>
-<pre class="highlight plaintext"><code>https://sb.unbill.co/v1 (sandbox)
-https://api.unbill.co/v1 (production)
+<pre class="highlight plaintext"><code>https://api.unbill.co/v1 (production)
+https://sb.unbill.co/v1 (sandbox)
 </code></pre>
 <blockquote>
 <p>Resource URL Patterns</p>
@@ -319,6 +322,22 @@ https://api.unbill.co/v1 (production)
 <p>The Q2 Biller Direct API uses standard HTTP <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">verbs</a> to communicate and HTTP <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">response codes</a> to indicate status and errors. All responses come in standard <a href="http://www.json.org/">JSON</a>. The Q2 Biller Direct API is served over HTTPS to ensure data privacy, HTTP is not supported.</p>
 
 <p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/unbill.png" alt="Overview" /></p>
+<h2 id='testing'>Testing</h2>
+<p>To quickly experiment with the API, you can use Postman. You&#39;ll need to set the <code>apiHost</code> and <code>apiKey</code> environment variables.</p>
+
+<div class="postman">
+  <div class="postman-run-button" data-postman-action="collection/import" data-postman-var-1="e238fb8aba0a35436dd3"></div>
+</div>
+
+<script type="text/javascript">
+  (function (p,o,s,t,m,a,n) {
+    !p[s] && (p[s] = function () { (p[t] || (p[t] = [])).push(arguments); });
+    !o.getElementById(s+t) && o.getElementsByTagName("head")[0].appendChild((
+      (n = o.createElement("script")),
+      (n.id = s+t), (n.async = 1), (n.src = m), n
+    ));
+  }(window, document, "_pm", "PostmanRunObject", "https://run.pstmn.io/button.js"));
+</script>
 <h2 id='gaining-access'>Gaining Access</h2>
 <p>To gain access to the Q2 Biller Direct API, please <a href="mailto:api@unbill.us">contact us</a>. After our review process is complete, you&#39;ll be provided with an API key which you can use for your requests.</p>
 <h2 id='authentication'>Authentication</h2>
