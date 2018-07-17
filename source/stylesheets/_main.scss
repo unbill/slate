@@ -692,21 +692,7 @@ body {
   opacity: 0.5;
 }
 
-.swagger {
-  background-color: $code-annotation-bg;
-  padding: 1em $main-padding;
-  margin: 0;
-  width: $examples-width;
-  float: right;
-  clear: right;
-  box-sizing: border-box;
-  @extend %right-col;
-
-  a {
-    padding: 10px 15px;
-    background: #fff;
-    color: $code-annotation-bg;
-    font-weight: 600;
-    border-radius: 4px;
-  }
+.postman {
+  padding-left: 28px;
+  display: inline-block;
 }
