@@ -1,0 +1,33 @@
+
+
+## Bill payment failed
+
+> Example `bill.payment.failed` Event
+
+```json
+{
+  "_id": "580e3e11dec21e861b5a3719",
+  "type": "bill.payment.failed",
+  "created": "2016-04-20T16:51:12Z",
+  "payload": {
+    "resource": {
+      "type": "bill",
+      "id": "579b695decfa11012711875d"
+    },
+    "data": {
+      "amount": "25.21",
+      "company": {
+        "name": "Netflix"
+      }
+    }
+  }
+}
+```
+
+When a payment is unsuccessful.
+
+Attribute | Description
+--------- | -----------
+`type` | `bill.payment.failed`
+`payload.data.company` | The [company object](#the-company-object) linked to this resource.
+`payload.data.amount` | The amount attempted to be sent to the company.
