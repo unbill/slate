@@ -80,6 +80,7 @@ config.s3 = 'https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs'
 config.companyResponseDescription = [
   '`_id` | ID of the company.',
   '`name` | Name of the company.',
+  '`status` | The operational status of the company at any given moment of time. Possible values are `operational`, `maintenance`.',
   '`logo` | Company logo object.',
   '`logo.url` | URL of the company logo.',
   '`logo.background` | If this is `true`, then the logo looks best as a background image.',
