@@ -292,6 +292,9 @@
                   <li>
                     <a href="#bill-payment-sent" class="toc-h2 toc-link" data-title="Bill payment sent">Bill payment sent</a>
                   </li>
+                  <li>
+                    <a href="#bill-payment-failed" class="toc-h2 toc-link" data-title="Bill payment failed">Bill payment failed</a>
+                  </li>
               </ul>
           </li>
       </div>
@@ -473,7 +476,7 @@ https://sb.unbill.co/v1 (sandbox)
 </tr>
 </tbody></table>
 <h2 id='add-an-auth'>Add an auth</h2>
-<p>Authenticate a user&#39;s credentials. This process may take up to 30 seconds, but could extend if additional verification is required. The authentication process is event driven. The following <a href="#event">events</a> may be emitted during an authentication: <a href="#auth-success">auth.success</a>, <a href="#auth-mfa-required">auth.mfa-required</a>, and <a href="#auth-failed">auth.failed</a>.</p>
+<p>Authenticate a client&#39;s credentials. This process may take up to 30 seconds, but could extend if additional verification is required. The authentication process is event driven. The following <a href="#event">events</a> may be emitted during an authentication: <a href="#auth-success">auth.success</a>, <a href="#auth-mfa-required">auth.mfa-required</a>, and <a href="#auth-failed">auth.failed</a>.</p>
 
 <blockquote>
 <p>Example Request</p>
@@ -671,7 +674,7 @@ https://sb.unbill.co/v1 (sandbox)
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>Retrieves a list of user&#39;s auths.</p>
+<p>Retrieves a list of client&#39;s auths.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>GET https://api.unbill.co/v1/auth/list/{clientId}</code></p>
 <h3 id='arguments'>Arguments</h3>
@@ -1162,7 +1165,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>Retrieves a list of user&#39;s bills.</p>
+<p>Retrieves a list of client&#39;s bills.</p>
 
 <p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/overview.png" alt="Overview" /></p>
 <h3 id='http-request'>HTTP Request</h3>
@@ -2729,6 +2732,49 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <tr>
 <td><code>payload.data.surcharge.rate</code></td>
 <td>The fee amount the company requires to process the payment.</td>
+</tr>
+</tbody></table>
+<h2 id='bill-payment-failed'>Bill payment failed</h2>
+<blockquote>
+<p>Example <code>bill.payment.failed</code> Event</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill.payment.failed"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25.21"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>When a payment is unsuccessful.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>type</code></td>
+<td><code>bill.payment.sent</code></td>
+</tr>
+<tr>
+<td><code>payload.data.company</code></td>
+<td>The <a href="#the-company-object">company object</a> linked to this resource.</td>
+</tr>
+<tr>
+<td><code>payload.data.amount</code></td>
+<td>The amount attempted to be sent to the company.</td>
 </tr>
 </tbody></table>
 
