@@ -352,7 +352,7 @@ https://sb.unbill.co/v1 (sandbox)
 </code></pre>
 <p>Authenticate your account when using the API by including your secret API key in the request. Your API keys carry many privileges, so be sure to keep them secret! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.</p>
 
-<p>Authentication to the API is performed via the <a href="https://oauth.net/2/">OAuth2 Protocol</a>. Pass your API Key as a bearer token in the <code>Authorization</code> header.</p>
+<p>Authentication to the API is performed via bearer tokens. Pass your API Key as a bearer token in the <code>Authorization</code> header.</p>
 <h2 id='errors'>Errors</h2>
 <p>The Q2 Biller Direct API uses conventional HTTP response codes to indicate the success or failure of an API request. In general, codes in the <code>2xx</code> range indicate success, codes in the <code>4xx</code> range indicate an error that failed given the information provided (e.g., a required parameter was omitted, a charge failed, etc.), and codes in the <code>5xx</code> range indicate an error with Q2&#39;s servers (these are rare).</p>
 
@@ -420,7 +420,7 @@ https://sb.unbill.co/v1 (sandbox)
 <li>Search for the company you&#39;d like to add from the <code>/company/search</code> endpoint.</li>
 <li>Provide your user with a &quot;bill authentication&quot; view populated with the login fields retrieved from the desired company.</li>
 <li>Have your user fill out their credentials, and then send those credentials to the <code>/auth</code> endpoint.</li>
-<li>Q2 will begin the authentication process and response with <a href="#event">events</a>.</li>
+<li>Q2 will begin the authentication process and respond with <a href="#event">events</a>.</li>
 </ol>
 <h3 id='bills'>Bills</h3>
 <ol>
