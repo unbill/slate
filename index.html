@@ -134,6 +134,23 @@
               </ul>
           </li>
           <li>
+            <a href="#products" class="toc-h1 toc-link" data-title="Products">Products</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#webview-integration" class="toc-h2 toc-link" data-title="WebView Integration">WebView Integration</a>
+                  </li>
+                  <li>
+                    <a href="#connect" class="toc-h2 toc-link" data-title="Connect">Connect</a>
+                  </li>
+                  <li>
+                    <a href="#cardswap" class="toc-h2 toc-link" data-title="CardSwap">CardSwap</a>
+                  </li>
+                  <li>
+                    <a href="#biller-direct" class="toc-h2 toc-link" data-title="Biller Direct">Biller Direct</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#auth" class="toc-h1 toc-link" data-title="Auth">Auth</a>
               <ul class="toc-list-h2">
                   <li>
@@ -435,9 +452,30 @@ https://sb.unbill.co/v1 (sandbox)
 <li>To change this, you must make a request to the <code>/payment/settings</code> endpoint to disable recurring payments.</li>
 <li>When recurring payments are disabled, in order to make an on-demand payment, one must be scheduled via the <code>/payment/schedule</code> endpoint.</li>
 </ol>
-<h1 id='auth'>Auth</h1>
-<p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/credentials-view.png" alt="Credentials View" /></p>
-<h2 id='the-auth-object'>The auth object</h2>
+<h1 id='products'>Products</h1>
+<p>Our white-label products are the fastest way to implement our API&#39;s functionality with a design that fits your branding. We&#39;ve built a set of products that key in on common use cases of our API. These products include <a href="#connect">Connect</a>, <a href="#cardswap">CardSwap</a> and <a href="#biller-direct">Biller Direct</a>.</p>
+<h2 id='webview-integration'>WebView Integration</h2>
+<p>Integration with our products is straightforward.</p>
+
+<ol>
+<li>Create a one-time use token by making a call to the <code>/client/create-token</code> endpoint.</li>
+<li>SSO into the white-label product by passing in the token as a URL parameter. An example URL would look like this: <code>https://product.unbill.us?token=123</code>.</li>
+</ol>
+<h2 id='connect'>Connect</h2>
+<p><img src="https://www.q2ebanking.com/img/pages/q2_open/q2-biller-direct/biller-direct_add-bills.gif" alt="Connect" /></p>
+
+<p>Connect is a drop-in module that provides a secure, elegant authentication flow for each company that the Q2 Biller Direct API supports. Connect makes it secure and easy for clients to link their accounts, while doing the heavy lifting for the authentication.</p>
+
+<p>Connect will emit events back to your app when a client successfully authenticates, exits, or times out.</p>
+<h2 id='cardswap'>CardSwap</h2>
+<p><img src="https://www.q2ebanking.com/img/pages/q2_open/cardswap/cardswap_select.gif" alt="CardSwap" /></p>
+
+<p>Q2 CardSwap™ is the first switch kit for subscription and eCommerce merchants, allowing users to put your card top-of-wallet for their favorite services—all in one place.</p>
+<h2 id='biller-direct'>Biller Direct</h2>
+<p><img src="https://www.q2ebanking.com/img/pages/q2_open/q2-biller-direct/biller-direct_spend.gif" alt="Biller Direct" /></p>
+
+<p>Biller Direct is a new, card-enabled bill pay solution designed to dramatically improve the user experience and economic model of bill pay.</p>
+<h1 id='auth'>Auth</h1><h2 id='the-auth-object'>The auth object</h2>
 <blockquote>
 <p>Example Response</p>
 </blockquote>
