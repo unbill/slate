@@ -3,8 +3,13 @@ sudo: false
 language: ruby
 
 rvm:
-  - 2.0.0
-  - 2.1.0
+  - 2.3.0
 
 cache: bundler
 script: bundle exec middleman build
+
+deploy: 
+  provider: script
+  script: bash deploy.sh
+  on:
+    branch: prod
