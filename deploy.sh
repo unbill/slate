@@ -21,6 +21,7 @@ Options:
 
 
 run_build() {
+  bundle install
   bundle exec middleman build --clean
 }
 
