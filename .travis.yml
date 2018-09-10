@@ -8,8 +8,11 @@ rvm:
 cache: bundler
 script: bundle exec middleman build
 
+before_deploy: bundle install
+
 deploy: 
   provider: script
   script: bash deploy.sh
+  skip_cleanup: true
   on:
     branch: prod
