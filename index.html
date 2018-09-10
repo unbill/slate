@@ -312,6 +312,9 @@
                   <li>
                     <a href="#bill-payment-failed" class="toc-h2 toc-link" data-title="Bill payment failed">Bill payment failed</a>
                   </li>
+                  <li>
+                    <a href="#swap-success" class="toc-h2 toc-link" data-title="Swap success">Swap success</a>
+                  </li>
               </ul>
           </li>
       </div>
@@ -2820,6 +2823,42 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <tr>
 <td><code>payload.data.amount</code></td>
 <td>The amount of the unsuccesful payment.</td>
+</tr>
+</tbody></table>
+<h2 id='swap-success'>Swap success</h2>
+<blockquote>
+<p>Example <code>swap.success</code> Event</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"swap.success"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"swap"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"clientId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"5b157888cb7e60000bfcaa41"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>When a swap is successful.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>type</code></td>
+<td><code>swap.success</code></td>
+</tr>
+<tr>
+<td><code>payload.data.clientId</code></td>
+<td>The clientId linked to the swap.</td>
 </tr>
 </tbody></table>
 
