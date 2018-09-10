@@ -4,5 +4,3 @@
 <p>Connect is a drop-in module that provides a secure, elegant authentication flow for each company that the Q2 Biller Direct API supports. Connect makes it secure and easy for clients to link their accounts, while doing the heavy lifting for the authentication.</p>
 
 <p>Connect will emit events back to your app when a client successfully authenticates, exits, or times out.</p>
-
-<p><a href="https://connect.unbill.us">View demo</a></p>
