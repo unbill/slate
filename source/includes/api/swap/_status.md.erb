@@ -1,0 +1,31 @@
+## Swap status
+
+> Pending Response
+
+```json
+{
+  "status": {
+    "type": "pending"
+  }
+}
+```
+
+> Completed Response
+
+```json
+{
+  "status": {
+    "type": "completed"
+  }
+}
+```
+
+A swap `status.type` indicates the current state of a request to swap a payment method with a particular company.
+
+### pending
+
+The swap of the payment method is currently in progress.
+
+### completed
+
+The swap of the payment method has been completed successfully.
