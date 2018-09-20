@@ -21,6 +21,7 @@ Options:
 
 
 run_build() {
+  bundle install
   bundle exec middleman build --clean
 }
 
@@ -67,6 +68,9 @@ parse_args() {
 
   #repository to deploy to. must be readable and writable.
   repo=origin
+  if [[ ! -z "$GITHUB_TOKEN" ]]; then
+    repo=https://$GITHUB_TOKEN@github.com/unbill/api-docs.git
+  fi
 
   #append commit hash to the end of message by default
   append_hash=${GIT_DEPLOY_APPEND_HASH:-true}
