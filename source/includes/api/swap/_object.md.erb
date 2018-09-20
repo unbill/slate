@@ -1,0 +1,50 @@
+## The swap object
+
+> Example Response
+
+```json
+{
+  "_id": "5b4cdadf8ea75a6602ff82bb",
+  "status": {
+    "type": "completed"
+  },
+  "auth": {
+    "_id": "5b4cdade36c0c10108a57405",
+    "status": {
+      "type": "verified"
+    }
+  },
+  "company": {
+    "_id": "5522f59264f5785929aa1c42",
+    "name": "Hulu",
+    "status": "operational",
+    "logo": {
+      "url": "https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/a3c89f48378c84713fb31ce0e97bfa15.png",
+      "background": false
+    }
+  },
+  "paymentMethod": {
+    "_id": "5b296e67a15d4e0001174fc2",
+    "type": "card",
+    "name": "Sean Hill",
+    "status": "verified",
+    "default": true,
+    "card": {
+      "number": "XXXX7989",
+      "bin": "41474002",
+      "brand": "visa",
+      "type": "credit",
+      "expDate": "2023-06-01T12:00:00.000Z"
+    }
+  }
+}
+
+```
+
+Attribute | Description
+--------- | -----------
+`_id` | ID of the swap. Unavailable when the `status.type` is `pending`.
+`status` | [Status](#swap-status) of the swap.
+`auth` | [Auth Object](#the-auth-object)
+`company` | [Company Object](#the-company-object)
+`paymentMethod` | [Payment method Object](#the-payment-method-object)
