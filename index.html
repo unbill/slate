@@ -269,10 +269,19 @@
             <a href="#swap" class="toc-h1 toc-link" data-title="Swap">Swap</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#the-swap-object" class="toc-h2 toc-link" data-title="The swap object">The swap object</a>
+                  </li>
+                  <li>
+                    <a href="#swap-status" class="toc-h2 toc-link" data-title="Swap status">Swap status</a>
+                  </li>
+                  <li>
                     <a href="#add-a-swap" class="toc-h2 toc-link" data-title="Add a swap">Add a swap</a>
                   </li>
                   <li>
                     <a href="#company-list" class="toc-h2 toc-link" data-title="Company list">Company list</a>
+                  </li>
+                  <li>
+                    <a href="#list-all-swaps" class="toc-h2 toc-link" data-title="List all swaps">List all swaps</a>
                   </li>
               </ul>
           </li>
@@ -470,14 +479,20 @@ https://sb.unbill.co/v1 (sandbox)
 <p>Connect is a drop-in module that provides a secure, elegant authentication flow for each company that the Q2 Biller Direct API supports. Connect makes it secure and easy for clients to link their accounts, while doing the heavy lifting for the authentication.</p>
 
 <p>Connect will emit events back to your app when a client successfully authenticates, exits, or times out.</p>
+
+<p><a href="https://connect.unbill.us">View demo</a></p>
 <h2 id='cardswap'>CardSwap</h2>
 <p><img src="https://www.q2ebanking.com/img/pages/q2_open/cardswap/cardswap_select.gif" alt="CardSwap" /></p>
 
 <p>Q2 CardSwap™ is the first switch kit for subscription and eCommerce merchants, allowing users to put your card top-of-wallet for their favorite services—all in one place.</p>
+
+<p><a href="https://cardswap.unbill.us">View demo</a></p>
 <h2 id='biller-direct'>Biller Direct</h2>
 <p><img src="https://www.q2ebanking.com/img/pages/q2_open/q2-biller-direct/biller-direct_spend.gif" alt="Biller Direct" /></p>
 
-<p>Biller Direct is a new, card-enabled bill pay solution designed to dramatically improve the user experience and economic model of bill pay.</p>
+<p>Biller Direct is a card-enabled bill pay solution designed to dramatically improve the user experience and economic model of bill pay.</p>
+
+<p><a href="https://biller-direct.unbill.us">View demo</a></p>
 <h1 id='auth'>Auth</h1><h2 id='the-auth-object'>The auth object</h2>
 <blockquote>
 <p>Example Response</p>
@@ -2215,6 +2230,98 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <p>Returns an object with a <code>token</code> property that can be used to SSO into applications.</p>
 <h1 id='swap'>Swap</h1>
 <p>Enables account holders to automatically apply new debit or credit card information across their favorite subscription and digital point-of-sale services.</p>
+<h2 id='the-swap-object'>The swap object</h2>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5b4cdadf8ea75a6602ff82bb"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"auth"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5b4cdade36c0c10108a57405"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5522f59264f5785929aa1c42"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hulu"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"operational"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/a3c89f48378c84713fb31ce0e97bfa15.png"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"paymentMethod"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5b296e67a15d4e0001174fc2"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sean Hill"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"card"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX7989"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"bin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"41474002"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"visa"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"credit"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"expDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-06-01T12:00:00.000Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>_id</code></td>
+<td>ID of the swap. Unavailable when the <code>status.type</code> is <code>pending</code>.</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><a href="#swap-status">Status</a> of the swap.</td>
+</tr>
+<tr>
+<td><code>auth</code></td>
+<td><a href="#the-auth-object">Auth Object</a></td>
+</tr>
+<tr>
+<td><code>company</code></td>
+<td><a href="#the-company-object">Company Object</a></td>
+</tr>
+<tr>
+<td><code>paymentMethod</code></td>
+<td><a href="#the-payment-method-object">Payment method Object</a></td>
+</tr>
+</tbody></table>
+<h2 id='swap-status'>Swap status</h2>
+<blockquote>
+<p>Pending Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Completed Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>A swap <code>status.type</code> indicates the current state of a request to swap a payment method with a particular company.</p>
+<h3 id='pending'>pending</h3>
+<p>The swap of the payment method is currently in progress.</p>
+<h3 id='completed'>completed</h3>
+<p>The swap of the payment method has been completed successfully.</p>
 <h2 id='add-a-swap'>Add a swap</h2>
 <blockquote>
 <p>Example Request</p>
@@ -2300,6 +2407,73 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <p><code>GET https://api.unbill.co/v1/swap/companies</code></p>
 <h3 id='returns'>Returns</h3>
 <p>A dictionary with a <code>data</code> property that contains an array of <a href="#the-company-object">company objects</a> that support swaps.</p>
+<h2 id='list-all-swaps'>List all swaps</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/swap/list/566595c8ce88ccec69328566"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -G
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5b4cdadf8ea75a6602ff82bb"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"auth"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5b4cdade36c0c10108a57405"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5522f59264f5785929aa1c42"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hulu"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"operational"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/a3c89f48378c84713fb31ce0e97bfa15.png"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"paymentMethod"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5b296e67a15d4e0001174fc2"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sean Hill"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"card"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX7989"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"bin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"41474002"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"visa"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"credit"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"expDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-06-01T12:00:00.000Z"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Retrieves a list of client&#39;s swaps.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET https://api.unbill.co/v1/swap/list/{clientId}</code></p>
+<h3 id='arguments'>Arguments</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>clientId</code></td>
+<td>ID of client to retrieve swaps for.</td>
+</tr>
+</tbody></table>
+<h3 id='returns'>Returns</h3>
+<p>A dictionary with a <code>data</code> property that contains an array of <a href="#the-swap-object">swap objects</a>.</p>
 <h1 id='event'>Event</h1>
 <p>Events are our way of letting you know when something interesting happens on behalf of your users.
 When an interesting event occurs, we create a new <code>Event</code> object. For example, when a new bill is received, we create a <code>bill.update</code> event; when a bill payment is sent, we create a <code>bill.payment</code> event.</p>
