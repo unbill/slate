@@ -1,0 +1,36 @@
+## Answer questions
+
+> Example Request (Answered questions)
+
+```shell
+curl "<%= config.host %>/auth/{authId}/answer-questions" \
+  -H "<%= config.auth %>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "answers": [{
+      "answer": "Seattle",
+      "identifier": "1j5k2l1" 
+    },
+    {
+      "answer": "Pickles",
+      "identifier": "3buw78h3" 
+    }]
+  }'
+```
+
+Accepts a list of answered MFA questions that had been presented because they were found during a non real time auth. Takes these answers and encrypts them, assuming they are correct. However,they are marked as `unverified` so that our system will pull them out if they end up being wrong, and putting them back in as being unanswered.
+
+
+### HTTP Request
+
+`POST <%= config.host %>/auth/{authId}/answer-questions`
+
+### Arguments
+
+Parameter | Description
+----- | -----------
+`answers` | List of answered MFA questions.
+
+### Returns
+
+Returns an object with a `success` property if the answers is added to the auth. Returns an error otherwise.
