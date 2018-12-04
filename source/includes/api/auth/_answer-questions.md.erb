@@ -1,0 +1,36 @@
+## Answer questions
+
+> Example Request
+
+```shell
+curl "<%= config.host %>/auth/{authId}/answer-questions" \
+  -H "<%= config.auth %>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "answers": [{
+      "answer": "Seattle",
+      "identifier": "1j5k2l1" 
+    },
+    {
+      "answer": "Pickles",
+      "identifier": "3buw78h3" 
+    }]
+  }'
+```
+
+Accepts a list of answers to the questions presented when an auth has the `mfa-required` status.
+
+
+### HTTP Request
+
+`POST <%= config.host %>/auth/{authId}/answer-questions`
+
+### Arguments
+
+Parameter | Description
+----- | -----------
+`answers` | List of answered questions.
+
+### Returns
+
+Returns an object with a `success` property indicating the answers were linked to the auth. Returns an error otherwise.
