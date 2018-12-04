@@ -1,6 +1,6 @@
 ## Answer questions
 
-> Example Request (Answered questions)
+> Example Request
 
 ```shell
 curl "<%= config.host %>/auth/{authId}/answer-questions" \
@@ -18,7 +18,7 @@ curl "<%= config.host %>/auth/{authId}/answer-questions" \
   }'
 ```
 
-Accepts a list of answered MFA questions that had been presented because they were found during a non real time auth. Takes these answers and encrypts them, assuming they are correct. However,they are marked as `unverified` so that our system will pull them out if they end up being wrong, and putting them back in as being unanswered.
+Accepts a list of answers to the questions presented when an auth has the mfa-required status.
 
 
 ### HTTP Request
@@ -29,8 +29,8 @@ Accepts a list of answered MFA questions that had been presented because they we
 
 Parameter | Description
 ----- | -----------
-`answers` | List of answered MFA questions.
+`answers` | List of answered questions.
 
 ### Returns
 
-Returns an object with a `success` property if the answers is added to the auth. Returns an error otherwise.
+Returns an object with a `success` property indicating the answers were linked to the auth. Returns an error otherwise.
