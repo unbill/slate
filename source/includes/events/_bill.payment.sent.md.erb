@@ -6,22 +6,24 @@
 
 ```json
 {
-  "_id": "580e3e11dec21e861b5a3719",
-  "type": "bill.payment.sent",
-  "created": "2016-04-20T16:51:12Z",
-  "payload": {
-    "resource": {
-      "type": "bill",
-      "id": "579b695decfa11012711875d"
-    },
-    "data": {
-      "company": {
-        "name": "Netflix"
+  "event": {
+    "_id": "580e3e11dec21e861b5a3719",
+    "type": "bill.payment.sent",
+    "created": "2016-04-20T16:51:12Z",
+    "payload": {
+      "resource": {
+        "type": "bill",
+        "id": "579b695decfa11012711875d"
       },
-      "amount": "25.21",
-      "surcharge": {
-        "type": "debit",
-        "rate": "2.50"
+      "data": {
+        "company": {
+          "name": "Netflix"
+        },
+        "amount": "25.21",
+        "surcharge": {
+          "type": "debit",
+          "rate": "2.50"
+        }
       }
     }
   }
