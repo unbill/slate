@@ -34,6 +34,27 @@
 }
 ```
 
+> MFA Required Response
+
+```json
+{
+  "status": {
+    "type": "mfa-required"
+  },
+  "mfa": {
+    "method": "questions",
+    "mfa": [{
+      "question": "What city did you grow up in?",
+      "identifier": "1j5k2l1" 
+    },
+    {
+      "answer": "What is your favorite food?",
+      "identifier": "3buw78h3" 
+    }]
+  }
+}
+```
+
 An auth `status.type` can be a variety of types. Each type is documented below with a description of the status and a typical use case.
 
 ### verified
@@ -57,3 +78,7 @@ For a number of reasons an auth can have the status of `hold`. When an auth is o
 *Displayed after user returns to app*
 
 ![Bill Hold Confirm](<%= config.s3 %>/bill-hold-confirm.png)
+
+### MFA Required
+
+When the link with a company requires additional MFA.
