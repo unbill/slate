@@ -1,0 +1,42 @@
+## Cancel payment 
+
+> Example Request
+
+```shell
+curl "<%= config.host %>/payment/cancel" \
+  -H "<%= config.auth %>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "billId": "566595c8ce88ccec69328566",
+  }'
+```
+
+```json
+{
+  "billId": "566595c8ce88ccec69328566",
+}
+```
+
+> Example Response
+
+```json
+{
+  "success": true
+}
+```
+
+Cancel a scheduled payment for a bill.
+
+### HTTP Request
+
+`POST <%= config.host %>/payment/cancel`
+
+### Arguments
+
+Parameter | Description
+----- | -----------
+`billId` | ID of bill to cancel payment for.
+
+### Returns
+
+Returns an object with a `success` property if the payment was canceled. Returns an error otherwise.

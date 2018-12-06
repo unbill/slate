@@ -7,7 +7,8 @@ curl "<%= config.host %>/auth" \
   -H "<%= config.auth %>" \
   -H "Content-Type: application/json" \
   -d '{
-    "authId": "566595c8ce88ccec69328566"
+    "authId": "566595c8ce88ccec69328566",
+    "paymentMethodId": "5b4cdade36c0c10108a57405"
   }'
 ```
 
@@ -20,6 +21,7 @@ curl "<%= config.host %>/auth" \
 Parameter | Description
 ----- | -----------
 `authId` | ID of auth to create a swap for.
+`paymentMethodId` | ID of payment method to link to the swap.
 
 ### Returns
 
