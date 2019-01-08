@@ -44,6 +44,22 @@ To quickly experiment with the API, you can use Postman. You'll need to set the 
   }(window, document, "_pm", "PostmanRunObject", "https://run.pstmn.io/button.js"));
 </script>
 
+### Test Company
+
+You may perform an authentication with a company named *Test Merchant* with `5bd885fccd274b4324a21f57` as it's `_id` that can be used to test various use cases. Each use case is triggered based on the `username` used to authenticate. Any password may be used. Here's a list of usernames and their associated test case:
+
+### Test Credentials
+
+Username | Description
+----- | -----------
+`test` | Test a successful authentication.
+`testfail` | Test an authentication failure.
+`testmfaquestion` | Test an authentication requiring question-based MFA.
+`testmfacode` | Test an authentication requiring code-based MFA.
+`testpaymentfail` | Test a payment failure.
+
+You may test a successful payment within the Sandbox environment by using `4111111111111111` as the card number, with any valid expiration, zipcode, and random 3-digit CVV.
+
 ## Gaining Access
 
 To gain access to the <%= config.apiName %>, please [contact us](mailto:api@unbill.us). After our review process is complete, you'll be provided with an API key which you can use for your requests.
