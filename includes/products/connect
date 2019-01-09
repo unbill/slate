@@ -1,8 +1,62 @@
 <h2 id='connect'>Connect</h2>
+<blockquote>
+<p>Host
+<code>
+https://connect.unbill.us (production)
+https://sb-connect.unbill.us (sandbox)
+</code></p>
+</blockquote>
+
 <p><img src="https://www.q2ebanking.com/img/pages/q2_open/q2-biller-direct/biller-direct_add-bills.gif" alt="Connect" /></p>
 
 <p>Connect is a drop-in module that provides a secure, elegant authentication flow for each company that the Q2 Biller Direct API supports. Connect makes it secure and easy for clients to link their accounts, while doing the heavy lifting for the authentication.</p>
 
-<p>Connect will emit events back to your app when a client successfully authenticates, exits, or times out.</p>
-
 <p><a href="https://connect.unbill.us">View demo</a></p>
+<h3 id='events'>Events</h3>
+<p>Connect will emit events back to your app using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage">postMessage</a> API or <a href="https://developer.apple.com/documentation/webkit/wkscriptmessagehandler">WKScriptMessageHandler</a> on iOS, allowing you to decide what to do after the user is finished.</p>
+
+<table><thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>auth</code></td>
+<td>The user successfully authenticated with a company.</td>
+</tr>
+<tr>
+<td><code>close</code></td>
+<td>The user closed the module without completing an authentication.</td>
+</tr>
+<tr>
+<td><code>alive</code></td>
+<td>Emitted every 30 seconds to indicate that the user is not idle.</td>
+</tr>
+</tbody></table>
+<h3 id='url-parameters'>URL parameters</h3>
+<p>The following URL parameters can be optionally passed into the Connect URL to customize the experience.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>companyId</code></td>
+<td>Deeplink to a specific <code>companyId</code>, skipping the search screen.</td>
+</tr>
+<tr>
+<td><code>cardPaymentsOnly</code></td>
+<td>Limit searches to companies that support card-based payments.</td>
+</tr>
+<tr>
+<td><code>items</code></td>
+<td><em>CardSwap only:</em> Can be set to <code>swap</code> to automatically create a <a href="#swap">Swap</a> once an authentication is successful.</td>
+</tr>
+<tr>
+<td><code>paymentMethodId</code></td>
+<td><em>CardSwap only:</em> Sets a previously added payment method to be used for a swap once an authentication is successful.</td>
+</tr>
+</tbody></table>
