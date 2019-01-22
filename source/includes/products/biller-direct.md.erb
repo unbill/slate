@@ -1,7 +1,32 @@
 ## Biller Direct
 
+> Host
+```
+https://biller-direct.unbill.us (production)
+https://sb-biller-direct.unbill.us (sandbox)
+```
+
 ![Biller Direct](https://www.q2ebanking.com/img/pages/q2_open/q2-biller-direct/biller-direct_spend.gif)
 
 Biller Direct is a card-enabled bill pay solution designed to dramatically improve the user experience and economic model of bill pay.
 
 [View demo](https://biller-direct.unbill.us)
+
+### Events
+
+Biller Direct will emit events back to your app using the [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) API or [WKScriptMessageHandler](https://developer.apple.com/documentation/webkit/wkscriptmessagehandler) on iOS, allowing you to decide what to do after the user is finished.
+
+Event | Description
+----- | -----------
+`alive` | Emitted every 30 seconds to indicate that the user is not idle.
+
+### URL parameters
+
+The following URL parameters can be optionally passed into the Biller Direct URL to customize the experience.
+
+Parameter | Description
+----- | -----------
+`companyId` | Deeplink to a specific bill for the `companyId` specified if a bill already exists, or fallback to the authentication screen for the specified `companyId`.
+`billId` | Setting to a specific [Bill](#bill) `_id` will deeplink the user into the detailed view of the bill.
+`skipOnboarding` | Setting to `true` will skip the introductary screens and animations.
+`cardPaymentsOnly` | Limit searches to companies that support card-based payments.
