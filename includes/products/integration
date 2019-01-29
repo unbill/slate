@@ -7,3 +7,5 @@
 <li>Create a one-time use token by making a call to the <code>/client/create-token</code> endpoint.</li>
 <li>SSO into the white-label product by passing in the token as a URL parameter. An example URL would look like this: <code>https://product.unbill.us?token=123</code>.</li>
 </ol>
+<h2 id='example-code'>Example Code</h2>
+<p>See our <a href="https://github.com/unbill/integration-examples">integration examples</a> for an example implementation in Swift and React Native.</p>

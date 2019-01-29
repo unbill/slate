@@ -140,6 +140,9 @@
                     <a href="#webview-integration" class="toc-h2 toc-link" data-title="WebView Integration">WebView Integration</a>
                   </li>
                   <li>
+                    <a href="#example-code" class="toc-h2 toc-link" data-title="Example Code">Example Code</a>
+                  </li>
+                  <li>
                     <a href="#connect" class="toc-h2 toc-link" data-title="Connect">Connect</a>
                   </li>
                   <li>
@@ -332,6 +335,14 @@
                   </li>
               </ul>
           </li>
+          <li>
+            <a href="#changelog" class="toc-h1 toc-link" data-title="Changelog">Changelog</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#jan-29th-2019" class="toc-h2 toc-link" data-title="Jan 29th, 2019">Jan 29th, 2019</a>
+                  </li>
+              </ul>
+          </li>
       </div>
     </div>
     <div class="page-wrapper">
@@ -404,6 +415,10 @@ https://sb.unbill.co/v1 (sandbox)
 <tr>
 <td><code>testpaymentfail</code></td>
 <td>Test a payment failure.</td>
+</tr>
+<tr>
+<td><code>testswap</code></td>
+<td>Test performing a post-authentication swap. Useful when using Connect with a <code>paymentMethodId</code>.</td>
 </tr>
 </tbody></table>
 
@@ -512,6 +527,8 @@ https://sb.unbill.co/v1 (sandbox)
 <li>Create a one-time use token by making a call to the <code>/client/create-token</code> endpoint.</li>
 <li>SSO into the white-label product by passing in the token as a URL parameter. An example URL would look like this: <code>https://product.unbill.us?token=123</code>.</li>
 </ol>
+<h2 id='example-code'>Example Code</h2>
+<p>See our <a href="https://github.com/unbill/integration-examples">integration examples</a> for an example implementation in Swift and React Native.</p>
 <h2 id='connect'>Connect</h2>
 <blockquote>
 <p>Host
@@ -540,14 +557,27 @@ https://sb-connect.unbill.us (sandbox)
 <td>The user successfully authenticated with a company.</td>
 </tr>
 <tr>
-<td><code>close</code></td>
-<td>The user closed the module without completing an authentication.</td>
+<td><code>exit</code></td>
+<td>The user exited the module without completing an authentication.</td>
 </tr>
 <tr>
 <td><code>alive</code></td>
 <td>Emitted every 30 seconds to indicate that the user is not idle.</td>
 </tr>
 </tbody></table>
+<h3 id='userpresenceisrequired'>userPresenceIsRequired</h3>
+<p>If the biller requires that the user is present to pass through any <a href="#auth-mfa">MFA</a> flows with every login,
+as indicated by the <code>company.userPresenceIsRequired</code> flag, there are a number of constraints to consider when designing your user experience:</p>
+
+<ul>
+<li>Bill data cannot be updated ad-hoc without the user first passing through MFA.</li>
+<li>Payments must be completed in real-time (not scheduled) since the user must be present.</li>
+<li>Likewise, Swaps must also be completed in real-time with the user present.</li>
+</ul>
+
+<p>Instead of calling the typical API routes, you&#39;ll need to open Connect to perform these actions immediately after a successful authentication. The user won&#39;t need
+ to re-enter their username and password, but may need to step through MFA. Using the <code>companyId</code>, <code>items</code>, and <code>paymentMethodId</code> URL parameters as 
+ documented below, you&#39;ll be able to build an experience while allowing users the liberty of maintaining their approach to account security.</p>
 <h3 id='url-parameters'>URL parameters</h3>
 <p>The following URL parameters can be optionally passed into the Connect URL to customize the experience.</p>
 
@@ -567,11 +597,11 @@ https://sb-connect.unbill.us (sandbox)
 </tr>
 <tr>
 <td><code>items</code></td>
-<td><em>CardSwap only:</em> Can be set to <code>swap</code> to automatically create a <a href="#swap">Swap</a> once an authentication is successful.</td>
+<td>Indicates the next desired action once an authentication is successful. Set to <code>swap</code> to automatically create a <a href="#swap">Swap</a>. Set to <code>bill</code> to update bill data. Set to <code>payment</code> to make a payment towards the balance..</td>
 </tr>
 <tr>
 <td><code>paymentMethodId</code></td>
-<td><em>CardSwap only:</em> Sets a previously added payment method to be used for a swap once an authentication is successful.</td>
+<td>Sets a previously added payment method to be used for a <code>swap</code> or <code>payment</code> once an authentication is successful.</td>
 </tr>
 </tbody></table>
 <h2 id='cardswap'>CardSwap</h2>
@@ -1482,14 +1512,64 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Password"</span><span class="w">
     </span><span class="p">}]</span><span class="w">
-  </span><span class="p">},</span><span class="w">
+  </span><span class="p">},</span><span class="w"> 
   </span><span class="s2">"geo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"lat"</span><span class="p">:</span><span class="w"> </span><span class="mf">30.70</span><span class="p">,</span><span class="w">
     </span><span class="s2">"lng"</span><span class="p">:</span><span class="w"> </span><span class="mf">-95.53</span><span class="p">,</span><span class="w">
     </span><span class="s2">"state_short"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TX"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"state_long"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Texas"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"zipcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"77340"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"fees"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"ach"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.5</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"percentage"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"cards"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"american express"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"credit"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.5</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"percentage"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"discover"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"credit"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.5</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"percentage"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+              </span><span class="s2">"debit"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.5</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"percentage"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"mastercard"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"credit"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.5</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"percentage"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+              </span><span class="s2">"debit"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.5</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"percentage"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"visa"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"credit"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.5</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"percentage"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+              </span><span class="s2">"debit"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.5</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"percentage"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"amex"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"debit"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.5</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"percentage"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">  
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <table><thead>
@@ -1539,8 +1619,44 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <td>If a specific payment method type is required by this company, this will be defined. Possible values are <code>bank</code>, <code>card</code>.</td>
 </tr>
 <tr>
+<td><code>userPresenceRequired</code></td>
+<td>If the biller require that the user is present to pass through any <a href="#auth-mfa">MFA</a> flows. See best practices in the <a href="#connect">Connect</a> documentation.</td>
+</tr>
+<tr>
 <td><code>schedule</code></td>
 <td>The <a href="#bill-payment-schedule">bill payment schedule</a> this company follows. If this parameter is set, the schedule for a bill linked to this company may not be changed. Typically subscription companies such as Netflix have this parameter set since payments must be made on a specific date.</td>
+</tr>
+<tr>
+<td><code>fees</code></td>
+<td>The surcharge object. Possible child objects are <code>ach</code>, <code>cards</code></td>
+</tr>
+<tr>
+<td><code>fees.ach</code></td>
+<td>Present when the company applies surcharges to ACH payments.</td>
+</tr>
+<tr>
+<td><code>fees.ach.percentage</code></td>
+<td>If the ACH surcharge is a percentage of the payment amount.</td>
+</tr>
+<tr>
+<td><code>fees.ach.rate</code></td>
+<td>Either a dollar amount or a percentage amount.</td>
+</tr>
+<tr>
+<td><code>fees.cards</code></td>
+<td>Present when the company applies surcharges to card payments. Possible child objects are <code>american express</code>, <code>discover</code>, <code>mastercard</code>, and <code>visa</code>, referred to below as <code>{cardBrand}</code>. See example <code>company</code> response.</td>
+</tr>
+<tr>
+<td><code>fees.cards.{cardBrand}</code></td>
+<td>Possible child objects are <code>credit</code> or <code>debit</code>, referred to below as <code>{cardType}</code>.</td>
+</tr>
+<tr>
+<td><code>fees.cards.{cardBrand}.{cardType}.percentage</code></td>
+<td>If the surcharge is a percentage of the payment amount.</td>
+</tr>
+<tr>
+<td><code>fees.cards.{cardBrand}.{cardType}.rate</code></td>
+<td>Either a dollar amount or a percentage amount.</td>
 </tr>
 <tr>
 <td><code>auth</code></td>
@@ -2374,14 +2490,14 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
   -d <span class="s1">'{
     "identifier": "Bk0zwVx1Z",
     "meta": {
-      "firstName": "Sean",
-      "lastName": "Hill",
-      "email": "sean@hill.com",
-      "phone": "4801428531",
+      "firstName": "Demo",
+      "lastName": "User",
+      "email": "demo@demo.com",
+      "phone": "123-123-1234",
       "address1": "123 Api St.",
       "address2": "P.O. Box 283",
-      "city": "Mesa",
-      "state": "AZ",
+      "city": "Demo",
+      "state": "Q2",
       "zipcode": "12345"
     }
   }'</span>
@@ -2425,14 +2541,14 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
     "identifier": "Bk0zwVx1Z",
     "nonce": false,
     "meta": {
-      "firstName": "Sean",
-      "lastName": "Hill",
-      "email": "sean@hill.com",
-      "phone": "4801428531",
+      "firstName": "Demo",
+      "lastName": "User",
+      "email": "demo@demo.com",
+      "phone": "123-123-1234",
       "address1": "123 Api St.",
       "address2": "P.O. Box 283",
-      "city": "Mesa",
-      "state": "AZ",
+      "city": "Demo",
+      "state": "Q2",
       "zipcode": "12345"
     }
   }'</span>
@@ -3303,6 +3419,14 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <td>The clientId linked to the swap.</td>
 </tr>
 </tbody></table>
+<h1 id='changelog'>Changelog</h1><h3 id='jan-29th-2019'>Jan 29th, 2019</h3>
+<ul>
+<li>Correction made to the Connect product events. The <code>close</code> event should have been documented as <code>exit</code>.</li>
+<li>Added documentation regarding our integration examples repository.</li>
+<li>Added <code>testswap</code> to the list of valid testing credentials.</li>
+<li>Added Company payment fees to the <code>company</code> object</li>
+<li>Added <code>company.userPresenceIsRequired</code> to <a href="#the-company-object">company object</a> and documentation for <a href="#connect">Connect</a>.</li>
+</ul>
 
       </div>
       <div class="dark-box">
