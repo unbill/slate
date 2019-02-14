@@ -131,6 +131,9 @@
                   <li>
                     <a href="#getting-started" class="toc-h2 toc-link" data-title="Getting Started">Getting Started</a>
                   </li>
+                  <li>
+                    <a href="#rsa-encryption" class="toc-h2 toc-link" data-title="RSA Encryption">RSA Encryption</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -339,6 +342,9 @@
             <a href="#changelog" class="toc-h1 toc-link" data-title="Changelog">Changelog</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#feb-14th-2019" class="toc-h2 toc-link" data-title="Feb 14th, 2019">Feb 14th, 2019</a>
+                  </li>
+                  <li>
                     <a href="#jan-29th-2019" class="toc-h2 toc-link" data-title="Jan 29th, 2019">Jan 29th, 2019</a>
                   </li>
               </ul>
@@ -423,6 +429,13 @@ https://sb.unbill.co/v1 (sandbox)
 </tbody></table>
 
 <p>You may test a successful payment within the Sandbox environment by using <code>4111111111111111</code> as the card number, with any valid expiration, zipcode, and random 3-digit CVV.</p>
+<h3 id='sandbox-limitations'>Sandbox Limitations</h3>
+<ul>
+<li>Always use the Test Merchant during development.</li>
+<li>You cannot make payments on Sandbox.</li>
+<li>When using your real account, there may be cases where it will accept invalid credentials or not retrieve your bill data. If you&#39;d like to do a real test with these providers, you&#39;ll need to use our production environment.</li>
+<li>We&#39;re working to improve our sandbox environment to be more consistent with what you would experience on production when interacting with billers besides our Test Merchant.</li>
+</ul>
 <h2 id='gaining-access'>Gaining Access</h2>
 <p>To gain access to the Q2 Biller Direct API, please <a href="mailto:api@unbill.us">contact us</a>. After our review process is complete, you&#39;ll be provided with an API key which you can use for your requests.</p>
 <h2 id='authentication'>Authentication</h2>
@@ -518,6 +531,22 @@ https://sb.unbill.co/v1 (sandbox)
 <li>When recurring payments are disabled, in order to make an on-demand payment, one must be scheduled via the <code>/payment/schedule</code> endpoint.</li>
 <li>You can cancel a scheduled payment for a bill by using the <code>/payment/cancel</code> endpoint.</li>
 </ol>
+<h2 id='rsa-encryption'>RSA Encryption</h2>
+<blockquote>
+<p>Example Encrypted Request</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"encrypted"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EXAMPLE"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PQ5+gSzli4DyOzXUYqT74QIZ9l4VIyWJipb521HfUnwwj0sNPp0ASyodxb3YOmhbM6nZ+bFXkPN1u2vcXo80yYcMy0xXmfcQ27LRsVjD8kLw7PC0LSfKh1ZHvx+xpxnHDDOYwqRMVFUHIz6ggxPJB39f7hZXRvp5JQQhnB/3JfpV/UvmXjhdQlgC50yOOIJ12S36cnncBrwqYvvDV7iY8Uq6x2ddZRl/2GNoUpnf9jIoKEqeNEpuqoD9g6cwcXXgbjyObxfl6zOSQlfgHJye/Me7E0d+4r0/OWhnSYC6GgedAwUM1fBVGAkAqQKEtU2BYD1kIP8hBSMJxWzVjqKn0A=="</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Optionally, 2048-bit Asymmetric key encryption may be used when making a <code>POST</code> request to the API.</p>
+
+<ul>
+<li>Request a public key from Q2, which will follow the PKCS #8 encryption scheme. You&#39;ll also be handed a key identifier.</li>
+<li>Use the API routes as documented, however your payload will be encrypted and base64 encoded using the public key, and sent in a <code>hash</code> parameter.</li>
+<li>Add an <code>encrypted</code> parameter to your request with the contents of your key identifer given to you from Q2.</li>
+</ul>
 <h1 id='products'>Products</h1>
 <p>Our white-label products are the fastest way to implement our API&#39;s functionality with a design that fits your branding. We&#39;ve built a set of products that key in on common use cases of our API. These products include <a href="#connect">Connect</a>, <a href="#cardswap">CardSwap</a> and <a href="#biller-direct">Biller Direct</a>.</p>
 <h2 id='webview-integration'>WebView Integration</h2>
@@ -565,9 +594,9 @@ https://sb-connect.unbill.us (sandbox)
 <td>Emitted every 30 seconds to indicate that the user is not idle.</td>
 </tr>
 </tbody></table>
-<h3 id='userpresenceisrequired'>userPresenceIsRequired</h3>
+<h3 id='userpresencerequired'>userPresenceRequired</h3>
 <p>If the biller requires that the user is present to pass through any <a href="#auth-mfa">MFA</a> flows with every login,
-as indicated by the <code>company.userPresenceIsRequired</code> flag, there are a number of constraints to consider when designing your user experience:</p>
+as indicated by the <code>company.userPresenceRequired</code> flag, there are a number of constraints to consider when designing your user experience:</p>
 
 <ul>
 <li>Bill data cannot be updated ad-hoc without the user first passing through MFA.</li>
@@ -576,8 +605,8 @@ as indicated by the <code>company.userPresenceIsRequired</code> flag, there are 
 </ul>
 
 <p>Instead of calling the typical API routes, you&#39;ll need to open Connect to perform these actions immediately after a successful authentication. The user won&#39;t need
- to re-enter their username and password, but may need to step through MFA. Using the <code>companyId</code>, <code>items</code>, and <code>paymentMethodId</code> URL parameters as 
- documented below, you&#39;ll be able to build an experience while allowing users the liberty of maintaining their approach to account security.</p>
+ to re-enter their username and password, but may need to step through MFA. Using the <code>billId</code>, <code>items</code>, and <code>paymentMethodId</code> URL parameters as 
+ documented below, you&#39;ll be able to make payments in real-time, while allowing users the liberty of maintaining their approach to account security.</p>
 <h3 id='url-parameters'>URL parameters</h3>
 <p>The following URL parameters can be optionally passed into the Connect URL to customize the experience.</p>
 
@@ -590,6 +619,10 @@ as indicated by the <code>company.userPresenceIsRequired</code> flag, there are 
 <tr>
 <td><code>companyId</code></td>
 <td>Deeplink to a specific <code>companyId</code>, skipping the search screen.</td>
+</tr>
+<tr>
+<td><code>billId</code></td>
+<td>Can be used in conjunction with <code>paymentMethodId</code> to perform a real-time payment when <code>company.userPresenceRequired</code> is <code>true</code>.</td>
 </tr>
 <tr>
 <td><code>cardPaymentsOnly</code></td>
@@ -2510,6 +2543,8 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Creates or returns an existing client to be used with requests.</p>
+
+<p>If a client already exists with the same <code>identifier</code> sent, then the existing <code>clientId</code> will be returned.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST https://api.unbill.co/v1/client</code></p>
 <h3 id='arguments'>Arguments</h3>
@@ -2561,6 +2596,8 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Create a token to be used for SSO into applications.</p>
+
+<p>When creating subsequent tokens for an existing <code>client</code>, be sure to use the same <code>identifier</code> value. If a client already exists with this <code>identifier</code>, then any actions taken within the context of a <a href="#products">Product</a>. will be linked to that client.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST https://api.unbill.co/v1/client/create-token</code></p>
 <h3 id='arguments'>Arguments</h3>
@@ -2849,6 +2886,8 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
   </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill.update"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">  
   </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
@@ -2878,6 +2917,14 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <tr>
 <td><code>type</code></td>
 <td>Description of the event: e.g. <code>bill.issued</code>, <code>bill.updated</code>, etc.</td>
+</tr>
+<tr>
+<td><code>clientId</code></td>
+<td>The <code>id</code> of the <code>client</code> to which the event pertains.</td>
+</tr>
+<tr>
+<td><code>partnerId</code></td>
+<td>The <code>id</code> of the <code>partner</code> to which the event pertains.</td>
 </tr>
 <tr>
 <td><code>created</code></td>
@@ -2919,6 +2966,8 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
     </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auth.success"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">      
     </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"client"</span><span class="p">,</span><span class="w">
@@ -2973,6 +3022,8 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
     </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auth.mfa-required"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">      
     </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"client"</span><span class="p">,</span><span class="w">
@@ -3062,6 +3113,8 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
     </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auth.failed"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">      
     </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"client"</span><span class="p">,</span><span class="w">
@@ -3110,6 +3163,8 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
     </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auth.invalid"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">      
     </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auth"</span><span class="p">,</span><span class="w">
@@ -3151,6 +3206,8 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
     </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auth.hold"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">      
     </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auth"</span><span class="p">,</span><span class="w">
@@ -3199,6 +3256,8 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
     </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill.created"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">      
     </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill"</span><span class="p">,</span><span class="w">
@@ -3230,6 +3289,8 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
     </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill.update"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">      
     </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill"</span><span class="p">,</span><span class="w">
@@ -3284,6 +3345,8 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
     </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill.payment.sent"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">      
     </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill"</span><span class="p">,</span><span class="w">
@@ -3345,6 +3408,8 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
     </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill.payment.failed"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">      
     </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill"</span><span class="p">,</span><span class="w">
@@ -3390,6 +3455,8 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
     </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"swap.success"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d8"</span><span class="p">,</span><span class="w">    
     </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"swap"</span><span class="p">,</span><span class="w">
@@ -3419,13 +3486,22 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <td>The clientId linked to the swap.</td>
 </tr>
 </tbody></table>
-<h1 id='changelog'>Changelog</h1><h3 id='jan-29th-2019'>Jan 29th, 2019</h3>
+<h1 id='changelog'>Changelog</h1><h3 id='feb-14th-2019'>Feb 14th, 2019</h3>
+<ul>
+<li>Corrected documentation regarding <code>company.userPresenceRequired</code></li>
+<li>Added support for <code>billId</code> as a URL parameter to Connect &amp; Biller Direct.</li>
+<li>Added <code>partnerId</code> and <code>clientId</code> to event objects.</li>
+<li>Added information regarding <a href="#rsa-encryption">RSA encryption</a>.</li>
+<li>Added clarification regarding <a href="#client">Client</a> and <a href="#create-token">Client Token</a> creation on subsequent calls, when the <code>client</code> already exists.</li>
+<li>Added information regarding Sandbox limitations.</li>
+</ul>
+<h3 id='jan-29th-2019'>Jan 29th, 2019</h3>
 <ul>
 <li>Correction made to the Connect product events. The <code>close</code> event should have been documented as <code>exit</code>.</li>
 <li>Added documentation regarding our integration examples repository.</li>
 <li>Added <code>testswap</code> to the list of valid testing credentials.</li>
 <li>Added Company payment fees to the <code>company</code> object</li>
-<li>Added <code>company.userPresenceIsRequired</code> to <a href="#the-company-object">company object</a> and documentation for <a href="#connect">Connect</a>.</li>
+<li>Added <code>company.userPresenceRequired</code> to <a href="#the-company-object">company object</a> and documentation for <a href="#connect">Connect</a>.</li>
 </ul>
 
       </div>

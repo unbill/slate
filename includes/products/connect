@@ -34,9 +34,9 @@ https://sb-connect.unbill.us (sandbox)
 <td>Emitted every 30 seconds to indicate that the user is not idle.</td>
 </tr>
 </tbody></table>
-<h3 id='userpresenceisrequired'>userPresenceIsRequired</h3>
+<h3 id='userpresencerequired'>userPresenceRequired</h3>
 <p>If the biller requires that the user is present to pass through any <a href="#auth-mfa">MFA</a> flows with every login,
-as indicated by the <code>company.userPresenceIsRequired</code> flag, there are a number of constraints to consider when designing your user experience:</p>
+as indicated by the <code>company.userPresenceRequired</code> flag, there are a number of constraints to consider when designing your user experience:</p>
 
 <ul>
 <li>Bill data cannot be updated ad-hoc without the user first passing through MFA.</li>
@@ -45,8 +45,8 @@ as indicated by the <code>company.userPresenceIsRequired</code> flag, there are 
 </ul>
 
 <p>Instead of calling the typical API routes, you&#39;ll need to open Connect to perform these actions immediately after a successful authentication. The user won&#39;t need
- to re-enter their username and password, but may need to step through MFA. Using the <code>companyId</code>, <code>items</code>, and <code>paymentMethodId</code> URL parameters as 
- documented below, you&#39;ll be able to build an experience while allowing users the liberty of maintaining their approach to account security.</p>
+ to re-enter their username and password, but may need to step through MFA. Using the <code>billId</code>, <code>items</code>, and <code>paymentMethodId</code> URL parameters as 
+ documented below, you&#39;ll be able to make payments in real-time, while allowing users the liberty of maintaining their approach to account security.</p>
 <h3 id='url-parameters'>URL parameters</h3>
 <p>The following URL parameters can be optionally passed into the Connect URL to customize the experience.</p>
 
@@ -59,6 +59,10 @@ as indicated by the <code>company.userPresenceIsRequired</code> flag, there are 
 <tr>
 <td><code>companyId</code></td>
 <td>Deeplink to a specific <code>companyId</code>, skipping the search screen.</td>
+</tr>
+<tr>
+<td><code>billId</code></td>
+<td>Can be used in conjunction with <code>paymentMethodId</code> to perform a real-time payment when <code>company.userPresenceRequired</code> is <code>true</code>.</td>
 </tr>
 <tr>
 <td><code>cardPaymentsOnly</code></td>
