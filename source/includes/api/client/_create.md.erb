@@ -32,6 +32,8 @@ curl "<%= config.host %>/client" \
 
 Creates or returns an existing client to be used with requests.
 
+If a client already exists with the same `identifier` sent, then the existing `clientId` will be returned.
+
 ### HTTP Request
 
 `POST <%= config.host %>/client`
