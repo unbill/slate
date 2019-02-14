@@ -1,0 +1,15 @@
+## RSA Encryption
+> Example Encrypted Request
+
+```json
+{
+  "encrypted": "EXAMPLE",
+  "hash": "PQ5+gSzli4DyOzXUYqT74QIZ9l4VIyWJipb521HfUnwwj0sNPp0ASyodxb3YOmhbM6nZ+bFXkPN1u2vcXo80yYcMy0xXmfcQ27LRsVjD8kLw7PC0LSfKh1ZHvx+xpxnHDDOYwqRMVFUHIz6ggxPJB39f7hZXRvp5JQQhnB/3JfpV/UvmXjhdQlgC50yOOIJ12S36cnncBrwqYvvDV7iY8Uq6x2ddZRl/2GNoUpnf9jIoKEqeNEpuqoD9g6cwcXXgbjyObxfl6zOSQlfgHJye/Me7E0d+4r0/OWhnSYC6GgedAwUM1fBVGAkAqQKEtU2BYD1kIP8hBSMJxWzVjqKn0A=="
+}
+```
+
+Optionally, 2048-bit Asymmetric key encryption may be used when making a `POST` request to the API.
+
+- Request a public key from Q2, which will follow the PKCS #8 encryption scheme. You'll also be handed a key identifier.
+- Use the API routes as documented, however your payload will be encrypted and base64 encoded using the public key, and sent in a `hash` parameter.
+- Add an `encrypted` parameter to your request with the contents of your key identifer given to you from Q2.

@@ -61,6 +61,13 @@ Username | Description
 
 You may test a successful payment within the Sandbox environment by using `4111111111111111` as the card number, with any valid expiration, zipcode, and random 3-digit CVV.
 
+### Sandbox Limitations
+
+- Always use the Test Merchant during development.
+- You cannot make payments on Sandbox.
+- When using your real account, there may be cases where it will accept invalid credentials or not retrieve your bill data. If you'd like to do a real test with these providers, you'll need to use our production environment.
+- We're working to improve our sandbox environment to be more consistent with what you would experience on production when interacting with billers besides our Test Merchant.
+
 ## Gaining Access
 
 To gain access to the <%= config.apiName %>, please [contact us](mailto:api@unbill.us). After our review process is complete, you'll be provided with an API key which you can use for your requests.

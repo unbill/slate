@@ -1,8 +1,17 @@
 # Changelog
 
+### Feb 14th, 2019
+- Corrected documentation regarding `company.userPresenceRequired`
+- Added support for `billId` as a URL parameter to Connect & Biller Direct.
+- Added `partnerId` and `clientId` to event objects.
+- Added information regarding [RSA encryption](#rsa-encryption).
+- Added clarification regarding [Client](#client) and [Client Token](#create-token) creation on subsequent calls, when the `client` already exists.
+- Added information regarding Sandbox limitations.
+
+
 ### Jan 29th, 2019
 - Correction made to the Connect product events. The `close` event should have been documented as `exit`.
 - Added documentation regarding our integration examples repository.
 - Added `testswap` to the list of valid testing credentials.
 - Added Company payment fees to the `company` object
-- Added `company.userPresenceIsRequired` to [company object](#the-company-object) and documentation for [Connect](#connect).
+- Added `company.userPresenceRequired` to [company object](#the-company-object) and documentation for [Connect](#connect).
