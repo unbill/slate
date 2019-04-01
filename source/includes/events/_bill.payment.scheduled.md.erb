@@ -7,44 +7,44 @@
 ```json
 {
    "event":{
-      "_id":"580e3e11dec21e861b5a3719",
-      "type":"bill.payment.scheduled",
-      "created":"2016-04-20T16:51:12Z",
-      "clientId":"579b695decfa110127118752",
-      "partnerId":"55942f330cfcfd6c4ed529d9",
-      "identifier":"example-id-123",
+      "_id": "580e3e11dec21e861b5a3719",
+      "type": "bill.payment.scheduled",
+      "created": "2016-04-20T16:51:12Z",
+      "clientId": "579b695decfa110127118752",
+      "partnerId": "55942f330cfcfd6c4ed529d9",
+      "identifier": "example-id-123",
       "payload":{
          "resource":{
-            "type":"bill",
-            "id":"579b695decfa11012711875d"
+            "type": "bill",
+            "id": "579b695decfa11012711875d"
          },
          "data":{
             "company":{
-               "name":"XYZ Electric"
+               "name": "XYZ Electric"
             },
             "paymentMethod":{
-               "_id":"5c5b2ed67d94870391c30b33",
-               "type":"card",
-               "name":"Johnny Appleseed",
-               "status":"verified",
+               "_id": "5c5b2ed67d94870391c30b33",
+               "type": "card",
+               "name": "Johnny Appleseed",
+               "status": "verified",
                "default":true,
                "card":{
-                  "number":"XXXX1111",
-                  "bin":"41111111",
-                  "brand":"visa",
-                  "type":"credit",
-                  "expDate":"2021-06-01T12:00:00.000Z",
+                  "number": "XXXX1111",
+                  "bin": "41111111",
+                  "brand": "visa",
+                  "type": "credit",
+                  "expDate": "2021-06-01T12:00:00.000Z",
                   "cancelled":false
                },
                "assignedBills":[
                   "5c5b2eba5ddb120427c41ba3"
                ]
             },
-            "amount":"95.21",
-            "payDate":"2019-03-28 17:00:00.000",
+            "amount": "95.21",
+            "payDate": "2019-03-28 17:00:00.000",
             "surcharge":{
-               "type":"debit",
-               "rate":"2.50"
+               "type": "debit",
+               "rate": "2.50"
             }
          }
       }
