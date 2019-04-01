@@ -2,8 +2,8 @@
 <blockquote>
 <p>Host
 <code>
-https://biller-direct.unbill.us (production)
-https://sb-biller-direct.unbill.us (sandbox)
+https://biller-direct.q2open.io (production)
+https://sb-biller-direct.q2open.io (sandbox)
 </code></p>
 </blockquote>
 
@@ -11,7 +11,7 @@ https://sb-biller-direct.unbill.us (sandbox)
 
 <p>Biller Direct is a card-enabled bill pay solution designed to dramatically improve the user experience and economic model of bill pay.</p>
 
-<p><a href="https://biller-direct.unbill.us">View demo</a></p>
+<p><a href="https://biller-direct.q2open.io">View demo</a></p>
 <h3 id='events'>Events</h3>
 <p>Biller Direct will emit events back to your app using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage">postMessage</a> API or <a href="https://developer.apple.com/documentation/webkit/wkscriptmessagehandler">WKScriptMessageHandler</a> on iOS, allowing you to decide what to do after the user is finished.</p>
 

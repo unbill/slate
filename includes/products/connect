@@ -2,8 +2,8 @@
 <blockquote>
 <p>Host
 <code>
-https://connect.unbill.us (production)
-https://sb-connect.unbill.us (sandbox)
+https://connect.q2open.io (production)
+https://sb-connect.q2open.io (sandbox)
 </code></p>
 </blockquote>
 
@@ -11,7 +11,7 @@ https://sb-connect.unbill.us (sandbox)
 
 <p>Connect is a drop-in module that provides a secure, elegant authentication flow for each company that the Q2 Biller Direct API supports. Connect makes it secure and easy for clients to link their accounts, while doing the heavy lifting for the authentication.</p>
 
-<p><a href="https://connect.unbill.us">View demo</a></p>
+<p><a href="https://connect.q2open.io">View demo</a></p>
 <h3 id='events'>Events</h3>
 <p>Connect will emit events back to your app using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage">postMessage</a> API or <a href="https://developer.apple.com/documentation/webkit/wkscriptmessagehandler">WKScriptMessageHandler</a> on iOS, allowing you to decide what to do after the user is finished.</p>
 

@@ -331,6 +331,9 @@
                     <a href="#bill-payment-sent" class="toc-h2 toc-link" data-title="Bill payment sent">Bill payment sent</a>
                   </li>
                   <li>
+                    <a href="#bill-payment-scheduled" class="toc-h2 toc-link" data-title="Bill payment scheduled">Bill payment scheduled</a>
+                  </li>
+                  <li>
                     <a href="#bill-payment-failed" class="toc-h2 toc-link" data-title="Bill payment failed">Bill payment failed</a>
                   </li>
                   <li>
@@ -341,6 +344,9 @@
           <li>
             <a href="#changelog" class="toc-h1 toc-link" data-title="Changelog">Changelog</a>
               <ul class="toc-list-h2">
+                  <li>
+                    <a href="#april-1st-2019" class="toc-h2 toc-link" data-title="April 1st, 2019">April 1st, 2019</a>
+                  </li>
                   <li>
                     <a href="#feb-21th-2019" class="toc-h2 toc-link" data-title="Feb 21th, 2019">Feb 21th, 2019</a>
                   </li>
@@ -361,8 +367,8 @@
 <blockquote>
 <p>API Host</p>
 </blockquote>
-<pre class="highlight plaintext"><code>https://api.unbill.co/v1 (production)
-https://sb.unbill.co/v1 (sandbox)
+<pre class="highlight plaintext"><code>https://api.q2open.io/v1 (production)
+https://sb-api.q2open.io/v1 (sandbox)
 </code></pre>
 <blockquote>
 <p>Resource URL Patterns</p>
@@ -375,7 +381,7 @@ https://sb.unbill.co/v1 (sandbox)
 </code></pre>
 <p>Welcome! The Q2 Biller Direct API allows developers to receive user-authorized bill data and make payments on behalf of a user.</p>
 
-<p>Here you will find information on how to integrate with and use the Q2 Biller Direct API. We&#39;ve tried to make this documentation user-friendly and example-filled, but please <a href="mailto:api@unbill.us">drop us a line</a> with any questions. If you&#39;re planning to use our API in production, you should take a look at our <a href="http://unbill.us/privacy.html">privacy policy</a>.</p>
+<p>Here you will find information on how to integrate with and use the Q2 Biller Direct API. We&#39;ve tried to make this documentation user-friendly and example-filled, but please <a href="mailto:api@unbill.us">drop us a line</a> with any questions.</p>
 
 <p>The Q2 Biller Direct API uses standard HTTP <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">verbs</a> to communicate and HTTP <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">response codes</a> to indicate status and errors. All responses come in standard <a href="http://www.json.org/">JSON</a>. The Q2 Biller Direct API is served over HTTPS to ensure data privacy, HTTP is not supported.</p>
 
@@ -445,7 +451,7 @@ https://sb.unbill.co/v1 (sandbox)
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>  curl <span class="s2">"https://api.unbill.co/v1/auth"</span>
+<pre class="highlight shell tab-shell"><code>  curl <span class="s2">"https://api.q2open.io/v1/auth"</span>
     -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span>
 </code></pre>
 <p>Authenticate your account when using the API by including your secret API key in the request. Your API keys carry many privileges, so be sure to keep them secret! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.</p>
@@ -495,7 +501,7 @@ https://sb.unbill.co/v1 (sandbox)
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/auth"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/auth"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -d <span class="s1">'{
@@ -557,7 +563,7 @@ https://sb.unbill.co/v1 (sandbox)
 
 <ol>
 <li>Create a one-time use token by making a call to the <code>/client/create-token</code> endpoint.</li>
-<li>SSO into the white-label product by passing in the token as a URL parameter. An example URL would look like this: <code>https://product.unbill.us?token=123</code>.</li>
+<li>SSO into the white-label product by passing in the token as a URL parameter. An example URL would look like this: <code>https://product.q2open.io?token=123</code>.</li>
 </ol>
 <h2 id='example-code'>Example Code</h2>
 <p>See our <a href="https://github.com/unbill/integration-examples">integration examples</a> for an example implementation in Swift and React Native.</p>
@@ -565,8 +571,8 @@ https://sb.unbill.co/v1 (sandbox)
 <blockquote>
 <p>Host
 <code>
-https://connect.unbill.us (production)
-https://sb-connect.unbill.us (sandbox)
+https://connect.q2open.io (production)
+https://sb-connect.q2open.io (sandbox)
 </code></p>
 </blockquote>
 
@@ -574,7 +580,7 @@ https://sb-connect.unbill.us (sandbox)
 
 <p>Connect is a drop-in module that provides a secure, elegant authentication flow for each company that the Q2 Biller Direct API supports. Connect makes it secure and easy for clients to link their accounts, while doing the heavy lifting for the authentication.</p>
 
-<p><a href="https://connect.unbill.us">View demo</a></p>
+<p><a href="https://connect.q2open.io">View demo</a></p>
 <h3 id='events'>Events</h3>
 <p>Connect will emit events back to your app using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage">postMessage</a> API or <a href="https://developer.apple.com/documentation/webkit/wkscriptmessagehandler">WKScriptMessageHandler</a> on iOS, allowing you to decide what to do after the user is finished.</p>
 
@@ -644,8 +650,8 @@ as indicated by the <code>company.userPresenceRequired</code> flag, there are a 
 <blockquote>
 <p>Host
 <code>
-https://cardswap.unbill.us (production)
-https://sb-cardswap.unbill.us (sandbox)
+https://cardswap.q2open.io (production)
+https://sb-cardswap.q2open.io (sandbox)
 </code></p>
 </blockquote>
 
@@ -653,13 +659,13 @@ https://sb-cardswap.unbill.us (sandbox)
 
 <p>Q2 CardSwap™ is the first switch kit for subscription and eCommerce merchants, allowing users to put your card top-of-wallet for their favorite services—all in one place.</p>
 
-<p><a href="https://cardswap.unbill.us">View demo</a></p>
+<p><a href="https://cardswap.q2open.io">View demo</a></p>
 <h2 id='biller-direct'>Biller Direct</h2>
 <blockquote>
 <p>Host
 <code>
-https://biller-direct.unbill.us (production)
-https://sb-biller-direct.unbill.us (sandbox)
+https://biller-direct.q2open.io (production)
+https://sb-biller-direct.q2open.io (sandbox)
 </code></p>
 </blockquote>
 
@@ -667,7 +673,7 @@ https://sb-biller-direct.unbill.us (sandbox)
 
 <p>Biller Direct is a card-enabled bill pay solution designed to dramatically improve the user experience and economic model of bill pay.</p>
 
-<p><a href="https://biller-direct.unbill.us">View demo</a></p>
+<p><a href="https://biller-direct.q2open.io">View demo</a></p>
 <h3 id='events'>Events</h3>
 <p>Biller Direct will emit events back to your app using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage">postMessage</a> API or <a href="https://developer.apple.com/documentation/webkit/wkscriptmessagehandler">WKScriptMessageHandler</a> on iOS, allowing you to decide what to do after the user is finished.</p>
 
@@ -752,7 +758,7 @@ https://sb-biller-direct.unbill.us (sandbox)
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/auth"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/auth"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -d <span class="s1">'{
@@ -772,7 +778,7 @@ https://sb-biller-direct.unbill.us (sandbox)
   </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h3 id='http-request'>HTTP Request</h3>
-<p><code>POST https://api.unbill.co/v1/auth</code></p>
+<p><code>POST https://api.q2open.io/v1/auth</code></p>
 <h3 id='arguments'>Arguments</h3>
 <table><thead>
 <tr>
@@ -803,7 +809,7 @@ https://sb-biller-direct.unbill.us (sandbox)
 <blockquote>
 <p>Example Request (Question Based MFA)</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/auth"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/auth"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -d <span class="s1">'{
@@ -817,7 +823,7 @@ https://sb-biller-direct.unbill.us (sandbox)
 <blockquote>
 <p>Example Request (Code Based MFA)</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/auth"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/auth"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -d <span class="s1">'{
@@ -833,7 +839,7 @@ https://sb-biller-direct.unbill.us (sandbox)
 
 <p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/credentials-mfa-view.png" alt="Credentials MFA View" /></p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>POST https://api.unbill.co/v1/auth/step</code></p>
+<p><code>POST https://api.q2open.io/v1/auth/step</code></p>
 <h3 id='arguments'>Arguments</h3>
 <table><thead>
 <tr>
@@ -927,7 +933,7 @@ https://sb-biller-direct.unbill.us (sandbox)
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/auth/list/566595c8ce88ccec69328566"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/auth/list/566595c8ce88ccec69328566"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -G
 </code></pre>
@@ -969,7 +975,7 @@ https://sb-biller-direct.unbill.us (sandbox)
 </span></code></pre>
 <p>Retrieves a list of client&#39;s auths.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET https://api.unbill.co/v1/auth/list/{clientId}</code></p>
+<p><code>GET https://api.q2open.io/v1/auth/list/{clientId}</code></p>
 <h3 id='arguments'>Arguments</h3>
 <table><thead>
 <tr>
@@ -988,7 +994,7 @@ https://sb-biller-direct.unbill.us (sandbox)
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/auth/566595c8ce88ccec69328566/fix-hold"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/auth/566595c8ce88ccec69328566/fix-hold"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -X POST
 </code></pre>
@@ -999,7 +1005,7 @@ https://sb-biller-direct.unbill.us (sandbox)
   </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h3 id='http-request'>HTTP Request</h3>
-<p><code>POST https://api.unbill.co/v1/auth/{authId}/fix-hold</code></p>
+<p><code>POST https://api.q2open.io/v1/auth/{authId}/fix-hold</code></p>
 <h3 id='arguments'>Arguments</h3>
 <table><thead>
 <tr>
@@ -1018,7 +1024,7 @@ https://sb-biller-direct.unbill.us (sandbox)
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/auth/{authId}/answer-questions"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/auth/{authId}/answer-questions"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -d <span class="s1">'{
@@ -1034,7 +1040,7 @@ https://sb-biller-direct.unbill.us (sandbox)
 </code></pre>
 <p>Accepts a list of answers to the questions presented when an auth has the <code>mfa-required</code> status.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>POST https://api.unbill.co/v1/auth/{authId}/answer-questions</code></p>
+<p><code>POST https://api.q2open.io/v1/auth/{authId}/answer-questions</code></p>
 <h3 id='arguments'>Arguments</h3>
 <table><thead>
 <tr>
@@ -1053,7 +1059,7 @@ https://sb-biller-direct.unbill.us (sandbox)
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/auth/566595c8ce88ccec69328566"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/auth/566595c8ce88ccec69328566"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -X DELETE
 </code></pre>
@@ -1066,7 +1072,7 @@ https://sb-biller-direct.unbill.us (sandbox)
 </span></code></pre>
 <p>Deletes an <code>auth</code> and all its <code>items</code> from the account.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>DELETE https://api.unbill.co/v1/auth/{authId}</code></p>
+<p><code>DELETE https://api.q2open.io/v1/auth/{authId}</code></p>
 <h3 id='arguments'>Arguments</h3>
 <table><thead>
 <tr>
@@ -1337,7 +1343,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/bill/566595c8ce88ccec69328566"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/bill/566595c8ce88ccec69328566"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -G
 </code></pre>
@@ -1408,7 +1414,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 
 <p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/detail.png" alt="Detail" /></p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET https://api.unbill.co/v1/bill/{billId}</code></p>
+<p><code>GET https://api.q2open.io/v1/bill/{billId}</code></p>
 <h3 id='arguments'>Arguments</h3>
 <table><thead>
 <tr>
@@ -1427,7 +1433,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>  curl https://api.unbill.co/v1/bill/list/579b695decfa11012711875d
+<pre class="highlight shell tab-shell"><code>  curl https://api.q2open.io/v1/bill/list/579b695decfa11012711875d
     -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span>
     -G 
 </code></pre>
@@ -1497,7 +1503,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 
 <p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/overview.png" alt="Overview" /></p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET https://api.unbill.co/v1/bill/list/{clientId}</code></p>
+<p><code>GET https://api.q2open.io/v1/bill/list/{clientId}</code></p>
 <h3 id='arguments'>Arguments</h3>
 <table><thead>
 <tr>
@@ -1785,7 +1791,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/company/categories"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/company/categories"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -G
 </code></pre>
@@ -1801,14 +1807,14 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 </span></code></pre>
 <p>Retrieve a list of company categories you can use to search for companies by category <code>type</code>.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET https://api.unbill.co/v1/company/categories</code></p>
+<p><code>GET https://api.q2open.io/v1/company/categories</code></p>
 <h3 id='returns'>Returns</h3>
 <p>A dictionary with a <code>data</code> property that contains an array of company categories.</p>
 <h2 id='retrieve-a-company'>Retrieve a company</h2>
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/company/566595c8ce88ccec69328566"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/company/566595c8ce88ccec69328566"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -G
 </code></pre>
@@ -1857,7 +1863,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 </span></code></pre>
 <p>Retrieves the company with the given ID.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET https://api.unbill.co/v1/company/{companyId}</code></p>
+<p><code>GET https://api.q2open.io/v1/company/{companyId}</code></p>
 <h3 id='arguments'>Arguments</h3>
 <table><thead>
 <tr>
@@ -1876,19 +1882,19 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <blockquote>
 <p>Example Requests</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/company/search"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/company/search"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -d <span class="s1">'{
     "query": "Netflix"
   }'</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/company/search"</span> <span class="se">\</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/company/search"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -d <span class="s1">'{
     "category": "gas"
   }'</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/company/search"</span> <span class="se">\</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/company/search"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -d <span class="s1">'{
@@ -1949,7 +1955,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 
 <p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/company-categories.png" alt="Company Categories" /></p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>POST https://api.unbill.co/v1/company/search</code></p>
+<p><code>POST https://api.q2open.io/v1/company/search</code></p>
 <h3 id='arguments'>Arguments</h3>
 <table><thead>
 <tr>
@@ -2127,7 +2133,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <blockquote>
 <p>Example Card Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/auth"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/auth"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -d <span class="s1">'{
@@ -2145,7 +2151,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <blockquote>
 <p>Example Bank Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/auth"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/auth"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -d <span class="s1">'{
@@ -2166,7 +2172,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 </span></code></pre>
 <p>Add a payment method to a user.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>POST https://api.unbill.co/v1/payment</code></p>
+<p><code>POST https://api.q2open.io/v1/payment</code></p>
 <h3 id='arguments'>Arguments</h3>
 <table><thead>
 <tr>
@@ -2229,7 +2235,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/payment/list/566595c8ce88ccec69328566"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/payment/list/566595c8ce88ccec69328566"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -G
 </code></pre>
@@ -2267,7 +2273,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 </span></code></pre>
 <p>Retrieve a list of payment methods on file for a client.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET https://api.unbill.co/v1/payment/list/{clientId}</code></p>
+<p><code>GET https://api.q2open.io/v1/payment/list/{clientId}</code></p>
 <h3 id='arguments'>Arguments</h3>
 <table><thead>
 <tr>
@@ -2286,7 +2292,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/payment/566595c8ce88ccec69328566"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/payment/566595c8ce88ccec69328566"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -X DELETE
 </code></pre>
@@ -2299,7 +2305,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 </span></code></pre>
 <p>Delete a payment method on file for bill payments. If a payment was made within the last 24 hours with this payment method, an error will be returned. Q2 requires a 24 hour time span after a payment has been made before a payment method can be deleted.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>DELETE https://api.unbill.co/v1/payment/{paymentMethodId}</code></p>
+<p><code>DELETE https://api.q2open.io/v1/payment/{paymentMethodId}</code></p>
 <h3 id='arguments'>Arguments</h3>
 <table><thead>
 <tr>
@@ -2318,7 +2324,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <blockquote>
 <p>Sample Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/payment/566595c8ce88ccec69328566/retry"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/payment/566595c8ce88ccec69328566/retry"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -X POST
 </code></pre>
@@ -2331,7 +2337,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 </span></code></pre>
 <p>Retry a <code>declined</code> payment method on file for bill payments.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>POST https://api.unbill.co/v1/payment/{paymentMethodId}/retry</code></p>
+<p><code>POST https://api.q2open.io/v1/payment/{paymentMethodId}/retry</code></p>
 <h3 id='arguments'>Arguments</h3>
 <table><thead>
 <tr>
@@ -2350,7 +2356,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/payment/566595c8ce88ccec69328566/assign"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/payment/566595c8ce88ccec69328566/assign"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -d <span class="s1">'{
@@ -2367,7 +2373,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 </span></code></pre>
 <p>Assign a linked payment method to pay a specific bill. This is required when a company&#39;s <code>requiredPayment</code> is defined as <code>card</code> or <code>bank</code>.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>POST https://api.unbill.co/v1/payment/{paymentMethodId}/assign</code></p>
+<p><code>POST https://api.q2open.io/v1/payment/{paymentMethodId}/assign</code></p>
 <h3 id='arguments'>Arguments</h3>
 <table><thead>
 <tr>
@@ -2390,7 +2396,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/payment/settings"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/payment/settings"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -d <span class="s1">'{
@@ -2408,7 +2414,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 
 <p>Some subscription companies, such as Netflix, Hulu, and Spotify require recurring payments to be enabled. If a request to the <code>/payment/settings</code> endpoint is made for one of these companies, an error will be returned and recurring payments will not be disabled.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>POST https://api.unbill.co/v1/payment/settings</code></p>
+<p><code>POST https://api.q2open.io/v1/payment/settings</code></p>
 <h3 id='arguments'>Arguments</h3>
 <table><thead>
 <tr>
@@ -2435,7 +2441,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/payment/schedule"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/payment/schedule"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -d <span class="s1">'{
@@ -2457,7 +2463,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 </span></code></pre>
 <p>Schedule an on-demand payment towards a bill&#39;s outstanding balance.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>POST https://api.unbill.co/v1/payment/schedule</code></p>
+<p><code>POST https://api.q2open.io/v1/payment/schedule</code></p>
 <h3 id='arguments'>Arguments</h3>
 <table><thead>
 <tr>
@@ -2480,7 +2486,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/payment/cancel"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/payment/cancel"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -d <span class="s1">'{
@@ -2499,7 +2505,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 </span></code></pre>
 <p>Cancel a scheduled payment for a bill.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>POST https://api.unbill.co/v1/payment/cancel</code></p>
+<p><code>POST https://api.q2open.io/v1/payment/cancel</code></p>
 <h3 id='arguments'>Arguments</h3>
 <table><thead>
 <tr>
@@ -2520,7 +2526,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/client"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/client"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -d <span class="s1">'{
@@ -2549,7 +2555,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 
 <p>If a client already exists with the same <code>identifier</code> sent, then the existing <code>clientId</code> will be returned.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>POST https://api.unbill.co/v1/client</code></p>
+<p><code>POST https://api.q2open.io/v1/client</code></p>
 <h3 id='arguments'>Arguments</h3>
 <table><thead>
 <tr>
@@ -2572,7 +2578,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/client/create-token"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/client/create-token"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -d <span class="s1">'{
@@ -2602,7 +2608,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 
 <p>When creating subsequent tokens for an existing <code>client</code>, be sure to use the same <code>identifier</code> value. If a client already exists with this <code>identifier</code>, then any actions taken within the context of a <a href="#products">Product</a>. will be linked to that client.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>POST https://api.unbill.co/v1/client/create-token</code></p>
+<p><code>POST https://api.q2open.io/v1/client/create-token</code></p>
 <h3 id='arguments'>Arguments</h3>
 <table><thead>
 <tr>
@@ -2723,7 +2729,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/auth"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/auth"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -d <span class="s1">'{
@@ -2731,7 +2737,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
     "paymentMethodId": "5b4cdade36c0c10108a57405"
   }'</span>
 </code></pre><h3 id='http-request'>HTTP Request</h3>
-<p><code>POST https://api.unbill.co/v1/swap</code></p>
+<p><code>POST https://api.q2open.io/v1/swap</code></p>
 <h3 id='arguments'>Arguments</h3>
 <table><thead>
 <tr>
@@ -2754,7 +2760,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/swap/companies"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/swap/companies"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -G
 </code></pre>
@@ -2806,14 +2812,14 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 </span></code></pre>
 <p>Retrieve a list of companies that support swaps.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET https://api.unbill.co/v1/swap/companies</code></p>
+<p><code>GET https://api.q2open.io/v1/swap/companies</code></p>
 <h3 id='returns'>Returns</h3>
 <p>A dictionary with a <code>data</code> property that contains an array of <a href="#the-company-object">company objects</a> that support swaps.</p>
 <h2 id='list-all-swaps'>List all swaps</h2>
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.unbill.co/v1/swap/list/566595c8ce88ccec69328566"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/swap/list/566595c8ce88ccec69328566"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -G
 </code></pre>
@@ -2861,7 +2867,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 </span></code></pre>
 <p>Retrieves a list of client&#39;s swaps.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET https://api.unbill.co/v1/swap/list/{clientId}</code></p>
+<p><code>GET https://api.q2open.io/v1/swap/list/{clientId}</code></p>
 <h3 id='arguments'>Arguments</h3>
 <table><thead>
 <tr>
@@ -3265,20 +3271,36 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <p>Example <code>bill.created</code> Event</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill.created"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">      
-    </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-id-123"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="w">
+   </span><span class="s2">"event"</span><span class="p">:{</span><span class="w">
+      </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill.created"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-id-123"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"payload"</span><span class="p">:{</span><span class="w">
+         </span><span class="s2">"resource"</span><span class="p">:{</span><span class="w">
+            </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="s2">"data"</span><span class="p">:{</span><span class="w">
+            </span><span class="s2">"auth"</span><span class="p">:{</span><span class="w">
+               </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"status"</span><span class="p">:{</span><span class="w">
+                  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="w">
+               </span><span class="p">},</span><span class="w">
+               </span><span class="s2">"company"</span><span class="p">:{</span><span class="w">
+                  </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XYZ Electric"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"logo"</span><span class="p">:{</span><span class="w">
+                     </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+                     </span><span class="s2">"background"</span><span class="p">:</span><span class="kc">false</span><span class="w">
+                  </span><span class="p">}</span><span class="w">
+               </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+         </span><span class="p">}</span><span class="w">
       </span><span class="p">}</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>When a bill is found on an associated auth.</p>
@@ -3292,6 +3314,10 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <tr>
 <td><code>type</code></td>
 <td><code>bill.created</code></td>
+</tr>
+<tr>
+<td><code>payload.data.auth</code></td>
+<td>The <a href="#the-auth-object">auth object</a> linked to the bill.</td>
 </tr>
 </tbody></table>
 <h2 id='bill-update'>Bill update</h2>
@@ -3373,6 +3399,24 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
           </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25.21"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"paymentMethod"</span><span class="p">:{</span><span class="w">
+            </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c5b2ed67d94870391c30b33"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Johnny Appleseed"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"default"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"card"</span><span class="p">:{</span><span class="w">
+              </span><span class="s2">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX1111"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"bin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"41111111"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"visa"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"credit"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"expDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-01T12:00:00.000Z"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"cancelled"</span><span class="p">:</span><span class="kc">false</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"assignedBills"</span><span class="p">:[</span><span class="w">
+              </span><span class="s2">"5c5b2eba5ddb120427c41ba3"</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">},</span><span class="w">        
         </span><span class="s2">"surcharge"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"debit"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"rate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.50"</span><span class="w">
@@ -3399,8 +3443,103 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <td>The <a href="#the-company-object">company object</a> linked to this resource.</td>
 </tr>
 <tr>
+<td><code>payload.data.paymentMethod</code></td>
+<td>The <a href="#the-payment-method-object">payment method object</a> linked to the payment.</td>
+</tr>
+<tr>
 <td><code>payload.data.amount</code></td>
 <td>The amount sent to the company.</td>
+</tr>
+<tr>
+<td><code>payload.data.surcharge</code></td>
+<td>The surcharge required by the company to process the payment.</td>
+</tr>
+<tr>
+<td><code>payload.data.surcharge.type</code></td>
+<td>The type of surcharge required. Possible values are <code>credit</code>, <code>debit</code>, or <code>ach</code>.</td>
+</tr>
+<tr>
+<td><code>payload.data.surcharge.rate</code></td>
+<td>The fee amount the company requires to process the payment.</td>
+</tr>
+</tbody></table>
+<h2 id='bill-payment-scheduled'>Bill payment scheduled</h2>
+<blockquote>
+<p>Example <code>bill.payment.scheduled</code> Event</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+   </span><span class="s2">"event"</span><span class="p">:{</span><span class="w">
+      </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill.payment.scheduled"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-id-123"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"payload"</span><span class="p">:{</span><span class="w">
+         </span><span class="s2">"resource"</span><span class="p">:{</span><span class="w">
+            </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="s2">"data"</span><span class="p">:{</span><span class="w">
+            </span><span class="s2">"company"</span><span class="p">:{</span><span class="w">
+               </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XYZ Electric"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"paymentMethod"</span><span class="p">:{</span><span class="w">
+               </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c5b2ed67d94870391c30b33"</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card"</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Johnny Appleseed"</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"default"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"card"</span><span class="p">:{</span><span class="w">
+                  </span><span class="s2">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX1111"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"bin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"41111111"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"visa"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"credit"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"expDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-01T12:00:00.000Z"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"cancelled"</span><span class="p">:</span><span class="kc">false</span><span class="w">
+               </span><span class="p">},</span><span class="w">
+               </span><span class="s2">"assignedBills"</span><span class="p">:[</span><span class="w">
+                  </span><span class="s2">"5c5b2eba5ddb120427c41ba3"</span><span class="w">
+               </span><span class="p">]</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"95.21"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"payDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-03-28 17:00:00.000"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"surcharge"</span><span class="p">:{</span><span class="w">
+               </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"debit"</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"rate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.50"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>When a payment is made towards a bill&#39;s outstanding balance. Note that the <code>payload.data.surcharge</code> may not be available when a company does not require it.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>type</code></td>
+<td><code>bill.payment.sent</code></td>
+</tr>
+<tr>
+<td><code>payload.data.company</code></td>
+<td>The <a href="#the-company-object">company object</a> linked to this resource.</td>
+</tr>
+<tr>
+<td><code>payload.data.amount</code></td>
+<td>The amount sent to the company.</td>
+</tr>
+<tr>
+<td><code>payload.data.payDate</code></td>
+<td>The date the bill should be paid.</td>
+</tr>
+<tr>
+<td><code>payload.data.paymentMethod</code></td>
+<td>The <a href="#the-payment-method-object">payment method object</a> linked to the payment.</td>
 </tr>
 <tr>
 <td><code>payload.data.surcharge</code></td>
@@ -3436,7 +3575,25 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
         </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25.21"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"paymentMethod"</span><span class="p">:{</span><span class="w">
+            </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c5b2ed67d94870391c30b33"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Johnny Appleseed"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"default"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"card"</span><span class="p">:{</span><span class="w">
+              </span><span class="s2">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX1111"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"bin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"41111111"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"visa"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"credit"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"expDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-01T12:00:00.000Z"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"cancelled"</span><span class="p">:</span><span class="kc">false</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"assignedBills"</span><span class="p">:[</span><span class="w">
+              </span><span class="s2">"5c5b2eba5ddb120427c41ba3"</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">        
       </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
@@ -3457,6 +3614,10 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <tr>
 <td><code>payload.data.company</code></td>
 <td>The <a href="#the-company-object">company object</a> linked to this resource.</td>
+</tr>
+<tr>
+<td><code>payload.data.paymentMethod</code></td>
+<td>The <a href="#the-payment-method-object">payment method object</a> linked to the payment.</td>
 </tr>
 <tr>
 <td><code>payload.data.amount</code></td>
@@ -3503,7 +3664,14 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <td>The clientId linked to the swap.</td>
 </tr>
 </tbody></table>
-<h1 id='changelog'>Changelog</h1><h3 id='feb-21th-2019'>Feb 21th, 2019</h3>
+<h1 id='changelog'>Changelog</h1><h3 id='april-1st-2019'>April 1st, 2019</h3>
+<ul>
+<li>Added <code>auth</code> object to the <code>bill.created</code> event.</li>
+<li>Added the payment method object to all bill payment events.</li>
+<li>Added <a href="#bill-payment-scheduled">Bill payment scheduled event</a>.</li>
+<li>Changed API endpoints to use the <code>q2open.io</code> URL instead of <code>unbill.us</code>.</li>
+</ul>
+<h3 id='feb-21th-2019'>Feb 21th, 2019</h3>
 <ul>
 <li>Added the client <code>identifier</code> to the event object.</li>
 </ul>
