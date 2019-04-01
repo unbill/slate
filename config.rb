@@ -64,7 +64,7 @@ config.mpToken = '16aa17c5de12dd4ba07edc5c4fb73ddf'; # Prod
 # Api Configuration
 config.brand = 'Q2'
 config.apiName = 'Q2 Biller Direct API'
-config.host = 'https://api.unbill.co/v1'
+config.host = 'https://api.q2open.io/v1'
 config.auth = 'Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e'
 config.billerName = 'Netflix'
 config.billerLogo = 'https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png'
