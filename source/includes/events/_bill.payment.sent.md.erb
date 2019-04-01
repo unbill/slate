@@ -23,6 +23,24 @@
           "name": "Netflix"
         },
         "amount": "25.21",
+        "paymentMethod":{
+            "_id":"5c5b2ed67d94870391c30b33",
+            "type":"card",
+            "name":"Johnny Appleseed",
+            "status":"verified",
+            "default":true,
+            "card":{
+              "number":"XXXX1111",
+              "bin":"41111111",
+              "brand":"visa",
+              "type":"credit",
+              "expDate":"2021-06-01T12:00:00.000Z",
+              "cancelled":false
+            },
+            "assignedBills":[
+              "5c5b2eba5ddb120427c41ba3"
+            ]
+        },        
         "surcharge": {
           "type": "debit",
           "rate": "2.50"
@@ -39,6 +57,7 @@ Attribute | Description
 --------- | -----------
 `type` | `bill.payment.sent`
 `payload.data.company` | The [company object](#the-company-object) linked to this resource.
+`payload.data.paymentMethod` | The [payment method object](#the-payment-method-object) linked to the payment.
 `payload.data.amount` | The amount sent to the company.
 `payload.data.surcharge` | The surcharge required by the company to process the payment.
 `payload.data.surcharge.type` | The type of surcharge required. Possible values are `credit`, `debit`, or `ach`.
