@@ -3,7 +3,7 @@
 > Example Card Request
 
 ```shell
-curl "<%= config.host %>/auth" \
+curl "<%= config.host %>/payment" \
   -H "<%= config.auth %>" \
   -H "Content-Type: application/json" \
   -d '{
@@ -22,7 +22,7 @@ curl "<%= config.host %>/auth" \
 > Example Bank Request
 
 ```shell
-curl "<%= config.host %>/auth" \
+curl "<%= config.host %>/payment" \
   -H "<%= config.auth %>" \
   -H "Content-Type: application/json" \
   -d '{
