@@ -88,7 +88,7 @@ config.companyResponseDescription = [
   '`logo.svg.url` | URL of the company svg logo.',
   '`logo.svg.color` | Hex color of the company logo.',
   '`requiredPayment` | If a specific payment method type is required by this company, this will be defined. Possible values are `bank`, `card`.',
-  '`userPresenceRequired` | If the biller require that the user is present to pass through any [MFA](#auth-mfa) flows. See best practices in the [Connect](#connect) documentation.',
+  '`userPresenceRequired` | If the company requires that the user is present to pass through any security flows. See best practices in the [Connect](#connect) documentation.',
   '`schedule` | The [bill payment schedule](#bill-payment-schedule) this company follows. If this parameter is set, the schedule for a bill linked to this company may not be changed. Typically subscription companies such as Netflix have this parameter set since payments must be made on a specific date.',
   '`fees` | The surcharge object. Possible child objects are `ach`, `cards`',
   '`fees.ach` | Present when the company applies surcharges to ACH payments.',
