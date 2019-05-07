@@ -1,0 +1,31 @@
+# Changelog
+
+### May 7th, 2019
+- Removed authentication endpoints in favor of the [Connect](#connect) component.
+- Added `identifier` to [payment method object](#the-payment-method-object).
+- Added [payment method object](#the-payment-method-object) and [company object](#the-company-object) to the [swap.success](#swap-success) event.
+
+### April 1st, 2019
+- Added `auth` object to the `bill.created` event.
+- Added the payment method object to all bill payment events.
+- Added [Bill payment scheduled event](#bill-payment-scheduled).
+- Changed API endpoints to use the `q2open.io` URL instead of `unbill.us`.
+
+### Feb 21th, 2019
+- Added the client `identifier` to the event object.
+
+### Feb 14th, 2019
+- Corrected documentation regarding `company.userPresenceRequired`
+- Added support for `billId` as a URL parameter to Connect & Biller Direct.
+- Added `partnerId` and `clientId` to event objects.
+- Added information regarding [RSA encryption](#rsa-encryption).
+- Added clarification regarding [Client](#client) and [Client Token](#create-token) creation on subsequent calls, when the `client` already exists.
+- Added information regarding Sandbox limitations.
+
+
+### Jan 29th, 2019
+- Correction made to the Connect product events. The `close` event should have been documented as `exit`.
+- Added documentation regarding our integration examples repository.
+- Added `testswap` to the list of valid testing credentials.
+- Added Company payment fees to the `company` object
+- Added `company.userPresenceRequired` to [company object](#the-company-object) and documentation for [Connect](#connect).

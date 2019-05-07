@@ -3,12 +3,13 @@
 > Example Card Request
 
 ```shell
-curl "<%= config.host %>/auth" \
+curl "<%= config.host %>/payment" \
   -H "<%= config.auth %>" \
   -H "Content-Type: application/json" \
   -d '{
     "clientId": "56e1ddbd1a05319bc198d36f",
     "paymentType": "card",
+    "identifier": "optional_custom_identifier",
     "cardNumber": "378282246310005",
     "cardCode": "218",
     "expMonth": "10",
@@ -22,12 +23,13 @@ curl "<%= config.host %>/auth" \
 > Example Bank Request
 
 ```shell
-curl "<%= config.host %>/auth" \
+curl "<%= config.host %>/payment" \
   -H "<%= config.auth %>" \
   -H "Content-Type: application/json" \
   -d '{
     "clientId": "56e1ddbd1a05319bc198d36f",
     "paymentType": "bank",
+    "identifier": "optional_custom_identifier",
     "routingNumber": "021000021",
     "accountNumber": "9900000002",
     "accountType": "checking",
@@ -55,6 +57,7 @@ Parameter | Description
 ----- | -----------
 `clientId` | ID of the client to add a payment method to.
 `paymentType` | Type of payment. Possible values are `card`, `bank`.
+`identifier` | Optional custom identifier for external system correlation.
 `cardNumber` | Credit card number.
 `cardCode` | Credit card CVV.
 `expMonth` | Credit card expiration month formatted as `XX`.

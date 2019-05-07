@@ -2,15 +2,15 @@
 
 > Host
 ```
-https://connect.unbill.us (production)
-https://sb-connect.unbill.us (sandbox)
+https://connect.q2open.io (production)
+https://sb-connect.q2open.io (sandbox)
 ```
 
 ![Connect](https://www.q2ebanking.com/img/pages/q2_open/q2-biller-direct/biller-direct_add-bills.gif)
 
-Connect is a drop-in module that provides a secure, elegant authentication flow for each company that the <%= config.apiName %> supports. Connect makes it secure and easy for clients to link their accounts, while doing the heavy lifting for the authentication.
+Connect is a drop-in module that provides a secure, elegant authentication flow for each company that the <%= config.apiName %> supports. Connect makes it secure and easy for [clients](#client) to link their accounts, while doing the heavy lifting for the authentication.
 
-[View demo](https://connect.unbill.us)
+[View demo](https://connect.q2open.io)
 
 ### Events
 
@@ -19,8 +19,21 @@ Connect will emit events back to your app using the [postMessage](https://develo
 Event | Description
 ----- | -----------
 `auth` | The user successfully authenticated with a company.
-`close` | The user closed the module without completing an authentication.
+`exit` | The user exited the module without completing an authentication.
 `alive` | Emitted every 30 seconds to indicate that the user is not idle.
+
+### userPresenceRequired
+
+If the company requires that the user is present to pass through any security flows with every login,
+as indicated by the `company.userPresenceRequired` flag, there are a number of constraints to consider when designing your user experience:
+
+- Bill data cannot be updated ad-hoc without the user first passing through security.
+- Payments must be completed in real-time (not scheduled) since the user must be present.
+- Likewise, Swaps must also be completed in real-time with the user present.
+
+Instead of calling the typical API routes, you'll need to open Connect to perform these actions immediately after a successful authentication. The user won't need
+ to re-enter their username and password, but may need to step through security. Using the `billId`, `items`, and `paymentMethodId` URL parameters as 
+ documented below, you'll be able to make payments in real-time, while allowing users the liberty of maintaining their approach to account security.
 
 ### URL parameters
 
@@ -29,8 +42,8 @@ The following URL parameters can be optionally passed into the Connect URL to cu
 Parameter | Description
 ----- | -----------
 `companyId` | Deeplink to a specific `companyId`, skipping the search screen.
+`billId` | Can be used in conjunction with `paymentMethodId` to perform a real-time payment when `company.userPresenceRequired` is `true`.
 `cardPaymentsOnly` | Limit searches to companies that support card-based payments.
-`items` | *CardSwap only:* Can be set to `swap` to automatically create a [Swap](#swap) once an authentication is successful.
-`paymentMethodId` | *CardSwap only:* Sets a previously added payment method to be used for a swap once an authentication is successful.
-
+`items` | Indicates the next desired action once an authentication is successful. Set to `swap` to automatically create a [Swap](#swap). Set to `bill` to update bill data. Set to `payment` to make a payment towards the balance.. 
+`paymentMethodId` | Sets a previously added payment method to be used for a `swap` or `payment` once an authentication is successful.
 

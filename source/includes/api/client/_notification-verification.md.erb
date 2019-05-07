@@ -1,8 +1,0 @@
-## Notification method verification
-
-Adding a new notification method requires a verification process as outlined below.
-
-  1. Make a request to `/client/notification/request-code` to send a verification code to a specified `destination`.
-  2. Make a request to `/client/notification/verify-code` to verify the user has received the code sent to `destination`.
-
-If `/client/notification/verify-code` responds with a `200` status then the verification process has been complete and the notification method has been linked to the client.

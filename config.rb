@@ -64,7 +64,7 @@ config.mpToken = '16aa17c5de12dd4ba07edc5c4fb73ddf'; # Prod
 # Api Configuration
 config.brand = 'Q2'
 config.apiName = 'Q2 Biller Direct API'
-config.host = 'https://api.unbill.co/v1'
+config.host = 'https://api.q2open.io/v1'
 config.auth = 'Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e'
 config.billerName = 'Netflix'
 config.billerLogo = 'https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png'
@@ -88,7 +88,16 @@ config.companyResponseDescription = [
   '`logo.svg.url` | URL of the company svg logo.',
   '`logo.svg.color` | Hex color of the company logo.',
   '`requiredPayment` | If a specific payment method type is required by this company, this will be defined. Possible values are `bank`, `card`.',
+  '`userPresenceRequired` | If the company requires that the user is present to pass through any security flows. See best practices in the [Connect](#connect) documentation.',
   '`schedule` | The [bill payment schedule](#bill-payment-schedule) this company follows. If this parameter is set, the schedule for a bill linked to this company may not be changed. Typically subscription companies such as Netflix have this parameter set since payments must be made on a specific date.',
+  '`fees` | The surcharge object. Possible child objects are `ach`, `cards`',
+  '`fees.ach` | Present when the company applies surcharges to ACH payments.',
+  '`fees.ach.percentage` | If the ACH surcharge is a percentage of the payment amount.',  
+  '`fees.ach.rate` | Either a dollar amount or a percentage amount.',
+  '`fees.cards` | Present when the company applies surcharges to card payments. Possible child objects are `american express`, `discover`, `mastercard`, and `visa`, referred to below as `{cardBrand}`. See example `company` response.',
+  '`fees.cards.{cardBrand}` | Possible child objects are `credit` or `debit`, referred to below as `{cardType}`.',
+  '`fees.cards.{cardBrand}.{cardType}.percentage` | If the surcharge is a percentage of the payment amount.',  
+  '`fees.cards.{cardBrand}.{cardType}.rate` | Either a dollar amount or a percentage amount.',  
   '`auth` | Company auth fields.',
   '`auth.urls` | Company Auth Urls (login URL is always available, but the others can by null).',
   '`auth.urls.login` | Login URL.',
