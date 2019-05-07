@@ -6,6 +6,7 @@
 {
   "_id": "580e3e11dec21e861b5a3719",
   "type": "card",
+  "identifier": "optional_custom_identifier",
   "status": "verified",
   "default": true,
   "card": {
@@ -22,6 +23,7 @@ Attribute | Description
 --------- | -----------
 `_id` | ID of the payment method.
 `type` | The type of the payment method on file. Possible values are `card`, `bank`.
+`identifier` | Optional custom identifier for external system correlation.
 `status` | The status of the payment method on file. Possible values are `verified`, `declined`.
 `default` | If this is the default payment method. Default means that it will pay any bills not specifically assigned a payment method.
 `assignedBills` | A list of bill ID's this payment method was specifically assigned to.
