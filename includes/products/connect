@@ -9,7 +9,7 @@ https://sb-connect.q2open.io (sandbox)
 
 <p><img src="https://www.q2ebanking.com/img/pages/q2_open/q2-biller-direct/biller-direct_add-bills.gif" alt="Connect" /></p>
 
-<p>Connect is a drop-in module that provides a secure, elegant authentication flow for each company that the Q2 Biller Direct API supports. Connect makes it secure and easy for clients to link their accounts, while doing the heavy lifting for the authentication.</p>
+<p>Connect is a drop-in module that provides a secure, elegant authentication flow for each company that the Q2 Biller Direct API supports. Connect makes it secure and easy for <a href="#client">clients</a> to link their accounts, while doing the heavy lifting for the authentication.</p>
 
 <p><a href="https://connect.q2open.io">View demo</a></p>
 <h3 id='events'>Events</h3>
@@ -35,17 +35,17 @@ https://sb-connect.q2open.io (sandbox)
 </tr>
 </tbody></table>
 <h3 id='userpresencerequired'>userPresenceRequired</h3>
-<p>If the biller requires that the user is present to pass through any <a href="#auth-mfa">MFA</a> flows with every login,
+<p>If the company requires that the user is present to pass through any security flows with every login,
 as indicated by the <code>company.userPresenceRequired</code> flag, there are a number of constraints to consider when designing your user experience:</p>
 
 <ul>
-<li>Bill data cannot be updated ad-hoc without the user first passing through MFA.</li>
+<li>Bill data cannot be updated ad-hoc without the user first passing through security.</li>
 <li>Payments must be completed in real-time (not scheduled) since the user must be present.</li>
 <li>Likewise, Swaps must also be completed in real-time with the user present.</li>
 </ul>
 
 <p>Instead of calling the typical API routes, you&#39;ll need to open Connect to perform these actions immediately after a successful authentication. The user won&#39;t need
- to re-enter their username and password, but may need to step through MFA. Using the <code>billId</code>, <code>items</code>, and <code>paymentMethodId</code> URL parameters as 
+ to re-enter their username and password, but may need to step through security. Using the <code>billId</code>, <code>items</code>, and <code>paymentMethodId</code> URL parameters as 
  documented below, you&#39;ll be able to make payments in real-time, while allowing users the liberty of maintaining their approach to account security.</p>
 <h3 id='url-parameters'>URL parameters</h3>
 <p>The following URL parameters can be optionally passed into the Connect URL to customize the experience.</p>

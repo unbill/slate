@@ -163,12 +163,6 @@
                     <a href="#the-auth-object" class="toc-h2 toc-link" data-title="The auth object">The auth object</a>
                   </li>
                   <li>
-                    <a href="#add-an-auth" class="toc-h2 toc-link" data-title="Add an auth">Add an auth</a>
-                  </li>
-                  <li>
-                    <a href="#auth-mfa" class="toc-h2 toc-link" data-title="Auth MFA">Auth MFA</a>
-                  </li>
-                  <li>
                     <a href="#auth-status" class="toc-h2 toc-link" data-title="Auth status">Auth status</a>
                   </li>
                   <li>
@@ -310,12 +304,6 @@
                     <a href="#auth-success" class="toc-h2 toc-link" data-title="Auth success">Auth success</a>
                   </li>
                   <li>
-                    <a href="#auth-mfa-required" class="toc-h2 toc-link" data-title="Auth MFA required">Auth MFA required</a>
-                  </li>
-                  <li>
-                    <a href="#auth-failed" class="toc-h2 toc-link" data-title="Auth failed">Auth failed</a>
-                  </li>
-                  <li>
                     <a href="#auth-invalid" class="toc-h2 toc-link" data-title="Auth invalid">Auth invalid</a>
                   </li>
                   <li>
@@ -344,6 +332,9 @@
           <li>
             <a href="#changelog" class="toc-h1 toc-link" data-title="Changelog">Changelog</a>
               <ul class="toc-list-h2">
+                  <li>
+                    <a href="#may-7th-2019" class="toc-h2 toc-link" data-title="May 7th, 2019">May 7th, 2019</a>
+                  </li>
                   <li>
                     <a href="#april-1st-2019" class="toc-h2 toc-link" data-title="April 1st, 2019">April 1st, 2019</a>
                   </li>
@@ -428,6 +419,10 @@ https://sb-api.q2open.io/v1 (sandbox)
 <td>Test an authentication requiring code-based MFA.</td>
 </tr>
 <tr>
+<td><code>testmfaprompt</code></td>
+<td>Test an authentication requiring prompt-based MFA.</td>
+</tr>
+<tr>
 <td><code>testpaymentfail</code></td>
 <td>Test a payment failure.</td>
 </tr>
@@ -451,7 +446,7 @@ https://sb-api.q2open.io/v1 (sandbox)
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>  curl <span class="s2">"https://api.q2open.io/v1/auth"</span>
+<pre class="highlight shell tab-shell"><code>  curl <span class="s2">"https://api.q2open.io/v1/bill/list/579b695decfa11012711875d"</span>
     -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span>
 </code></pre>
 <p>Authenticate your account when using the API by including your secret API key in the request. Your API keys carry many privileges, so be sure to keep them secret! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.</p>
@@ -498,21 +493,6 @@ https://sb-api.q2open.io/v1 (sandbox)
 <h2 id='request-ids'>Request IDs</h2>
 <p>Each API request has an associated request identifier. You can find this value in the response headers, under <code>request-id</code>. If you need to contact us about a specific request, providing the request identifier will ensure the fastest possible resolution.</p>
 <h2 id='getting-started'>Getting Started</h2>
-<blockquote>
-<p>Example Request</p>
-</blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/auth"</span> <span class="se">\</span>
-  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
-  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-  -d <span class="s1">'{
-    "clientId": "566595c8ce88ccec69328566",
-    "companyId": "56e1dbb5443b10a3bd403fcf",
-    "form": {
-      "username": "Johnny",
-      "password": "Appleseed"
-    }
-  }'</span>
-</code></pre>
 <p>To authenticate bills with your users, you may use the following flow.</p>
 <h3 id='user-creation'>User Creation</h3>
 <ol>
@@ -521,10 +501,7 @@ https://sb-api.q2open.io/v1 (sandbox)
 </ol>
 <h3 id='authentication'>Authentication</h3>
 <ol>
-<li>Search for the company you&#39;d like to add from the <code>/company/search</code> endpoint.</li>
-<li>Provide your user with a &quot;bill authentication&quot; view populated with the login fields retrieved from the desired company.</li>
-<li>Have your user fill out their credentials, and then send those credentials to the <code>/auth</code> endpoint.</li>
-<li>Q2 will begin the authentication process and respond with <a href="#event">events</a>.</li>
+<li>Link accounts by integrating the <a href="#connect">Connect</a> product into your application.</li>
 </ol>
 <h3 id='bills'>Bills</h3>
 <ol>
@@ -578,7 +555,7 @@ https://sb-connect.q2open.io (sandbox)
 
 <p><img src="https://www.q2ebanking.com/img/pages/q2_open/q2-biller-direct/biller-direct_add-bills.gif" alt="Connect" /></p>
 
-<p>Connect is a drop-in module that provides a secure, elegant authentication flow for each company that the Q2 Biller Direct API supports. Connect makes it secure and easy for clients to link their accounts, while doing the heavy lifting for the authentication.</p>
+<p>Connect is a drop-in module that provides a secure, elegant authentication flow for each company that the Q2 Biller Direct API supports. Connect makes it secure and easy for <a href="#client">clients</a> to link their accounts, while doing the heavy lifting for the authentication.</p>
 
 <p><a href="https://connect.q2open.io">View demo</a></p>
 <h3 id='events'>Events</h3>
@@ -604,17 +581,17 @@ https://sb-connect.q2open.io (sandbox)
 </tr>
 </tbody></table>
 <h3 id='userpresencerequired'>userPresenceRequired</h3>
-<p>If the biller requires that the user is present to pass through any <a href="#auth-mfa">MFA</a> flows with every login,
+<p>If the company requires that the user is present to pass through any security flows with every login,
 as indicated by the <code>company.userPresenceRequired</code> flag, there are a number of constraints to consider when designing your user experience:</p>
 
 <ul>
-<li>Bill data cannot be updated ad-hoc without the user first passing through MFA.</li>
+<li>Bill data cannot be updated ad-hoc without the user first passing through security.</li>
 <li>Payments must be completed in real-time (not scheduled) since the user must be present.</li>
 <li>Likewise, Swaps must also be completed in real-time with the user present.</li>
 </ul>
 
 <p>Instead of calling the typical API routes, you&#39;ll need to open Connect to perform these actions immediately after a successful authentication. The user won&#39;t need
- to re-enter their username and password, but may need to step through MFA. Using the <code>billId</code>, <code>items</code>, and <code>paymentMethodId</code> URL parameters as 
+ to re-enter their username and password, but may need to step through security. Using the <code>billId</code>, <code>items</code>, and <code>paymentMethodId</code> URL parameters as 
  documented below, you&#39;ll be able to make payments in real-time, while allowing users the liberty of maintaining their approach to account security.</p>
 <h3 id='url-parameters'>URL parameters</h3>
 <p>The following URL parameters can be optionally passed into the Connect URL to customize the experience.</p>
@@ -714,7 +691,9 @@ https://sb-biller-direct.q2open.io (sandbox)
 <td>Limit searches to companies that support card-based payments.</td>
 </tr>
 </tbody></table>
-<h1 id='auth'>Auth</h1><h2 id='the-auth-object'>The auth object</h2>
+<h1 id='auth'>Auth</h1>
+<p>Authenticating <a href="#client">client</a> accounts can be implemented using the <a href="#connect">Connect</a> product.</p>
+<h2 id='the-auth-object'>The auth object</h2>
 <blockquote>
 <p>Example Response</p>
 </blockquote>
@@ -752,112 +731,6 @@ https://sb-biller-direct.q2open.io (sandbox)
 <td>Company Object</td>
 </tr>
 </tbody></table>
-<h2 id='add-an-auth'>Add an auth</h2>
-<p>Authenticate a client&#39;s credentials. This process may take up to 30 seconds, but could extend if additional verification is required. The authentication process is event driven. The following <a href="#event">events</a> may be emitted during an authentication: <a href="#auth-success">auth.success</a>, <a href="#auth-mfa-required">auth.mfa-required</a>, and <a href="#auth-failed">auth.failed</a>.</p>
-
-<blockquote>
-<p>Example Request</p>
-</blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/auth"</span> <span class="se">\</span>
-  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
-  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-  -d <span class="s1">'{
-    "clientId": "566595c8ce88ccec69328566",
-    "companyId": "56e1dbb5443b10a3bd403fcf",
-    "items": ["bill"],
-    "form": {
-      "username": "Johnny",
-      "password": "Appleseed"
-    }
-  }'</span>
-</code></pre>
-<blockquote>
-<p>Example 200 Response</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='http-request'>HTTP Request</h3>
-<p><code>POST https://api.q2open.io/v1/auth</code></p>
-<h3 id='arguments'>Arguments</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><code>clientId</code></td>
-<td>ID of user being authenticated.</td>
-</tr>
-<tr>
-<td><code>companyId</code></td>
-<td>ID of company being authenticated.</td>
-</tr>
-<tr>
-<td><code>items</code><br><small class="opt">(optional)</small></td>
-<td>The list of items you&#39;d like attached to this auth. If not specified, all available items will be returned. If you&#39;re only interested in verifying credentials, set this parameter as an empty array <code>[]</code>, otherwise specify which <a href="#auth-items">items</a> you&#39;d like.</td>
-</tr>
-<tr>
-<td><code>form</code></td>
-<td>Credentials to authenticate.</td>
-</tr>
-</tbody></table>
-<h3 id='returns'>Returns</h3>
-<p>Returns an object with a <code>success</code> property if the auth request was created. Returns an error otherwise.</p>
-<h2 id='auth-mfa'>Auth MFA</h2>
-<blockquote>
-<p>Example Request (Question Based MFA)</p>
-</blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/auth"</span> <span class="se">\</span>
-  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
-  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-  -d <span class="s1">'{
-    "mfa": [{
-      "answer": "Secret Answer",
-      "identifier": "Bk0zwVx1Z"
-    }],
-    "token": "56e1dbb5443b10a3bd403fcf"
-  }'</span>
-</code></pre>
-<blockquote>
-<p>Example Request (Code Based MFA)</p>
-</blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/auth"</span> <span class="se">\</span>
-  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
-  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-  -d <span class="s1">'{
-    "mfa": { 
-      "identifier": "ByDXD4eJW" 
-    },
-    "token": "56e1dbb5443b10a3bd403fcf"
-  }'</span>
-</code></pre>
-<p>Some companies require multi-factor authentication (MFA) and the <code>/auth/step</code> route is built to submit the additional information needed. Users are first submitted via the standard authenticate process via the <code>/auth</code> endpoint, and the MFA data is sent through an additional request to the <code>/auth/step</code> route.</p>
-
-<p>For <code>questions</code> (Question Based MFA) return the answers formatted as an array of objects, where each object includes the <code>answer</code> of the question and the <code>identifier</code> received by the <a href="#auth-mfa-required">auth.mfa-required</a> event. For <code>code</code> (Code Based MFA) return the desired option by passing the <code>identifier</code> received by the <a href="#auth-mfa-required">auth.mfa-required</a> event.</p>
-
-<p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/credentials-mfa-view.png" alt="Credentials MFA View" /></p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code>POST https://api.q2open.io/v1/auth/step</code></p>
-<h3 id='arguments'>Arguments</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><code>token</code></td>
-<td>Token provided to you from the <code>/auth</code> response.</td>
-</tr>
-<tr>
-<td><code>mfa</code></td>
-<td>The extra information needed for MFA authentication.</td>
-</tr>
-</tbody></table>
-<h3 id='returns'>Returns</h3>
-<p>Returns an object with a <code>success</code> property if the mfa request was created. Returns an error otherwise.</p>
 <h2 id='auth-status'>Auth status</h2>
 <blockquote>
 <p>Verified Response</p>
@@ -914,7 +787,7 @@ https://sb-biller-direct.q2open.io (sandbox)
 <h3 id='verified'>verified</h3>
 <p>The user&#39;s auth has been verified. No actions are required.</p>
 <h3 id='authenticate'>authenticate</h3>
-<p>The auth&#39;s credentials are no longer valid and need to be reauthenticated. Make a request to the <code>/auth</code> endpoint with updated credentials to remove this status.</p>
+<p>The auth&#39;s credentials are no longer valid and need to be reauthenticated using the <a href="#connect">Connect</a> product.</p>
 
 <p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-authenticate.png" alt="Bill Authenticate" /></p>
 <h3 id='hold'>hold</h3>
@@ -1152,7 +1025,7 @@ https://sb-biller-direct.q2open.io (sandbox)
 </tr>
 <tr>
 <td><code>company</code></td>
-<td>Company Object</td>
+<td><a href="#the-company-object">Company object</a> related to the bill.</td>
 </tr>
 <tr>
 <td><code>settings</code></td>
@@ -1662,7 +1535,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 </tr>
 <tr>
 <td><code>userPresenceRequired</code></td>
-<td>If the biller require that the user is present to pass through any <a href="#auth-mfa">MFA</a> flows. See best practices in the <a href="#connect">Connect</a> documentation.</td>
+<td>If the company requires that the user is present to pass through any security flows. See best practices in the <a href="#connect">Connect</a> documentation.</td>
 </tr>
 <tr>
 <td><code>schedule</code></td>
@@ -2058,6 +1931,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"optional_custom_identifier"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="s2">"card"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -2082,6 +1956,10 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <tr>
 <td><code>type</code></td>
 <td>The type of the payment method on file. Possible values are <code>card</code>, <code>bank</code>.</td>
+</tr>
+<tr>
+<td><code>identifier</code></td>
+<td>Optional custom identifier for external system correlation.</td>
 </tr>
 <tr>
 <td><code>status</code></td>
@@ -2133,12 +2011,13 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <blockquote>
 <p>Example Card Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/auth"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/payment"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -d <span class="s1">'{
     "clientId": "56e1ddbd1a05319bc198d36f",
     "paymentType": "card",
+    "identifier": "optional_custom_identifier",
     "cardNumber": "378282246310005",
     "cardCode": "218",
     "expMonth": "10",
@@ -2151,12 +2030,13 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <blockquote>
 <p>Example Bank Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/auth"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/payment"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -d <span class="s1">'{
     "clientId": "56e1ddbd1a05319bc198d36f",
     "paymentType": "bank",
+    "identifier": "optional_custom_identifier",
     "routingNumber": "021000021",
     "accountNumber": "9900000002",
     "accountType": "checking",
@@ -2187,6 +2067,10 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <tr>
 <td><code>paymentType</code></td>
 <td>Type of payment. Possible values are <code>card</code>, <code>bank</code>.</td>
+</tr>
+<tr>
+<td><code>identifier</code></td>
+<td>Optional custom identifier for external system correlation.</td>
 </tr>
 <tr>
 <td><code>cardNumber</code></td>
@@ -2247,6 +2131,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3754dec21e861b5a3718"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"optional_custom_identifier"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sean Hill"</span><span class="p">,</span><span class="w">
@@ -2260,6 +2145,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bank"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"optional_custom_identifier"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"declined"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sean Hill"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"bank"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -2690,15 +2576,15 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 </tr>
 <tr>
 <td><code>auth</code></td>
-<td><a href="#the-auth-object">Auth Object</a></td>
+<td><a href="#the-auth-object">Auth object</a> related to the swap.</td>
 </tr>
 <tr>
 <td><code>company</code></td>
-<td><a href="#the-company-object">Company Object</a></td>
+<td><a href="#the-company-object">Company object</a> related to the swap.</td>
 </tr>
 <tr>
 <td><code>paymentMethod</code></td>
-<td><a href="#the-payment-method-object">Payment method Object</a></td>
+<td><a href="#the-payment-method-object">Payment method object</a> to be swapped in.</td>
 </tr>
 </tbody></table>
 <h2 id='swap-status'>Swap status</h2>
@@ -2729,7 +2615,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <blockquote>
 <p>Example Request</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/auth"</span> <span class="se">\</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/swap"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -d <span class="s1">'{
@@ -3026,149 +2912,6 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <tr>
 <td><code>payload.data.auth</code></td>
 <td>The <a href="#the-auth-object">auth object</a> linked to this resource.</td>
-</tr>
-</tbody></table>
-<h2 id='auth-mfa-required'>Auth MFA required</h2>
-<blockquote>
-<p>Example <code>auth.mfa-required</code> Event (Question Based)</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auth.mfa-required"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">  
-    </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-id-123"</span><span class="p">,</span><span class="w">            
-    </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"client"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> 
-        </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"questions"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> 
-          </span><span class="s2">"question"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What is the name of your first pet?"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bk0zwVx1Z"</span><span class="w">
-        </span><span class="p">}],</span><span class="w">
-        </span><span class="s2">"company"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d8"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Geico"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<blockquote>
-<p>Example <code>auth.mfa-required</code> Event (Code Based)</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auth.mfa-required"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"client"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> 
-        </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"566595c8ce88ccec69328566"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"code"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-          </span><span class="p">{</span><span class="w"> </span><span class="s2">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"t...t@example.com"</span><span class="p">,</span><span class="w"> </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="p">,</span><span class="w"> </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"r1g0mvVg1Z"</span><span class="p">,</span><span class="w"> </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Email: t...t@example.com"</span><span class="w"> </span><span class="p">},</span><span class="w">
-          </span><span class="p">{</span><span class="w"> </span><span class="s2">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx-xxx-1234"</span><span class="p">,</span><span class="w"> </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"phone"</span><span class="p">,</span><span class="w"> </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B1gyVvElJZ"</span><span class="p">,</span><span class="w"> </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Phone: xxx-xxx-1234"</span><span class="w"> </span><span class="p">},</span><span class="w">
-          </span><span class="p">{</span><span class="w"> </span><span class="s2">"mask"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx-xxx-1234"</span><span class="p">,</span><span class="w"> </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SkbkEP4ekW"</span><span class="p">,</span><span class="w"> </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Text: xxx-xxx-1234"</span><span class="w"> </span><span class="p">}</span><span class="w">
-        </span><span class="p">],</span><span class="w">
-        </span><span class="s2">"company"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d8"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Geico"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>When additional authentication steps are required. Responses will be sent to the <code>/auth/step</code> endpoint.</p>
-
-<table><thead>
-<tr>
-<th>Attribute</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><code>type</code></td>
-<td><code>auth.mfa-required</code></td>
-</tr>
-<tr>
-<td><code>payload.data.token</code></td>
-<td>The token to be sent in the request to the <code>/auth/step</code> endpoint.</td>
-</tr>
-<tr>
-<td><code>payload.data.method</code></td>
-<td>The type of MFA that is required.</td>
-</tr>
-<tr>
-<td><code>payload.data.mfa</code></td>
-<td>The requested MFA.</td>
-</tr>
-<tr>
-<td><code>payload.data.company</code></td>
-<td>The <a href="#the-company-object">company object</a> linked to this resource.</td>
-</tr>
-</tbody></table>
-<h2 id='auth-failed'>Auth failed</h2>
-<blockquote>
-<p>Example <code>auth.failed</code> Event</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auth.failed"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">    
-    </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-id-123"</span><span class="p">,</span><span class="w">          
-    </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"client"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> 
-        </span><span class="s2">"reason"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"You may want to double check your information."</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="s2">"company"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d8"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Geico"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>When a client fails the authentication process.</p>
-
-<table><thead>
-<tr>
-<th>Attribute</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><code>type</code></td>
-<td><code>auth.failed</code></td>
-</tr>
-<tr>
-<td><code>payload.data.reason</code></td>
-<td>Why the authentication failed.</td>
-</tr>
-<tr>
-<td><code>payload.data.company</code></td>
-<td>The <a href="#the-company-object">company object</a> linked to this resource.</td>
 </tr>
 </tbody></table>
 <h2 id='auth-invalid'>Auth invalid</h2>
@@ -3564,7 +3307,7 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
     </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill.payment.failed"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">  
+    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-id-123"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -3593,7 +3336,7 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
             </span><span class="s2">"assignedBills"</span><span class="p">:[</span><span class="w">
               </span><span class="s2">"5c5b2eba5ddb120427c41ba3"</span><span class="w">
             </span><span class="p">]</span><span class="w">
-        </span><span class="p">}</span><span class="w">        
+        </span><span class="p">}</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
@@ -3613,11 +3356,11 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 </tr>
 <tr>
 <td><code>payload.data.company</code></td>
-<td>The <a href="#the-company-object">company object</a> linked to this resource.</td>
+<td>The <a href="#the-company-object">company</a> linked to this resource.</td>
 </tr>
 <tr>
 <td><code>payload.data.paymentMethod</code></td>
-<td>The <a href="#the-payment-method-object">payment method object</a> linked to the payment.</td>
+<td>The <a href="#the-payment-method-object">payment method</a> linked to the payment.</td>
 </tr>
 <tr>
 <td><code>payload.data.amount</code></td>
@@ -3634,7 +3377,7 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
     </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"swap.success"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d8"</span><span class="p">,</span><span class="w">    
+    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d8"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"swap"</span><span class="p">,</span><span class="w">
@@ -3663,8 +3406,22 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <td><code>payload.data.clientId</code></td>
 <td>The clientId linked to the swap.</td>
 </tr>
+<tr>
+<td><code>payload.data.company</code></td>
+<td>The <a href="#the-company-object">company object</a> related to the swap.</td>
+</tr>
+<tr>
+<td><code>payload.data.paymentMethod</code></td>
+<td>The <a href="#the-payment-method-object">payment method object</a> linked to the swap.</td>
+</tr>
 </tbody></table>
-<h1 id='changelog'>Changelog</h1><h3 id='april-1st-2019'>April 1st, 2019</h3>
+<h1 id='changelog'>Changelog</h1><h3 id='may-7th-2019'>May 7th, 2019</h3>
+<ul>
+<li>Removed authentication endpoints in favor of the <a href="#connect">Connect</a> component.</li>
+<li>Added <code>identifier</code> to <a href="#the-payment-method-object">payment method object</a>.</li>
+<li>Added <a href="#the-payment-method-object">payment method object</a> and <a href="#the-company-object">company object</a> to the <a href="#swap-success">swap.success</a> event.</li>
+</ul>
+<h3 id='april-1st-2019'>April 1st, 2019</h3>
 <ul>
 <li>Added <code>auth</code> object to the <code>bill.created</code> event.</li>
 <li>Added the payment method object to all bill payment events.</li>
