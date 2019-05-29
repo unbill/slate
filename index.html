@@ -322,6 +322,9 @@
                     <a href="#bill-payment-scheduled" class="toc-h2 toc-link" data-title="Bill payment scheduled">Bill payment scheduled</a>
                   </li>
                   <li>
+                    <a href="#bill-payment-cancelled" class="toc-h2 toc-link" data-title="Bill payment cancelled">Bill payment cancelled</a>
+                  </li>
+                  <li>
                     <a href="#bill-payment-failed" class="toc-h2 toc-link" data-title="Bill payment failed">Bill payment failed</a>
                   </li>
                   <li>
@@ -3073,8 +3076,8 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
     </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill.update"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">   
-    </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-id-123"</span><span class="p">,</span><span class="w"> 
+    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-id-123"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill"</span><span class="p">,</span><span class="w">
@@ -3084,11 +3087,11 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
         </span><span class="s2">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="w">
         </span><span class="p">},</span><span class="w">
-        </span><span class="s2">"previous"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25.21"</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="s2">"current"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"52.11"</span><span class="w">
+        </span><span class="s2">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"balance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"previous"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25.21"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"current"</span><span class="p">:</span><span class="w"> </span><span class="s2">"52.11"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
@@ -3112,12 +3115,8 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <td>The <a href="#the-company-object">company object</a> linked to this resource.</td>
 </tr>
 <tr>
-<td><code>payload.data.previous</code></td>
-<td>Object containing the names of the attributes that have changed and their previous values.</td>
-</tr>
-<tr>
-<td><code>payload.data.current</code></td>
-<td>Object containing the names of the attributes that have changed and their current values.</td>
+<td><code>payload.data.bill</code></td>
+<td>Object containing the names of the bill attributes that have changed and their previous values.</td>
 </tr>
 </tbody></table>
 <h2 id='bill-payment-sent'>Bill payment sent</h2>
@@ -3295,6 +3294,85 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <tr>
 <td><code>payload.data.surcharge.rate</code></td>
 <td>The fee amount the company requires to process the payment.</td>
+</tr>
+</tbody></table>
+<h2 id='bill-payment-cancelled'>Bill payment cancelled</h2>
+<blockquote>
+<p>Example <code>bill.payment.cancelled</code> Event</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+   </span><span class="s2">"event"</span><span class="p">:{</span><span class="w">
+      </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill.payment.cancelled"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-id-123"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"payload"</span><span class="p">:{</span><span class="w">
+         </span><span class="s2">"resource"</span><span class="p">:{</span><span class="w">
+            </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="s2">"data"</span><span class="p">:{</span><span class="w">
+            </span><span class="s2">"company"</span><span class="p">:{</span><span class="w">
+               </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XYZ Electric"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"paymentMethod"</span><span class="p">:{</span><span class="w">
+               </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c5b2ed67d94870391c30b33"</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card"</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Johnny Appleseed"</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"default"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"card"</span><span class="p">:{</span><span class="w">
+                  </span><span class="s2">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX1111"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"bin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"41111111"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"visa"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"credit"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"expDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-01T12:00:00.000Z"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"cancelled"</span><span class="p">:</span><span class="kc">false</span><span class="w">
+               </span><span class="p">},</span><span class="w">
+               </span><span class="s2">"assignedBills"</span><span class="p">:[</span><span class="w">
+                  </span><span class="s2">"5c5b2eba5ddb120427c41ba3"</span><span class="w">
+               </span><span class="p">]</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"current"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-03-28 17:00:00.000"</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"trigger"</span><span class="p">:</span><span class="w"> </span><span class="s2">"client"</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>When a scheduled payment is cancelled.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>type</code></td>
+<td><code>bill.payment.cancelled</code></td>
+</tr>
+<tr>
+<td><code>payload.data.company</code></td>
+<td>The <a href="#the-company-object">company object</a> linked to this resource.</td>
+</tr>
+<tr>
+<td><code>payload.data.paymentMethod</code></td>
+<td>The <a href="#the-payment-method-object">payment method object</a> linked to the payment.</td>
+</tr>
+<tr>
+<td><code>payload.data.bill</code></td>
+<td>Object containing the names of the bill attributes that have changed and their previous values if available.</td>
+</tr>
+<tr>
+<td><code>payload.data.trigger</code></td>
+<td>The entity that triggered this event. Possible values are <code>client</code>, <code>system</code>.</td>
 </tr>
 </tbody></table>
 <h2 id='bill-payment-failed'>Bill payment failed</h2>
