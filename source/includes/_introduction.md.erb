@@ -46,11 +46,11 @@ To quickly experiment with the API, you can use Postman. You'll need to set the 
 
 ### Test Company
 
-You may perform an authentication with a company named *Test Merchant* with `5bd885fccd274b4324a21f57` as it's `_id` that can be used to test various use cases. Each use case is triggered based on the `username` used to authenticate. Any password may be used. Here's a list of usernames and their associated test case:
+You may perform a test authentication with any company to test various use cases. Each use case is triggered based on the `username` or `email` used to authenticate. Any password may be used. Here's a list of credentials and their associated test case:
 
 ### Test Credentials
 
-Username | Description
+Input | Description
 ----- | -----------
 `test` | Test a successful authentication.
 `testfail` | Test an authentication failure.
@@ -59,6 +59,8 @@ Username | Description
 `testmfaprompt` | Test an authentication requiring prompt-based MFA.
 `testpaymentfail` | Test a payment failure.
 `testswap` | Test performing a post-authentication swap. Useful when using Connect with a `paymentMethodId`.
+
+When a company requires an `email` as input, append `@test.test.` to any of the test credentials above. For example, to test an authentication failure, use `testfail@test.test`.
 
 You may test a successful payment within the Sandbox environment by using `4111111111111111` as the card number, with any valid expiration, zipcode, and random 3-digit CVV.
 
