@@ -32,8 +32,8 @@ as indicated by the `company.userPresenceRequired` flag, there are a number of c
 - Likewise, Swaps must also be completed in real-time with the user present.
 
 Instead of calling the typical API routes, you'll need to open Connect to perform these actions immediately after a successful authentication. The user won't need
- to re-enter their username and password, but may need to step through security. Using the `billId`, `items`, and `paymentMethodId` URL parameters as 
- documented below, you'll be able to make payments in real-time, while allowing users the liberty of maintaining their approach to account security.
+ to re-enter their username and password, but may need to step through security. Using the `authId`, `billId`, `items`, and `paymentMethodId` URL parameters as
+ documented below, you'll be able to make payments and swaps in real-time, while allowing users the liberty of maintaining their approach to account security.
 
 ### URL parameters
 
@@ -42,8 +42,26 @@ The following URL parameters can be optionally passed into the Connect URL to cu
 Parameter | Description
 ----- | -----------
 `companyId` | Deeplink to a specific `companyId`, skipping the search screen.
-`billId` | Can be used in conjunction with `paymentMethodId` to perform a real-time payment when `company.userPresenceRequired` is `true`.
+`swapId` | Can be used in conjunction with `paymentMethodId` to move a swap to a different payment method.
+`billId` | Can be used in conjunction with `paymentMethodId` to make a payment when `company.userPresenceRequired` is `true`.
 `cardPaymentsOnly` | Limit searches to companies that support card-based payments.
-`items` | Indicates the next desired action once an authentication is successful. Set to `swap` to automatically create a [Swap](#swap). Set to `bill` to update bill data. Set to `payment` to make a payment towards the balance.. 
+`items` | Indicates the next desired action once an authentication is successful. Set to `swap` to automatically create a [Swap](#swap). Set to `bill` to update bill data. Set to `payment` (in conjuction with a billId) to make a real-time payment towards the balance.
 `paymentMethodId` | Sets a previously added payment method to be used for a `swap` or `payment` once an authentication is successful.
 
+### URL Examples
+
+To authenticate with a company:
+
+`https://connect.q2open.io?token=123&companyId=123&items=bill`
+
+To make a payment when `company.userPresenceRequired` is `true`:
+
+`https://connect.q2open.io?token=123&billId=123&paymentMethodId=123&items=payment`
+
+To initiate a new swap:
+
+`https://connect.q2open.io?token=123&companyId=123&paymentMethodId=123&items=swap`
+
+To move a swap to a different payment method:
+
+`https://connect.q2open.io?token=123&swapId=123&paymentMethodId=123&items=swap`

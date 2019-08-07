@@ -5,20 +5,77 @@
 ```json
 {
   "event": {
-    "_id": "580e3e11dec21e861b5a3719",
-    "type": "swap.success",
-    "created": "2016-04-20T16:51:12Z",
-    "clientId": "579b695decfa11012711875d",
-    "partnerId": "55942f330cfcfd6c4ed529d8",
     "payload": {
       "resource": {
         "type": "swap",
-        "id": "579b695decfa11012711875d"
+        "id": "5ce443c56013221715960365"
       },
       "data": {
-        "clientId" : "5b157888cb7e60000bfcaa41"
+        "clientId": "5c7c01c11f915c41f89de856",
+        "company": {
+          "_id": "5bd885fccd274b4324a21f57",
+          "name": "Test Merchant",
+          "status": "operational",
+          "logo": {
+            "url": "https://s3.us-east-1.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/1a49a63fa87749b3abdf74c2ee9deb36.png",
+            "background": false,
+            "svg": {
+              "url": "https://s3.us-east-1.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/968e40f95dd9a0e85cbae10fb221059b.svg",
+              "color": "06C580"
+            },
+            "symbol": {
+              "url": "https://s3.us-east-1.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/2533c1ac55b047c770085cc24e3d1e85.svg",
+              "color": "06C580"
+            }
+          },
+          "auth": {
+            "urls": {
+              "login": "https://biller-direct.q2open.io",
+              "signup": "https://www.q2ebanking.com/",
+              "forgotUser": "https://www.q2ebanking.com/",
+              "forgotPassword": "https://www.q2ebanking.com/"
+            },
+            "loginFields": [
+              {
+                "placeholder": "Username",
+                "formType": "text",
+                "name": "username",
+                "label": "Username"
+              },
+              {
+                "placeholder": "Password",
+                "formType": "password",
+                "name": "password",
+                "label": "Password"
+              }
+            ]
+          },
+          "userPresenceRequired": false,
+          "supportedItems": ["auth", "bill", "swap", "payment"]
+        },
+        "paymentMethod": {
+          "_id": "5c8dc5ea03bb895bc3868a28",
+          "type": "card",
+          "name": "John Doe",
+          "status": "verified",
+          "card": {
+            "number": "XXXX4444",
+            "bin": "11111111",
+            "brand": "visa",
+            "type": "credit",
+            "expDate": "2023-06-01T12:00:00.000Z",
+            "cancelled": false
+          }
+        }
       }
-    }
+    },
+    "_id": "5ceec9223b461830de21b024",
+    "type": "swap.success",
+    "clientId": "5c7c01c11f915c41f89de856",
+    "partnerId": "58f528495d3f18631d04c4a1",
+    "identifier": "412255",
+    "created": "2019-05-29T18:02:10.804Z",
+    "__v": 0
   }
 }
 ```
