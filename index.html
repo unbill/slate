@@ -336,6 +336,9 @@
             <a href="#changelog" class="toc-h1 toc-link" data-title="Changelog">Changelog</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#aug-7th-2019" class="toc-h2 toc-link" data-title="Aug 7th, 2019">Aug 7th, 2019</a>
+                  </li>
+                  <li>
                     <a href="#may-7th-2019" class="toc-h2 toc-link" data-title="May 7th, 2019">May 7th, 2019</a>
                   </li>
                   <li>
@@ -397,11 +400,11 @@ https://sb-api.q2open.io/v1 (sandbox)
   }(window, document, "_pm", "PostmanRunObject", "https://run.pstmn.io/button.js"));
 </script>
 <h3 id='test-company'>Test Company</h3>
-<p>You may perform an authentication with a company named <em>Test Merchant</em> with <code>5bd885fccd274b4324a21f57</code> as it&#39;s <code>_id</code> that can be used to test various use cases. Each use case is triggered based on the <code>username</code> used to authenticate. Any password may be used. Here&#39;s a list of usernames and their associated test case:</p>
+<p>You may perform a test authentication with any company to test various use cases. Each use case is triggered based on the <code>username</code> or <code>email</code> used to authenticate. Any password may be used. Here&#39;s a list of credentials and their associated test case:</p>
 <h3 id='test-credentials'>Test Credentials</h3>
 <table><thead>
 <tr>
-<th>Username</th>
+<th>Input</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
@@ -434,6 +437,8 @@ https://sb-api.q2open.io/v1 (sandbox)
 <td>Test performing a post-authentication swap. Useful when using Connect with a <code>paymentMethodId</code>.</td>
 </tr>
 </tbody></table>
+
+<p>When a company requires an <code>email</code> as input, append <code>@test.test.</code> to any of the test credentials above. For example, to test an authentication failure, use <code>testfail@test.test</code>.</p>
 
 <p>You may test a successful payment within the Sandbox environment by using <code>4111111111111111</code> as the card number, with any valid expiration, zipcode, and random 3-digit CVV.</p>
 <h3 id='sandbox-limitations'>Sandbox Limitations</h3>
@@ -496,7 +501,7 @@ https://sb-api.q2open.io/v1 (sandbox)
 <h2 id='request-ids'>Request IDs</h2>
 <p>Each API request has an associated request identifier. You can find this value in the response headers, under <code>request-id</code>. If you need to contact us about a specific request, providing the request identifier will ensure the fastest possible resolution.</p>
 <h2 id='getting-started'>Getting Started</h2>
-<p>To authenticate bills with your users, you may use the following flow.</p>
+<p>Our <a href="#products">white-label products</a> are the fastest way to implement our API&#39;s functionality with a design that fits your branding. If you require a more custom integration you may use the following flow.</p>
 <h3 id='user-creation'>User Creation</h3>
 <ol>
 <li>User signs up in your app.</li>
@@ -504,6 +509,7 @@ https://sb-api.q2open.io/v1 (sandbox)
 </ol>
 <h3 id='authentication'>Authentication</h3>
 <ol>
+<li>Make a request to the <code>/client/create-token</code> endpoint to retrieve a secure SSO token to link accounts.</li>
 <li>Link accounts by integrating the <a href="#connect">Connect</a> product into your application.</li>
 </ol>
 <h3 id='bills'>Bills</h3>
@@ -594,8 +600,8 @@ as indicated by the <code>company.userPresenceRequired</code> flag, there are a 
 </ul>
 
 <p>Instead of calling the typical API routes, you&#39;ll need to open Connect to perform these actions immediately after a successful authentication. The user won&#39;t need
- to re-enter their username and password, but may need to step through security. Using the <code>billId</code>, <code>items</code>, and <code>paymentMethodId</code> URL parameters as 
- documented below, you&#39;ll be able to make payments in real-time, while allowing users the liberty of maintaining their approach to account security.</p>
+ to re-enter their username and password, but may need to step through security. Using the <code>authId</code>, <code>billId</code>, <code>items</code>, and <code>paymentMethodId</code> URL parameters as
+ documented below, you&#39;ll be able to make payments and swaps in real-time, while allowing users the liberty of maintaining their approach to account security.</p>
 <h3 id='url-parameters'>URL parameters</h3>
 <p>The following URL parameters can be optionally passed into the Connect URL to customize the experience.</p>
 
@@ -610,8 +616,12 @@ as indicated by the <code>company.userPresenceRequired</code> flag, there are a 
 <td>Deeplink to a specific <code>companyId</code>, skipping the search screen.</td>
 </tr>
 <tr>
+<td><code>swapId</code></td>
+<td>Can be used in conjunction with <code>paymentMethodId</code> to move a swap to a different payment method.</td>
+</tr>
+<tr>
 <td><code>billId</code></td>
-<td>Can be used in conjunction with <code>paymentMethodId</code> to perform a real-time payment when <code>company.userPresenceRequired</code> is <code>true</code>.</td>
+<td>Can be used in conjunction with <code>paymentMethodId</code> to make a payment when <code>company.userPresenceRequired</code> is <code>true</code>.</td>
 </tr>
 <tr>
 <td><code>cardPaymentsOnly</code></td>
@@ -619,13 +629,29 @@ as indicated by the <code>company.userPresenceRequired</code> flag, there are a 
 </tr>
 <tr>
 <td><code>items</code></td>
-<td>Indicates the next desired action once an authentication is successful. Set to <code>swap</code> to automatically create a <a href="#swap">Swap</a>. Set to <code>bill</code> to update bill data. Set to <code>payment</code> to make a payment towards the balance..</td>
+<td>Indicates the next desired action once an authentication is successful. Set to <code>swap</code> to automatically create a <a href="#swap">Swap</a>. Set to <code>bill</code> to update bill data. Set to <code>payment</code> (in conjuction with a billId) to make a real-time payment towards the balance.</td>
 </tr>
 <tr>
 <td><code>paymentMethodId</code></td>
 <td>Sets a previously added payment method to be used for a <code>swap</code> or <code>payment</code> once an authentication is successful.</td>
 </tr>
 </tbody></table>
+<h3 id='url-examples'>URL Examples</h3>
+<p>To authenticate with a company:</p>
+
+<p><code>https://connect.q2open.io?token=123&amp;companyId=123&amp;items=bill</code></p>
+
+<p>To make a payment when <code>company.userPresenceRequired</code> is <code>true</code>:</p>
+
+<p><code>https://connect.q2open.io?token=123&amp;billId=123&amp;paymentMethodId=123&amp;items=payment</code></p>
+
+<p>To initiate a new swap:</p>
+
+<p><code>https://connect.q2open.io?token=123&amp;companyId=123&amp;paymentMethodId=123&amp;items=swap</code></p>
+
+<p>To move a swap to a different payment method:</p>
+
+<p><code>https://connect.q2open.io?token=123&amp;swapId=123&amp;paymentMethodId=123&amp;items=swap</code></p>
 <h2 id='cardswap'>CardSwap</h2>
 <blockquote>
 <p>Host
@@ -3338,6 +3364,9 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
             </span><span class="s2">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
               </span><span class="s2">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
                 </span><span class="s2">"current"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-03-28 17:00:00.000"</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+              </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"current"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40.00"</span><span class="w">
               </span><span class="p">}</span><span class="w">
             </span><span class="p">},</span><span class="w">
             </span><span class="s2">"trigger"</span><span class="p">:</span><span class="w"> </span><span class="s2">"client"</span><span class="w">
@@ -3550,7 +3579,11 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <td>The <a href="#the-payment-method-object">payment method object</a> linked to the swap.</td>
 </tr>
 </tbody></table>
-<h1 id='changelog'>Changelog</h1><h3 id='may-7th-2019'>May 7th, 2019</h3>
+<h1 id='changelog'>Changelog</h1><h3 id='aug-7th-2019'>Aug 7th, 2019</h3>
+<ul>
+<li>Added URL Examples for the <a href="#connect">Connect</a> component.</li>
+</ul>
+<h3 id='may-7th-2019'>May 7th, 2019</h3>
 <ul>
 <li>Removed authentication endpoints in favor of the <a href="#connect">Connect</a> component.</li>
 <li>Added <code>identifier</code> to <a href="#the-payment-method-object">payment method object</a>.</li>

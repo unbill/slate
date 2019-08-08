@@ -45,8 +45,8 @@ as indicated by the <code>company.userPresenceRequired</code> flag, there are a 
 </ul>
 
 <p>Instead of calling the typical API routes, you&#39;ll need to open Connect to perform these actions immediately after a successful authentication. The user won&#39;t need
- to re-enter their username and password, but may need to step through security. Using the <code>billId</code>, <code>items</code>, and <code>paymentMethodId</code> URL parameters as 
- documented below, you&#39;ll be able to make payments in real-time, while allowing users the liberty of maintaining their approach to account security.</p>
+ to re-enter their username and password, but may need to step through security. Using the <code>authId</code>, <code>billId</code>, <code>items</code>, and <code>paymentMethodId</code> URL parameters as
+ documented below, you&#39;ll be able to make payments and swaps in real-time, while allowing users the liberty of maintaining their approach to account security.</p>
 <h3 id='url-parameters'>URL parameters</h3>
 <p>The following URL parameters can be optionally passed into the Connect URL to customize the experience.</p>
 
@@ -61,8 +61,12 @@ as indicated by the <code>company.userPresenceRequired</code> flag, there are a 
 <td>Deeplink to a specific <code>companyId</code>, skipping the search screen.</td>
 </tr>
 <tr>
+<td><code>swapId</code></td>
+<td>Can be used in conjunction with <code>paymentMethodId</code> to move a swap to a different payment method.</td>
+</tr>
+<tr>
 <td><code>billId</code></td>
-<td>Can be used in conjunction with <code>paymentMethodId</code> to perform a real-time payment when <code>company.userPresenceRequired</code> is <code>true</code>.</td>
+<td>Can be used in conjunction with <code>paymentMethodId</code> to make a payment when <code>company.userPresenceRequired</code> is <code>true</code>.</td>
 </tr>
 <tr>
 <td><code>cardPaymentsOnly</code></td>
@@ -70,10 +74,26 @@ as indicated by the <code>company.userPresenceRequired</code> flag, there are a 
 </tr>
 <tr>
 <td><code>items</code></td>
-<td>Indicates the next desired action once an authentication is successful. Set to <code>swap</code> to automatically create a <a href="#swap">Swap</a>. Set to <code>bill</code> to update bill data. Set to <code>payment</code> to make a payment towards the balance..</td>
+<td>Indicates the next desired action once an authentication is successful. Set to <code>swap</code> to automatically create a <a href="#swap">Swap</a>. Set to <code>bill</code> to update bill data. Set to <code>payment</code> (in conjuction with a billId) to make a real-time payment towards the balance.</td>
 </tr>
 <tr>
 <td><code>paymentMethodId</code></td>
 <td>Sets a previously added payment method to be used for a <code>swap</code> or <code>payment</code> once an authentication is successful.</td>
 </tr>
 </tbody></table>
+<h3 id='url-examples'>URL Examples</h3>
+<p>To authenticate with a company:</p>
+
+<p><code>https://connect.q2open.io?token=123&amp;companyId=123&amp;items=bill</code></p>
+
+<p>To make a payment when <code>company.userPresenceRequired</code> is <code>true</code>:</p>
+
+<p><code>https://connect.q2open.io?token=123&amp;billId=123&amp;paymentMethodId=123&amp;items=payment</code></p>
+
+<p>To initiate a new swap:</p>
+
+<p><code>https://connect.q2open.io?token=123&amp;companyId=123&amp;paymentMethodId=123&amp;items=swap</code></p>
+
+<p>To move a swap to a different payment method:</p>
+
+<p><code>https://connect.q2open.io?token=123&amp;swapId=123&amp;paymentMethodId=123&amp;items=swap</code></p>
