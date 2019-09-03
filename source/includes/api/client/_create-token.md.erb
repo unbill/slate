@@ -8,7 +8,6 @@ curl "<%= config.host %>/client/create-token" \
   -H "Content-Type: application/json" \
   -d '{
     "identifier": "Bk0zwVx1Z",
-    "nonce": false,
     "meta": {
       "firstName": "Demo",
       "lastName": "User",
@@ -44,7 +43,7 @@ When creating subsequent tokens for an existing `client`, be sure to use the sam
 Parameter | Description
 ----- | -----------
 `identifier` | A unique identifier that represents a user in your system.
-`nonce` | Tokens are instantly consumed upon use. If you would like to make a re-useable token, you may set `nonce` to `false`.
+`expiration` | An `ISO 8601` formatted date that sets when this token will expire. If no `expiration` is specified, the token will expire after 24 hours.
 `meta` | Additional information about the user in your system.
 
 ### Returns
