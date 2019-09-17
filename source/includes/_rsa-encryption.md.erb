@@ -33,15 +33,15 @@ Optionally, 2048-bit Asymmetric request signing may be used when making requests
 - Create a public/private key pair following PKCS #1/sha-256 signing scheme.
 - Provide the public key to Q2 or update the request signing public key in the Q2 Nexus portal.
 - With each request to the API, generate a signature using the following formula:
-  - Request method in all uppercase: POST/PUT/GET/DELETE plus a colon.
+  - Request method in all uppercase: `POST/PUT/GET/DELETE` plus a colon.
   - Path and query of the request plus a colon.
   - Your API Key plus a colon.
   - The current date and time in ISO format
-  - Example: GET:/v1/auth/list/566595c8ce88ccec69328566:YOUR_API_KEY:2019-09-17T14:14:24.874Z
-- Use an RSA signing library to create a signature from the signature text with the pkcs1-sha256 signing scheme.
-- Encode the produced signature as a base 64 string.
-- Add the base 64 signature in the "Signature" header of the request.
-- Add the date that was included in the signature to the "Date" header of the request.
+  - Example: `GET:/v1/auth/list/566595c8ce88ccec69328566:YOUR_API_KEY:2019-09-17T14:14:24.874Z`
+- Use an RSA signing library to create an RSA signature from the signature text with the pkcs1-sha256 signing scheme.
+- Encode the produced signature as a Base64 string.
+- Add the Base64 signature in the `Signature` header of the request.
+- Add the date that was included in the signature to the `Date` header of the request.
 
 When request signing is eabled, a signature must be provided with every API request.
-If the signature is not provided, a 401 - Unauthorized response will result.
+If the signature is not provided, a `401 - Unauthorized` response will result.
