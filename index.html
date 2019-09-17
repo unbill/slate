@@ -565,20 +565,20 @@ https://sb-api.q2open.io/v1 (sandbox)
 <li>With each request to the API, generate a signature using the following formula:
 
 <ul>
-<li>Request method in all uppercase: POST/PUT/GET/DELETE plus a colon.</li>
+<li>Request method in all uppercase: <code>POST/PUT/GET/DELETE</code> plus a colon.</li>
 <li>Path and query of the request plus a colon.</li>
 <li>Your API Key plus a colon.</li>
 <li>The current date and time in ISO format</li>
-<li>Example: GET:/v1/auth/list/566595c8ce88ccec69328566:YOUR_API_KEY:2019-09-17T14:14:24.874Z</li>
+<li>Example: <code>GET:/v1/auth/list/566595c8ce88ccec69328566:YOUR_API_KEY:2019-09-17T14:14:24.874Z</code></li>
 </ul></li>
-<li>Use an RSA signing library to create a signature from the signature text with the pkcs1-sha256 signing scheme.</li>
-<li>Encode the produced signature as a base 64 string.</li>
-<li>Add the base 64 signature in the &quot;Signature&quot; header of the request.</li>
-<li>Add the date that was included in the signature to the &quot;Date&quot; header of the request.</li>
+<li>Use an RSA signing library to create an RSA signature from the signature text with the pkcs1-sha256 signing scheme.</li>
+<li>Encode the produced signature as a Base64 string.</li>
+<li>Add the Base64 signature in the <code>Signature</code> header of the request.</li>
+<li>Add the date that was included in the signature to the <code>Date</code> header of the request.</li>
 </ul>
 
 <p>When request signing is eabled, a signature must be provided with every API request.
-If the signature is not provided, a 401 - Unauthorized response will result.</p>
+If the signature is not provided, a <code>401 - Unauthorized</code> response will result.</p>
 <h1 id='products'>Products</h1>
 <p>Our white-label products are the fastest way to implement our API&#39;s functionality with a design that fits your branding. We&#39;ve built a set of products that key in on common use cases of our API. These products include <a href="#connect">Connect</a>, <a href="#cardswap">CardSwap</a> and <a href="#biller-direct">Biller Direct</a>.</p>
 <h2 id='webview-integration'>WebView Integration</h2>
