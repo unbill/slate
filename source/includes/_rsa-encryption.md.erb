@@ -23,9 +23,11 @@ curl "<%= config.host %>/client/create-token" \
   -H "<%= config.auth %>" \
   -H "Signature: MzfMtn6M9rpHyzGSvBPkzbNZlne+rf3tkcLUeMUW8mOMmdP1VtnnVdQA9hdYVObjwibOGdRQmCeoI9Xba5DXGT2/l9wOSJQ4FI90DssY1l+orOiwVwY8quAgBUYd2YDDUGyEJ31Y9yOgwLBp2xC4pA5vfkYtWAC9PccdxDyMZcCm6pz3AVgfCRN1m2rcZsE/VrhWhZof3sYitP3zTfV7KCF3T232HPHQtEYtEMLE4Pi7t4i+KvR4Rejt4a7DIgba3OfVmWf5La7WzdlU4eneIPnVjk3CGUo4t9PIPJQVbLyDSIXiF9pRD8ZlW+19XUe/HyWFHR4em00nbaNjBG4TSQ==" \
   -H "Date: 2019-09-17T14:14:24.874Z" \
+  -H "Content-Type: application/json" \
   -d '{
     "identifier": "5b2bd638bdf6035960b98694"
   }'
+  -X POST
 ```
 
 Optionally, 2048-bit Asymmetric request signing may be used when making requests to the API.
@@ -37,11 +39,11 @@ Optionally, 2048-bit Asymmetric request signing may be used when making requests
   - Path and query of the request plus a colon.
   - Your API Key plus a colon.
   - The current date and time in ISO format
-  - Example: `GET:/v1/auth/list/566595c8ce88ccec69328566:YOUR_API_KEY:2019-09-17T14:14:24.874Z`
+  - Example: `POST:/v1/client/create-token:YOUR_API_KEY:2019-09-17T14:14:24.874Z`
 - Use an RSA signing library to create an RSA signature from the signature text with the pkcs1-sha256 signing scheme.
 - Encode the produced signature as a Base64 string.
 - Add the Base64 signature in the `Signature` header of the request.
 - Add the date that was included in the signature to the `Date` header of the request.
 
 When request signing is eabled, a signature must be provided with every API request.
-If the signature is not provided, a `401 - Unauthorized` response will result.
+If the signature is not provided, a `401-Unauthorized` response will result.
