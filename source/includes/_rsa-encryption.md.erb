@@ -1,4 +1,5 @@
-## RSA Encryption
+## Message Security
+### RSA Encryption
 > Example Encrypted Request
 
 ```json
@@ -10,6 +11,39 @@
 
 Optionally, 2048-bit Asymmetric key encryption may be used when making a `POST` request to the API.
 
-- Request a public key from Q2, which will follow the PKCS #8 encryption scheme. You'll also be handed a key identifier.
+- Request a public key from Q2, which will follow the PKCS #1 encryption scheme. You'll also be handed a key identifier.
 - Use the API routes as documented, however your payload will be encrypted and base64 encoded using the public key, and sent in a `hash` parameter.
 - Add an `encrypted` parameter to your request with the contents of your key identifer given to you from Q2.
+
+### RSA Signing
+> Example Signed Request
+
+```shell
+curl "<%= config.host %>/client/create-token" \
+  -H "<%= config.auth %>" \
+  -H "Signature: MzfMtn6M9rpHyzGSvBPkzbNZlne+rf3tkcLUeMUW8mOMmdP1VtnnVdQA9hdYVObjwibOGdRQmCeoI9Xba5DXGT2/l9wOSJQ4FI90DssY1l+orOiwVwY8quAgBUYd2YDDUGyEJ31Y9yOgwLBp2xC4pA5vfkYtWAC9PccdxDyMZcCm6pz3AVgfCRN1m2rcZsE/VrhWhZof3sYitP3zTfV7KCF3T232HPHQtEYtEMLE4Pi7t4i+KvR4Rejt4a7DIgba3OfVmWf5La7WzdlU4eneIPnVjk3CGUo4t9PIPJQVbLyDSIXiF9pRD8ZlW+19XUe/HyWFHR4em00nbaNjBG4TSQ==" \
+  -H "Date: 2019-09-17T14:14:24.874Z" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "identifier": "5b2bd638bdf6035960b98694"
+  }'
+  -X POST
+```
+
+Optionally, 2048-bit Asymmetric request signing may be used when making requests to the API.
+
+- Create a public/private key pair following PKCS #1/sha-256 signing scheme.
+- Provide the public key to Q2 or update the request signing public key in the Q2 Nexus portal.
+- With each request to the API, generate a signature using the following formula:
+  - Request method in all uppercase: `POST/PUT/GET/DELETE` plus a colon.
+  - Path and query of the request plus a colon.
+  - Your API Key plus a colon.
+  - The current date and time in ISO format
+  - Example: `POST:/v1/client/create-token:YOUR_API_KEY:2019-09-17T14:14:24.874Z`
+- Use an RSA signing library to create an RSA signature from the signature text with the pkcs1-sha256 signing scheme.
+- Encode the produced signature as a Base64 string.
+- Add the Base64 signature in the `Signature` header of the request.
+- Add the date that was included in the signature to the `Date` header of the request.
+
+When request signing is eabled, a signature must be provided with every API request.
+If the signature is not provided, a `401-Unauthorized` response will result.
