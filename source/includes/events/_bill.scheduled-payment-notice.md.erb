@@ -34,10 +34,10 @@
 }
 ```
 
-Friendly notice for when the due date changes after a bill payment has been scheduled.
+When the due date changes after a bill payment has been scheduled.
 
 Attribute | Description
 --------- | -----------
 `type` | `bill.scheduled-payment-notice`
 `payload.data.company` | The [company object](#the-company-object) linked to this resource.
-`payload.data.bill` | Object containing the names of the bill attributes that have changed and their previous values if available.
+`payload.data.bill` | The [bill object](#the-bill-object) containing attributes that have changed with their current and previous values, if available.
