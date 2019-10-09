@@ -1,0 +1,43 @@
+
+
+## Bill scheduled payment notice
+
+> Example `bill.scheduled-payment-notice` Event
+
+```json
+{
+  "event": {
+    "_id": "580e3e11dec21e861b5a3719",
+    "type": "bill.scheduled-payment-notice",
+    "created": "2016-04-20T16:51:12Z",
+    "clientId": "579b695decfa110127118752",
+    "partnerId": "55942f330cfcfd6c4ed529d9",
+    "identifier": "example-id-123",
+    "payload": {
+      "resource": {
+        "type": "bill",
+        "id": "579b695decfa11012711875d"
+      },
+      "data": {
+        "company": {
+          "name": "XYZ Electric"
+        },
+        "bill": {
+          "dueDate": {
+            "previous": "2019-03-20 17:00:00.000",
+            "current": "2019-03-28 17:00:00.000"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Friendly notice for when the due date changes after a bill payment has been scheduled.
+
+Attribute | Description
+--------- | -----------
+`type` | `bill.scheduled-payment-notice`
+`payload.data.company` | The [company object](#the-company-object) linked to this resource.
+`payload.data.bill` | Object containing the names of the bill attributes that have changed and their previous values if available.
