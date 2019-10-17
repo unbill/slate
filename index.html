@@ -316,6 +316,9 @@
                     <a href="#bill-update" class="toc-h2 toc-link" data-title="Bill update">Bill update</a>
                   </li>
                   <li>
+                    <a href="#bill-scheduled-payment-notice" class="toc-h2 toc-link" data-title="Bill scheduled payment notice">Bill scheduled payment notice</a>
+                  </li>
+                  <li>
                     <a href="#bill-payment-sent" class="toc-h2 toc-link" data-title="Bill payment sent">Bill payment sent</a>
                   </li>
                   <li>
@@ -335,6 +338,9 @@
           <li>
             <a href="#changelog" class="toc-h1 toc-link" data-title="Changelog">Changelog</a>
               <ul class="toc-list-h2">
+                  <li>
+                    <a href="#oct-15th-2019" class="toc-h2 toc-link" data-title="Oct 15th, 2019">Oct 15th, 2019</a>
+                  </li>
                   <li>
                     <a href="#sep-3rd-2019" class="toc-h2 toc-link" data-title="Sep 3rd, 2019">Sep 3rd, 2019</a>
                   </li>
@@ -3081,36 +3087,36 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <p>Example <code>bill.created</code> Event</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-   </span><span class="s2">"event"</span><span class="p">:{</span><span class="w">
-      </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill.created"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-id-123"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"payload"</span><span class="p">:{</span><span class="w">
-         </span><span class="s2">"resource"</span><span class="p">:{</span><span class="w">
-            </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="w">
-         </span><span class="p">},</span><span class="w">
-         </span><span class="s2">"data"</span><span class="p">:{</span><span class="w">
-            </span><span class="s2">"auth"</span><span class="p">:{</span><span class="w">
-               </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
-               </span><span class="s2">"status"</span><span class="p">:{</span><span class="w">
-                  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="w">
-               </span><span class="p">},</span><span class="w">
-               </span><span class="s2">"company"</span><span class="p">:{</span><span class="w">
-                  </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
-                  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XYZ Electric"</span><span class="p">,</span><span class="w">
-                  </span><span class="s2">"logo"</span><span class="p">:{</span><span class="w">
-                     </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
-                     </span><span class="s2">"background"</span><span class="p">:</span><span class="kc">false</span><span class="w">
-                  </span><span class="p">}</span><span class="w">
-               </span><span class="p">}</span><span class="w">
+  </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill.created"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-id-123"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"auth"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XYZ Electric"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
             </span><span class="p">}</span><span class="w">
-         </span><span class="p">}</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
       </span><span class="p">}</span><span class="w">
-   </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>When a bill is found on an associated auth.</p>
@@ -3181,6 +3187,59 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <tr>
 <td><code>payload.data.bill</code></td>
 <td>Object containing the names of the bill attributes that have changed and their previous values.</td>
+</tr>
+</tbody></table>
+<h2 id='bill-scheduled-payment-notice'>Bill scheduled payment notice</h2>
+<blockquote>
+<p>Example <code>bill.scheduled-payment-notice</code> Event</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill.scheduled-payment-notice"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-id-123"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XYZ Electric"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"previous"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-03-20 17:00:00.000"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"current"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-03-28 17:00:00.000"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>When the due date changes after a bill payment has been scheduled.</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>type</code></td>
+<td><code>bill.scheduled-payment-notice</code></td>
+</tr>
+<tr>
+<td><code>payload.data.company</code></td>
+<td>The <a href="#the-company-object">company object</a> linked to this resource.</td>
+</tr>
+<tr>
+<td><code>payload.data.bill</code></td>
+<td>The <a href="#the-bill-object">bill object</a> containing attributes that have changed with their current and previous values, if available.</td>
 </tr>
 </tbody></table>
 <h2 id='bill-payment-sent'>Bill payment sent</h2>
@@ -3274,49 +3333,49 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <p>Example <code>bill.payment.scheduled</code> Event</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-   </span><span class="s2">"event"</span><span class="p">:{</span><span class="w">
-      </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill.payment.scheduled"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-id-123"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"payload"</span><span class="p">:{</span><span class="w">
-         </span><span class="s2">"resource"</span><span class="p">:{</span><span class="w">
-            </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="w">
-         </span><span class="p">},</span><span class="w">
-         </span><span class="s2">"data"</span><span class="p">:{</span><span class="w">
-            </span><span class="s2">"company"</span><span class="p">:{</span><span class="w">
-               </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XYZ Electric"</span><span class="w">
-            </span><span class="p">},</span><span class="w">
-            </span><span class="s2">"paymentMethod"</span><span class="p">:{</span><span class="w">
-               </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c5b2ed67d94870391c30b33"</span><span class="p">,</span><span class="w">
-               </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card"</span><span class="p">,</span><span class="w">
-               </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Johnny Appleseed"</span><span class="p">,</span><span class="w">
-               </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="p">,</span><span class="w">
-               </span><span class="s2">"default"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-               </span><span class="s2">"card"</span><span class="p">:{</span><span class="w">
-                  </span><span class="s2">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX1111"</span><span class="p">,</span><span class="w">
-                  </span><span class="s2">"bin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"41111111"</span><span class="p">,</span><span class="w">
-                  </span><span class="s2">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"visa"</span><span class="p">,</span><span class="w">
-                  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"credit"</span><span class="p">,</span><span class="w">
-                  </span><span class="s2">"expDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-01T12:00:00.000Z"</span><span class="p">,</span><span class="w">
-                  </span><span class="s2">"cancelled"</span><span class="p">:</span><span class="kc">false</span><span class="w">
-               </span><span class="p">},</span><span class="w">
-               </span><span class="s2">"assignedBills"</span><span class="p">:[</span><span class="w">
-                  </span><span class="s2">"5c5b2eba5ddb120427c41ba3"</span><span class="w">
-               </span><span class="p">]</span><span class="w">
-            </span><span class="p">},</span><span class="w">
-            </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"95.21"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"payDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-03-28 17:00:00.000"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"surcharge"</span><span class="p">:{</span><span class="w">
-               </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"debit"</span><span class="p">,</span><span class="w">
-               </span><span class="s2">"rate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.50"</span><span class="w">
-            </span><span class="p">}</span><span class="w">
-         </span><span class="p">}</span><span class="w">
+  </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill.payment.scheduled"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-id-123"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XYZ Electric"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"paymentMethod"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c5b2ed67d94870391c30b33"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Johnny Appleseed"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"card"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX1111"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"bin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"41111111"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"visa"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"credit"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"expDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-01T12:00:00.000Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"cancelled"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"assignedBills"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"5c5b2eba5ddb120427c41ba3"</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"95.21"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"payDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-03-28 17:00:00.000"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"surcharge"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"debit"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"rate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.50"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
       </span><span class="p">}</span><span class="w">
-   </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>When a payment is made towards a bill&#39;s outstanding balance. Note that the <code>payload.data.surcharge</code> may not be available when a company does not require it.</p>
@@ -3365,52 +3424,52 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <p>Example <code>bill.payment.cancelled</code> Event</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-   </span><span class="s2">"event"</span><span class="p">:{</span><span class="w">
-      </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill.payment.cancelled"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-id-123"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"payload"</span><span class="p">:{</span><span class="w">
-         </span><span class="s2">"resource"</span><span class="p">:{</span><span class="w">
-            </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="w">
-         </span><span class="p">},</span><span class="w">
-         </span><span class="s2">"data"</span><span class="p">:{</span><span class="w">
-            </span><span class="s2">"company"</span><span class="p">:{</span><span class="w">
-               </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XYZ Electric"</span><span class="w">
-            </span><span class="p">},</span><span class="w">
-            </span><span class="s2">"paymentMethod"</span><span class="p">:{</span><span class="w">
-               </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c5b2ed67d94870391c30b33"</span><span class="p">,</span><span class="w">
-               </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card"</span><span class="p">,</span><span class="w">
-               </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Johnny Appleseed"</span><span class="p">,</span><span class="w">
-               </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="p">,</span><span class="w">
-               </span><span class="s2">"default"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
-               </span><span class="s2">"card"</span><span class="p">:{</span><span class="w">
-                  </span><span class="s2">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX1111"</span><span class="p">,</span><span class="w">
-                  </span><span class="s2">"bin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"41111111"</span><span class="p">,</span><span class="w">
-                  </span><span class="s2">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"visa"</span><span class="p">,</span><span class="w">
-                  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"credit"</span><span class="p">,</span><span class="w">
-                  </span><span class="s2">"expDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-01T12:00:00.000Z"</span><span class="p">,</span><span class="w">
-                  </span><span class="s2">"cancelled"</span><span class="p">:</span><span class="kc">false</span><span class="w">
-               </span><span class="p">},</span><span class="w">
-               </span><span class="s2">"assignedBills"</span><span class="p">:[</span><span class="w">
-                  </span><span class="s2">"5c5b2eba5ddb120427c41ba3"</span><span class="w">
-               </span><span class="p">]</span><span class="w">
-            </span><span class="p">},</span><span class="w">
-            </span><span class="s2">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-              </span><span class="s2">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                </span><span class="s2">"current"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-03-28 17:00:00.000"</span><span class="w">
-              </span><span class="p">},</span><span class="w">
-              </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                </span><span class="s2">"current"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40.00"</span><span class="w">
-              </span><span class="p">}</span><span class="w">
-            </span><span class="p">},</span><span class="w">
-            </span><span class="s2">"trigger"</span><span class="p">:</span><span class="w"> </span><span class="s2">"client"</span><span class="w">
-         </span><span class="p">}</span><span class="w">
+  </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill.payment.cancelled"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-id-123"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"company"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XYZ Electric"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"paymentMethod"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c5b2ed67d94870391c30b33"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"card"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Johnny Appleseed"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"verified"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"card"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXX1111"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"bin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"41111111"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"visa"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"credit"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"expDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-06-01T12:00:00.000Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"cancelled"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"assignedBills"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"5c5b2eba5ddb120427c41ba3"</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"current"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-03-28 17:00:00.000"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"current"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40.00"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"trigger"</span><span class="p">:</span><span class="w"> </span><span class="s2">"client"</span><span class="w">
       </span><span class="p">}</span><span class="w">
-   </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>When a scheduled payment is cancelled.</p>
@@ -3518,6 +3577,12 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"swap.success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-id-123"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"swap"</span><span class="p">,</span><span class="w">
@@ -3617,7 +3682,11 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <td>The <a href="#the-payment-method-object">payment method object</a> linked to the swap.</td>
 </tr>
 </tbody></table>
-<h1 id='changelog'>Changelog</h1><h3 id='sep-3rd-2019'>Sep 3rd, 2019</h3>
+<h1 id='changelog'>Changelog</h1><h3 id='oct-15th-2019'>Oct 15th, 2019</h3>
+<ul>
+<li>Added <code>bill.scheduled-payment-notice</code> event.</li>
+</ul>
+<h3 id='sep-3rd-2019'>Sep 3rd, 2019</h3>
 <ul>
 <li>Replaced <code>nonce</code> tokens with an <code>expiration</code> date for <a href="#create-token">Client Token</a> creation.</li>
 </ul>
