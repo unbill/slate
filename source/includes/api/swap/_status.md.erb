@@ -1,11 +1,21 @@
 ## Swap status
 
-> Pending Response
+> In Progress Response
 
 ```json
 {
   "status": {
-    "type": "pending"
+    "type": "in-progress"
+  }
+}
+```
+
+> On Hold Response
+
+```json
+{
+  "status": {
+    "type": "on-hold"
   }
 }
 ```
@@ -22,9 +32,13 @@
 
 A swap `status.type` indicates the current state of a request to swap a payment method with a particular company.
 
-### pending
+### in-progress
 
 The swap of the payment method is currently in progress.
+
+### on-hold
+
+The swap of the payment method is currently on hold as described in the [Auth Status](#auth-status).
 
 ### completed
 
