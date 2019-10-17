@@ -339,6 +339,9 @@
             <a href="#changelog" class="toc-h1 toc-link" data-title="Changelog">Changelog</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#oct-17th-2019" class="toc-h2 toc-link" data-title="Oct 17th, 2019">Oct 17th, 2019</a>
+                  </li>
+                  <li>
                     <a href="#oct-15th-2019" class="toc-h2 toc-link" data-title="Oct 15th, 2019">Oct 15th, 2019</a>
                   </li>
                   <li>
@@ -2662,11 +2665,20 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 </tbody></table>
 <h2 id='swap-status'>Swap status</h2>
 <blockquote>
-<p>Pending Response</p>
+<p>In Progress Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"in-progress"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Hold Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hold"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -2680,8 +2692,10 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>A swap <code>status.type</code> indicates the current state of a request to swap a payment method with a particular company.</p>
-<h3 id='pending'>pending</h3>
+<h3 id='in-progress'>in-progress</h3>
 <p>The swap of the payment method is currently in progress.</p>
+<h3 id='hold'>hold</h3>
+<p>The swap of the payment method is currently on hold as described in the <a href="#auth-status">Auth Status</a>.</p>
 <h3 id='completed'>completed</h3>
 <p>The swap of the payment method has been completed successfully.</p>
 <h2 id='add-a-swap'>Add a swap</h2>
@@ -3682,7 +3696,11 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <td>The <a href="#the-payment-method-object">payment method object</a> linked to the swap.</td>
 </tr>
 </tbody></table>
-<h1 id='changelog'>Changelog</h1><h3 id='oct-15th-2019'>Oct 15th, 2019</h3>
+<h1 id='changelog'>Changelog</h1><h3 id='oct-17th-2019'>Oct 17th, 2019</h3>
+<ul>
+<li>Updated the <a href="#swap-status">Swap Status</a>.</li>
+</ul>
+<h3 id='oct-15th-2019'>Oct 15th, 2019</h3>
 <ul>
 <li>Added <code>bill.scheduled-payment-notice</code> event.</li>
 </ul>
