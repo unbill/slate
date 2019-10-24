@@ -11,7 +11,7 @@
 
 Optionally, 2048-bit Asymmetric key encryption may be used when making a `POST` request to the API.
 
-- Request a public key from Q2, which will follow the PKCS #1 encryption scheme. You'll also be handed a key identifier.
+- Request a public key from Q2, which will follow the PKCS #8 encryption scheme. You'll also be handed a key identifier.
 - Use the API routes as documented, however your payload will be encrypted and base64 encoded using the public key, and sent in a `hash` parameter.
 - Add an `encrypted` parameter to your request with the contents of your key identifer given to you from Q2.
 
