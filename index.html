@@ -550,7 +550,7 @@ https://sb-api.q2open.io/v1 (sandbox)
 <p>Optionally, 2048-bit Asymmetric key encryption may be used when making a <code>POST</code> request to the API.</p>
 
 <ul>
-<li>Request a public key from Q2, which will follow the PKCS #1 encryption scheme. You&#39;ll also be handed a key identifier.</li>
+<li>Request a public key from Q2, which will follow the PKCS #8 encryption scheme. You&#39;ll also be handed a key identifier.</li>
 <li>Use the API routes as documented, however your payload will be encrypted and base64 encoded using the public key, and sent in a <code>hash</code> parameter.</li>
 <li>Add an <code>encrypted</code> parameter to your request with the contents of your key identifer given to you from Q2.</li>
 </ul>
