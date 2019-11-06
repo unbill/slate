@@ -5,7 +5,7 @@
 ```shell
   curl <%= config.host %>/bill/list/579b695decfa11012711875d
     -H "<%= config.auth %>"
-    -G 
+    -G
 ```
 
 > Example Response
@@ -16,12 +16,13 @@
     {
       "bill": {
         "_id": "579b695decfa11012711875d",
-        "balance": "100",
+        "balance": "100.00",
+        "customPaymentAmount": "50.00",
         "dueDate": "<%= config.futureDate %>",
         "payDate": "<%= config.futureDate %>",
         "status": {
           "type": "upcoming"
-        }, 
+        },
         "settings": {
           "recurring": "enabled",
           "schedule": "on-due-date"
