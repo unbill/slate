@@ -17,6 +17,12 @@
   },
   "requiredPayment": "bank",
   "schedule": "on-due-date",
+  "additionalPaymentOptions": [{
+    "type": "custom-payment-amount",
+    "settings": {
+      "canExceedBalance": false
+    }
+  }]
   "auth": {
     "urls": {
       "login": "https://www.netflix.com/Login",
@@ -33,7 +39,7 @@
       "name": "password",
       "label": "Password"
     }]
-  }, 
+  },
   "geo": {
     "lat": 30.70,
     "lng": -95.53,
@@ -90,7 +96,7 @@
               }
           }
       }
-  }  
+  }
 }
 ```
 
