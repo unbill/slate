@@ -339,6 +339,9 @@
             <a href="#changelog" class="toc-h1 toc-link" data-title="Changelog">Changelog</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#nov-6th-2019" class="toc-h2 toc-link" data-title="Nov 6th, 2019">Nov 6th, 2019</a>
+                  </li>
+                  <li>
                     <a href="#oct-17th-2019" class="toc-h2 toc-link" data-title="Oct 17th, 2019">Oct 17th, 2019</a>
                   </li>
                   <li>
@@ -1045,7 +1048,8 @@ https://sb-biller-direct.q2open.io (sandbox)
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"customPaymentAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"50.00"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"payDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1083,6 +1087,10 @@ https://sb-biller-direct.q2open.io (sandbox)
 <tr>
 <td><code>dueDate</code></td>
 <td>Current bill due date.</td>
+</tr>
+<tr>
+<td><code>customPaymentAmount</code></td>
+<td>Custom amount specified by the user to pay towards their outstanding balance. Only defined if the user has specified a custom amount to be paid.</td>
 </tr>
 <tr>
 <td><code>lastPaidAmount</code></td>
@@ -1385,7 +1393,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 </blockquote>
 <pre class="highlight shell tab-shell"><code>  curl https://api.q2open.io/v1/bill/list/579b695decfa11012711875d
     -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span>
-    -G 
+    -G
 </code></pre>
 <blockquote>
 <p>Example Response</p>
@@ -1395,12 +1403,13 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"bill"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"balance"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.00"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"customPaymentAmount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"50.00"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"payDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-25T00:00:00.000Z"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upcoming"</span><span class="w">
-        </span><span class="p">},</span><span class="w"> 
+        </span><span class="p">},</span><span class="w">
         </span><span class="s2">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="s2">"recurring"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enabled"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"on-due-date"</span><span class="w">
@@ -1488,6 +1497,12 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
   </span><span class="p">},</span><span class="w">
   </span><span class="s2">"requiredPayment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bank"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"on-due-date"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"additionalPaymentOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"custom-payment-amount"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"canExceedBalance"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}]</span><span class="w">
   </span><span class="s2">"auth"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"urls"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.netflix.com/Login"</span><span class="p">,</span><span class="w">
@@ -1504,7 +1519,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Password"</span><span class="w">
     </span><span class="p">}]</span><span class="w">
-  </span><span class="p">},</span><span class="w"> 
+  </span><span class="p">},</span><span class="w">
   </span><span class="s2">"geo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"lat"</span><span class="p">:</span><span class="w"> </span><span class="mf">30.70</span><span class="p">,</span><span class="w">
     </span><span class="s2">"lng"</span><span class="p">:</span><span class="w"> </span><span class="mf">-95.53</span><span class="p">,</span><span class="w">
@@ -1561,7 +1576,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
               </span><span class="p">}</span><span class="w">
           </span><span class="p">}</span><span class="w">
       </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">  
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <table><thead>
@@ -1617,6 +1632,10 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <tr>
 <td><code>schedule</code></td>
 <td>The <a href="#bill-payment-schedule">bill payment schedule</a> this company follows. If this parameter is set, the schedule for a bill linked to this company may not be changed. Typically subscription companies such as Netflix have this parameter set since payments must be made on a specific date.</td>
+</tr>
+<tr>
+<td><code>additionalPaymentOptions</code></td>
+<td>Present when the company provides additional payment options that allow users to make payments towards their outstanding balance.</td>
 </tr>
 <tr>
 <td><code>fees</code></td>
@@ -3175,6 +3194,9 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
           </span><span class="s2">"balance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="s2">"previous"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25.21"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"current"</span><span class="p">:</span><span class="w"> </span><span class="s2">"52.11"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"dueDate"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"current"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-03-28 17:00:00.000"</span><span class="w">
           </span><span class="p">}</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">}</span><span class="w">
@@ -3200,7 +3222,7 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 </tr>
 <tr>
 <td><code>payload.data.bill</code></td>
-<td>Object containing the names of the bill attributes that have changed and their previous values.</td>
+<td>Object containing the names of the bill attributes that have changed and their previous values as well as the current bill due date.</td>
 </tr>
 </tbody></table>
 <h2 id='bill-scheduled-payment-notice'>Bill scheduled payment notice</h2>
@@ -3696,7 +3718,11 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <td>The <a href="#the-payment-method-object">payment method object</a> linked to the swap.</td>
 </tr>
 </tbody></table>
-<h1 id='changelog'>Changelog</h1><h3 id='oct-17th-2019'>Oct 17th, 2019</h3>
+<h1 id='changelog'>Changelog</h1><h3 id='nov-6th-2019'>Nov 6th, 2019</h3>
+<ul>
+<li>Added <code>additionalPaymentOptions</code> to <a href="#the-company-object">company object</a>.</li>
+</ul>
+<h3 id='oct-17th-2019'>Oct 17th, 2019</h3>
 <ul>
 <li>Updated the <a href="#swap-status">Swap Status</a>.</li>
 </ul>
