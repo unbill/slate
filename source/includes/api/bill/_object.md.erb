@@ -5,7 +5,8 @@
 ```json
 {
   "_id": "579b695decea110719b1874d",
-  "balance": "100",
+  "balance": "100.00",
+  "customPaymentAmount": "50.00",
   "dueDate": "<%= config.futureDate %>",
   "payDate": "<%= config.futureDate %>",
   "status": {
@@ -32,6 +33,7 @@ Attribute | Description
 `_id` | ID of the bill.
 `balance` | Current bill balance.
 `dueDate` | Current bill due date.
+`customPaymentAmount` | Custom amount specified by the user to pay towards their outstanding balance. Only defined if the user has specified a custom amount to be paid.
 `lastPaidAmount` | Amount of last payment.
 `lastPaidOn` | The date when this bill was last paid.
 `payDate` | The date when the next bill will be paid.

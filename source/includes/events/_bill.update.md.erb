@@ -24,6 +24,9 @@
           "balance": {
             "previous": "25.21",
             "current": "52.11"
+          },
+          "dueDate": {
+            "current": "2019-03-28 17:00:00.000"
           }
         }
       }
@@ -38,4 +41,4 @@ Attribute | Description
 --------- | -----------
 `type` | `bill.update`
 `payload.data.company` | The [company object](#the-company-object) linked to this resource.
-`payload.data.bill` | Object containing the names of the bill attributes that have changed and their previous values.
+`payload.data.bill` | Object containing the names of the bill attributes that have changed and their previous values as well as the current bill due date.
