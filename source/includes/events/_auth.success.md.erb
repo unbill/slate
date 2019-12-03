@@ -9,23 +9,23 @@
     "type": "auth.success",
     "created": "2016-04-20T16:51:12Z",
     "clientId": "579b695decfa110127118752",
-    "partnerId": "55942f330cfcfd6c4ed529d9",  
-    "identifier": "example-id-123",    
+    "partnerId": "55942f330cfcfd6c4ed529d9",
+    "identifier": "example-id-123",
     "payload": {
       "resource": {
         "type": "client",
         "id": "579b695decfa110127118752"
       },
-      "data": { 
+      "data": {
         "auth" : {
           "_id" : "5b157888cb7e60000bfcaa41",
           "items" : [
             "bill"
-          ], 
+          ],
           "company" : {
             "_id" : "55942f330cfcfd6c4ed529d8",
             "name" : "Geico"
-          }, 
+          },
           "status" : {
             "type" : "verified"
           }
@@ -41,5 +41,5 @@ When a client has successfully completed the authentication process.
 Attribute | Description
 --------- | -----------
 `type` | `auth.success`
-`payload.data.id` | The ID of the client who was authenticating.
+`payload.data.resource.id` | The ID of the client who was authenticating.
 `payload.data.auth` | The [auth object](#the-auth-object) linked to this resource.
