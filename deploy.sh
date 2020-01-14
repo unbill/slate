@@ -21,6 +21,7 @@ Options:
 
 
 run_build() {
+  gem install bundle -v 2.1.2
   bundle install
   bundle exec middleman build --clean
 }
