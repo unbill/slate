@@ -29,7 +29,7 @@
   },
   "reason": {
     "userMessage": "You need to login and verify your account information.",
-    "debugMessage": "The user has not verified their online account."
+    "code": "account_issue_verify_identity"
   }
 }
 ```
@@ -45,11 +45,11 @@
     "method": "questions",
     "mfa": [{
       "question": "What city did you grow up in?",
-      "identifier": "1j5k2l1" 
+      "identifier": "1j5k2l1"
     },
     {
       "answer": "What is your favorite food?",
-      "identifier": "3buw78h3" 
+      "identifier": "3buw78h3"
     }]
   }
 }
@@ -67,9 +67,11 @@ The auth's credentials are no longer valid and need to be reauthenticated using 
 
 ![Bill Authenticate](<%= config.s3 %>/bill-authenticate.png)
 
-### hold 
+### hold
 
-For a number of reasons an auth can have the status of `hold`. When an auth is on hold we'll present you with a `reason` that you in turn can present to your users. To remove this status, the user must take the appropriate action as described in the `reason`. This usually involves them needing to login into their online account. Once the user has completed the action, make a request to the `/auth/{authId}/fix-hold` endpoint to resume their services.
+An auth's status can be `hold` for several reasons. When an auth is on hold, the response contains a `reason` for the hold that you can present to your users. To fix the hold, the user must perform the action described in the `reason`, which usually requires them to log in to their online account. Once the user has completed the action, make a request to the `/auth/{authId}/fix-hold` endpoint to resume their services.
+
+Additionally, a [code](#auth-hold-codes) is provided for handling the hold programmatically, if required.
 
 *Display hold reason*
 
