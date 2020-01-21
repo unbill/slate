@@ -122,9 +122,11 @@
                   <li>
                     <a href="#authentication" class="toc-h2 toc-link" data-title="Authentication">Authentication</a>
                   </li>
-                  <li>
-                    <a href="#errors" class="toc-h2 toc-link" data-title="Errors">Errors</a>
-                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+              <ul class="toc-list-h2">
                   <li>
                     <a href="#request-ids" class="toc-h2 toc-link" data-title="Request IDs">Request IDs</a>
                   </li>
@@ -164,6 +166,9 @@
                   </li>
                   <li>
                     <a href="#auth-status" class="toc-h2 toc-link" data-title="Auth status">Auth status</a>
+                  </li>
+                  <li>
+                    <a href="#auth-hold-codes" class="toc-h2 toc-link" data-title="Auth hold codes">Auth hold codes</a>
                   </li>
                   <li>
                     <a href="#list-all-auths" class="toc-h2 toc-link" data-title="List all auths">List all auths</a>
@@ -487,44 +492,16 @@ https://sb-api.q2open.io/v1 (sandbox)
 <p>Authenticate your account when using the API by including your secret API key in the request. Your API keys carry many privileges, so be sure to keep them secret! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.</p>
 
 <p>Authentication to the API is performed via bearer tokens. Pass your API Key as a bearer token in the <code>Authorization</code> header.</p>
-<h2 id='errors'>Errors</h2>
-<p>The Q2 Biller Direct API uses conventional HTTP response codes to indicate the success or failure of an API request. In general, codes in the <code>2xx</code> range indicate success, codes in the <code>4xx</code> range indicate an error that failed given the information provided (e.g., a required parameter was omitted, a charge failed, etc.), and codes in the <code>5xx</code> range indicate an error with Q2&#39;s servers (these are rare).</p>
+<h1 id='errors'>Errors</h1>
+<p>Q2 Biller Direct API uses HTTP response status codes to indicate the success or failure of your API requests. If your request fails, Q2 Biller Direct API returns an error using the appropriate status code.</p>
 
-<table><thead>
-<tr>
-<th>Code</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>200 - OK</td>
-<td>Everything worked as expected.</td>
-</tr>
-<tr>
-<td>400 - Bad Request</td>
-<td>The request was unacceptable, often due to missing a required parameter.</td>
-</tr>
-<tr>
-<td>401 - Unauthorized</td>
-<td>No valid API key provided.</td>
-</tr>
-<tr>
-<td>402 - Request Failed</td>
-<td>The parameters were valid but the request failed.</td>
-</tr>
-<tr>
-<td>404 - Not Found</td>
-<td>The requested resource doesn&#39;t exist.</td>
-</tr>
-<tr>
-<td>429 - Too Many Requests</td>
-<td>Too many requests hit the API too quickly. We recommend an exponential backoff of your requests.</td>
-</tr>
-<tr>
-<td>500, 502, 503, 504 - Server Errors</td>
-<td>Something went wrong on Q2&#39;s end. (These are rare.)</td>
-</tr>
-</tbody></table>
+<p>In general, there are three status code ranges you can expect:</p>
+
+<ul>
+<li><code>2xx</code> success status codes confirm that your request worked as expected</li>
+<li><code>4xx</code> error status codes indicate an error because of the information provided (e.g., a required parameter was omitted)</li>
+<li><code>5xx</code> error status codes are rare and indicate an error with Q2 Biller Direct API&#39;s servers</li>
+</ul>
 <h2 id='request-ids'>Request IDs</h2>
 <p>Each API request has an associated request identifier. You can find this value in the response headers, under <code>request-id</code>. If you need to contact us about a specific request, providing the request identifier will ensure the fastest possible resolution.</p>
 <h2 id='getting-started'>Getting Started</h2>
@@ -851,7 +828,7 @@ https://sb-biller-direct.q2open.io (sandbox)
   </span><span class="p">},</span><span class="w">
   </span><span class="s2">"reason"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"userMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"You need to login and verify your account information."</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"debugMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The user has not verified their online account."</span><span class="w">
+    </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"account_issue_verify_identity"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -866,11 +843,11 @@ https://sb-biller-direct.q2open.io (sandbox)
     </span><span class="s2">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"questions"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"mfa"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
       </span><span class="s2">"question"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What city did you grow up in?"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1j5k2l1"</span><span class="w"> 
+      </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1j5k2l1"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"answer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What is your favorite food?"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3buw78h3"</span><span class="w"> 
+      </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3buw78h3"</span><span class="w">
     </span><span class="p">}]</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -883,7 +860,9 @@ https://sb-biller-direct.q2open.io (sandbox)
 
 <p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-authenticate.png" alt="Bill Authenticate" /></p>
 <h3 id='hold'>hold</h3>
-<p>For a number of reasons an auth can have the status of <code>hold</code>. When an auth is on hold we&#39;ll present you with a <code>reason</code> that you in turn can present to your users. To remove this status, the user must take the appropriate action as described in the <code>reason</code>. This usually involves them needing to login into their online account. Once the user has completed the action, make a request to the <code>/auth/{authId}/fix-hold</code> endpoint to resume their services.</p>
+<p>An auth&#39;s status can be <code>hold</code> for several reasons. When an auth is on hold, the response contains a <code>reason</code> for the hold that you can present to your users. To fix the hold, the user must perform the action described in the <code>reason</code>, which usually requires them to log in to their online account. Once the user has completed the action, make a request to the <code>/auth/{authId}/fix-hold</code> endpoint to resume their services.</p>
+
+<p>Additionally, a <a href="#auth-hold-codes">code</a> is provided for handling the hold programmatically, if required.</p>
 
 <p><em>Display hold reason</em></p>
 
@@ -894,6 +873,114 @@ https://sb-biller-direct.q2open.io (sandbox)
 <p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-hold-confirm.png" alt="Bill Hold Confirm" /></p>
 <h3 id='mfa-required'>MFA Required</h3>
 <p>When the link with a company requires additional MFA.</p>
+<h2 id='auth-hold-codes'>Auth hold codes</h2>
+<p><a href="#hold">Auth hold&#39;s</a> include a code - a short string with a brief explanation - as a value for <code>code</code>. Below is a list of possible codes that can be returned, along with our default messaging and the products they relate to.</p>
+<h3 id='account_issue_apple_pay_on_file'>account_issue_apple_pay_on_file</h3>
+<p>We&#39;re unable to update your payment method because your iTunes payments are made with Apple Pay. Please update your payment method directly in Apple Pay.</p>
+
+<p><label class="tag">CardSwap</label></p>
+<h3 id='account_issue_disney_plus_third_party_on_file'>account_issue_disney_plus_third_party_on_file</h3>
+<p>Your Disney+ subscription payments are made through a third-party provider (such as iTunes, Verizon, or a bundle).</p>
+
+<p><label class="tag">CardSwap</label></p>
+<h3 id='account_issue_payment_details_required'>account_issue_payment_details_required</h3>
+<p>This provider requires additional information. Please contact the provider to update your payment method.</p>
+
+<p><label class="tag">CardSwap</label></p>
+<h3 id='account_issue_with_swap'>account_issue_with_swap</h3>
+<p>We&#39;re unable to update your payment method because of an issue with your account. Please try again later.</p>
+
+<p><label class="tag">CardSwap</label></p>
+<h3 id='account_issue_primary_account_holder'>account_issue_primary_account_holder</h3>
+<p>We&#39;re unable to update your payment method because you are not the primary account holder for this provider.</p>
+
+<p><label class="tag">CardSwap</label></p>
+<h3 id='account_issue_card_not_accepted'>account_issue_card_not_accepted</h3>
+<p>We&#39;re unable to update your payment method because this card is not accepted by the provider.</p>
+
+<p><label class="tag">CardSwap</label></p>
+<h3 id='account_issue_max_cards_on_file'>account_issue_max_cards_on_file</h3>
+<p>We&#39;re unable to update your payment method because you have the max amount of cards on file. Please log in to the provider&#39;s website to remove a payment method and try again.</p>
+
+<p><label class="tag">CardSwap</label></p>
+<h3 id='account_issue_third_party_connected'>account_issue_third_party_connected</h3>
+<p>We&#39;re unable to update your payment method because payments are made through a third-party provider (such as PayPal or Google Play).</p>
+
+<p><label class="tag">CardSwap</label></p>
+<h3 id='account_issue_third_party_available'>account_issue_third_party_available</h3>
+<p>We&#39;re unable to update your payment method because payments are made through iTunes or Amazon. To change your payment method, select iTunes or Amazon from the list of providers and add your card.</p>
+
+<p><label class="tag">CardSwap</label></p>
+<h3 id='account_issue_no_active_subscription'>account_issue_no_active_subscription</h3>
+<p>We&#39;re unable to add your card because you do not have an active subscription with this provider. Please activate your subscription and try again.</p>
+
+<p><label class="tag">CardSwap</label></p>
+<h3 id='account_set_up_online_payments'>account_set_up_online_payments</h3>
+<p>Your account is not set up for online payments. Log in to your account and set up online payments.</p>
+
+<p><label class="tag">Biller Direct</label></p>
+<h3 id='system_issue_with_swap'>system_issue_with_swap</h3>
+<p>We&#39;re unable to update your payment method because of a system issue. Please try again later.</p>
+
+<p><label class="tag">CardSwap</label></p>
+<h3 id='account_issue_account_locked'>account_issue_account_locked</h3>
+<p>Your account has been locked. Unlock your account directly through your provider and try again.</p>
+
+<p><label class="tag">Biller Direct</label></p>
+<h3 id='account_issue_verify_identity'>account_issue_verify_identity</h3>
+<p>Please log in to your account to set up and verify your personal information.</p>
+
+<p><label class="tag">Biller Direct</label></p>
+<h3 id='account_issue_accept_toc'>account_issue_accept_toc</h3>
+<p>Please log in to your account and accept the Terms and Conditions.</p>
+
+<p><label class="tag">Biller Direct</label></p>
+<h3 id='account_issue_no_service_account'>account_issue_no_service_account</h3>
+<p>Please log in to your account and add a service account.</p>
+
+<p><label class="tag">Biller Direct</label></p>
+
+<!--
+
+These are Biller Direct holds we'll add in later
+
+### account_issue_third_party_payments_on_file
+
+We're unable to access your bill information because your account is connected to a third-party provider.
+
+<label class="tag">Biller Direct</label>
+
+### system_issue_with_bill
+
+We're unable to access your bill information because of a system issue. Please try again later.
+
+<label class="tag">Biller Direct</label>
+
+### system_issue_with_bill_payment
+
+We're unable to submit this payment because of a system issue. Please try again later.
+
+<label class="tag">Biller Direct</label>
+
+### account_paid_in_full
+
+Your account balance has already been paid in full.
+
+<label class="tag">Biller Direct</label>
+
+### account_issue_payment_restrictions
+
+We're unable to submit payments due to restrictions on your account.
+
+<label class="tag">Biller Direct</label>
+
+### account_issue_inactive_account
+
+We're unable to make payments on inactive accounts.
+
+<label class="tag">Biller Direct</label>
+
+-->
 <h2 id='list-all-auths'>List all auths</h2>
 <blockquote>
 <p>Example Request</p>
