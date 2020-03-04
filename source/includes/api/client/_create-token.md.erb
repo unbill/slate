@@ -45,6 +45,7 @@ Parameter | Description
 `identifier` | A unique identifier that represents a user in your system.
 `nonce` | Optional boolean specifying whether the token is for one time use. Default is false.
 `expiration` | An `ISO 8601` formatted date that sets when this token will expire. If no `expiration` is specified, the token will expire after 24 hours.
+`accessTokenExpiresIn` | Optional number of seconds that an access token issued using the SSO token is valid. Default is 1 hour (3600).
 `meta` | Additional information about the user in your system.
 
 ### Returns
