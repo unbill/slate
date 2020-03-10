@@ -1,0 +1,44 @@
+## Revoke Tokens
+
+> Example Request
+
+```shell
+curl "<%= config.host %>/client/revoke-tokens" \
+  -H "<%= config.auth %>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "identifier": "Bk0zwVx1Z",
+    "clientToken": "566595c8ce88ccec69328566c8ce8595c8"
+  }'
+```
+
+> Example Response
+
+```json
+{
+  "success": true
+}
+```
+
+Revokes client SSO and access tokens associated with either a client or client SSO token.
+When a token is revoked, it can no longer be used to access the Biller Direct API.
+
+Either a client `identifier` or `clientToken` must be provided.
+If a client `identifier` is provided, all current SSO and access tokens associated with that client will be revoked.
+If a `clientToken` from [Create Token](#create-token) is provided, that token and any related access tokens will be revoked.
+If both parameters are passed, the `clientToken` parameter is ignored.
+
+### HTTP Request
+
+`POST <%= config.host %>/client/revoke-tokens`
+
+### Arguments
+
+Parameter | Description
+----- | -----------
+`identifier` | Optional A unique identifier that represents a user in your system.
+`clientToken` | Optional The client SSO token produced by a call to [Create Token](#create-token).
+
+### Returns
+
+Returns an object with a `success` property.
