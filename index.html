@@ -274,6 +274,9 @@
                   <li>
                     <a href="#create-token" class="toc-h2 toc-link" data-title="Create Token">Create Token</a>
                   </li>
+                  <li>
+                    <a href="#revoke-tokens" class="toc-h2 toc-link" data-title="Revoke Tokens">Revoke Tokens</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -384,6 +387,9 @@
                   </li>
                   <li>
                     <a href="#jan-29th-2019" class="toc-h2 toc-link" data-title="Jan 29th, 2019">Jan 29th, 2019</a>
+                  </li>
+                  <li>
+                    <a href="#mar-4th-2020" class="toc-h2 toc-link" data-title="Mar 4th, 2020">Mar 4th, 2020</a>
                   </li>
               </ul>
           </li>
@@ -2709,12 +2715,62 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <td>An <code>ISO 8601</code> formatted date that sets when this token will expire. If no <code>expiration</code> is specified, the token will expire after 24 hours.</td>
 </tr>
 <tr>
+<td><code>accessTokenExpiresIn</code></td>
+<td>Optional number of seconds that an access token issued using the SSO token is valid. Default is 1 hour (3600).</td>
+</tr>
+<tr>
 <td><code>meta</code></td>
 <td>Additional information about the user in your system.</td>
 </tr>
 </tbody></table>
 <h3 id='returns'>Returns</h3>
 <p>Returns an object with a <code>token</code> property that can be used to SSO into applications.</p>
+<h2 id='revoke-tokens'>Revoke Tokens</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/client/revoke-tokens"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -d <span class="s1">'{
+    "identifier": "Bk0zwVx1Z",
+    "clientToken": "566595c8ce88ccec69328566c8ce8595c8"
+  }'</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Revokes client SSO and access tokens associated with either a client or client SSO token.
+When a token is revoked, it can no longer be used to access the Biller Direct API.</p>
+
+<p>Either a client <code>identifier</code> or <code>clientToken</code> must be provided.
+If a client <code>identifier</code> is provided, all current SSO and access tokens associated with that client will be revoked.
+If a <code>clientToken</code> from <a href="#create-token">Create Token</a> is provided, that token and any related access tokens will be revoked.
+If both parameters are passed, the <code>clientToken</code> parameter is ignored.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST https://api.q2open.io/v1/client/revoke-tokens</code></p>
+<h3 id='arguments'>Arguments</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>identifier</code></td>
+<td>Optional A unique identifier that represents a user in your system.</td>
+</tr>
+<tr>
+<td><code>clientToken</code></td>
+<td>Optional The client SSO token produced by a call to <a href="#create-token">Create Token</a>.</td>
+</tr>
+</tbody></table>
+<h3 id='returns'>Returns</h3>
+<p>Returns an object with a <code>success</code> property.</p>
 <h1 id='swap'>Swap</h1>
 <p>Enables account holders to automatically apply new debit or credit card information across their favorite subscription and digital point-of-sale services.</p>
 <h2 id='the-swap-object'>The swap object</h2>
@@ -4025,6 +4081,12 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <li>Added <code>testswap</code> to the list of valid testing credentials.</li>
 <li>Added Company payment fees to the <code>company</code> object</li>
 <li>Added <code>company.userPresenceRequired</code> to <a href="#the-company-object">company object</a> and documentation for <a href="#connect">Connect</a>.</li>
+</ul>
+<h3 id='mar-4th-2020'>Mar 4th, 2020</h3>
+<ul>
+<li>Added definition for <a href="#revoke-tokens">Revoke Tokens</a></li>
+<li>Added <code>nonce</code> back for <a href="#create-token">Client Token</a> creation.</li>
+<li>Added <code>accessTokenExpiresIn</code> back for <a href="#create-token">Client Token</a> creation.</li>
 </ul>
 
       </div>
