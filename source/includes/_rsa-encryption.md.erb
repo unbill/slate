@@ -1,5 +1,5 @@
 ## Message Security
-### RSA Encryption
+### RSA/AES Encryption
 > Example Encrypted Request
 
 ```json
@@ -9,11 +9,14 @@
 }
 ```
 
-Optionally, 2048-bit Asymmetric key encryption may be used when making a `POST` request to the API.
+Optionally, message encryption may be used when making a `POST` request to the API.
 
-- Request a public key from Q2, which will follow the PKCS #8 encryption scheme. You'll also be handed a key identifier.
+- Message encryption uses a combination of AES and RSA encryption.
+  - The message payload is encrypted using AES-CTR-256. The resultant AES key is then encrypted using an RSA 2048-bit public key.
+- An RSA key-pair can be created in the `Settings` area of the BDCS Nexus application and the public key can be copied.
+- The [examples GitHub repository](https://github.com/unbill/examples) includes an example of encrypting the payload with your public key using a combination of AES and RSA encryption.
 - Use the API routes as documented, however your payload will be encrypted and base64 encoded using the public key, and sent in a `hash` parameter.
-- Add an `encrypted` parameter to your request with the contents of your key identifer given to you from Q2.
+- Add an `encrypted` parameter to your request with the key identifer which is created when you generate an RSA key in Nexus.
 
 ### RSA Signing
 > Example Signed Request
