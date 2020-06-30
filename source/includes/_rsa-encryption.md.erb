@@ -14,7 +14,7 @@ Optionally, message encryption may be used when making a `POST` request to the A
 - Message encryption uses a combination of AES and RSA encryption.
   - The message payload is encrypted using AES-CTR-256.
   - The resultant AES key is then encrypted using an RSA 2048-bit public key.
-- An RSA key-pair can be created in the `Settings` area of the BDCS Nexus application and the public key can be copied.
+- An RSA key-pair can be created in the `Settings` area of the Nexus application and the public key can be copied.
   - The public key is provided in PCKS #8 format.
 - The [examples GitHub repository](https://github.com/unbill/examples) includes an example of encrypting the payload with your public key using a combination of AES and RSA encryption.
 - Use the API routes as documented, however your payload will be encrypted and base64 encoded using the public key, and sent in a `hash` parameter.
