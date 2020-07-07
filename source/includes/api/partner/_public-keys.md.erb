@@ -1,0 +1,34 @@
+## Get public keys
+
+> Example Request
+
+```shell
+curl "<%= config.host %>/partner/public-keys" \
+  -H "<%= config.auth %>" \
+  -G
+```
+
+> Example Response
+
+```json
+{
+  "data": [
+    {
+      "keyId": "5b4cdadf8ea75a6602ff82bb",
+      "publicKey": "-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKB..."
+    }
+  ]
+}
+```
+
+Retrieves the current partner public keys for request encryption.
+Partner keys are managed in the Nexus application.
+
+### HTTP Request
+
+`GET <%= config.host %>/partner/public-keys`
+
+
+### Returns
+
+A response with a `data` property that contains an array of public keys.
