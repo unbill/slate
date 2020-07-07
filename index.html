@@ -298,6 +298,14 @@
               </ul>
           </li>
           <li>
+            <a href="#partner" class="toc-h1 toc-link" data-title="Partner">Partner</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-public-keys" class="toc-h2 toc-link" data-title="Get public keys">Get public keys</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#event" class="toc-h1 toc-link" data-title="Event">Event</a>
               <ul class="toc-list-h2">
                   <li>
@@ -555,14 +563,14 @@ https://sb-api.q2open.io/v1 (sandbox)
 <li>The message payload is encrypted using AES-CTR-256.</li>
 <li>The resultant AES key is then encrypted using an RSA 2048-bit public key.</li>
 </ul></li>
-<li>An RSA key-pair can be created in the <code>Settings</code> area of the Nexus application and the public key can be copied.
+<li>You can create an RSA key-pair and copy the public key in the Settings of the Nexus application.
 
 <ul>
 <li>The public key is provided in PCKS #8 format.</li>
 </ul></li>
 <li>The <a href="https://github.com/unbill/examples">examples GitHub repository</a> includes an example of encrypting the payload with your public key using a combination of AES and RSA encryption.</li>
 <li>Use the API routes as documented, however your payload will be encrypted and base64 encoded using the public key, and sent in a <code>hash</code> parameter.</li>
-<li>Add an <code>encrypted</code> parameter to your request with the key identifer which is created when you generate an RSA key in Nexus.</li>
+<li>Add an &#39;encrypted&#39; parameter to your request with the key identifier that is created when you generate an RSA key in Nexus.</li>
 </ul>
 <h3 id='rsa-signing'>RSA Signing</h3>
 <blockquote>
@@ -620,7 +628,7 @@ https://sb-connect.q2open.io (sandbox)
 </code></p>
 </blockquote>
 
-<p><img src="https://www.q2ebanking.com/img/pages/q2_open/q2-biller-direct/biller-direct_add-bills.gif" alt="Connect" /></p>
+<p><img src="https://qa-www.q2ebanking.com/img/pages/q2_open/q2-biller-direct/biller-direct_add-bills.gif" alt="Connect" /></p>
 
 <p>Connect is a drop-in module that provides a secure, elegant authentication flow for each company that the Q2 Biller Direct API supports. Connect makes it secure and easy for <a href="#client">clients</a> to link their accounts, while doing the heavy lifting for the authentication.</p>
 
@@ -719,7 +727,7 @@ https://sb-cardswap.q2open.io (sandbox)
 </code></p>
 </blockquote>
 
-<p><img src="https://www.q2ebanking.com/img/pages/q2_open/cardswap/cardswap_select.gif" alt="CardSwap" /></p>
+<p><img src="https://qa-www.q2ebanking.com/img/pages/q2_open/cardswap/cardswap_select.gif" alt="CardSwap" /></p>
 
 <p>Q2 CardSwap™ is the first switch kit for subscription and eCommerce merchants, allowing users to put your card top-of-wallet for their favorite services—all in one place.</p>
 
@@ -733,7 +741,7 @@ https://sb-biller-direct.q2open.io (sandbox)
 </code></p>
 </blockquote>
 
-<p><img src="https://www.q2ebanking.com/img/pages/q2_open/q2-biller-direct/biller-direct_spend.gif" alt="Biller Direct" /></p>
+<p><img src="https://qa-www.q2ebanking.com/img/pages/q2_open/q2-biller-direct/biller-direct_spend.gif" alt="Biller Direct" /></p>
 
 <p>Biller Direct is a card-enabled bill pay solution designed to dramatically improve the user experience and economic model of bill pay.</p>
 
@@ -3045,6 +3053,34 @@ If both parameters are passed, the <code>clientToken</code> parameter is ignored
 </tbody></table>
 <h3 id='returns'>Returns</h3>
 <p>A dictionary with a <code>data</code> property that contains an array of <a href="#the-swap-object">swap objects</a>.</p>
+<h1 id='partner'>Partner</h1>
+<p>Partner API endpoints allow partner-specific information to be retrieved.</p>
+<h2 id='get-public-keys'>Get public keys</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/partner/public-keys"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -G
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"keyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5b4cdadf8ea75a6602ff82bb"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKB..."</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Retrieves the current partner public keys for request encryption.
+Partner keys are managed in the Nexus application.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET https://api.q2open.io/v1/partner/public-keys</code></p>
+<h3 id='returns'>Returns</h3>
+<p>A response with a <code>data</code> property that contains an array of public keys.</p>
 <h1 id='event'>Event</h1>
 <p>Events are our way of letting you know when something interesting happens on behalf of your users.
 When an interesting event occurs, we create a new <code>Event</code> object. For example, when a new bill is received, we create a <code>bill.update</code> event; when a bill payment is sent, we create a <code>bill.payment</code> event.</p>
