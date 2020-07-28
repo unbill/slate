@@ -1,0 +1,66 @@
+## Sync Client
+
+> Example Request
+
+```shell
+curl "<%= config.host %>/client" \
+  -H "<%= config.auth %>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "client": {
+      "identifier": "Bk0zwVx1Z",
+      "meta": {
+        "firstName": "Demo",
+        "lastName": "User",
+        "email": "demo@demo.com",
+        "phone": "123-123-1234",
+        "address1": "123 Api St.",
+        "address2": "P.O. Box 283",
+        "city": "Demo",
+        "state": "Q2",
+        "zipcode": "12345"
+      }
+    },
+    "token": {
+      "expiration": "2025-01-30T00:00:00.000Z"
+    },
+    "cards": [{
+      "identifier": "fiId123",
+      "cardNumber": "4111111111111111",
+      "cardCode": "123",
+      "expMonth": "02",
+      "expYear": "2040",
+      "zipcode": "12345",
+      "name": "Sean Hill"
+    }]
+  }'
+```
+
+> Example Response
+
+```json
+{
+  "clientId": "579b695decfa11012711875d",
+  "ssoToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoiNWYwMzY1YTdhZjkyODg5NjhiNTNiM2QzIiwiaWF0IjoxNTk0MDU4OTQ1LCJleHAiOjE1OTQxNDUzNDUsImlzcyI6IlBBWUJJREVUIiwic3ViIjoiNWYwMzY1YTdhZjkyODg5NjhiNTNiM2QzIn0.kO_x9cZRlhI4dyGarOPI1w2gW2QI-ObqyKFdXKs64Ek"
+}
+```
+
+Syncs client data and card information by combining the [create client](#create-client), [create token](#create-token), and [add payment method](#add-a-payment-method) calls.
+
+If a client already exists with the same `identifier` included in the request, the existing `clientId` is returned.
+
+### HTTP Request
+
+`POST <%= config.host %>/client/sync`
+
+### Arguments
+
+Parameter | Description
+--------- | -----------
+`client` | The object used from the [create client](#create-client) call.
+`token` | The object used from the [create token](#create-token) call.
+`cards` | A list of cards to be added to the client, as specified in the [add payment method](#add-a-payment-method) call.
+
+### Returns
+
+Returns an object with a `clientId` property that can be used for requests and an `ssoToken` that can be used with [white-label](#products) products.
