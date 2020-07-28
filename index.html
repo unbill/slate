@@ -275,6 +275,9 @@
                   <li>
                     <a href="#revoke-tokens" class="toc-h2 toc-link" data-title="Revoke Tokens">Revoke Tokens</a>
                   </li>
+                  <li>
+                    <a href="#sync-client" class="toc-h2 toc-link" data-title="Sync Client">Sync Client</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -2660,7 +2663,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 </span></code></pre>
 <p>Creates or returns an existing client to be used with requests.</p>
 
-<p>If a client already exists with the same <code>identifier</code> sent, then the existing <code>clientId</code> will be returned.</p>
+<p>If a client already exists with the same <code>identifier</code> included in the request, the existing <code>clientId</code> is returned.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST https://api.q2open.io/v1/client</code></p>
 <h3 id='arguments'>Arguments</h3>
@@ -2791,6 +2794,77 @@ If both parameters are passed, the <code>clientToken</code> parameter is ignored
 </tbody></table>
 <h3 id='returns'>Returns</h3>
 <p>Returns an object with a <code>success</code> property.</p>
+<h2 id='sync-client'>Sync Client</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/client"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -d <span class="s1">'{
+    "client": {
+      "identifier": "Bk0zwVx1Z",
+      "meta": {
+        "firstName": "Demo",
+        "lastName": "User",
+        "email": "demo@demo.com",
+        "phone": "123-123-1234",
+        "address1": "123 Api St.",
+        "address2": "P.O. Box 283",
+        "city": "Demo",
+        "state": "Q2",
+        "zipcode": "12345"
+      }
+    },
+    "token": {
+      "expiration": "2025-01-30T00:00:00.000Z"
+    },
+    "cards": [{
+      "identifier": "fiId123",
+      "cardNumber": "4111111111111111",
+      "cardCode": "123",
+      "expMonth": "02",
+      "expYear": "2040",
+      "zipcode": "12345",
+      "name": "Sean Hill"
+    }]
+  }'</span>
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ssoToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoiNWYwMzY1YTdhZjkyODg5NjhiNTNiM2QzIiwiaWF0IjoxNTk0MDU4OTQ1LCJleHAiOjE1OTQxNDUzNDUsImlzcyI6IlBBWUJJREVUIiwic3ViIjoiNWYwMzY1YTdhZjkyODg5NjhiNTNiM2QzIn0.kO_x9cZRlhI4dyGarOPI1w2gW2QI-ObqyKFdXKs64Ek"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Syncs client data and card information by combining the <a href="#create-client">create client</a>, <a href="#create-token">create token</a>, and <a href="#add-a-payment-method">add payment method</a> calls.</p>
+
+<p>If a client already exists with the same <code>identifier</code> included in the request, the existing <code>clientId</code> is returned.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST https://api.q2open.io/v1/client/sync</code></p>
+<h3 id='arguments'>Arguments</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>client</code></td>
+<td>The object used from the <a href="#create-client">create client</a> call.</td>
+</tr>
+<tr>
+<td><code>token</code></td>
+<td>The object used from the <a href="#create-token">create token</a> call.</td>
+</tr>
+<tr>
+<td><code>cards</code></td>
+<td>A list of cards to be added to the client, as specified in the <a href="#add-a-payment-method">add payment method</a> call.</td>
+</tr>
+</tbody></table>
+<h3 id='returns'>Returns</h3>
+<p>Returns an object with a <code>clientId</code> property that can be used for requests and an <code>ssoToken</code> that can be used with <a href="#products">white-label</a> products.</p>
 <h1 id='swap'>Swap</h1>
 <p>Enables account holders to automatically apply new debit or credit card information across their favorite subscription and digital point-of-sale services.</p>
 <h2 id='the-swap-object'>The swap object</h2>
