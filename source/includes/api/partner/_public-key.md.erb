@@ -1,0 +1,39 @@
+## Get specific public key
+
+> Example Request
+
+```shell
+curl "<%= config.host %>/partner/public-key/{keyId}" \
+  -H "<%= config.auth %>" \
+  -G
+```
+
+> Example Response
+
+```json
+{
+  "kty": "RSA",
+  "n": "-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKB...",
+  "e": "AQAB",
+  "use": "enc",
+  "kid": "5b4cdadf8ea75a6602ff82bb"
+}
+```
+
+Retrieves a specific public key from the current partner for request encryption.
+Partner keys are managed in the Nexus application.
+
+### HTTP Request
+
+`GET <%= config.host %>/partner/public-keys/{keyId}`
+
+### Arguments
+
+Parameter | Description
+----- | -----------
+`keyId` | ID of the key to retrieve.
+
+
+### Returns
+
+A response with the latest public key content in JWK format.
