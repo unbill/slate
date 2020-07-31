@@ -1,0 +1,12 @@
+{
+  "name": "api-docs",
+  "husky": {
+    "hooks": {
+      "prepare-commit-msg": "prepare-branch-commit"
+    }
+  },
+  "devDependencies": {
+    "husky": "^4.2.5",
+    "prepare-branch-commit": "^0.1.1"
+  }
+}
