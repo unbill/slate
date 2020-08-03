@@ -41,7 +41,11 @@ curl "<%= config.host %>/client" \
 ```json
 {
   "clientId": "579b695decfa11012711875d",
-  "ssoToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoiNWYwMzY1YTdhZjkyODg5NjhiNTNiM2QzIiwiaWF0IjoxNTk0MDU4OTQ1LCJleHAiOjE1OTQxNDUzNDUsImlzcyI6IlBBWUJJREVUIiwic3ViIjoiNWYwMzY1YTdhZjkyODg5NjhiNTNiM2QzIn0.kO_x9cZRlhI4dyGarOPI1w2gW2QI-ObqyKFdXKs64Ek"
+  "ssoToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoiNWYwMzY1YTdhZjkyODg5NjhiNTNiM2QzIiwiaWF0IjoxNTk0MDU4OTQ1LCJleHAiOjE1OTQxNDUzNDUsImlzcyI6IlBBWUJJREVUIiwic3ViIjoiNWYwMzY1YTdhZjkyODg5NjhiNTNiM2QzIn0.kO_x9cZRlhI4dyGarOPI1w2gW2QI-ObqyKFdXKs64Ek",
+  "cards": [{
+    "paymentMethodId": "55942f330cfcfd6c4ed529d9",
+    "identifier": "fiId123"
+  }]
 }
 ```
 
@@ -63,4 +67,4 @@ Parameter | Description
 
 ### Returns
 
-Returns an object with a `clientId` property that can be used for requests and an `ssoToken` that can be used with [white-label](#products) products.
+Returns an object with a `clientId` property that can be used for requests, an `ssoToken` that can be used with [white-label](#products) products, and a `cards` array that includes a list of objects that include the `paymentMethodId` of the created card and `identifier` passed in.
