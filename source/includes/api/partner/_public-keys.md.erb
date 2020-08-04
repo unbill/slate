@@ -12,23 +12,33 @@ curl "<%= config.host %>/partner/public-keys" \
 
 ```json
 {
-  "data": [
+  "keys": [
     {
-      "keyId": "5b4cdadf8ea75a6602ff82bb",
-      "publicKey": "-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKB..."
+      "kty": "RSA",
+      "n": "-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKB...",
+      "e": "AQAB",
+      "use": "enc",
+      "kid": "5b4cdadf8ea75a6602ff82bb"
+    },
+    {
+      "kty": "RSA",
+      "n": "-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiABC...",
+      "e": "AQAB",
+      "use": "enc",
+      "kid": "5b4cdadf8ea75a6602ff82bc"
     }
   ]
 }
 ```
 
-Retrieves the current partner public keys for request encryption.
+Retrieves an array of active public keys from the current partner for request encryption.
 Partner keys are managed in the Nexus application.
 
 ### HTTP Request
 
 `GET <%= config.host %>/partner/public-keys`
 
-
 ### Returns
 
-A response with a `data` property that contains an array of public keys.
+A response with a `keys` array that contains active partner public keys in JWK Set format.
+

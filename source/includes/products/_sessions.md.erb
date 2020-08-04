@@ -1,0 +1,29 @@
+## Sessions
+
+> Example Event with `sessionId`
+
+```json
+{
+  "event": {
+    "_id": "580e3e11dec21e861b5a3719",
+    "type": "session.example",
+    "created": "2016-04-20T16:51:12Z",
+    "sessionId": "yoursessionid"
+    "payload": {
+      "resource": {
+        "type": "example",
+        "id": "579b695decfa11012711875d"
+      },
+      "data": {
+        "example": "session"
+      }
+    }
+  }
+}
+```
+
+Adding a `sessionId` as a URL parameter will link that `sessionId` to any [Events](#event) that happen during your customer's session. We recommend creating a new `sessionId` every time a customer uses a white-label product.
+
+### URL Example
+
+`https://cardswap.q2open.io?token=123&sessionId=yoursessionid`
