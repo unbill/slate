@@ -7,7 +7,7 @@ https://sb-connect.q2open.io (sandbox)
 </code></p>
 </blockquote>
 
-<p><img src="https://qa-www.q2ebanking.com/img/pages/q2_open/q2-biller-direct/biller-direct_add-bills.gif" alt="Connect" /></p>
+<p><img src="/images/products/connect.gif" alt="Connect" /></p>
 
 <p>Connect is a drop-in module that provides a secure, elegant authentication flow for each company that the Q2 Biller Direct API supports. Connect makes it secure and easy for <a href="#client">clients</a> to link their accounts, while doing the heavy lifting for the authentication.</p>
 

@@ -7,7 +7,7 @@ https://sb-biller-direct.q2open.io (sandbox)
 </code></p>
 </blockquote>
 
-<p><img src="https://qa-www.q2ebanking.com/img/pages/q2_open/q2-biller-direct/biller-direct_spend.gif" alt="Biller Direct" /></p>
+<p><img src="/images/products/biller-direct.gif" alt="Biller direct" /></p>
 
 <p>Biller Direct is a card-enabled bill pay solution designed to dramatically improve the user experience and economic model of bill pay.</p>
 
@@ -45,7 +45,7 @@ https://sb-biller-direct.q2open.io (sandbox)
 </tr>
 <tr>
 <td><code>skipOnboarding</code></td>
-<td>Setting to <code>true</code> will skip the introductary screens and animations.</td>
+<td>Setting to <code>true</code> will skip the introductory screens and animations.</td>
 </tr>
 <tr>
 <td><code>cardPaymentsOnly</code></td>

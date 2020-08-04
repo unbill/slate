@@ -7,8 +7,26 @@ https://sb-cardswap.q2open.io (sandbox)
 </code></p>
 </blockquote>
 
-<p><img src="https://qa-www.q2ebanking.com/img/pages/q2_open/cardswap/cardswap_select.gif" alt="CardSwap" /></p>
+<p><img src="/images/products/cardswap.gif" alt="Cardswap" /></p>
 
 <p>Q2 CardSwap™ is the first switch kit for subscription and eCommerce merchants, allowing users to put your card top-of-wallet for their favorite services—all in one place.</p>
 
 <p><a href="https://cardswap.q2open.io">View demo</a></p>
+<h3 id='url-parameters'>URL parameters</h3>
+<p>The following URL parameters can be optionally passed into the CardSwap URL to customize the experience.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>skipOnboarding</code></td>
+<td>Setting to <code>true</code> will skip the introductory screen.</td>
+</tr>
+<tr>
+<td><code>sessionId</code></td>
+<td><a href="#sessions">Session</a> ID to be linked to corresponding <a href="#event">Events</a>.</td>
+</tr>
+</tbody></table>

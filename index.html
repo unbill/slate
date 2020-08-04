@@ -154,6 +154,9 @@
                   <li>
                     <a href="#biller-direct" class="toc-h2 toc-link" data-title="Biller Direct">Biller Direct</a>
                   </li>
+                  <li>
+                    <a href="#sessions" class="toc-h2 toc-link" data-title="Sessions">Sessions</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -305,6 +308,12 @@
               <ul class="toc-list-h2">
                   <li>
                     <a href="#get-public-keys" class="toc-h2 toc-link" data-title="Get public keys">Get public keys</a>
+                  </li>
+                  <li>
+                    <a href="#get-specific-public-key" class="toc-h2 toc-link" data-title="Get specific public key">Get specific public key</a>
+                  </li>
+                  <li>
+                    <a href="#get-latest-public-key" class="toc-h2 toc-link" data-title="Get latest public key">Get latest public key</a>
                   </li>
               </ul>
           </li>
@@ -631,7 +640,7 @@ https://sb-connect.q2open.io (sandbox)
 </code></p>
 </blockquote>
 
-<p><img src="https://qa-www.q2ebanking.com/img/pages/q2_open/q2-biller-direct/biller-direct_add-bills.gif" alt="Connect" /></p>
+<p><img src="images/products/connect.gif" alt="Connect" /></p>
 
 <p>Connect is a drop-in module that provides a secure, elegant authentication flow for each company that the Q2 Biller Direct API supports. Connect makes it secure and easy for <a href="#client">clients</a> to link their accounts, while doing the heavy lifting for the authentication.</p>
 
@@ -730,11 +739,29 @@ https://sb-cardswap.q2open.io (sandbox)
 </code></p>
 </blockquote>
 
-<p><img src="https://qa-www.q2ebanking.com/img/pages/q2_open/cardswap/cardswap_select.gif" alt="CardSwap" /></p>
+<p><img src="images/products/cardswap.gif" alt="Cardswap" /></p>
 
 <p>Q2 CardSwap™ is the first switch kit for subscription and eCommerce merchants, allowing users to put your card top-of-wallet for their favorite services—all in one place.</p>
 
 <p><a href="https://cardswap.q2open.io">View demo</a></p>
+<h3 id='url-parameters'>URL parameters</h3>
+<p>The following URL parameters can be optionally passed into the CardSwap URL to customize the experience.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>skipOnboarding</code></td>
+<td>Setting to <code>true</code> will skip the introductory screen.</td>
+</tr>
+<tr>
+<td><code>sessionId</code></td>
+<td><a href="#sessions">Session</a> ID to be linked to corresponding <a href="#event">Events</a>.</td>
+</tr>
+</tbody></table>
 <h2 id='biller-direct'>Biller Direct</h2>
 <blockquote>
 <p>Host
@@ -744,7 +771,7 @@ https://sb-biller-direct.q2open.io (sandbox)
 </code></p>
 </blockquote>
 
-<p><img src="https://qa-www.q2ebanking.com/img/pages/q2_open/q2-biller-direct/biller-direct_spend.gif" alt="Biller Direct" /></p>
+<p><img src="images/products/biller-direct.gif" alt="Biller direct" /></p>
 
 <p>Biller Direct is a card-enabled bill pay solution designed to dramatically improve the user experience and economic model of bill pay.</p>
 
@@ -782,13 +809,38 @@ https://sb-biller-direct.q2open.io (sandbox)
 </tr>
 <tr>
 <td><code>skipOnboarding</code></td>
-<td>Setting to <code>true</code> will skip the introductary screens and animations.</td>
+<td>Setting to <code>true</code> will skip the introductory screens and animations.</td>
 </tr>
 <tr>
 <td><code>cardPaymentsOnly</code></td>
 <td>Limit searches to companies that support card-based payments.</td>
 </tr>
 </tbody></table>
+<h2 id='sessions'>Sessions</h2>
+<blockquote>
+<p>Example Event with <code>sessionId</code></p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"580e3e11dec21e861b5a3719"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"session.example"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"sessionId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yoursessionid"</span><span class="w">
+    </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"example"</span><span class="p">:</span><span class="w"> </span><span class="s2">"session"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Adding a <code>sessionId</code> as a URL parameter will link that <code>sessionId</code> to any <a href="#event">Events</a> that happen during your customer&#39;s session. We recommend creating a new <code>sessionId</code> every time a customer uses a white-label product.</p>
+<h3 id='url-example'>URL Example</h3>
+<p><code>https://cardswap.q2open.io?token=123&amp;sessionId=yoursessionid</code></p>
 <h1 id='auth'>Auth</h1>
 <p>Authenticating <a href="#client">client</a> accounts can be implemented using the <a href="#connect">Connect</a> product.</p>
 <h2 id='the-auth-object'>The auth object</h2>
@@ -2693,17 +2745,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -d <span class="s1">'{
     "identifier": "Bk0zwVx1Z",
-    "meta": {
-      "firstName": "Demo",
-      "lastName": "User",
-      "email": "demo@demo.com",
-      "phone": "123-123-1234",
-      "address1": "123 Api St.",
-      "address2": "P.O. Box 283",
-      "city": "Demo",
-      "state": "Q2",
-      "zipcode": "12345"
-    }
+    "accessTokenExpiresIn": 3600
   }'</span>
 </code></pre>
 <blockquote>
@@ -2740,10 +2782,6 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <tr>
 <td><code>accessTokenExpiresIn</code></td>
 <td>Optional number of seconds that an access token issued using the SSO token is valid. Default is 1 hour (3600).</td>
-</tr>
-<tr>
-<td><code>meta</code></td>
-<td>Additional information about the user in your system.</td>
 </tr>
 </tbody></table>
 <h3 id='returns'>Returns</h3>
@@ -2835,7 +2873,11 @@ If both parameters are passed, the <code>clientToken</code> parameter is ignored
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"ssoToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoiNWYwMzY1YTdhZjkyODg5NjhiNTNiM2QzIiwiaWF0IjoxNTk0MDU4OTQ1LCJleHAiOjE1OTQxNDUzNDUsImlzcyI6IlBBWUJJREVUIiwic3ViIjoiNWYwMzY1YTdhZjkyODg5NjhiNTNiM2QzIn0.kO_x9cZRlhI4dyGarOPI1w2gW2QI-ObqyKFdXKs64Ek"</span><span class="w">
+  </span><span class="s2">"ssoToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoiNWYwMzY1YTdhZjkyODg5NjhiNTNiM2QzIiwiaWF0IjoxNTk0MDU4OTQ1LCJleHAiOjE1OTQxNDUzNDUsImlzcyI6IlBBWUJJREVUIiwic3ViIjoiNWYwMzY1YTdhZjkyODg5NjhiNTNiM2QzIn0.kO_x9cZRlhI4dyGarOPI1w2gW2QI-ObqyKFdXKs64Ek"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"cards"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+    </span><span class="s2">"paymentMethodId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fiId123"</span><span class="w">
+  </span><span class="p">}]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Syncs client data and card information by combining the <a href="#create-client">create client</a>, <a href="#create-token">create token</a>, and <a href="#add-a-payment-method">add payment method</a> calls.</p>
@@ -2864,7 +2906,7 @@ If both parameters are passed, the <code>clientToken</code> parameter is ignored
 </tr>
 </tbody></table>
 <h3 id='returns'>Returns</h3>
-<p>Returns an object with a <code>clientId</code> property that can be used for requests and an <code>ssoToken</code> that can be used with <a href="#products">white-label</a> products.</p>
+<p>Returns an object with a <code>clientId</code> property that can be used for requests, an <code>ssoToken</code> that can be used with <a href="#products">white-label</a> products, and a <code>cards</code> array that includes a list of objects that include the <code>paymentMethodId</code> of the created card and <code>identifier</code> passed in.</p>
 <h1 id='swap'>Swap</h1>
 <p>Enables account holders to automatically apply new debit or credit card information across their favorite subscription and digital point-of-sale services.</p>
 <h2 id='the-swap-object'>The swap object</h2>
@@ -3141,25 +3183,97 @@ If both parameters are passed, the <code>clientToken</code> parameter is ignored
 <p>Example Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="s2">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"keyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5b4cdadf8ea75a6602ff82bb"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKB..."</span><span class="w">
+      </span><span class="s2">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RSA"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"n"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKB..."</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"e"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AQAB"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"use"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enc"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5b4cdadf8ea75a6602ff82bb"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RSA"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"n"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiABC..."</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"e"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AQAB"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"use"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enc"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5b4cdadf8ea75a6602ff82bc"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>Retrieves the current partner public keys for request encryption.
+<p>Retrieves an array of active public keys from the current partner for request encryption.
 Partner keys are managed in the Nexus application.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>GET https://api.q2open.io/v1/partner/public-keys</code></p>
 <h3 id='returns'>Returns</h3>
-<p>A response with a <code>data</code> property that contains an array of public keys.</p>
+<p>A response with a <code>keys</code> array that contains active partner public keys in JWK Set format.</p>
+<h2 id='get-specific-public-key'>Get specific public key</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/partner/public-keys/{keyId}"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -G
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RSA"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"n"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKB..."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"e"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AQAB"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"use"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enc"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5b4cdadf8ea75a6602ff82bb"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Retrieves a specific public key from the current partner for request encryption.
+Partner keys are managed in the Nexus application.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET https://api.q2open.io/v1/partner/public-keys/{keyId}</code></p>
+<h3 id='arguments'>Arguments</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>keyId</code></td>
+<td>ID of the key to retrieve.</td>
+</tr>
+</tbody></table>
+<h3 id='returns'>Returns</h3>
+<p>A response with the latest public key content in JWK format.</p>
+<h2 id='get-latest-public-key'>Get latest public key</h2>
+<blockquote>
+<p>Example Request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.q2open.io/v1/partner/public-keys/latest"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer dc220490-e6ee-11e5-8a94-e7385a8d929e"</span> <span class="se">\</span>
+  -G
+</code></pre>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RSA"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"n"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKB..."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"e"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AQAB"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"use"</span><span class="p">:</span><span class="w"> </span><span class="s2">"enc"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5b4cdadf8ea75a6602ff82bb"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Retrieves the latest public key from the current partner for request encryption.
+Partner keys are managed in the Nexus application.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET https://api.q2open.io/v1/partner/public-keys/latest</code></p>
+<h3 id='returns'>Returns</h3>
+<p>A response with the latest public key content in JWK format.</p>
 <h1 id='event'>Event</h1>
 <p>Events are our way of letting you know when something interesting happens on behalf of your users.
 When an interesting event occurs, we create a new <code>Event</code> object. For example, when a new bill is received, we create a <code>bill.update</code> event; when a bill payment is sent, we create a <code>bill.payment</code> event.</p>
 
-<p>We have a system for sending the event objects directly to an endpoint on your server, called <a href="http://en.wikipedia.org/wiki/Webhook">webhooks</a>. Webhooks are managed by our team, and our customer support team will help you get set up.</p>
+<p>We have a system for sending the event objects directly to an endpoint on your server, called <a href="http://en.wikipedia.org/wiki/Webhook">webhooks</a>. Webhooks are managed in Nexus.</p>
 <h2 id='the-event-object'>The event object</h2>
 <blockquote>
 <p>Example Response</p>
