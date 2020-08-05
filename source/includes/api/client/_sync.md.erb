@@ -28,6 +28,8 @@ curl "<%= config.host %>/client" \
       "identifier": "fiId123",
       "cardNumber": "4111111111111111",
       "cardCode": "123",
+      "cardType": "credit",
+      "cardBrand": "visa",
       "expMonth": "02",
       "expYear": "2040",
       "zipcode": "12345",
@@ -63,7 +65,7 @@ Parameter | Description
 --------- | -----------
 `client` | The object used from the [create client](#create-client) call.
 `token` | The object used from the [create token](#create-token) call.
-`cards` | A list of cards to be added to the client, as specified in the [add payment method](#add-a-payment-method) call.
+`cards` | A list of cards to be added to the client, as specified in the [add payment method](#add-a-payment-method) call. You can specify the `cardType` and `cardBrand` parameters for a much faster call speed. Possible values for `cardType` are `credit`, `debit`. Possible values for `cardBrand` are `american express`, `discover`, `maestro`, `mastercard`, `uatp`, `visa`.
 
 ### Returns
 
