@@ -754,8 +754,8 @@ https://sb-cardswap.q2open.io (sandbox)
 </tr>
 </thead><tbody>
 <tr>
-<td><code>skipOnboarding</code></td>
-<td>Setting to <code>true</code> will skip the introductory screen.</td>
+<td><code>startView</code></td>
+<td>Indicates where users are redirected to after completing a swap. Set to <code>brands</code> to skip the introductory page and return users to the brand selection page.</td>
 </tr>
 <tr>
 <td><code>sessionId</code></td>
@@ -2861,6 +2861,8 @@ If both parameters are passed, the <code>clientToken</code> parameter is ignored
       "identifier": "fiId123",
       "cardNumber": "4111111111111111",
       "cardCode": "123",
+      "cardType": "credit",
+      "cardBrand": "visa",
       "expMonth": "02",
       "expYear": "2040",
       "zipcode": "12345",
@@ -2902,7 +2904,7 @@ If both parameters are passed, the <code>clientToken</code> parameter is ignored
 </tr>
 <tr>
 <td><code>cards</code></td>
-<td>A list of cards to be added to the client, as specified in the <a href="#add-a-payment-method">add payment method</a> call.</td>
+<td>A list of cards to be added to the client, as specified in the <a href="#add-a-payment-method">add payment method</a> call. You can specify the <code>cardType</code> and <code>cardBrand</code> parameters for a much faster call speed. Possible values for <code>cardType</code> are <code>credit</code>, <code>debit</code>. Possible values for <code>cardBrand</code> are <code>american express</code>, <code>discover</code>, <code>maestro</code>, <code>mastercard</code>, <code>uatp</code>, <code>visa</code>.</td>
 </tr>
 </tbody></table>
 <h3 id='returns'>Returns</h3>

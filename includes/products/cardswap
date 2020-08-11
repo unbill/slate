@@ -22,8 +22,8 @@ https://sb-cardswap.q2open.io (sandbox)
 </tr>
 </thead><tbody>
 <tr>
-<td><code>skipOnboarding</code></td>
-<td>Setting to <code>true</code> will skip the introductory screen.</td>
+<td><code>startView</code></td>
+<td>Indicates where users are redirected to after completing a swap. Set to <code>brands</code> to skip the introductory page and return users to the brand selection page.</td>
 </tr>
 <tr>
 <td><code>sessionId</code></td>
