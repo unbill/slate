@@ -441,7 +441,7 @@ https://sb-api.q2open.io/v1 (sandbox)
 
 <p>The Q2 Biller Direct API uses standard HTTP <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">verbs</a> to communicate and HTTP <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">response codes</a> to indicate status and errors. All responses come in standard <a href="http://www.json.org/">JSON</a>. The Q2 Biller Direct API is served over HTTPS to ensure data privacy, HTTP is not supported.</p>
 
-<p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/unbill.png" alt="Overview" /></p>
+<p><img src="https://s3.amazonaws.com/app-assets.unbill.io-primary/assets/docs/unbill.png" alt="Overview" /></p>
 <h2 id='testing'>Testing</h2>
 <p>To quickly experiment with the API, you can use Postman. You&#39;ll need to set the <code>apiHost</code> and <code>apiKey</code> environment variables.</p>
 
@@ -856,7 +856,7 @@ https://sb-biller-direct.q2open.io (sandbox)
     </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
     </span><span class="p">}</span><span class="w"> 
   </span><span class="p">}</span><span class="w">
@@ -939,7 +939,7 @@ https://sb-biller-direct.q2open.io (sandbox)
 <h3 id='authenticate'>authenticate</h3>
 <p>The auth&#39;s credentials are no longer valid and need to be reauthenticated using the <a href="#connect">Connect</a> product.</p>
 
-<p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-authenticate.png" alt="Bill Authenticate" /></p>
+<p><img src="https://s3.amazonaws.com/app-assets.unbill.io-primary/assets/docs/bill-authenticate.png" alt="Bill Authenticate" /></p>
 <h3 id='hold'>hold</h3>
 <p>An auth&#39;s status can be <code>hold</code> for several reasons. When an auth is on hold, the response contains a <code>reason</code> for the hold that you can present to your users. To fix the hold, the user must perform the action described in the <code>reason</code>, which usually requires them to log in to their online account. Once the user has completed the action, make a request to the <code>/auth/{authId}/fix-hold</code> endpoint to resume their services.</p>
 
@@ -947,11 +947,11 @@ https://sb-biller-direct.q2open.io (sandbox)
 
 <p><em>Display hold reason</em></p>
 
-<p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-hold.png" alt="Bill Hold" /></p>
+<p><img src="https://s3.amazonaws.com/app-assets.unbill.io-primary/assets/docs/bill-hold.png" alt="Bill Hold" /></p>
 
 <p><em>Displayed after user returns to app</em></p>
 
-<p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-hold-confirm.png" alt="Bill Hold Confirm" /></p>
+<p><img src="https://s3.amazonaws.com/app-assets.unbill.io-primary/assets/docs/bill-hold-confirm.png" alt="Bill Hold Confirm" /></p>
 <h3 id='mfa-required'>MFA Required</h3>
 <p>When the link with a company requires additional MFA.</p>
 <h2 id='auth-hold-codes'>Auth hold codes</h2>
@@ -1084,7 +1084,7 @@ We're unable to make payments on inactive accounts.
         </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Time Warner Cable"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/4c805851c738c006546b234e3c3c793d.png"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/4c805851c738c006546b234e3c3c793d.png"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
         </span><span class="p">}</span><span class="w"> 
       </span><span class="p">}</span><span class="w">
@@ -1098,7 +1098,7 @@ We're unable to make payments on inactive accounts.
         </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Grove at Auburn"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/0e9a971a96646da46f5faa68862d0f2d.jpg"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/0e9a971a96646da46f5faa68862d0f2d.jpg"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
         </span><span class="p">}</span><span class="w"> 
       </span><span class="p">}</span><span class="w">
@@ -1243,7 +1243,7 @@ We're unable to make payments on inactive accounts.
     </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="s2">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"on-due-date"</span><span class="w">
@@ -1428,11 +1428,11 @@ We're unable to make payments on inactive accounts.
 <h3 id='syncing'>syncing</h3>
 <p>Our system is currently retrieving data.</p>
 
-<p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-syncing.png" alt="Bill Syncing" /></p>
+<p><img src="https://s3.amazonaws.com/app-assets.unbill.io-primary/assets/docs/bill-syncing.png" alt="Bill Syncing" /></p>
 <h3 id='zero-balance'>zero-balance</h3>
 <p>Bill data is not available yet. Most common reason is that the user hasn&#39;t received a bill. (change image)</p>
 
-<p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-zero-balance.png" alt="Bill Zero Balance" /></p>
+<p><img src="https://s3.amazonaws.com/app-assets.unbill.io-primary/assets/docs/bill-zero-balance.png" alt="Bill Zero Balance" /></p>
 <h3 id='overdue'>overdue</h3>
 <p>The due date for the bill has passed, and no payment has been made. Common reasons for an overdue bill are:</p>
 
@@ -1442,27 +1442,27 @@ We're unable to make payments on inactive accounts.
 <li><code>recurring</code> is disabled and a payment has not been scheduled via the <code>/payment/schedule</code> endpoint.</li>
 </ul>
 
-<p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-overdue.png" alt="Bill Overdue" /></p>
+<p><img src="https://s3.amazonaws.com/app-assets.unbill.io-primary/assets/docs/bill-overdue.png" alt="Bill Overdue" /></p>
 <h3 id='payment-required'>payment-required</h3>
 <p>The payment method specified by <code>company.requiredPayment</code> is required to pay this bill. A linked payment method must be assigned before bill payments will resume. This can be done via the <code>/payment/{paymentMethodId}/assign</code> endpoint.</p>
 
-<p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-authenticate.png" alt="Payment required" /></p>
+<p><img src="https://s3.amazonaws.com/app-assets.unbill.io-primary/assets/docs/bill-authenticate.png" alt="Payment required" /></p>
 <h3 id='payment-declined'>payment-declined</h3>
 <p>The payment method used to pay this bill was declined. To resume bill payments, have the user try their payment method again via the <code>/payment/{paymentMethodId}/retry</code> endpoint, or assign another one via the <code>/payment/{paymentMethodId}/assign</code> endpoint.</p>
 
-<p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-authenticate.png" alt="Payment declined" /></p>
+<p><img src="https://s3.amazonaws.com/app-assets.unbill.io-primary/assets/docs/bill-authenticate.png" alt="Payment declined" /></p>
 <h3 id='upcoming'>upcoming</h3>
 <p>The user has an outstanding balance on their account that will be paid in the future.</p>
 
-<p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-upcoming.png" alt="Bill Upcoming" /></p>
+<p><img src="https://s3.amazonaws.com/app-assets.unbill.io-primary/assets/docs/bill-upcoming.png" alt="Bill Upcoming" /></p>
 <h3 id='pending'>pending</h3>
 <p>The user has an outstanding balance with a future due date.</p>
 
-<p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-pending.png" alt="Bill Pending" /></p>
+<p><img src="https://s3.amazonaws.com/app-assets.unbill.io-primary/assets/docs/bill-pending.png" alt="Bill Pending" /></p>
 <h3 id='paid'>paid</h3>
 <p>The user has no outstanding balance and has a last paid amount on their account.</p>
 
-<p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/bill-paid.png" alt="Bill Paid" /></p>
+<p><img src="https://s3.amazonaws.com/app-assets.unbill.io-primary/assets/docs/bill-paid.png" alt="Bill Paid" /></p>
 <h2 id='bill-payment-schedule'>Bill payment schedule</h2>
 <p>A bill&#39;s <code>settings.schedule</code> is the number of days before the due date when a bill will be paid. This schedule will be followed when <code>settings.recurring</code> is enabled and the company allows it.
 <br><br>
@@ -1505,7 +1505,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
       </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="s2">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"on-due-date"</span><span class="w">
@@ -1533,7 +1533,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
       </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="s2">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"on-due-date"</span><span class="w">
@@ -1550,7 +1550,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 </span></code></pre>
 <p>Retrieve details about a bill including outstanding balance, due date, settings, status, and payment history.</p>
 
-<p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/detail.png" alt="Detail" /></p>
+<p><img src="https://s3.amazonaws.com/app-assets.unbill.io-primary/assets/docs/detail.png" alt="Detail" /></p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>GET https://api.q2open.io/v1/bill/{billId}</code></p>
 <h3 id='arguments'>Arguments</h3>
@@ -1598,7 +1598,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
           </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
           </span><span class="p">},</span><span class="w">
           </span><span class="s2">"schedule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"on-due-date"</span><span class="w">
@@ -1622,7 +1622,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
           </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
           </span><span class="p">}</span><span class="w">
         </span><span class="p">}</span><span class="w">
@@ -1640,7 +1640,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 </span></code></pre>
 <p>Retrieves a list of client&#39;s bills.</p>
 
-<p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/overview.png" alt="Overview" /></p>
+<p><img src="https://s3.amazonaws.com/app-assets.unbill.io-primary/assets/docs/overview.png" alt="Overview" /></p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>GET https://api.q2open.io/v1/bill/list/{clientId}</code></p>
 <h3 id='arguments'>Arguments</h3>
@@ -1668,10 +1668,10 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
   </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"operational"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
     </span><span class="s2">"svg"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.svg"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.svg"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FF041F"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
@@ -1928,13 +1928,13 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 <ol>
 <li><p>When the <code>company.logo.svg</code> is available, the svg logo looks best on the <code>company.logo.svg.color</code> background.</p>
 
-<p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/netflix-svg-logo.png" alt="Netflix" /></p></li>
+<p><img src="https://s3.amazonaws.com/app-assets.unbill.io-primary/assets/docs/netflix-svg-logo.png" alt="Netflix" /></p></li>
 <li><p>When the <code>company.logo.svg</code> is not available and the <code>company.logo.background</code> field is set to <code>false</code>, the logo looks best on a white background.</p>
 
-<p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/twc-logo.png" alt="TWC" /></p></li>
+<p><img src="https://s3.amazonaws.com/app-assets.unbill.io-primary/assets/docs/twc-logo.png" alt="TWC" /></p></li>
 <li><p>When the <code>company.logo.svg</code> is not available and the <code>company.logo.background</code> field is set to <code>true</code>, the logo looks best as a background image with the company name overlaid on top.</p>
 
-<p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/varsity-logo.png" alt="Varsity House" /></p></li>
+<p><img src="https://s3.amazonaws.com/app-assets.unbill.io-primary/assets/docs/varsity-logo.png" alt="Varsity House" /></p></li>
 </ol>
 <h2 id='company-categories'>Company categories</h2>
 <blockquote>
@@ -1975,10 +1975,10 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
   </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"operational"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
     </span><span class="s2">"svg"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.svg"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.svg"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FF041F"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
@@ -2063,10 +2063,10 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"operational"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
         </span><span class="s2">"svg"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.svg"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.svg"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FF041F"</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">},</span><span class="w">
@@ -2102,7 +2102,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 </span></code></pre>
 <p>Search for companies by name, category, or nearby a geo coordinate.</p>
 
-<p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/company-categories.png" alt="Company Categories" /></p>
+<p><img src="https://s3.amazonaws.com/app-assets.unbill.io-primary/assets/docs/company-categories.png" alt="Company Categories" /></p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST https://api.q2open.io/v1/company/search</code></p>
 <h3 id='arguments'>Arguments</h3>
@@ -2280,7 +2280,7 @@ The bill&#39;s <code>payDate</code> is the date in which the next bill payment w
 
 <p><em>Declined payment prompt</em></p>
 
-<p><img src="https://s3-us-west-2.amazonaws.com/cdn.unbill.com/assets/docs/failed-payment.png" alt="Failed Payment" /></p>
+<p><img src="https://s3.amazonaws.com/app-assets.unbill.io-primary/assets/docs/failed-payment.png" alt="Failed Payment" /></p>
 
 <p>If their payment method continues to be declined, it will be removed from their account. If the removed payment method was the default, the user will need to link a new payment method or choose another payment method on file as their default before bill payment services resume.</p>
 <h2 id='add-a-payment-method'>Add a payment method</h2>
@@ -2931,7 +2931,7 @@ If both parameters are passed, the <code>clientToken</code> parameter is ignored
     </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hulu"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"operational"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/a3c89f48378c84713fb31ce0e97bfa15.png"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/a3c89f48378c84713fb31ce0e97bfa15.png"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
@@ -3062,10 +3062,10 @@ If both parameters are passed, the <code>clientToken</code> parameter is ignored
       </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Netflix"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
         </span><span class="s2">"svg"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.svg"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.svg"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FF041F"</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">},</span><span class="w">
@@ -3133,7 +3133,7 @@ If both parameters are passed, the <code>clientToken</code> parameter is ignored
         </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hulu"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"operational"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/a3c89f48378c84713fb31ce0e97bfa15.png"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/a3c89f48378c84713fb31ce0e97bfa15.png"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">},</span><span class="w">
@@ -3635,7 +3635,7 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
             </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decea110719b1874d"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XYZ Electric"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-              </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3-us-west-2.amazonaws.com/cdn.unbill.com/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/7242937ba29042cce61a8e4745269fce.png"</span><span class="p">,</span><span class="w">
               </span><span class="s2">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
             </span><span class="p">}</span><span class="w">
           </span><span class="p">}</span><span class="w">
@@ -4175,14 +4175,14 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
           </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Merchant"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"operational"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"logo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.us-east-1.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/1a49a63fa87749b3abdf74c2ee9deb36.png"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/1a49a63fa87749b3abdf74c2ee9deb36.png"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"background"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
             </span><span class="s2">"svg"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-              </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.us-east-1.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/968e40f95dd9a0e85cbae10fb221059b.svg"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/968e40f95dd9a0e85cbae10fb221059b.svg"</span><span class="p">,</span><span class="w">
               </span><span class="s2">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"06C580"</span><span class="w">
             </span><span class="p">},</span><span class="w">
             </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-              </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.us-east-1.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/2533c1ac55b047c770085cc24e3d1e85.svg"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.com/app-assets.unbill.io-primary/uploads/utility-provider-logos/2533c1ac55b047c770085cc24e3d1e85.svg"</span><span class="p">,</span><span class="w">
               </span><span class="s2">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"06C580"</span><span class="w">
             </span><span class="p">}</span><span class="w">
           </span><span class="p">},</span><span class="w">
