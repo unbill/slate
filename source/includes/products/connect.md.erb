@@ -14,7 +14,7 @@ Connect is a drop-in module that provides a secure, elegant authentication flow 
 
 ### Events
 
-Connect will emit events back to your app using the [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) API or [WKScriptMessageHandler](https://developer.apple.com/documentation/webkit/wkscriptmessagehandler) on iOS, allowing you to decide what to do after the user is finished.
+Connect will emit events back to your app using the browser [postMessage](<%= config.iFramePostMessage %>) API, [WKScriptMessageHandler](<%= config.iosPostMessage %>) on iOS, or [addJavascriptInterface](<%= config.androidPostMessage %>) on Android, allowing you to decide what to do after the user is finished.
 
 Event | Description
 ----- | -----------
