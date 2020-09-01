@@ -8,4 +8,4 @@
 <li>SSO into the white-label product by passing in the token as a URL parameter. An example URL would look like this: <code>https://product.q2open.io?token=123</code>.</li>
 </ol>
 <h2 id='example-code'>Example Code</h2>
-<p>See our <a href="https://github.com/unbill/integration-examples">integration examples</a> for an example implementation in Swift and React Native.</p>
+<p>See our <a href="https://github.com/unbill/connect-ios">iOS</a> and <a href="https://github.com/unbill/connect-android">Android</a> integration examples for example implementations in Swift and Java.</p>

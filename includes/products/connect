@@ -13,7 +13,7 @@ https://sb-connect.q2open.io (sandbox)
 
 <p><a href="https://connect.q2open.io">View demo</a></p>
 <h3 id='events'>Events</h3>
-<p>Connect will emit events back to your app using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage">postMessage</a> API or <a href="https://developer.apple.com/documentation/webkit/wkscriptmessagehandler">WKScriptMessageHandler</a> on iOS, allowing you to decide what to do after the user is finished.</p>
+<p>Connect will emit events back to your app using the browser <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage">postMessage</a> API, <a href="https://developer.apple.com/documentation/webkit/wkscriptmessagehandler">WKScriptMessageHandler</a> on iOS, or <a href="https://developer.android.com/reference/android/webkit/WebView#addJavascriptInterface(java.lang.Object,%20java.lang.String)">addJavascriptInterface</a> on Android, allowing you to decide what to do after the user is finished.</p>
 
 <table><thead>
 <tr>

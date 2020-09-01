@@ -630,7 +630,7 @@ If the signature is not provided, a <code>401-Unauthorized</code> response will 
 <li>SSO into the white-label product by passing in the token as a URL parameter. An example URL would look like this: <code>https://product.q2open.io?token=123</code>.</li>
 </ol>
 <h2 id='example-code'>Example Code</h2>
-<p>See our <a href="https://github.com/unbill/integration-examples">integration examples</a> for an example implementation in Swift and React Native.</p>
+<p>See our <a href="https://github.com/unbill/connect-ios">iOS</a> and <a href="https://github.com/unbill/connect-android">Android</a> integration examples for example implementations in Swift and Java.</p>
 <h2 id='connect'>Connect</h2>
 <blockquote>
 <p>Host
@@ -646,7 +646,7 @@ https://sb-connect.q2open.io (sandbox)
 
 <p><a href="https://connect.q2open.io">View demo</a></p>
 <h3 id='events'>Events</h3>
-<p>Connect will emit events back to your app using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage">postMessage</a> API or <a href="https://developer.apple.com/documentation/webkit/wkscriptmessagehandler">WKScriptMessageHandler</a> on iOS, allowing you to decide what to do after the user is finished.</p>
+<p>Connect will emit events back to your app using the browser <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage">postMessage</a> API, <a href="https://developer.apple.com/documentation/webkit/wkscriptmessagehandler">WKScriptMessageHandler</a> on iOS, or <a href="https://developer.android.com/reference/android/webkit/WebView#addJavascriptInterface(java.lang.Object,%20java.lang.String)">addJavascriptInterface</a> on Android, allowing you to decide what to do after the user is finished.</p>
 
 <table><thead>
 <tr>
@@ -744,6 +744,20 @@ https://sb-cardswap.q2open.io (sandbox)
 <p>Q2 CardSwap™ is the first switch kit for subscription and eCommerce merchants, allowing users to put your card top-of-wallet for their favorite services—all in one place.</p>
 
 <p><a href="https://cardswap.q2open.io">View demo</a></p>
+<h3 id='events'>Events</h3>
+<p>CardSwap will emit events back to your app using the browser <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage">postMessage</a> API, <a href="https://developer.apple.com/documentation/webkit/wkscriptmessagehandler">WKScriptMessageHandler</a> on iOS, or <a href="https://developer.android.com/reference/android/webkit/WebView#addJavascriptInterface(java.lang.Object,%20java.lang.String)">addJavascriptInterface</a> on Android, allowing you to decide what to do after the user is finished.</p>
+
+<table><thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>finish</code></td>
+<td>Occurs when the user successfully completes the swap process. Only emits when the <code>startView</code> URL parameter is set to <code>brands</code>.</td>
+</tr>
+</tbody></table>
 <h3 id='url-parameters'>URL parameters</h3>
 <p>The following URL parameters can be optionally passed into the CardSwap URL to customize the experience.</p>
 
