@@ -12,6 +12,14 @@ Q2 CardSwap™ is the first switch kit for subscription and eCommerce merchants,
 
 [View demo](https://cardswap.q2open.io)
 
+### Events
+
+CardSwap will emit events back to your app using the browser [postMessage](<%= config.iFramePostMessage %>) API, [WKScriptMessageHandler](<%= config.iosPostMessage %>) on iOS, or [addJavascriptInterface](<%= config.androidPostMessage %>) on Android, allowing you to decide what to do after the user is finished.
+
+Event | Description
+----- | -----------
+`finish` | Occurs when the user successfully completes the swap process. Only emits when the `startView` URL parameter is set to `brands`.
+
 ### URL parameters
 
 The following URL parameters can be optionally passed into the CardSwap URL to customize the experience.

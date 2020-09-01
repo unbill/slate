@@ -77,6 +77,9 @@ config.futureDate = '2018-10-25T00:00:00.000Z'
 config.futureDateBefore = '2018-10-24T00:00:00.000Z'
 config.futureStatus = 'Due Oct 25'
 config.s3 = 'https://s3.amazonaws.com/app-assets.unbill.io-primary/assets/docs'
+config.iFramePostMessage = 'https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage'
+config.iosPostMessage = 'https://developer.apple.com/documentation/webkit/wkscriptmessagehandler'
+config.androidPostMessage = 'https://developer.android.com/reference/android/webkit/WebView#addJavascriptInterface(java.lang.Object,%20java.lang.String)'
 config.companyResponseDescription = [
   '`_id` | ID of the company.',
   '`name` | Name of the company.',
