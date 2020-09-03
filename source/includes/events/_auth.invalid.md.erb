@@ -9,14 +9,14 @@
     "type": "auth.invalid",
     "created": "2016-04-20T16:51:12Z",
     "clientId": "579b695decfa110127118752",
-    "partnerId": "55942f330cfcfd6c4ed529d9",   
-    "identifier": "example-id-123",           
+    "partnerId": "55942f330cfcfd6c4ed529d9",
+    "identifier": "example-id-123",
     "payload": {
       "resource": {
         "type": "auth",
         "id": "579b695decfa11012711875d"
       },
-      "data": { 
+      "data": {
         "company" : {
           "_id" : "55942f330cfcfd6c4ed529d8",
           "name" : "Geico"
@@ -32,4 +32,6 @@ When the auth's credentials are no longer valid and need to be reauthenticated.
 Attribute | Description
 --------- | -----------
 `type` | `auth.invalid`
+`payload.resource.id` | The ID of the auth that needs to be reauthenticated.
+`payload.resource.type` | The type of resource referred to by the resource.id. Value: `auth`.
 `payload.data.company` | The [company object](#the-company-object) linked to this resource.

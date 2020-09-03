@@ -41,5 +41,6 @@ When a client has successfully completed the authentication process.
 Attribute | Description
 --------- | -----------
 `type` | `auth.success`
-`payload.data.resource.id` | The ID of the client who was authenticating.
+`payload.resource.id` | The ID of the client who was authenticating.
+`payload.resource.type` | The type of resource referred to by the resource.id. Value: `client`.
 `payload.data.auth` | The [auth object](#the-auth-object) linked to this resource.

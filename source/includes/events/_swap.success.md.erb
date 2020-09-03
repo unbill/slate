@@ -91,6 +91,8 @@ When a swap is successful.
 Attribute | Description
 --------- | -----------
 `type` | `swap.success`
+`payload.resource.id` | The ID of the swap that was successful.
+`payload.resource.type` | The type of resource referred to by the resource.id. Value: `swap`.
 `payload.data.clientId` | The clientId linked to the swap.
 `payload.data.company` | The [company object](#the-company-object) related to the swap.
 `payload.data.paymentMethod` | The [payment method object](#the-payment-method-object) linked to the swap.
