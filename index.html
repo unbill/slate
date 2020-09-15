@@ -412,6 +412,9 @@
                   <li>
                     <a href="#jun-29th-2020" class="toc-h2 toc-link" data-title="Jun 29th, 2020">Jun 29th, 2020</a>
                   </li>
+                  <li>
+                    <a href="#sep-3rd-2020" class="toc-h2 toc-link" data-title="Sep 3rd, 2020">Sep 3rd, 2020</a>
+                  </li>
               </ul>
           </li>
       </div>
@@ -941,7 +944,7 @@ https://sb-biller-direct.q2open.io (sandbox)
       </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1j5k2l1"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"answer"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What is your favorite food?"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"question"</span><span class="p">:</span><span class="w"> </span><span class="s2">"What is your favorite food?"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3buw78h3"</span><span class="w">
     </span><span class="p">}]</span><span class="w">
   </span><span class="p">}</span><span class="w">
@@ -971,51 +974,55 @@ https://sb-biller-direct.q2open.io (sandbox)
 <h2 id='auth-hold-codes'>Auth hold codes</h2>
 <p><a href="#hold">Auth hold&#39;s</a> include a code - a short string with a brief explanation - as a value for <code>code</code>. Below is a list of possible codes that can be returned, along with our default messaging and the products they relate to.</p>
 <h3 id='account_issue_apple_pay_on_file'>account_issue_apple_pay_on_file</h3>
-<p>We&#39;re unable to update your payment method because your iTunes payments are made with Apple Pay. Please update your payment method directly in Apple Pay.</p>
+<p>Your payment method could not be updated because your iTunes payments are made via Apple Pay. Please update your payment method directly through Apple Pay.</p>
 
 <p><label class="tag">CardSwap</label></p>
 <h3 id='account_issue_disney_plus_third_party_on_file'>account_issue_disney_plus_third_party_on_file</h3>
-<p>Your Disney+ subscription payments are made through a third-party provider (such as iTunes, Verizon, or a bundle).</p>
+<p>Your Disney+ subscription is currently being paid by a third party provider such as iTunes, Verizon, or the Disney bundle. Sign in to your Disney+ account if you want to change the payment method to your card.</p>
 
 <p><label class="tag">CardSwap</label></p>
 <h3 id='account_issue_payment_details_required'>account_issue_payment_details_required</h3>
-<p>This provider requires additional information. Please contact the provider to update your payment method.</p>
+<p>This provider requires additional information. Contact them directly to update your payment method.</p>
 
 <p><label class="tag">CardSwap</label></p>
 <h3 id='account_issue_with_swap'>account_issue_with_swap</h3>
-<p>We&#39;re unable to update your payment method because of an issue with your account. Please try again later.</p>
+<p>We couldn&#39;t update your payment method because of an issue with your account. Please go to the provider directly to update your payment method.</p>
 
 <p><label class="tag">CardSwap</label></p>
 <h3 id='account_issue_primary_account_holder'>account_issue_primary_account_holder</h3>
-<p>We&#39;re unable to update your payment method because you are not the primary account holder for this provider.</p>
+<p>We can&#39;t update your payment method because you aren&#39;t the primary account holder for this provider. Please provide the username and password of the main account holder.</p>
 
 <p><label class="tag">CardSwap</label></p>
 <h3 id='account_issue_card_not_accepted'>account_issue_card_not_accepted</h3>
-<p>We&#39;re unable to update your payment method because this card is not accepted by the provider.</p>
+<p>We can&#39;t update your payment method because this card isn&#39;t accepted by the provider. Contact the provider directly to resolve this issue, then try again.</p>
 
 <p><label class="tag">CardSwap</label></p>
 <h3 id='account_issue_max_cards_on_file'>account_issue_max_cards_on_file</h3>
-<p>We&#39;re unable to update your payment method because you have the max amount of cards on file. Please log in to the provider&#39;s website to remove a payment method and try again.</p>
+<p>We can&#39;t update your payment method because the provider won&#39;t allow any more cards to be added. Please sign in directly on the provider&#39;s website to remove a payment method and try again.</p>
 
 <p><label class="tag">CardSwap</label></p>
 <h3 id='account_issue_third_party_connected'>account_issue_third_party_connected</h3>
-<p>We&#39;re unable to update your payment method because payments are made through a third-party provider (such as PayPal or Google Play).</p>
+<p>We couldn&#39;t update your payment method because you&#39;re paying for your subscription through a third-party provider (like PayPal or Google Play). Please go to the third-party provider directly to update your payment method.</p>
 
 <p><label class="tag">CardSwap</label></p>
 <h3 id='account_issue_third_party_available'>account_issue_third_party_available</h3>
-<p>We&#39;re unable to update your payment method because payments are made through iTunes or Amazon. To change your payment method, select iTunes or Amazon from the list of providers and add your card.</p>
+<p>We couldn&#39;t update your payment method because you&#39;re paying for your subscription through a third party, such as iTunes or Amazon. To change your payment method, select the third party from the list of providers to add your card.</p>
 
 <p><label class="tag">CardSwap</label></p>
 <h3 id='account_issue_no_active_subscription'>account_issue_no_active_subscription</h3>
-<p>We&#39;re unable to add your card because you do not have an active subscription with this provider. Please activate your subscription and try again.</p>
+<p>We couldn&#39;t add your card because you don&#39;t have an active subscription with this provider. Please activate your subscription and try again.</p>
+
+<p><label class="tag">CardSwap</label></p>
+<h3 id='system_issue_with_swap'>system_issue_with_swap</h3>
+<p>We couldn&#39;t update your payment method because of a technical problem. Please try again.</p>
 
 <p><label class="tag">CardSwap</label></p>
 <h3 id='account_set_up_online_payments'>account_set_up_online_payments</h3>
 <p>Your account is not set up for online payments. Log in to your account and set up online payments.</p>
 
 <p><label class="tag">Biller Direct</label></p>
-<h3 id='system_issue_with_swap'>system_issue_with_swap</h3>
-<p>We&#39;re unable to update your payment method because of a system issue. Please try again later.</p>
+<h3 id='partner_expiration_exceeded'>partner_expiration_exceeded</h3>
+<p>This request has exceeded your financial institution&#39;s expiration policy.</p>
 
 <p><label class="tag">CardSwap</label></p>
 <h3 id='account_issue_account_locked'>account_issue_account_locked</h3>
@@ -1053,13 +1060,13 @@ We're unable to access your bill information because of a system issue. Please t
 
 ### system_issue_with_bill_payment
 
-We're unable to submit this payment because of a system issue. Please try again later.
+We're unable to submit this payment because of a system issue.  Please try again later.
 
 <label class="tag">Biller Direct</label>
 
 ### account_paid_in_full
 
-Your account balance has already been paid in full.
+We’re unable to locate a balance on your account because it is paid in full.
 
 <label class="tag">Biller Direct</label>
 
@@ -3299,8 +3306,9 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
   </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bill.update"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"sessionId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"your-session-id-if-supplied-12345"</span><span class="w">
   </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-id-123"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">  
+  </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="p">,</span><span class="w">
@@ -3338,6 +3346,10 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <tr>
 <td><code>partnerId</code></td>
 <td>The <code>id</code> of the <code>partner</code> to which the event pertains.</td>
+</tr>
+<tr>
+<td><code>sessionId</code></td>
+<td>Your internal identifier associated with the client session as described in <a href="#sessions">Sessions</a>.</td>
 </tr>
 <tr>
 <td><code>identifier</code></td>
@@ -3423,8 +3435,12 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <td><code>auth.success</code></td>
 </tr>
 <tr>
-<td><code>payload.data.resource.id</code></td>
+<td><code>payload.resource.id</code></td>
 <td>The ID of the client who was authenticating.</td>
+</tr>
+<tr>
+<td><code>payload.resource.type</code></td>
+<td>The type of resource referred to by the resource.id. Value: <code>client</code>.</td>
 </tr>
 <tr>
 <td><code>payload.data.auth</code></td>
@@ -3441,14 +3457,14 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
     </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auth.invalid"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">   
-    </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-id-123"</span><span class="p">,</span><span class="w">           
+    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-id-123"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auth"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="w">
       </span><span class="p">},</span><span class="w">
-      </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+      </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"company"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="s2">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d8"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Geico"</span><span class="w">
@@ -3469,6 +3485,14 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <tr>
 <td><code>type</code></td>
 <td><code>auth.invalid</code></td>
+</tr>
+<tr>
+<td><code>payload.resource.id</code></td>
+<td>The ID of the auth that needs to be reauthenticated.</td>
+</tr>
+<tr>
+<td><code>payload.resource.type</code></td>
+<td>The type of resource referred to by the resource.id. Value: <code>auth</code>.</td>
 </tr>
 <tr>
 <td><code>payload.data.company</code></td>
@@ -3515,8 +3539,12 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <td><code>auth.deleted</code></td>
 </tr>
 <tr>
-<td><code>payload.data.resource.id</code></td>
+<td><code>payload.resource.id</code></td>
 <td>The ID of the auth that was deleted.</td>
+</tr>
+<tr>
+<td><code>payload.resource.type</code></td>
+<td>The type of resource referred to by the resource.id. Value: <code>auth</code>.</td>
 </tr>
 <tr>
 <td><code>payload.data.company</code></td>
@@ -3533,17 +3561,18 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
     </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auth.hold"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-04-20T16:51:12Z"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa110127118752"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">    
-    </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-id-123"</span><span class="p">,</span><span class="w">          
+    </span><span class="s2">"partnerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d9"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-id-123"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"resource"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"auth"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"579b695decfa11012711875d"</span><span class="w">
       </span><span class="p">},</span><span class="w">
-      </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+      </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"hold"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"text"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"You need to login and activate your account."</span><span class="w">
-        </span><span class="p">},</span><span class="w"> 
+          </span><span class="s2">"code"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"account_issue_no_service_account"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"text"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Please login and add your service account."</span><span class="w">
+        </span><span class="p">},</span><span class="w">
         </span><span class="s2">"company"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="s2">"_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"55942f330cfcfd6c4ed529d8"</span><span class="p">,</span><span class="w">
           </span><span class="s2">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Geico"</span><span class="w">
@@ -3564,6 +3593,14 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <tr>
 <td><code>type</code></td>
 <td><code>auth.hold</code></td>
+</tr>
+<tr>
+<td><code>payload.resource.id</code></td>
+<td>The ID of the auth that was put on hold.</td>
+</tr>
+<tr>
+<td><code>payload.resource.type</code></td>
+<td>The type of resource referred to by the resource.id. Value: <code>auth</code>.</td>
 </tr>
 <tr>
 <td><code>payload.data.hold</code></td>
@@ -3614,8 +3651,12 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <td><code>auth.needs-resync</code></td>
 </tr>
 <tr>
-<td><code>payload.data.resource.id</code></td>
+<td><code>payload.resource.id</code></td>
 <td>The ID of the auth that needs to be resynced.</td>
+</tr>
+<tr>
+<td><code>payload.resource.type</code></td>
+<td>The type of resource referred to by the resource.id. Value: <code>auth</code>.</td>
 </tr>
 <tr>
 <td><code>payload.data.company</code></td>
@@ -4264,6 +4305,14 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <td><code>swap.success</code></td>
 </tr>
 <tr>
+<td><code>payload.resource.id</code></td>
+<td>The ID of the swap that was successful.</td>
+</tr>
+<tr>
+<td><code>payload.resource.type</code></td>
+<td>The type of resource referred to by the resource.id. Value: <code>swap</code>.</td>
+</tr>
+<tr>
 <td><code>payload.data.clientId</code></td>
 <td>The clientId linked to the swap.</td>
 </tr>
@@ -4343,6 +4392,10 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <h3 id='jun-29th-2020'>Jun 29th, 2020</h3>
 <ul>
 <li>Added revised message security to describe <a href="#message-security">AES/RSA message encryption </a></li>
+</ul>
+<h3 id='sep-3rd-2020'>Sep 3rd, 2020</h3>
+<ul>
+<li>Updated event information for auth and swap events</li>
 </ul>
 
       </div>
