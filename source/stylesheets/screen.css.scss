@@ -535,7 +535,7 @@ html, body {
   }
 
   pre, blockquote {
-    background-color: $code-bg;
+    background-color: $code-annotation-bg;
     color: #fff;
 
     margin: 0;
@@ -645,7 +645,7 @@ html, body {
 .highlight .str,
 .highlight .s2,
 .highlight .s1 {
-  color: $tg-green;
+  color: $tg-code-green;
 }
 
 .highlight .p,
