@@ -21,8 +21,6 @@ Options:
 
 
 run_build() {
-  gem install bundler -v 2.1.2
-  bundle install
   bundle exec middleman build --clean
 }
 
@@ -38,7 +36,7 @@ parse_args() {
   while : ; do
     if [[ $1 = "-h" || $1 = "--help" ]]; then
       echo "$help_message"
-      return 0
+      exit 0
     elif [[ $1 = "-v" || $1 = "--verbose" ]]; then
       verbose=true
       shift
@@ -51,10 +49,21 @@ parse_args() {
     elif [[ $1 = "-n" || $1 = "--no-hash" ]]; then
       GIT_DEPLOY_APPEND_HASH=false
       shift
+    elif [[ $1 = "--source-only" ]]; then
+      source_only=true
+      shift
+    elif [[ $1 = "--push-only" ]]; then
+      push_only=true
+      shift
     else
       break
     fi
   done
+
+  if [ ${source_only} ] && [ ${push_only} ]; then
+    >&2 echo "You can only specify one of --source-only or --push-only"
+    exit 1
+  fi
 
   # Set internal option vars from the environment and arg flags. All internal
   # vars should be declared here, with sane defaults if applicable.
@@ -69,17 +78,12 @@ parse_args() {
 
   #repository to deploy to. must be readable and writable.
   repo=origin
-  if [[ ! -z "$GITHUB_TOKEN" ]]; then
-    repo=https://$GITHUB_TOKEN@github.com/unbill/api-docs.git
-  fi
 
   #append commit hash to the end of message by default
   append_hash=${GIT_DEPLOY_APPEND_HASH:-true}
 }
 
 main() {
-  parse_args "$@"
-
   enable_expanded_output
 
   if ! git diff --exit-code --quiet --cached; then
@@ -107,7 +111,7 @@ main() {
     return 1
   fi
 
-  # must use short form of flag in ls for compatibility with OS X and BSD
+  # must use short form of flag in ls for compatibility with macOS and BSD
   if [[ -z `ls -A "$deploy_directory" 2> /dev/null` && -z $allow_empty ]]; then
     echo "Deploy directory '$deploy_directory' is empty. Aborting. If you're sure you want to deploy an empty tree, use the --allow-empty / -e flag." >&2
     return 1
@@ -150,7 +154,7 @@ incremental_deploy() {
     0) echo No changes to files in $deploy_directory. Skipping commit.;;
     1) commit+push;;
     *)
-      echo git diff exited with code $diff. Aborting. Staying on branch $deploy_branch so you can debug. To switch back to master, use: git symbolic-ref HEAD refs/heads/master && git reset --mixed >&2
+      echo git diff exited with code $diff. Aborting. Staying on branch $deploy_branch so you can debug. To switch back to main, use: git symbolic-ref HEAD refs/heads/main && git reset --mixed >&2
       return $diff
       ;;
   esac
@@ -210,9 +214,11 @@ sanitize() {
   "$@" 2> >(filter 1>&2) | filter
 }
 
-if [[ $1 = --source-only ]]; then
+parse_args "$@"
+
+if [[ ${source_only} ]]; then
   run_build
-elif [[ $1 = --push-only ]]; then
+elif [[ ${push_only} ]]; then
   main "$@"
 else
   run_build

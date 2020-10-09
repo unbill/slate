@@ -8,6 +8,7 @@ set :markdown,
     smartypants: true,
     disable_indented_code_blocks: true,
     prettify: true,
+    strikethrough: true,
     tables: true,
     with_toc_data: true,
     no_intra_emphasis: true,
@@ -22,6 +23,7 @@ set :fonts_dir, 'fonts'
 # Activate the syntax highlighter
 activate :syntax
 ready do
+  require './lib/monokai_sublime_slate.rb'
   require './lib/multilang.rb'
 end
 
@@ -39,12 +41,16 @@ set :relative_links, true
 
 # Build Configuration
 configure :build do
+  # We do want to hash woff and woff2 as there's a bug where woff2 will use
+  # woff asset hash which breaks things. Trying to use a combination of ignore and
+  # rewrite_ignore does not work as it conflicts weirdly with relative_assets. Disabling
+  # the .woff2 extension only does not work as .woff will still activate it so have to
+  # have both. See https://github.com/slatedocs/slate/issues/1171 for more details.
+  activate :asset_hash, :exts => app.config[:asset_extensions] - %w[.woff .woff2]
   # If you're having trouble with Middleman hanging, commenting
   # out the following two lines has been known to help
   activate :minify_css
   activate :minify_javascript
-  # activate :relative_assets
-  # activate :asset_hash
   # activate :gzip
 end
 
@@ -55,6 +61,7 @@ set :port, 4567
 helpers do
   require './lib/toc_data.rb'
 end
+
 
 # ====================
 # Custom Configuration
@@ -81,43 +88,43 @@ config.iFramePostMessage = 'https://developer.mozilla.org/en-US/docs/Web/API/Win
 config.iosPostMessage = 'https://developer.apple.com/documentation/webkit/wkscriptmessagehandler'
 config.androidPostMessage = 'https://developer.android.com/reference/android/webkit/WebView#addJavascriptInterface(java.lang.Object,%20java.lang.String)'
 config.companyResponseDescription = [
-  '`_id` | ID of the company.',
-  '`name` | Name of the company.',
-  '`status` | The operational status of the company at any given moment of time. Possible values are `operational`, `maintenance`.',
-  '`logo` | Company logo object.',
-  '`logo.url` | URL of the company logo.',
-  '`logo.background` | If this is `true`, then the logo looks best as a background image.',
-  '`logo.svg` | Company logo svg object.',
-  '`logo.svg.url` | URL of the company svg logo.',
-  '`logo.svg.color` | Hex color of the company logo.',
-  '`requiredPayment` | If a specific payment method type is required by this company, this will be defined. Possible values are `bank`, `card`.',
-  '`userPresenceRequired` | If the company requires that the user is present to pass through any security flows. See best practices in the [Connect](#connect) documentation.',
-  '`schedule` | The [bill payment schedule](#bill-payment-schedule) this company follows. If this parameter is set, the schedule for a bill linked to this company may not be changed. Typically subscription companies such as Netflix have this parameter set since payments must be made on a specific date.',
-  '`additionalPaymentOptions` | Present when the company provides additional payment options that allow users to make payments towards their outstanding balance.',
-  '`fees` | The surcharge object. Possible child objects are `ach`, `cards`',
-  '`fees.ach` | Present when the company applies surcharges to ACH payments.',
-  '`fees.ach.percentage` | If the ACH surcharge is a percentage of the payment amount.',
-  '`fees.ach.rate` | Either a dollar amount or a percentage amount.',
-  '`fees.cards` | Present when the company applies surcharges to card payments. Possible child objects are `american express`, `discover`, `mastercard`, and `visa`, referred to below as `{cardBrand}`. See example `company` response.',
-  '`fees.cards.{cardBrand}` | Possible child objects are `credit` or `debit`, referred to below as `{cardType}`.',
-  '`fees.cards.{cardBrand}.{cardType}.percentage` | If the surcharge is a percentage of the payment amount.',
-  '`fees.cards.{cardBrand}.{cardType}.rate` | Either a dollar amount or a percentage amount.',
-  '`auth` | Company auth fields.',
-  '`auth.urls` | Company Auth Urls (login URL is always available, but the others can by null).',
-  '`auth.urls.login` | Login URL.',
-  '`auth.urls.signup` | Signup URL.',
-  '`auth.urls.forgotPassword` | Forgot password URL.',
-  '`auth.urls.forgotUsername` | Forgot username URL.',
-  '`auth.loginFields` | Form fields for credentials.',
-  '`auth.loginFields.placeholder` | Input `placeholder` field.',
-  '`auth.loginFields.formType` | Input `type` field.',
-  '`auth.loginFields.name` | Input `name` field.',
-  '`auth.loginFields.label` | Label for `input`.',
-  '`geo` | Geo based location (not available for regional or national company).',
-  '`geo.lat` | Latitude coordinate.',
-  '`geo.lng` | Longitude coordinate.',
-  '`geo.stateShort` | Abbreviated state name.',
-  '`geo.stateLong` | Full state name.',
-  '`geo.zipcode` | Zipcode.',
-  '`geo.address` | Formatted address.',
+    '`_id` | ID of the company.',
+    '`name` | Name of the company.',
+    '`status` | The operational status of the company at any given moment of time. Possible values are `operational`, `maintenance`.',
+    '`logo` | Company logo object.',
+    '`logo.url` | URL of the company logo.',
+    '`logo.background` | If this is `true`, then the logo looks best as a background image.',
+    '`logo.svg` | Company logo svg object.',
+    '`logo.svg.url` | URL of the company svg logo.',
+    '`logo.svg.color` | Hex color of the company logo.',
+    '`requiredPayment` | If a specific payment method type is required by this company, this will be defined. Possible values are `bank`, `card`.',
+    '`userPresenceRequired` | If the company requires that the user is present to pass through any security flows. See best practices in the [Connect](#connect) documentation.',
+    '`schedule` | The [bill payment schedule](#bill-payment-schedule) this company follows. If this parameter is set, the schedule for a bill linked to this company may not be changed. Typically subscription companies such as Netflix have this parameter set since payments must be made on a specific date.',
+    '`additionalPaymentOptions` | Present when the company provides additional payment options that allow users to make payments towards their outstanding balance.',
+    '`fees` | The surcharge object. Possible child objects are `ach`, `cards`',
+    '`fees.ach` | Present when the company applies surcharges to ACH payments.',
+    '`fees.ach.percentage` | If the ACH surcharge is a percentage of the payment amount.',
+    '`fees.ach.rate` | Either a dollar amount or a percentage amount.',
+    '`fees.cards` | Present when the company applies surcharges to card payments. Possible child objects are `american express`, `discover`, `mastercard`, and `visa`, referred to below as `{cardBrand}`. See example `company` response.',
+    '`fees.cards.{cardBrand}` | Possible child objects are `credit` or `debit`, referred to below as `{cardType}`.',
+    '`fees.cards.{cardBrand}.{cardType}.percentage` | If the surcharge is a percentage of the payment amount.',
+    '`fees.cards.{cardBrand}.{cardType}.rate` | Either a dollar amount or a percentage amount.',
+    '`auth` | Company auth fields.',
+    '`auth.urls` | Company Auth Urls (login URL is always available, but the others can by null).',
+    '`auth.urls.login` | Login URL.',
+    '`auth.urls.signup` | Signup URL.',
+    '`auth.urls.forgotPassword` | Forgot password URL.',
+    '`auth.urls.forgotUsername` | Forgot username URL.',
+    '`auth.loginFields` | Form fields for credentials.',
+    '`auth.loginFields.placeholder` | Input `placeholder` field.',
+    '`auth.loginFields.formType` | Input `type` field.',
+    '`auth.loginFields.name` | Input `name` field.',
+    '`auth.loginFields.label` | Label for `input`.',
+    '`geo` | Geo based location (not available for regional or national company).',
+    '`geo.lat` | Latitude coordinate.',
+    '`geo.lng` | Longitude coordinate.',
+    '`geo.stateShort` | Abbreviated state name.',
+    '`geo.stateLong` | Full state name.',
+    '`geo.zipcode` | Zipcode.',
+    '`geo.address` | Formatted address.',
 ].join("\n")
