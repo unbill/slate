@@ -1,0 +1,44 @@
+<h2 id='cardswap'>CardSwap</h2>
+<blockquote>
+<p>Host</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>https://cardswap.q2open.io (production)
+https://sb-cardswap.q2open.io (sandbox)
+</code></pre></div>
+<p><img src="/images/products/cardswap-51e19c7f.gif" alt="" /></p>
+
+<p>Q2 CardSwap™ is the first switch kit for subscription and eCommerce merchants, allowing users to put your card top-of-wallet for their favorite services—all in one place.</p>
+
+<p><a href="https://cardswap.q2open.io">View demo</a></p>
+<h3 id='events'>Events</h3>
+<p>CardSwap will emit events back to your app using the browser <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage">postMessage</a> API, <a href="https://developer.apple.com/documentation/webkit/wkscriptmessagehandler">WKScriptMessageHandler</a> on iOS, or <a href="https://developer.android.com/reference/android/webkit/WebView#addJavascriptInterface(java.lang.Object,%20java.lang.String)">addJavascriptInterface</a> on Android, allowing you to decide what to do after the user is finished.</p>
+
+<table><thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>finish</code></td>
+<td>Occurs when the user successfully completes the swap process. Only emits when the <code>startView</code> URL parameter is set to <code>brands</code>.</td>
+</tr>
+</tbody></table>
+<h3 id='url-parameters'>URL parameters</h3>
+<p>The following URL parameters can be optionally passed into the CardSwap URL to customize the experience.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>startView</code></td>
+<td>Indicates where users are redirected to after completing a swap. Set to <code>brands</code> to skip the introductory page and return users to the brand selection page.</td>
+</tr>
+<tr>
+<td><code>sessionId</code></td>
+<td><a href="#sessions">Session</a> ID to be linked to corresponding <a href="#event">Events</a>.</td>
+</tr>
+</tbody></table>
