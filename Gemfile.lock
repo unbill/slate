@@ -120,6 +120,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler (~> 2.1.4)
   middleman (~> 4.3)
   middleman-autoprefixer (~> 2.7)
   middleman-sprockets (~> 4.1)
