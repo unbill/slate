@@ -1,0 +1,98 @@
+## Webhook security
+The Biller Direct/Cardswap system can also apply additional security measures to webhook events sent to partners.
+These measures include oauth authentication, payload encryption and request signing.
+
+### OAuth Authentication
+The webhook can be set up to retrieve a
+<a href="https://tools.ietf.org/html/rfc6749#section-4.4" target="_blank">client credentials token</a>
+from an OAuth endpoint provided by the partner. The OAuth response must follow the standard client credentials format.
+This token will be cached in Biller Direct/Cardswap until its expiration nears and at that point another
+token will be requested from the endpoint. The resulting token will be passed as a `Bearer` token in
+the `Authorization` header along with the event payload.
+
+#### Setup in Nexus
+- In the Nexus portal `Settings` view, click the `Edit` button on the desired webhook.
+- Expand the `OAuth` section of the webhook properties.
+- Enable OAuth support by toggling the checkbox.
+- Add in the `OAuth URL` provided by the partner.
+- Add in any `OAuth Payload` that should be included in the OAuth request in URL format.
+
+ <%= image_tag 'images/examples/webhook-oauth.png' %>
+
+> Example Encrypted Request
+
+```
+HTTP/1.1 200 OK
+Content-Type: application/jose+json
+
+eyJhbGciOiJSU0ExXzUiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0.
+UGhIOguC7IuEvf_NPVaXsGMoLOmwvc1GyqlIKOK1nN94nHPoltGRhWhw7Zx0-kFm
+1NJn8LE9XShH59_i8J0PH5ZZyNfGy2xGdULU7sHNF6Gp2vPLgNZ__deLKxGHZ7Pc
+HALUzoOegEI-8E66jX2E4zyJKx-YxzZIItRzC5hlRirb6Y5Cl_p-ko3YvkkysZIF
+NPccxRU7qve1WYPxqbb2Yw8kZqa2rMWI5ng8OtvzlV7elprCbuPhcCdZ6XDP0_F8
+rkXds2vE4X-ncOIM8hAYHHi29NX0mcKiRaD0-D-ljQTP-cFPgwCp6X-nZZd9OHBv
+-B3oWh2TbqmScqXMR4gp_A.
+AxY8DCtDaGlsbGljb3RoZQ.
+KDlTtXchhZTGufMYmOYGS4HffxPSUrfmqCHXaI9wOGY.
+9hH0vgRfYgPnAHOd8stkvw
+```
+
+### Payload Encryption
+Event messages to webhook endpoints may be encrypted using standards-based
+<a href="https://tools.ietf.org/html/rfc7516" target="_blank">JWE (JSON Web Encryption) compact formatting</a>.
+In the case of JWE formatting the key ID (kid) is stored in the JWE header included in the encoded payload.
+
+#### Setup in Nexus
+- In the Nexus portal `Settings` view, click the `Edit` button on the desired webhook.
+- Expand the `Payload Encryption` section of the webhook properties.
+- Enable encryption support by toggling the checkbox.
+- Add in the `Public Key URL` provided by the partner.
+- Add in any `Request Headers` that should be included with the request in JSON format.
+
+  <%= image_tag 'images/examples/webhook-encryption.png' %>
+
+> Example `Signature` JWT Headers
+
+```json
+{
+  "typ": "JWT",
+  "alg": "RS256",
+  "kid": "key_id_3",
+  "x5t": "Mx3Fyhwerew23wfs"
+}
+```
+> Example `Signature` JWT Claims
+
+```json
+{
+  "aud": "audience.example.com",
+  "iss": "example issuer",
+  "exp": 1579754951
+}
+```
+
+### RSA Request Signing
+Webhook requests may include a request signature for verification. In the case of webhooks, a signed
+JWT (JSON Web Token) will be created and sent in a header of the webhook event request. The header defaults to `signature`
+but this can be customized to whichever header the partner would like.
+
+#### RSA Signing Keys
+RSA request signing key-pairs can be created in the Nexus portal `Settings` view, and the public key can be copied.
+
+- A maximum of 2 keys can be created for key rotation purposes.
+- Public keys are copied in PCKS #8 format.
+- Public keys can also be retrieved from the [partner public key API](#partner).
+- The oldest key of the two will be used to create the request signature
+
+  <%= image_tag 'images/examples/request-signing-keys.png' %>
+
+#### Request Signature Setup
+- In the Nexus portal `Settings` view, click the `Edit` button on the desired webhook.
+- Expand the `Request Signature` section of the webhook properties.
+- Enable signature support by toggling the checkbox.
+- All parameters for the request signature are optional.
+  - `Token Issuer` - Specifies the `iss` value to be included with the JWT
+  - `Token Audience` - Specifies the `aud` value to be included with the JWT
+  - `Signature Header` - Specifies a request header other than `signature` to use for the signature JWT
+
+  <%= image_tag 'images/examples/webhook-signature.png' %>

@@ -4,7 +4,7 @@
 
 ```json
 {
-  "encrypted": "EXAMPLE",
+  "encrypted": "os8th269xgj7tyku7wxl",
   "hash": "PQ5+gSzli4DyOzXUYqT74QIZ9l4VIyWJipb521HfUnwwj0sNPp0ASyodxb3YOmhbM6nZ+bFXkPN1u2vcXo80yYcMy0xXmfcQ27LRsVjD8kLw7PC0LSfKh1ZHvx+xpxnHDDOYwqRMVFUHIz6ggxPJB39f7hZXRvp5JQQhnB/3JfpV/UvmXjhdQlgC50yOOIJ12S36cnncBrwqYvvDV7iY8Uq6x2ddZRl/2GNoUpnf9jIoKEqeNEpuqoD9g6cwcXXgbjyObxfl6zOSQlfgHJye/Me7E0d+4r0/OWhnSYC6GgedAwUM1fBVGAkAqQKEtU2BYD1kIP8hBSMJxWzVjqKn0A=="
 }
 ```
@@ -14,13 +14,18 @@ Optionally, message encryption may be used when making a `POST` request to the A
 - Message encryption uses a combination of AES and RSA encryption.
   - The message payload is encrypted using AES-CTR-256.
   - The resultant AES key is then encrypted using an RSA 2048-bit public key.
-- You can create an RSA key-pair and copy the public key in the Settings of the Nexus application.
-  - The public key is provided in PCKS #8 format.
+- RSA key-pairs can be created in the Nexus portal `Settings` view, and the public key can be copied.
+  - A maximum of 2 keys can be created for key rotation purposes.
+  - Public keys are copied in PCKS #8 format.
+  - Public keys can also be retrieved from the [partner public key API](#partner).
+
+  <%= image_tag 'images/examples/api-encryption-keys.png' %>
+
 - The [examples GitHub repository](https://github.com/unbill/examples) includes an example of encrypting the payload with your public key using a combination of AES and RSA encryption.
 - Use the API routes as documented, however your payload will be encrypted and base64 encoded using the public key, and sent in a `hash` parameter.
-- Add an 'encrypted' parameter to your request with the key identifier that is created when you generate an RSA key in Nexus.
+- Add an `encrypted` parameter to your request with the key identifier that is created when you generate an RSA key in Nexus.
 
-### RSA Signing
+### RSA Request Signing
 > Example Signed Request
 
 ```shell
@@ -35,10 +40,31 @@ curl "<%= config.host %>/client/create-token" \
   -X POST
 ```
 
-Optionally, 2048-bit Asymmetric request signing may be used when making requests to the API.
+Optionally, 2048-bit asymmetric request signing may be used when making requests to the API.
 
-- Create a public/private key pair following PKCS #1/sha-256 signing scheme.
-- Provide the public key to Q2 or update the request signing public key in the Q2 Nexus portal.
+#### Keypair Provisioning
+API request signing key-pairs can be added manually in the Nexus portal or in automated fashion by providing an API endpoint.
+
+##### Manual
+- Create a 2048-bit RSA keypair following the PKCS #1/sha-256 signing scheme.
+- Update the API Request Signing Public Key in the Q2 Nexus portal `Settings` view.
+
+  <%= image_tag 'images/examples/api-signing-key-manual.png' %>
+
+##### Partner Provided API
+An API endpoint may be provided by the partner which the Biller Direct/Cardswap system will use to
+keep signing keys synchronized. Keys will be requested from the API daily. It is assumed that the expiration of
+a new partner RSA signing key will be several days at a minimum.  If no valid keys are present, the BDCS
+retrieval job will ping the partner endpoint several times daily to request valid keys.
+The API must return keys in standard JWKS (JSON Web Key Set) format. Please refer to the
+<a href="https://tools.ietf.org/html/rfc7517" target="_blank">JWK standards</a> for more information.
+
+When setting up the API endpoint in Nexus, a collection of headers can also be added if the endpoint
+requires additional metadata to function. Headers are provided in JSON format.
+
+  <%= image_tag 'images/examples/api-signing-key-url.png' %>
+
+#### Signing the API Request
 - With each request to the API, generate a signature using the following formula:
   - Request method in all uppercase: `POST/PUT/GET/DELETE` plus a colon.
   - Path and query of the request plus a colon.
