@@ -42,6 +42,11 @@ Event messages to webhook endpoints may be encrypted using standards-based
 <a href="https://tools.ietf.org/html/rfc7516" target="_blank">JWE (JSON Web Encryption) compact formatting</a>.
 In the case of JWE formatting the key ID (kid) is stored in the JWE header included in the encoded payload.
 
+#### JWE Settings
+- Format - `compact` - The format of the JWE itself. Compact is an efficient encoded string.
+- Content Algorithm (enc) - `A256GCM` - The symmetric algorithm used to encrypt the actual content.
+- Key Wrapping Algorithm (alg) - `RSA-OAEP` - The asymmetric algorithm used to encrypt the symmetric key.
+
 #### Setup in Nexus
 - In the Nexus portal `Settings` view, click the `Edit` button on the desired webhook.
 - Expand the `Payload Encryption` section of the webhook properties.
