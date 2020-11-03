@@ -279,7 +279,7 @@
   color: #859900;
 }
     </style>
-    <link href="stylesheets/screen-647b7b3b.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/screen-c880d549.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print-32dee635.css" rel="stylesheet" media="print" />
       <script src="javascripts/all-e9bde216.js"></script>
 
@@ -509,7 +509,7 @@
               </ul>
           </li>
           <li>
-            <a href="#event" class="toc-h1 toc-link" data-title="Event">Event</a>
+            <a href="#events" class="toc-h1 toc-link" data-title="Events">Events</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#the-event-object" class="toc-h2 toc-link" data-title="The event object">The event object</a>
@@ -558,6 +558,9 @@
                   </li>
                   <li>
                     <a href="#swap-success" class="toc-h2 toc-link" data-title="Swap success">Swap success</a>
+                  </li>
+                  <li>
+                    <a href="#webhook-security" class="toc-h2 toc-link" data-title="Webhook security">Webhook security</a>
                   </li>
               </ul>
           </li>
@@ -713,7 +716,7 @@ https://sb-api.q2open.io/v1 (sandbox)
 <p>Example Encrypted Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"encrypted"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EXAMPLE"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"encrypted"</span><span class="p">:</span><span class="w"> </span><span class="s2">"os8th269xgj7tyku7wxl"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PQ5+gSzli4DyOzXUYqT74QIZ9l4VIyWJipb521HfUnwwj0sNPp0ASyodxb3YOmhbM6nZ+bFXkPN1u2vcXo80yYcMy0xXmfcQ27LRsVjD8kLw7PC0LSfKh1ZHvx+xpxnHDDOYwqRMVFUHIz6ggxPJB39f7hZXRvp5JQQhnB/3JfpV/UvmXjhdQlgC50yOOIJ12S36cnncBrwqYvvDV7iY8Uq6x2ddZRl/2GNoUpnf9jIoKEqeNEpuqoD9g6cwcXXgbjyObxfl6zOSQlfgHJye/Me7E0d+4r0/OWhnSYC6GgedAwUM1fBVGAkAqQKEtU2BYD1kIP8hBSMJxWzVjqKn0A=="</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -726,16 +729,23 @@ https://sb-api.q2open.io/v1 (sandbox)
 <li>The message payload is encrypted using AES-CTR-256.</li>
 <li>The resultant AES key is then encrypted using an RSA 2048-bit public key.</li>
 </ul></li>
-<li>You can create an RSA key-pair and copy the public key in the Settings of the Nexus application.
+<li>RSA key-pairs can be created in the Nexus portal <code>Settings</code> view, and the public key can be copied.
 
 <ul>
-<li>The public key is provided in PCKS #8 format.</li>
+<li>A maximum of 2 keys can be created for key rotation purposes.</li>
+<li>Public keys are copied in PCKS #8 format.</li>
+<li>Public keys can also be retrieved from the <a href="#partner">partner public key API</a>.</li>
 </ul></li>
+</ul>
+
+<p><img src="images/examples/api-encryption-keys-56db2fdd.png" alt="" /></p>
+
+<ul>
 <li>The <a href="https://github.com/unbill/examples">examples GitHub repository</a> includes an example of encrypting the payload with your public key using a combination of AES and RSA encryption.</li>
 <li>Use the API routes as documented, however your payload will be encrypted and base64 encoded using the public key, and sent in a <code>hash</code> parameter.</li>
-<li>Add an &#39;encrypted&#39; parameter to your request with the key identifier that is created when you generate an RSA key in Nexus.</li>
+<li>Add an <code>encrypted</code> parameter to your request with the key identifier that is created when you generate an RSA key in Nexus.</li>
 </ul>
-<h3 id='rsa-signing'>RSA Signing</h3>
+<h3 id='rsa-request-signing'>RSA Request Signing</h3>
 <blockquote>
 <p>Example Signed Request</p>
 </blockquote>
@@ -749,11 +759,30 @@ https://sb-api.q2open.io/v1 (sandbox)
   }'</span>
   <span class="nt">-X</span> POST
 </code></pre></div>
-<p>Optionally, 2048-bit Asymmetric request signing may be used when making requests to the API.</p>
-
+<p>Optionally, 2048-bit asymmetric request signing may be used when making requests to the API.</p>
+<h4 id='keypair-provisioning'>Keypair Provisioning</h4>
+<p>API request signing key-pairs can be added manually in the Nexus portal or in automated fashion by providing an API endpoint.</p>
+<h5 id='manual'>Manual</h5>
 <ul>
-<li>Create a public/private key pair following PKCS #1/sha-256 signing scheme.</li>
-<li>Provide the public key to Q2 or update the request signing public key in the Q2 Nexus portal.</li>
+<li>Create a 2048-bit RSA keypair following the PKCS #1/sha-256 signing scheme.</li>
+<li>Update the API Request Signing Public Key in the Q2 Nexus portal <code>Settings</code> view.</li>
+</ul>
+
+<p><img src="images/examples/api-signing-key-manual-f34796cd.png" alt="" /></p>
+<h5 id='partner-provided-api'>Partner Provided API</h5>
+<p>An API endpoint may be provided by the partner which the Biller Direct/Cardswap system will use to
+keep signing keys synchronized. Keys will be requested from the API daily. It is assumed that the expiration of
+a new partner RSA signing key will be several days at a minimum.  If no valid keys are present, the BDCS
+retrieval job will ping the partner endpoint several times daily to request valid keys.
+The API must return keys in standard JWKS (JSON Web Key Set) format. Please refer to the
+<a href="https://tools.ietf.org/html/rfc7517" target="_blank">JWK standards</a> for more information.</p>
+
+<p>When setting up the API endpoint in Nexus, a collection of headers can also be added if the endpoint
+requires additional metadata to function. Headers are provided in JSON format.</p>
+
+<p><img src="images/examples/api-signing-key-url-1b9fbd6f.png" alt="" /></p>
+<h4 id='signing-the-api-request'>Signing the API Request</h4>
+<ul>
 <li>With each request to the API, generate a signature using the following formula:
 
 <ul>
@@ -3438,7 +3467,7 @@ Partner keys are managed in the Nexus application.</p>
 <p><code>GET https://api.q2open.io/v1/partner/public-keys/latest</code></p>
 <h3 id='returns'>Returns</h3>
 <p>A response with the latest public key content in JWK format.</p>
-<h1 id='event'>Event</h1>
+<h1 id='events'>Events</h1>
 <p>Events are our way of letting you know when something interesting happens on behalf of your users.
 When an interesting event occurs, we create a new <code>Event</code> object. For example, when a new bill is received, we create a <code>bill.update</code> event; when a bill payment is sent, we create a <code>bill.payment</code> event.</p>
 
@@ -4471,6 +4500,112 @@ When an interesting event occurs, we create a new <code>Event</code> object. For
 <td>The <a href="#the-payment-method-object">payment method object</a> linked to the swap.</td>
 </tr>
 </tbody></table>
+<h2 id='webhook-security'>Webhook security</h2>
+<p>The Biller Direct/Cardswap system can also apply additional security measures to webhook events sent to partners.
+These measures include oauth authentication, payload encryption and request signing.</p>
+<h3 id='oauth-authentication'>OAuth Authentication</h3>
+<p>The webhook can be set up to retrieve a
+<a href="https://tools.ietf.org/html/rfc6749#section-4.4" target="_blank">client credentials token</a>
+from an OAuth endpoint provided by the partner. The OAuth response must follow the standard client credentials format.
+This token will be cached in Biller Direct/Cardswap until its expiration nears and at that point another
+token will be requested from the endpoint. The resulting token will be passed as a <code>Bearer</code> token in
+the <code>Authorization</code> header along with the event payload.</p>
+<h4 id='setup-in-nexus'>Setup in Nexus</h4>
+<ul>
+<li>In the Nexus portal <code>Settings</code> view, click the <code>Edit</code> button on the desired webhook.</li>
+<li>Expand the <code>OAuth</code> section of the webhook properties.</li>
+<li>Enable OAuth support by toggling the checkbox.</li>
+<li>Add in the <code>OAuth URL</code> provided by the partner.</li>
+<li>Add in any <code>OAuth Payload</code> that should be included in the OAuth request in URL format.</li>
+</ul>
+
+<p><img src="images/examples/webhook-oauth-a3e950bd.png" alt="" /></p>
+
+<blockquote>
+<p>Example Encrypted Request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>HTTP/1.1 200 OK
+Content-Type: application/jose+json
+
+eyJhbGciOiJSU0ExXzUiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0.
+UGhIOguC7IuEvf_NPVaXsGMoLOmwvc1GyqlIKOK1nN94nHPoltGRhWhw7Zx0-kFm
+1NJn8LE9XShH59_i8J0PH5ZZyNfGy2xGdULU7sHNF6Gp2vPLgNZ__deLKxGHZ7Pc
+HALUzoOegEI-8E66jX2E4zyJKx-YxzZIItRzC5hlRirb6Y5Cl_p-ko3YvkkysZIF
+NPccxRU7qve1WYPxqbb2Yw8kZqa2rMWI5ng8OtvzlV7elprCbuPhcCdZ6XDP0_F8
+rkXds2vE4X-ncOIM8hAYHHi29NX0mcKiRaD0-D-ljQTP-cFPgwCp6X-nZZd9OHBv
+-B3oWh2TbqmScqXMR4gp_A.
+AxY8DCtDaGlsbGljb3RoZQ.
+KDlTtXchhZTGufMYmOYGS4HffxPSUrfmqCHXaI9wOGY.
+9hH0vgRfYgPnAHOd8stkvw
+</code></pre></div><h3 id='payload-encryption'>Payload Encryption</h3>
+<p>Event messages to webhook endpoints may be encrypted using standards-based
+<a href="https://tools.ietf.org/html/rfc7516" target="_blank">JWE (JSON Web Encryption) compact formatting</a>.
+In the case of JWE formatting the key ID (kid) is stored in the JWE header included in the encoded payload.</p>
+<h4 id='jwe-settings'>JWE Settings</h4>
+<ul>
+<li>Format - <code>compact</code> - The format of the JWE itself. Compact is an efficient encoded string.</li>
+<li>Content Algorithm (enc) - <code>A256GCM</code> - The symmetric algorithm used to encrypt the actual content.</li>
+<li>Key Wrapping Algorithm (alg) - <code>RSA-OAEP</code> - The asymmetric algorithm used to encrypt the symmetric key.</li>
+</ul>
+<h4 id='setup-in-nexus-2'>Setup in Nexus</h4>
+<ul>
+<li>In the Nexus portal <code>Settings</code> view, click the <code>Edit</code> button on the desired webhook.</li>
+<li>Expand the <code>Payload Encryption</code> section of the webhook properties.</li>
+<li>Enable encryption support by toggling the checkbox.</li>
+<li>Add in the <code>Public Key URL</code> provided by the partner.</li>
+<li>Add in any <code>Request Headers</code> that should be included with the request in JSON format.</li>
+</ul>
+
+<p><img src="images/examples/webhook-encryption-f99d596e.png" alt="" /></p>
+
+<blockquote>
+<p>Example <code>Signature</code> JWT Headers</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"typ"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JWT"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RS256"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"key_id_3"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"x5t"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mx3Fyhwerew23wfs"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Example <code>Signature</code> JWT Claims</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"aud"</span><span class="p">:</span><span class="w"> </span><span class="s2">"audience.example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"iss"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example issuer"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"exp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1579754951</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='rsa-request-signing'>RSA Request Signing</h3>
+<p>Webhook requests may include a request signature for verification. In the case of webhooks, a signed
+JWT (JSON Web Token) will be created and sent in a header of the webhook event request. The header defaults to <code>signature</code>
+but this can be customized to whichever header the partner would like.</p>
+<h4 id='rsa-signing-keys'>RSA Signing Keys</h4>
+<p>RSA request signing key-pairs can be created in the Nexus portal <code>Settings</code> view, and the public key can be copied.</p>
+
+<ul>
+<li>A maximum of 2 keys can be created for key rotation purposes.</li>
+<li>Public keys are copied in PCKS #8 format.</li>
+<li>Public keys can also be retrieved from the <a href="#partner">partner public key API</a>.</li>
+<li>The oldest key of the two will be used to create the request signature</li>
+</ul>
+
+<p><img src="images/examples/request-signing-keys-dd0ca681.png" alt="" /></p>
+<h4 id='request-signature-setup'>Request Signature Setup</h4>
+<ul>
+<li>In the Nexus portal <code>Settings</code> view, click the <code>Edit</code> button on the desired webhook.</li>
+<li>Expand the <code>Request Signature</code> section of the webhook properties.</li>
+<li>Enable signature support by toggling the checkbox.</li>
+<li>All parameters for the request signature are optional.
+
+<ul>
+<li><code>Token Issuer</code> - Specifies the <code>iss</code> value to be included with the JWT</li>
+<li><code>Token Audience</code> - Specifies the <code>aud</code> value to be included with the JWT</li>
+<li><code>Signature Header</code> - Specifies a request header other than <code>signature</code> to use for the signature JWT</li>
+</ul></li>
+</ul>
+
+<p><img src="images/examples/webhook-signature-f7addb44.png" alt="" /></p>
 
       </div>
       <div class="dark-box">
